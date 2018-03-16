@@ -12,10 +12,15 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSynthesizerAudioProcessor& p, MidiKeyboardState& k)
+MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSynthesizerAudioProcessor& p, 
+	MidiKeyboardState& k, AudioDeviceManager& d)
     :	AudioProcessorEditor (&p),
 		processor (p),
-		keyboardComponent(k, MidiKeyboardComponent::horizontalKeyboard)
+		keyboardState(k),
+		deviceManager(d),
+		keyboardComponent(keyboardState, MidiKeyboardComponent::horizontalKeyboard),
+		lastInputIndex(0),
+		isAddingFromMidiInput(false)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
@@ -23,10 +28,28 @@ MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSy
 
 	addAndMakeVisible(keyboardComponent);
 
+	// Populate ComboBox with available MIDI devices.
 	addAndMakeVisible(midiInputList);
 	midiInputList.setTextWhenNoChoicesAvailable("No MIDI inputs enabled.");
 	auto midiInputs = MidiInput::getDevices();
 	midiInputList.addItemList(midiInputs, 1);
+	midiInputList.onChange = [this] {setMidiInput
+		(midiInputList.getSelectedItemIndex()); };
+	
+	// Find the first enabled device and use it by default
+	for (auto device : midiInputs)
+	{
+		if (deviceManager.isMidiInputEnabled(device))
+		{
+			setMidiInput(midiInputs.indexOf(device));
+			break;
+		}
+	}
+
+	if (midiInputList.getSelectedId() == 0)
+	{
+		setMidiInput(0);
+	}
 
 	addAndMakeVisible(midiInputListLabel);
 	midiInputListLabel.setText("MIDI input: ", dontSendNotification);
@@ -35,6 +58,28 @@ MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSy
 
 MidiSynthesizerAudioProcessorEditor::~MidiSynthesizerAudioProcessorEditor()
 {
+}
+
+//==============================================================================
+void MidiSynthesizerAudioProcessorEditor::setMidiInput(int index)
+{
+	auto list = MidiInput::getDevices();
+	deviceManager.removeMidiInputCallback(list[lastInputIndex], this);
+
+	auto newInput = list[index];
+	if (!deviceManager.isMidiInputEnabled(newInput))
+		deviceManager.setMidiInputEnabled(newInput, true);
+
+	deviceManager.addMidiInputCallback(newInput, this);
+	midiInputList.setSelectedId(index + 1, dontSendNotification);
+
+	lastInputIndex = index;
+}
+
+void MidiSynthesizerAudioProcessorEditor::handleIncomingMidiMessage(MidiInput * source, const MidiMessage & message)
+{
+	const ScopedValueSetter<bool> scopedInputFlag(isAddingFromMidiInput, true);
+	keyboardState.processNextMidiEvent(message);
 }
 
 //==============================================================================
@@ -59,3 +104,4 @@ void MidiSynthesizerAudioProcessorEditor::resized()
 
 	keyboardComponent.setBounds(area.removeFromTop(170));
 }
+

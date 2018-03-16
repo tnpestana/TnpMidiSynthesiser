@@ -30,6 +30,8 @@ MidiSynthesizerAudioProcessor::~MidiSynthesizerAudioProcessor()
 {
 }
 
+
+
 //==============================================================================
 const String MidiSynthesizerAudioProcessor::getName() const
 {
@@ -166,7 +168,7 @@ bool MidiSynthesizerAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* MidiSynthesizerAudioProcessor::createEditor()
 {
-    return new MidiSynthesizerAudioProcessorEditor (*this, keyboardState);
+    return new MidiSynthesizerAudioProcessorEditor (*this, keyboardState, deviceManager);
 }
 
 //==============================================================================

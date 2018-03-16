@@ -22,6 +22,8 @@ public:
     MidiSynthesizerAudioProcessor();
     ~MidiSynthesizerAudioProcessor();
 
+	
+
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
@@ -57,6 +59,7 @@ public:
 
 private:
 	MidiKeyboardState keyboardState;
+	AudioDeviceManager deviceManager;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiSynthesizerAudioProcessor)
