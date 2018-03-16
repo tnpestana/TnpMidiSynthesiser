@@ -24,7 +24,10 @@ MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSy
 	addAndMakeVisible(keyboardComponent);
 
 	addAndMakeVisible(midiInputList);
-	
+	midiInputList.setTextWhenNoChoicesAvailable("No MIDI inputs enabled.");
+	auto midiInputs = MidiInput::getDevices();
+	midiInputList.addItemList(midiInputs, 1);
+
 	addAndMakeVisible(midiInputListLabel);
 	midiInputListLabel.setText("MIDI input: ", dontSendNotification);
 	midiInputListLabel.setJustificationType(Justification::centredRight);
@@ -49,10 +52,10 @@ void MidiSynthesizerAudioProcessorEditor::resized()
 {
 	Rectangle<int> area = getLocalBounds();
 
-	Rectangle<int> inputSelection = area.removeFromTop(50);
+	Rectangle<int> inputSelection = area.removeFromTop(30);
 
 	midiInputListLabel.setBounds(inputSelection.removeFromLeft(100));
 	midiInputList.setBounds(inputSelection.removeFromLeft(300));
 
-	keyboardComponent.setBounds(area.removeFromTop(150));
+	keyboardComponent.setBounds(area.removeFromTop(170));
 }
