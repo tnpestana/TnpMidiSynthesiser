@@ -19,9 +19,15 @@ MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSy
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (400, 200);
 
 	addAndMakeVisible(keyboardComponent);
+
+	addAndMakeVisible(midiInputList);
+	
+	addAndMakeVisible(midiInputListLabel);
+	midiInputListLabel.setText("MIDI input: ", dontSendNotification);
+	midiInputListLabel.setJustificationType(Justification::centredRight);
 }
 
 MidiSynthesizerAudioProcessorEditor::~MidiSynthesizerAudioProcessorEditor()
@@ -41,7 +47,12 @@ void MidiSynthesizerAudioProcessorEditor::paint (Graphics& g)
 
 void MidiSynthesizerAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
-	keyboardComponent.setBounds(getLocalBounds());
+	Rectangle<int> area = getLocalBounds();
+
+	Rectangle<int> inputSelection = area.removeFromTop(50);
+
+	midiInputListLabel.setBounds(inputSelection.removeFromLeft(100));
+	midiInputList.setBounds(inputSelection.removeFromLeft(300));
+
+	keyboardComponent.setBounds(area.removeFromTop(150));
 }

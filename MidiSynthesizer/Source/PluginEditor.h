@@ -32,6 +32,8 @@ private:
     MidiSynthesizerAudioProcessor& processor;
 
 	MidiKeyboardComponent keyboardComponent;
+	ComboBox midiInputList;
+	Label midiInputListLabel;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiSynthesizerAudioProcessorEditor)
 };
