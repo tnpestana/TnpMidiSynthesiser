@@ -27,6 +27,7 @@ MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSy
     setSize (400, 200);
 
 	addAndMakeVisible(keyboardComponent);
+	keyboardState.addListener(this);
 
 	// Populate ComboBox with available MIDI devices.
 	addAndMakeVisible(midiInputList);
@@ -80,6 +81,16 @@ void MidiSynthesizerAudioProcessorEditor::handleIncomingMidiMessage(MidiInput * 
 {
 	const ScopedValueSetter<bool> scopedInputFlag(isAddingFromMidiInput, true);
 	keyboardState.processNextMidiEvent(message);
+}
+
+void MidiSynthesizerAudioProcessorEditor::handleNoteOn(MidiKeyboardState * source, int midiChannel, int midiNoteNumber, float velocity)
+{
+	MidiMessage::noteOn(midiChannel, midiNoteNumber, velocity);
+}
+
+void MidiSynthesizerAudioProcessorEditor::handleNoteOff(MidiKeyboardState * source, int midiChannel, int midiNoteNumber, float velocity)
+{
+	MidiMessage::noteOff(midiChannel, midiNoteNumber, velocity);
 }
 
 //==============================================================================

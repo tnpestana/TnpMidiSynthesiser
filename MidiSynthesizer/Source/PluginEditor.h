@@ -17,7 +17,8 @@
 /**
 */
 class MidiSynthesizerAudioProcessorEditor  : public AudioProcessorEditor,
-											 public MidiInputCallback
+											 public MidiInputCallback,
+											 public MidiKeyboardStateListener
 {
 public:
     MidiSynthesizerAudioProcessorEditor (MidiSynthesizerAudioProcessor&, 
@@ -49,4 +50,8 @@ private:
 
 	// Herdado por meio de MidiInputCallback
 	virtual void handleIncomingMidiMessage(MidiInput * source, const MidiMessage & message) override;
+
+	// Herdado por meio de MidiKeyboardStateListener
+	virtual void handleNoteOn(MidiKeyboardState * source, int midiChannel, int midiNoteNumber, float velocity) override;
+	virtual void handleNoteOff(MidiKeyboardState * source, int midiChannel, int midiNoteNumber, float velocity) override;
 };
