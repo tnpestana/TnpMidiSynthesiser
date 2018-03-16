@@ -166,7 +166,7 @@ bool MidiSynthesizerAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* MidiSynthesizerAudioProcessor::createEditor()
 {
-    return new MidiSynthesizerAudioProcessorEditor (*this);
+    return new MidiSynthesizerAudioProcessorEditor (*this, keyboardState);
 }
 
 //==============================================================================

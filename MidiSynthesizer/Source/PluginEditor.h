@@ -19,7 +19,7 @@
 class MidiSynthesizerAudioProcessorEditor  : public AudioProcessorEditor
 {
 public:
-    MidiSynthesizerAudioProcessorEditor (MidiSynthesizerAudioProcessor&);
+    MidiSynthesizerAudioProcessorEditor (MidiSynthesizerAudioProcessor&, MidiKeyboardState&);
     ~MidiSynthesizerAudioProcessorEditor();
 
     //==============================================================================
@@ -30,6 +30,8 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     MidiSynthesizerAudioProcessor& processor;
+
+	MidiKeyboardComponent keyboardComponent;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiSynthesizerAudioProcessorEditor)
 };

@@ -12,12 +12,16 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSynthesizerAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p)
+MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSynthesizerAudioProcessor& p, MidiKeyboardState& k)
+    :	AudioProcessorEditor (&p),
+		processor (p),
+		keyboardComponent(k, MidiKeyboardComponent::horizontalKeyboard)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (400, 300);
+
+	addAndMakeVisible(keyboardComponent);
 }
 
 MidiSynthesizerAudioProcessorEditor::~MidiSynthesizerAudioProcessorEditor()
@@ -39,4 +43,5 @@ void MidiSynthesizerAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
+	keyboardComponent.setBounds(getLocalBounds());
 }
