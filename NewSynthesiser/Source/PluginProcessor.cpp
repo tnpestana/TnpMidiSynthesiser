@@ -13,7 +13,7 @@
 #include "SineSynth.h"
 
 //==============================================================================
-MidiSynthesizerAudioProcessor::MidiSynthesizerAudioProcessor()
+NewSynthesiserAudioProcessor::NewSynthesiserAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -25,25 +25,23 @@ MidiSynthesizerAudioProcessor::MidiSynthesizerAudioProcessor()
                        )
 #endif
 {
-	for (auto i = 0; i < 5; ++i)
-		synth.addVoice(new SineSynthVoice());
+	for (auto i = 0; i < 4; ++i)                
+		sineSynth.addVoice(new SineSynthVoice());
 
-	synth.addSound(new SineSynthSound());
+	sineSynth.addSound(new SineSynthSound());
 }
 
-MidiSynthesizerAudioProcessor::~MidiSynthesizerAudioProcessor()
+NewSynthesiserAudioProcessor::~NewSynthesiserAudioProcessor()
 {
 }
 
-
-
 //==============================================================================
-const String MidiSynthesizerAudioProcessor::getName() const
+const String NewSynthesiserAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool MidiSynthesizerAudioProcessor::acceptsMidi() const
+bool NewSynthesiserAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -52,7 +50,7 @@ bool MidiSynthesizerAudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool MidiSynthesizerAudioProcessor::producesMidi() const
+bool NewSynthesiserAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -61,7 +59,7 @@ bool MidiSynthesizerAudioProcessor::producesMidi() const
    #endif
 }
 
-bool MidiSynthesizerAudioProcessor::isMidiEffect() const
+bool NewSynthesiserAudioProcessor::isMidiEffect() const
 {
    #if JucePlugin_IsMidiEffect
     return true;
@@ -70,48 +68,47 @@ bool MidiSynthesizerAudioProcessor::isMidiEffect() const
    #endif
 }
 
-double MidiSynthesizerAudioProcessor::getTailLengthSeconds() const
+double NewSynthesiserAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int MidiSynthesizerAudioProcessor::getNumPrograms()
+int NewSynthesiserAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int MidiSynthesizerAudioProcessor::getCurrentProgram()
+int NewSynthesiserAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void MidiSynthesizerAudioProcessor::setCurrentProgram (int index)
+void NewSynthesiserAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const String MidiSynthesizerAudioProcessor::getProgramName (int index)
+const String NewSynthesiserAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
-void MidiSynthesizerAudioProcessor::changeProgramName (int index, const String& newName)
+void NewSynthesiserAudioProcessor::changeProgramName (int index, const String& newName)
 {
 }
 
 //==============================================================================
-void MidiSynthesizerAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void NewSynthesiserAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-	synth.setCurrentPlaybackSampleRate(sampleRate);
+	sineSynth.setCurrentPlaybackSampleRate(sampleRate);
 }
 
-void MidiSynthesizerAudioProcessor::releaseResources()
+void NewSynthesiserAudioProcessor::releaseResources()
 {
-	synth.clearSounds();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool MidiSynthesizerAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool NewSynthesiserAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     ignoreUnused (layouts);
@@ -134,34 +131,34 @@ bool MidiSynthesizerAudioProcessor::isBusesLayoutSupported (const BusesLayout& l
 }
 #endif
 
-void MidiSynthesizerAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void NewSynthesiserAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
 	buffer.clear();
 
-	keyboardState.processNextMidiBuffer(midiMessages, 0, buffer.getNumSamples(), true);
-	synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumChannels());
+	keyboardState.processNextMidiBuffer(midiMessages, 0, buffer.getNumSamples(), true); 
+	sineSynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 //==============================================================================
-bool MidiSynthesizerAudioProcessor::hasEditor() const
+bool NewSynthesiserAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-AudioProcessorEditor* MidiSynthesizerAudioProcessor::createEditor()
+AudioProcessorEditor* NewSynthesiserAudioProcessor::createEditor()
 {
-    return new MidiSynthesizerAudioProcessorEditor (*this, keyboardState, deviceManager);
+    return new NewSynthesiserAudioProcessorEditor (*this, keyboardState);
 }
 
 //==============================================================================
-void MidiSynthesizerAudioProcessor::getStateInformation (MemoryBlock& destData)
+void NewSynthesiserAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void MidiSynthesizerAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void NewSynthesiserAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
@@ -171,5 +168,5 @@ void MidiSynthesizerAudioProcessor::setStateInformation (const void* data, int s
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new MidiSynthesizerAudioProcessor();
+    return new NewSynthesiserAudioProcessor();
 }

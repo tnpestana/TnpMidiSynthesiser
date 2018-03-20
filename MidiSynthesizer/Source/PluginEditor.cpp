@@ -52,9 +52,15 @@ MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSy
 		setMidiInput(0);
 	}
 
+	// midi input label
 	addAndMakeVisible(midiInputListLabel);
 	midiInputListLabel.setText("MIDI input: ", dontSendNotification);
 	midiInputListLabel.setJustificationType(Justification::centredRight);
+
+	// midi note label
+	addAndMakeVisible(midiNoteLabel);
+	midiNoteLabel.setText("no call", dontSendNotification);
+	midiNoteLabel.setJustificationType(Justification::centred);
 }
 
 MidiSynthesizerAudioProcessorEditor::~MidiSynthesizerAudioProcessorEditor()
@@ -77,20 +83,17 @@ void MidiSynthesizerAudioProcessorEditor::setMidiInput(int index)
 	lastInputIndex = index;
 }
 
+void MidiSynthesizerAudioProcessorEditor::handleNoteOn(MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity)
+{
+	midiNoteLabel.setText((String)MidiMessage::getMidiNoteInHertz(midiNoteNumber), dontSendNotification);
+}
+
+void MidiSynthesizerAudioProcessorEditor::handleNoteOff(MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity)
+{
+}
+
 void MidiSynthesizerAudioProcessorEditor::handleIncomingMidiMessage(MidiInput * source, const MidiMessage & message)
 {
-	const ScopedValueSetter<bool> scopedInputFlag(isAddingFromMidiInput, true);
-	keyboardState.processNextMidiEvent(message);
-}
-
-void MidiSynthesizerAudioProcessorEditor::handleNoteOn(MidiKeyboardState * source, int midiChannel, int midiNoteNumber, float velocity)
-{
-	MidiMessage::noteOn(midiChannel, midiNoteNumber, velocity);
-}
-
-void MidiSynthesizerAudioProcessorEditor::handleNoteOff(MidiKeyboardState * source, int midiChannel, int midiNoteNumber, float velocity)
-{
-	MidiMessage::noteOff(midiChannel, midiNoteNumber, velocity);
 }
 
 //==============================================================================
@@ -99,9 +102,6 @@ void MidiSynthesizerAudioProcessorEditor::paint (Graphics& g)
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
 
-    g.setColour (Colours::white);
-    g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
 }
 
 void MidiSynthesizerAudioProcessorEditor::resized()
@@ -113,6 +113,8 @@ void MidiSynthesizerAudioProcessorEditor::resized()
 	midiInputListLabel.setBounds(inputSelection.removeFromLeft(100));
 	midiInputList.setBounds(inputSelection.removeFromLeft(300));
 
-	keyboardComponent.setBounds(area.removeFromTop(170));
+	keyboardComponent.setBounds(area.removeFromTop(100));
+
+	midiNoteLabel.setBounds(area.removeFromTop(70));
 }
 

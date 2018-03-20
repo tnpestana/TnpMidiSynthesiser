@@ -11,19 +11,17 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-
+#include "SineSynth.h"
 
 //==============================================================================
 /**
 */
-class MidiSynthesizerAudioProcessor  : public AudioProcessor
+class NewSynthesiserAudioProcessor  : public AudioProcessor
 {
 public:
     //==============================================================================
-    MidiSynthesizerAudioProcessor();
-    ~MidiSynthesizerAudioProcessor();
-
-	
+    NewSynthesiserAudioProcessor();
+    ~NewSynthesiserAudioProcessor();
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -60,10 +58,9 @@ public:
 
 private:
 	MidiKeyboardState keyboardState;
-	AudioDeviceManager deviceManager;
 
-	Synthesiser synth;
+	Synthesiser sineSynth;
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiSynthesizerAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NewSynthesiserAudioProcessor)
 };

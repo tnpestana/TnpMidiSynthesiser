@@ -17,8 +17,8 @@
 /**
 */
 class MidiSynthesizerAudioProcessorEditor  : public AudioProcessorEditor,
-											 public MidiInputCallback,
-											 public MidiKeyboardStateListener
+											 public MidiKeyboardStateListener,
+											 public MidiInputCallback
 {
 public:
     MidiSynthesizerAudioProcessorEditor (MidiSynthesizerAudioProcessor&, 
@@ -32,6 +32,9 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
+	void handleNoteOn(MidiKeyboardState*, int, int, float) override;
+	void handleNoteOff(MidiKeyboardState*, int, int, float) override;
+
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
@@ -43,15 +46,13 @@ private:
 	ComboBox midiInputList;
 	Label midiInputListLabel;
 
+	Label midiNoteLabel;
+
 	int lastInputIndex;
 	bool isAddingFromMidiInput;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiSynthesizerAudioProcessorEditor)
 
-	// Herdado por meio de MidiInputCallback
+	// Inherited via MidiInputCallback
 	virtual void handleIncomingMidiMessage(MidiInput * source, const MidiMessage & message) override;
-
-	// Herdado por meio de MidiKeyboardStateListener
-	virtual void handleNoteOn(MidiKeyboardState * source, int midiChannel, int midiNoteNumber, float velocity) override;
-	virtual void handleNoteOff(MidiKeyboardState * source, int midiChannel, int midiNoteNumber, float velocity) override;
 };
