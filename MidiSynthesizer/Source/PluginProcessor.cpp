@@ -25,9 +25,11 @@ MidiSynthesizerAudioProcessor::MidiSynthesizerAudioProcessor()
                        )
 #endif
 {
+	synth.clearVoices();
 	for (auto i = 0; i < 5; ++i)
 		synth.addVoice(new SineSynthVoice());
 
+	synth.clearSounds();
 	synth.addSound(new SineSynthSound());
 }
 

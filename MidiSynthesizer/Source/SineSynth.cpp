@@ -15,6 +15,11 @@ SineSynthSound::SineSynthSound()
 {
 }
 
+SineSynthSound::~SineSynthSound()
+{
+}
+
+//==============================================================================
 bool SineSynthSound::appliesToNote(int midiNoteNumber)
 {
 	return true;
@@ -27,24 +32,29 @@ bool SineSynthSound::appliesToChannel(int midiChannel)
 
 //==============================================================================
 SineSynthVoice::SineSynthVoice()
-	:	currentAngle(0.0),
-		angleDelta(0.0),
-		level(0.0)
+	: currentAngle(0.0),
+	  angleDelta(0.0)
+{
+
+}
+
+SineSynthVoice::~SineSynthVoice()
 {
 }
 
+//==============================================================================
 bool SineSynthVoice::canPlaySound(SynthesiserSound* sound)
 {
 	return dynamic_cast<SineSynthSound*> (sound) != nullptr;
 }
 
-void SineSynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
+void SineSynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound * sound, int currentPitchWheelPosition)
 {
 	currentAngle = 0.0;
 	level = velocity * 0.15;
 
-	auto cyclesPerSecond = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
-	auto cyclesPerSample = cyclesPerSecond / getSampleRate();
+	const auto frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
+	const auto cyclesPerSample = frequency / getSampleRate();
 
 	angleDelta = cyclesPerSample * 2.0 * MathConstants<double>::pi;
 }
@@ -67,12 +77,12 @@ void SineSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int start
 {
 	if (angleDelta != 0.0)
 	{
-		for (auto sample = 0; sample < numSamples; sample++)
+		while (--numSamples >= 0)
 		{
-			float currentSample = (float)(std::sin(currentAngle) * level);
-			 
-			for (auto channel = 0; channel < outputBuffer.getNumChannels(); channel++)
-				outputBuffer.addSample(channel, startSample, currentSample);
+			auto currentSample = (float)(std::sin(currentAngle) * level);
+
+			for (auto i = outputBuffer.getNumChannels(); --i >= 0;)
+				outputBuffer.addSample(i, startSample, currentSample);
 
 			currentAngle += angleDelta;
 			++startSample;

@@ -105,6 +105,7 @@ void NewSynthesiserAudioProcessor::prepareToPlay (double sampleRate, int samples
 
 void NewSynthesiserAudioProcessor::releaseResources()
 {
+	sineSynth.clearSounds();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations

@@ -20,7 +20,8 @@ class NewSynthesiserAudioProcessorEditor  : public AudioProcessorEditor,
 											public MidiKeyboardStateListener
 {
 public:
-    NewSynthesiserAudioProcessorEditor (NewSynthesiserAudioProcessor&, MidiKeyboardState&);
+    NewSynthesiserAudioProcessorEditor (NewSynthesiserAudioProcessor&, 
+		MidiKeyboardState&);
     ~NewSynthesiserAudioProcessorEditor();
 
     //==============================================================================

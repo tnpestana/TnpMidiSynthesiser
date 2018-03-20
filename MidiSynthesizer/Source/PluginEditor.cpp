@@ -18,7 +18,7 @@ MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSy
 		processor (p),
 		keyboardState(k),
 		deviceManager(d),
-		keyboardComponent(keyboardState, MidiKeyboardComponent::horizontalKeyboard),
+		keyboardComponent(k, MidiKeyboardComponent::horizontalKeyboard),
 		lastInputIndex(0),
 		isAddingFromMidiInput(false)
 {
