@@ -18,7 +18,8 @@
 */
 class MidiSynthesizerAudioProcessorEditor  : public AudioProcessorEditor,
 											 public MidiKeyboardStateListener,
-											 public MidiInputCallback
+											 public MidiInputCallback,
+											 public Button::Listener
 {
 public:
     MidiSynthesizerAudioProcessorEditor (MidiSynthesizerAudioProcessor&, 
@@ -44,6 +45,7 @@ private:
 	MidiKeyboardState& keyboardState;
 
 	ComboBox midiInputList;
+	TextButton refreshListButton;
 
 	Label midiInputListLabel;
 	Label midiNoteLabel;
@@ -57,6 +59,9 @@ private:
 	// Inherited via MidiKeyboardStateListener
 	virtual void handleNoteOn(MidiKeyboardState * source, int midiChannel, int midiNoteNumber, float velocity) override;
 	virtual void handleNoteOff(MidiKeyboardState * source, int midiChannel, int midiNoteNumber, float velocity) override;
+
+	// Inherited via Listener
+	virtual void buttonClicked(Button *) override;
 
 	//==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiSynthesizerAudioProcessorEditor)

@@ -22,8 +22,6 @@ MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSy
 		lastInputIndex(0),
 		isAddingFromMidiInput(false)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
     setSize (400, 200);
 
 	addAndMakeVisible(keyboardComponent);
@@ -33,6 +31,10 @@ MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSy
 	addAndMakeVisible(midiInputList);
 	midiInputList.setTextWhenNoChoicesAvailable("No MIDI inputs enabled.");
 	updateMidiInputList();
+
+	addAndMakeVisible(refreshListButton);
+	refreshListButton.setButtonText("refresh");
+	refreshListButton.addListener(this);
 	
 
 	// midi input label
@@ -51,9 +53,15 @@ MidiSynthesizerAudioProcessorEditor::~MidiSynthesizerAudioProcessorEditor()
 }
 
 //==============================================================================
+void MidiSynthesizerAudioProcessorEditor::buttonClicked(Button* button)
+{
+	if (button == &refreshListButton) updateMidiInputList();
+}
+
 void MidiSynthesizerAudioProcessorEditor::updateMidiInputList()
 {
 	auto midiInputs = MidiInput::getDevices();
+	midiInputList.clear();
 	midiInputList.addItemList(midiInputs, 1);
 	midiInputList.onChange = [this] {setMidiInput
 	(midiInputList.getSelectedItemIndex()); };
@@ -88,6 +96,7 @@ void MidiSynthesizerAudioProcessorEditor::setMidiInput(int index)
 	lastInputIndex = index;
 }
 
+//==============================================================================
 void MidiSynthesizerAudioProcessorEditor::handleNoteOn(MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity)
 {
 	midiNoteLabel.setText((String)MidiMessage::getMidiNoteInHertz(midiNoteNumber), dontSendNotification);
@@ -97,6 +106,7 @@ void MidiSynthesizerAudioProcessorEditor::handleNoteOff(MidiKeyboardState* sourc
 {
 }
 
+//==============================================================================
 void MidiSynthesizerAudioProcessorEditor::handleIncomingMidiMessage(MidiInput * source, const MidiMessage & message)
 {
 }
@@ -114,9 +124,9 @@ void MidiSynthesizerAudioProcessorEditor::resized()
 	Rectangle<int> area = getLocalBounds();
 
 	Rectangle<int> inputSelection = area.removeFromTop(30);
-
-	midiInputListLabel.setBounds(inputSelection.removeFromLeft(100));
-	midiInputList.setBounds(inputSelection.removeFromLeft(300));
+	midiInputListLabel.setBounds(inputSelection.removeFromLeft(80));
+	midiInputList.setBounds(inputSelection.removeFromLeft(250));
+	refreshListButton.setBounds(inputSelection.removeFromLeft(70));
 
 	keyboardComponent.setBounds(area.removeFromTop(100));
 
