@@ -26,6 +26,7 @@ public:
     ~MidiSynthesizerAudioProcessorEditor();
 
 	//==============================================================================
+	void updateMidiInputList();
 	void setMidiInput(int);
 
     //==============================================================================

@@ -32,25 +32,8 @@ MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSy
 	// Populate ComboBox with available MIDI devices.
 	addAndMakeVisible(midiInputList);
 	midiInputList.setTextWhenNoChoicesAvailable("No MIDI inputs enabled.");
-	auto midiInputs = MidiInput::getDevices();
-	midiInputList.addItemList(midiInputs, 1);
-	midiInputList.onChange = [this] {setMidiInput
-		(midiInputList.getSelectedItemIndex()); };
+	updateMidiInputList();
 	
-	// Find the first enabled device and use it by default
-	for (auto device : midiInputs)
-	{
-		if (deviceManager.isMidiInputEnabled(device))
-		{
-			setMidiInput(midiInputs.indexOf(device));
-			break;
-		}
-	}
-
-	if (midiInputList.getSelectedId() == 0)
-	{
-		setMidiInput(0);
-	}
 
 	// midi input label
 	addAndMakeVisible(midiInputListLabel);
@@ -68,6 +51,28 @@ MidiSynthesizerAudioProcessorEditor::~MidiSynthesizerAudioProcessorEditor()
 }
 
 //==============================================================================
+void MidiSynthesizerAudioProcessorEditor::updateMidiInputList()
+{
+	auto midiInputs = MidiInput::getDevices();
+	midiInputList.addItemList(midiInputs, 1);
+	midiInputList.onChange = [this] {setMidiInput
+	(midiInputList.getSelectedItemIndex()); };
+
+	// Find the first enabled device and use it by default
+	for (auto device : midiInputs)
+	{
+		if (deviceManager.isMidiInputEnabled(device))
+		{
+			setMidiInput(midiInputs.indexOf(device));
+			break;
+		}
+	}
+	if (midiInputList.getSelectedId() == 0)
+	{
+		setMidiInput(0);
+	}
+}
+
 void MidiSynthesizerAudioProcessorEditor::setMidiInput(int index)
 {
 	auto list = MidiInput::getDevices();
