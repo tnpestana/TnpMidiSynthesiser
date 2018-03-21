@@ -141,7 +141,7 @@ void MidiSynthesizerAudioProcessor::processBlock (AudioBuffer<float>& buffer, Mi
 	buffer.clear();
 
 	keyboardState.processNextMidiBuffer(midiMessages, 0, buffer.getNumSamples(), true);
-	synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumChannels());
+	synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 //==============================================================================
