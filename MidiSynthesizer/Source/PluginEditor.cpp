@@ -109,6 +109,8 @@ void MidiSynthesizerAudioProcessorEditor::handleNoteOff(MidiKeyboardState* sourc
 //==============================================================================
 void MidiSynthesizerAudioProcessorEditor::handleIncomingMidiMessage(MidiInput * source, const MidiMessage & message)
 {
+	const ScopedValueSetter<bool> scopedInputFlag(isAddingFromMidiInput, true);
+	keyboardState.processNextMidiEvent(message);
 }
 
 //==============================================================================
