@@ -46,6 +46,6 @@ public:
 	void getReverbParameters(float dryWet, float roomSize, float damping);
 
 private:
-	double frequency, level;
+	double level;
 	MyOscillator oscillator;
 };
