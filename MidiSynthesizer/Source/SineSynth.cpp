@@ -35,7 +35,6 @@ SineSynthVoice::SineSynthVoice()
 	: currentAngle(0.0),
 	  angleDelta(0.0)
 {
-
 }
 
 SineSynthVoice::~SineSynthVoice()
