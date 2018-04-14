@@ -5,6 +5,9 @@
               pluginFormats="buildStandalone,buildVST">
   <MAINGROUP id="tdkgxH" name="tnpMidiSynth">
     <GROUP id="{136D5720-F5B3-DBDF-75D4-B71623C0CCBC}" name="Source">
+      <FILE id="t6gt4U" name="MyOscillator.cpp" compile="1" resource="0"
+            file="Source/MyOscillator.cpp"/>
+      <FILE id="v1pj7z" name="MyOscillator.h" compile="0" resource="0" file="Source/MyOscillator.h"/>
       <FILE id="ZWtIDa" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="whaReg" name="PluginProcessor.h" compile="0" resource="0"

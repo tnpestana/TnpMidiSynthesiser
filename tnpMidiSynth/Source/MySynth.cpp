@@ -70,13 +70,15 @@ void MySynthVoice::controllerMoved(int controllerNumber, int newControllerValue)
 
 void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSample, int numSamples)
 {
+	oscillator.setFrequency(440.0f, getSampleRate());
+
 	for (int sample = 0; sample < numSamples; sample++)
 	{
-		double output = 0.0;
+		double output = oscillator.getNextSample();
 
 		for (int channel = 0; channel < outputBuffer.getNumChannels(); channel++)
 		{
-			outputBuffer.addSample(channel, startSample, output * level * 0.5);
+			outputBuffer.addSample(channel, startSample, output);
 		}
 		startSample++;
 	}

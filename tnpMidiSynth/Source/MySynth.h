@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "MyOscillator.h"
 
 //==============================================================================
 class MySynthSound : public SynthesiserSound
@@ -46,4 +47,5 @@ public:
 
 private:
 	double frequency, level;
+	MyOscillator oscillator;
 };
