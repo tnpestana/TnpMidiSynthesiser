@@ -12,6 +12,8 @@
       <FILE id="TrBN6t" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="BdBV9o" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="KbVU0Z" name="MySynth.cpp" compile="1" resource="0" file="Source/MySynth.cpp"/>
+      <FILE id="b1u1EN" name="MySynth.h" compile="0" resource="0" file="Source/MySynth.h"/>
     </GROUP>
   </MAINGROUP>
   <LIVE_SETTINGS>

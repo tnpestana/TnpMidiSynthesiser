@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "MySynth.h"
 
 //==============================================================================
 /**
@@ -56,6 +57,8 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
+	Synthesiser mySynth;
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpMidiSynthAudioProcessor)
 };
