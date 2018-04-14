@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT name="MidiSynthesizer" projectType="audioplug" buildStandalone="1"
-              jucerVersion="5.3.0" buildAAX="0" buildRTAS="0" buildAUv3="0"
+              jucerVersion="5.3.1" buildAAX="0" buildRTAS="0" buildAUv3="0"
               buildAU="1" buildVST3="0" pluginIsSynth="1" pluginWantsMidiIn="1"
-              pluginProducesMidiOut="1" pluginEditorRequiresKeys="1">
+              pluginProducesMidiOut="1" pluginEditorRequiresKeys="1" pluginFormats="buildAU,buildStandalone"
+              pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn,pluginProducesMidiOut,pluginEditorRequiresKeys">
   <MAINGROUP id="jbXPE6" name="MidiSynthesizer">
     <GROUP id="{0766EB35-6C55-D0FB-0A4E-A924257F11BD}" name="Source">
       <FILE id="jxHO5M" name="PluginProcessor.cpp" compile="1" resource="0"

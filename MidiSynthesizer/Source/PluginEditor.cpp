@@ -12,20 +12,15 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSynthesizerAudioProcessor& p, 
-	MidiKeyboardState& k, AudioDeviceManager& d)
+MidiSynthesizerAudioProcessorEditor::MidiSynthesizerAudioProcessorEditor (MidiSynthesizerAudioProcessor& p, AudioDeviceManager& d)
     :	AudioProcessorEditor (&p),
 		processor (p),
-		keyboardState(k),
 		deviceManager(d),
-		keyboardComponent(k, MidiKeyboardComponent::horizontalKeyboard),
 		lastInputIndex(0),
 		isAddingFromMidiInput(false)
 {
     setSize (400, 200);
 
-	addAndMakeVisible(keyboardComponent);
-	keyboardState.addListener(this);
 
 	// Populate ComboBox with available MIDI devices.
 	addAndMakeVisible(midiInputList);
@@ -97,28 +92,15 @@ void MidiSynthesizerAudioProcessorEditor::setMidiInput(int index)
 }
 
 //==============================================================================
-void MidiSynthesizerAudioProcessorEditor::handleNoteOn(MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity)
-{
-	midiNoteLabel.setText((String)MidiMessage::getMidiNoteInHertz(midiNoteNumber), dontSendNotification);
-}
-
-void MidiSynthesizerAudioProcessorEditor::handleNoteOff(MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity)
-{
-}
-
-//==============================================================================
 void MidiSynthesizerAudioProcessorEditor::handleIncomingMidiMessage(MidiInput * source, const MidiMessage & message)
 {
-	const ScopedValueSetter<bool> scopedInputFlag(isAddingFromMidiInput, true);
-	keyboardState.processNextMidiEvent(message);
 }
 
 //==============================================================================
 void MidiSynthesizerAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-
+	g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
 }
 
 void MidiSynthesizerAudioProcessorEditor::resized()
@@ -129,8 +111,6 @@ void MidiSynthesizerAudioProcessorEditor::resized()
 	midiInputListLabel.setBounds(inputSelection.removeFromLeft(80));
 	midiInputList.setBounds(inputSelection.removeFromLeft(250));
 	refreshListButton.setBounds(inputSelection.removeFromLeft(70));
-
-	keyboardComponent.setBounds(area.removeFromTop(100));
 
 	midiNoteLabel.setBounds(area.removeFromTop(70));
 }

@@ -140,7 +140,6 @@ void MidiSynthesizerAudioProcessor::processBlock (AudioBuffer<float>& buffer, Mi
 {
 	buffer.clear();
 
-	keyboardState.processNextMidiBuffer(midiMessages, 0, buffer.getNumSamples(), true);
 	synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
@@ -152,7 +151,7 @@ bool MidiSynthesizerAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* MidiSynthesizerAudioProcessor::createEditor()
 {
-    return new MidiSynthesizerAudioProcessorEditor (*this, keyboardState, deviceManager);
+    return new MidiSynthesizerAudioProcessorEditor (*this, deviceManager);
 }
 
 //==============================================================================

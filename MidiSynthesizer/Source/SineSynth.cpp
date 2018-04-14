@@ -51,7 +51,7 @@ bool SineSynthVoice::canPlaySound(SynthesiserSound* sound)
 void SineSynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound * sound, int currentPitchWheelPosition)
 {
 	currentAngle = 0.0;
-	level = velocity * 0.15;
+	level = velocity * 0.5;
 
 	const auto frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
 	const auto cyclesPerSample = frequency / getSampleRate();
@@ -63,6 +63,7 @@ void SineSynthVoice::stopNote(float velocity, bool allowTailOff)
 {
 	clearCurrentNote();
 	angleDelta = 0.0;
+	level = 0.0;
 }
 
 void SineSynthVoice::pitchWheelMoved(int newPitchWheelValue)

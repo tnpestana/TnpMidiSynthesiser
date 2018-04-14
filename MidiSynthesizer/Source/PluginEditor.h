@@ -17,13 +17,11 @@
 /**
 */
 class MidiSynthesizerAudioProcessorEditor  : public AudioProcessorEditor,
-											 public MidiKeyboardStateListener,
 											 public MidiInputCallback,
 											 public Button::Listener
 {
 public:
-    MidiSynthesizerAudioProcessorEditor (MidiSynthesizerAudioProcessor&, 
-		MidiKeyboardState&, AudioDeviceManager&);
+    MidiSynthesizerAudioProcessorEditor (MidiSynthesizerAudioProcessor&, AudioDeviceManager&);
     ~MidiSynthesizerAudioProcessorEditor();
 
 	//==============================================================================
@@ -41,9 +39,6 @@ private:
 
 	AudioDeviceManager& deviceManager;
 
-	MidiKeyboardComponent keyboardComponent;
-	MidiKeyboardState& keyboardState;
-
 	ComboBox midiInputList;
 	TextButton refreshListButton;
 
@@ -55,10 +50,6 @@ private:
 
 	// Inherited via MidiInputCallback
 	virtual void handleIncomingMidiMessage(MidiInput * source, const MidiMessage & message) override;
-
-	// Inherited via MidiKeyboardStateListener
-	virtual void handleNoteOn(MidiKeyboardState * source, int midiChannel, int midiNoteNumber, float velocity) override;
-	virtual void handleNoteOff(MidiKeyboardState * source, int midiChannel, int midiNoteNumber, float velocity) override;
 
 	// Inherited via Listener
 	virtual void buttonClicked(Button *) override;
