@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MyOscillator.h"
+#include "ADSR.h"
 
 //==============================================================================
 class MySynthSound : public SynthesiserSound
@@ -48,4 +49,5 @@ public:
 private:
 	double level;
 	MyOscillator oscillator;
+	ADSR* volumeEnvelope;
 };

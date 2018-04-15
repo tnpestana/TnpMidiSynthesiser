@@ -33,6 +33,7 @@ bool MySynthSound::appliesToChannel(int midiChannel)
 MySynthVoice::MySynthVoice()
 	: level(0.0)
 {
+	volumeEnvelope = new ADSR();
 }
 
 MySynthVoice::~MySynthVoice()
@@ -46,15 +47,21 @@ bool MySynthVoice::canPlaySound(SynthesiserSound * sound)
 
 void MySynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound * sound, int currentPitchWheelPosition)
 {
-	double frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
-	oscillator.setFrequency(frequency, getSampleRate());
+	oscillator.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber), getSampleRate());
 	level = velocity;
+
+	float sampleRate = getSampleRate();
+	volumeEnvelope->setAttackRate(0.01f * sampleRate);
+	volumeEnvelope->setDecayRate(0.5f * sampleRate);
+	volumeEnvelope->setSustainLevel(0.0f);
+	volumeEnvelope->setReleaseRate(0.1f * sampleRate);
+	volumeEnvelope->gate(1);
 }
 
 void MySynthVoice::stopNote(float velocity, bool allowTailOff)
 {
+	volumeEnvelope->gate(0);
 	allowTailOff = true;
-	level = 0;
 
 	if (velocity == 0)
 		clearCurrentNote();
@@ -72,7 +79,8 @@ void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSa
 {
 	for (int sample = 0; sample < numSamples; sample++)
 	{
-		double output = oscillator.getNextSample();
+		double soundwave = oscillator.getNextSample();
+		double output = volumeEnvelope->process() * soundwave;
 
 		for (int channel = 0; channel < outputBuffer.getNumChannels(); channel++)
 		{
