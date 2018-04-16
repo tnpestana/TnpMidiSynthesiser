@@ -24,11 +24,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
                        )
 #endif
 {
-	mySynth.clearVoices();
-	for (int i = 0; i < 5; i++)
-		mySynth.addVoice(new MySynthVoice());
-	mySynth.clearSounds();
-	mySynth.addSound(new MySynthSound());
+	setNumVoices(5);
 }
 
 TnpMidiSynthAudioProcessor::~TnpMidiSynthAudioProcessor()
@@ -137,6 +133,16 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 {
 	buffer.clear();
 	mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+}
+
+//==============================================================================
+void TnpMidiSynthAudioProcessor::setNumVoices(int numVoices)
+{
+	mySynth.clearVoices();
+	for (int i = 0; i < numVoices; i++)
+		mySynth.addVoice(new MySynthVoice());
+	mySynth.clearSounds();
+	mySynth.addSound(new MySynthSound());
 }
 
 //==============================================================================

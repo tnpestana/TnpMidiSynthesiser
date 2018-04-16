@@ -34,6 +34,7 @@ MySynthVoice::MySynthVoice()
 	: level(0.0)
 {
 	volumeEnvelope = new ADSR();
+	filter = new IIRFilter();
 }
 
 MySynthVoice::~MySynthVoice()
@@ -56,6 +57,9 @@ void MySynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
 	volumeEnvelope->setSustainLevel(0.0f);
 	volumeEnvelope->setReleaseRate(0.1f * sampleRate);
 	volumeEnvelope->gate(1);
+
+	
+	filter->setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), 10000, 1.0));
 }
 
 void MySynthVoice::stopNote(float velocity, bool allowTailOff)
@@ -80,10 +84,11 @@ void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSa
 	for (int sample = 0; sample < numSamples; sample++)
 	{
 		double soundwave = oscillator.getNextSample();
-		double output = volumeEnvelope->process() * soundwave;
+		double envelope = volumeEnvelope->process() * soundwave;
+		double output = filter->processSingleSampleRaw(envelope);
 
 		for (int channel = 0; channel < outputBuffer.getNumChannels(); channel++)
-		{
+		{		
 			outputBuffer.addSample(channel, startSample, output * level);
 		}
 		startSample++;

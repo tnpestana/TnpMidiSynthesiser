@@ -50,4 +50,5 @@ private:
 	double level;
 	MyOscillator oscillator;
 	ADSR* volumeEnvelope;
+	ScopedPointer<IIRFilter> filter;
 };
