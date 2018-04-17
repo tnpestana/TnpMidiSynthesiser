@@ -51,14 +51,8 @@ void MySynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
 	oscillator.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber), getSampleRate());
 	level = velocity;
 
-	float sampleRate = getSampleRate();
-	volumeEnvelope->setAttackRate(0.01f * sampleRate);
-	volumeEnvelope->setDecayRate(0.5f * sampleRate);
-	volumeEnvelope->setSustainLevel(0.0f);
-	volumeEnvelope->setReleaseRate(0.1f * sampleRate);
 	volumeEnvelope->gate(1);
 
-	
 	filter->setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), 10000, 1.0));
 }
 
@@ -98,6 +92,10 @@ void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSa
 void MySynthVoice::getEnvelopeParameters(float attack, float decay, float sustain, float release)
 {
 	double sampleRate = getSampleRate();
+	volumeEnvelope->setAttackRate(attack * sampleRate);
+	volumeEnvelope->setDecayRate(decay * sampleRate);
+	volumeEnvelope->setSustainLevel(sustain);
+	volumeEnvelope->setReleaseRate(release * sampleRate);
 }
 
 void MySynthVoice::getReverbParameters(float dryWet, float roomSize, float damping)

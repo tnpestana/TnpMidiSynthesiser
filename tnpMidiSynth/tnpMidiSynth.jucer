@@ -12,6 +12,8 @@
       <FILE id="t6gt4U" name="MyOscillator.cpp" compile="1" resource="0"
             file="Source/MyOscillator.cpp"/>
       <FILE id="v1pj7z" name="MyOscillator.h" compile="0" resource="0" file="Source/MyOscillator.h"/>
+      <FILE id="KbVU0Z" name="MySynth.cpp" compile="1" resource="0" file="Source/MySynth.cpp"/>
+      <FILE id="b1u1EN" name="MySynth.h" compile="0" resource="0" file="Source/MySynth.h"/>
       <FILE id="ZWtIDa" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="whaReg" name="PluginProcessor.h" compile="0" resource="0"
@@ -19,8 +21,10 @@
       <FILE id="TrBN6t" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="BdBV9o" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <FILE id="KbVU0Z" name="MySynth.cpp" compile="1" resource="0" file="Source/MySynth.cpp"/>
-      <FILE id="b1u1EN" name="MySynth.h" compile="0" resource="0" file="Source/MySynth.h"/>
+      <FILE id="pNAVGN" name="OscillatorEditor.cpp" compile="1" resource="0"
+            file="Source/OscillatorEditor.cpp"/>
+      <FILE id="yAYSwH" name="OscillatorEditor.h" compile="0" resource="0"
+            file="Source/OscillatorEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <LIVE_SETTINGS>

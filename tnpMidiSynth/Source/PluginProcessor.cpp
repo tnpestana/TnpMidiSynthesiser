@@ -21,9 +21,25 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
                       #endif
                        .withOutput ("Output", AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
+		treeState(*this, nullptr)
 #endif
 {
+	// Envelope parameters.
+	NormalisableRange<float> attackRange(0.0f, 5.0f, 0.001f);
+	NormalisableRange<float> decayRange(0.0f, 5.0f, 0.001f);
+	NormalisableRange<float> sustainRange(0.0f, 1.0f, 0.001f);
+	NormalisableRange<float> releaseRange(0.0f, 5.0f, 0.001f);
+	attackRange.setSkewForCentre(1.0);
+	decayRange.setSkewForCentre(1.0);
+	releaseRange.setSkewForCentre(1.0);
+
+	treeState.createAndAddParameter("attack", "Attack", String(), attackRange, 0.01f, nullptr, nullptr);
+	treeState.createAndAddParameter("decay", "Decay", String(), decayRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("sustain", "Sustain", String(), sustainRange, 0.0f, nullptr, nullptr);
+	treeState.createAndAddParameter("release", "Release", String(), releaseRange, 0.1f, nullptr, nullptr);
+
+	// Number of voices.
 	setNumVoices(5);
 }
 
@@ -132,6 +148,18 @@ bool TnpMidiSynthAudioProcessor::isBusesLayoutSupported (const BusesLayout& layo
 void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
 	buffer.clear();
+
+	for (int i = 0; i < mySynth.getNumVoices(); i++)
+	{
+		if (mySynthVoice = dynamic_cast<MySynthVoice*>(mySynth.getVoice(i)))
+		{
+			mySynthVoice->getEnvelopeParameters(*treeState.getRawParameterValue("attack"),
+				*treeState.getRawParameterValue("decay"),
+				*treeState.getRawParameterValue("sustain"),
+				*treeState.getRawParameterValue("release"));
+		}
+	}
+
 	mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
