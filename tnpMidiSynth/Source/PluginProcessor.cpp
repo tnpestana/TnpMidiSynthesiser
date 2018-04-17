@@ -39,6 +39,19 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("sustain", "Sustain", String(), sustainRange, 0.0f, nullptr, nullptr);
 	treeState.createAndAddParameter("release", "Release", String(), releaseRange, 0.1f, nullptr, nullptr);
 
+	// Reverb parameters
+	reverb = new Reverb();
+
+	NormalisableRange<float> dryWetRange(0.0f, 1.0f, 0.01f);
+	NormalisableRange<float> roomSizeRange(0.0f, 1.0f, 0.01f);
+	NormalisableRange<float> dampingRange(0.0f, 1.0f, 0.01f);
+
+	treeState.createAndAddParameter("dryWet", "DryWet", String(), dryWetRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("roomSize", "RoomSize", String(), roomSizeRange, 0.2f, nullptr, nullptr);
+	treeState.createAndAddParameter("damping", "Damping", String(), dampingRange, 0.0f, nullptr, nullptr);
+
+	treeState.state = ValueTree(Identifier("ReverbState"));
+
 	// Number of voices.
 	setNumVoices(5);
 }
@@ -149,6 +162,13 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 {
 	buffer.clear();
 
+	reverbParameters.dryLevel = 1.0f - *treeState.getRawParameterValue("dryWet");
+	reverbParameters.wetLevel = *treeState.getRawParameterValue("dryWet");
+	reverbParameters.roomSize = *treeState.getRawParameterValue("roomSize");
+	reverbParameters.damping = *treeState.getRawParameterValue("damping");
+
+	reverb->setParameters(reverbParameters);
+
 	for (int i = 0; i < mySynth.getNumVoices(); i++)
 	{
 		if (mySynthVoice = dynamic_cast<MySynthVoice*>(mySynth.getVoice(i)))
@@ -161,6 +181,11 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	}
 
 	mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+
+	if (buffer.getNumChannels() == 1)
+		reverb->processMono(buffer.getWritePointer(0), buffer.getNumSamples());
+	else if (buffer.getNumChannels() == 2)
+		reverb->processStereo(buffer.getWritePointer(0), buffer.getWritePointer(1), buffer.getNumSamples());
 }
 
 //==============================================================================

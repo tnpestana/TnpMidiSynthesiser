@@ -14,12 +14,13 @@
 
 //==============================================================================
 TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p), oscillatorOneEditor(p)
+    : AudioProcessorEditor (&p), processor (p), oscillator(p), reverb(p)
 {
     // Main editor's size.
-    setSize (400, 200);
+    setSize (400, 300);
 
-	addAndMakeVisible(oscillatorOneEditor);
+	addAndMakeVisible(&oscillator);
+	addAndMakeVisible(&reverb);
 }
 TnpMidiSynthAudioProcessorEditor::~TnpMidiSynthAudioProcessorEditor()
 {
@@ -34,5 +35,7 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 
 void TnpMidiSynthAudioProcessorEditor::resized()
 {
-	oscillatorOneEditor.setBounds(getLocalBounds());
+	juce::Rectangle<int> area (getLocalBounds());
+	oscillator.setBounds(area.removeFromTop(200));
+	reverb.setBounds(area.removeFromTop(100));
 }

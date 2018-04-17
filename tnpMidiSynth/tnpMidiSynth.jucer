@@ -25,6 +25,9 @@
             file="Source/OscillatorEditor.cpp"/>
       <FILE id="yAYSwH" name="OscillatorEditor.h" compile="0" resource="0"
             file="Source/OscillatorEditor.h"/>
+      <FILE id="EC6MyK" name="ReverbEditor.cpp" compile="1" resource="0"
+            file="Source/ReverbEditor.cpp"/>
+      <FILE id="U9vcsV" name="ReverbEditor.h" compile="0" resource="0" file="Source/ReverbEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <LIVE_SETTINGS>

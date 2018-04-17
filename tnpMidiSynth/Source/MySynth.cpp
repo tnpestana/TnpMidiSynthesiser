@@ -52,7 +52,6 @@ void MySynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
 	level = velocity;
 
 	volumeEnvelope->gate(1);
-
 	filter->setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), 10000, 1.0));
 }
 
@@ -87,6 +86,7 @@ void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSa
 		}
 		startSample++;
 	}
+	
 }
 
 void MySynthVoice::getEnvelopeParameters(float attack, float decay, float sustain, float release)
@@ -100,4 +100,5 @@ void MySynthVoice::getEnvelopeParameters(float attack, float decay, float sustai
 
 void MySynthVoice::getReverbParameters(float dryWet, float roomSize, float damping)
 {
+	
 }
