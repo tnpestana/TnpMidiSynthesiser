@@ -55,8 +55,6 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("numVoices", "NumVoices", "numVoices", numVoicesRange, 4, nullptr, nullptr);
 
 	treeState.state = ValueTree(Identifier("tnpMidiSynthState"));
-
-	setNumVoices(5);
 }
 
 TnpMidiSynthAudioProcessor::~TnpMidiSynthAudioProcessor()
