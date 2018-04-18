@@ -44,7 +44,6 @@ public:
 
 	//==============================================================================
 	void getEnvelopeParameters(float attack, float decay, float sustain, float release);
-	void getReverbParameters(float dryWet, float roomSize, float damping);
 
 private:
 	double level;

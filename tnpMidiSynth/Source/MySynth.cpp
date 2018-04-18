@@ -97,8 +97,3 @@ void MySynthVoice::getEnvelopeParameters(float attack, float decay, float sustai
 	volumeEnvelope->setSustainLevel(sustain);
 	volumeEnvelope->setReleaseRate(release * sampleRate);
 }
-
-void MySynthVoice::getReverbParameters(float dryWet, float roomSize, float damping)
-{
-	
-}

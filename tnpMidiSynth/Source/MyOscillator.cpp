@@ -35,7 +35,7 @@ void MyOscillator::updateAngle()
 
 float MyOscillator::getNextSample()
 {
-	float currentSample = squareWave();
+	float currentSample = (0.995f * sineWave() + 0.005f * squareWave()) * 0.2;
 	updateAngle();
 	return currentSample;
 }

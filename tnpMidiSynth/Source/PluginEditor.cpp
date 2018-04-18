@@ -14,7 +14,7 @@
 
 //==============================================================================
 TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p), oscillator(p), reverb(p)
+    : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p), reverbGUI(p)
 {
     // Main editor's size.
     setSize (250, 300);
@@ -28,8 +28,8 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	numVoicesInput.addListener(this);
 	numVoicesAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "numVoices", numVoicesInput);
 
-	addAndMakeVisible(oscillator);
-	addAndMakeVisible(reverb);
+	addAndMakeVisible(oscillatorGUI);
+	addAndMakeVisible(reverbGUI);
 }
 TnpMidiSynthAudioProcessorEditor::~TnpMidiSynthAudioProcessorEditor()
 {
@@ -49,8 +49,8 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	numVoicesLabel.setBounds(numVoicesArea.removeFromLeft(getWidth() / 2));
 	numVoicesInput.setBounds(numVoicesArea.removeFromLeft(getWidth() / 2));
 
-	oscillator.setBounds(area.removeFromTop(180));
-	reverb.setBounds(area.removeFromTop(100));
+	oscillatorGUI.setBounds(area.removeFromTop(180));
+	reverbGUI.setBounds(area.removeFromTop(100));
 }
 
 void TnpMidiSynthAudioProcessorEditor::comboBoxChanged(ComboBox * comboBoxThatHasChanged)

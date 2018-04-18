@@ -33,17 +33,16 @@ private:
     // access the processor object that created it.
 	TnpMidiSynthAudioProcessor& processor;
 
-	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> numVoicesAttachment;
-
 	ComboBox numVoicesInput;
 	Label numVoicesLabel;
+	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> numVoicesAttachment;
 
-	OscillatorEditor oscillator;
-	ReverbEditor reverb;
+	OscillatorEditor oscillatorGUI;
+	ReverbEditor reverbGUI;
 
 	//==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpMidiSynthAudioProcessorEditor)
 
-		// Inherited via Listener
-		virtual void comboBoxChanged(ComboBox * comboBoxThatHasChanged) override;
+	// Inherited via Listener
+	virtual void comboBoxChanged(ComboBox * comboBoxThatHasChanged) override;
 };
