@@ -26,7 +26,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 #endif
 {
 	// Gain parameter.
-	NormalisableRange<float> gainRange(0.0f, 2.0f, 0.01f);
+	NormalisableRange<float> gainRange(0.0f, 1.0f, 0.01f);
 	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 1.0f, nullptr, nullptr);
 
 	// Envelope parameters.
@@ -56,7 +56,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 
 	// Number of voices parameter.
 	NormalisableRange<float> numVoicesRange(0, 9);
-	treeState.createAndAddParameter("numVoices", "NumVoices", String(), numVoicesRange, 4, nullptr, nullptr);
+	treeState.createAndAddParameter("numVoices", "NumVoices", String(), numVoicesRange, 9, nullptr, nullptr);
 
 	treeState.state = ValueTree(Identifier("tnpMidiSynthState"));
 }

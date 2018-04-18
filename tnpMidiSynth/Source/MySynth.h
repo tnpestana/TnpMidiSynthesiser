@@ -47,7 +47,7 @@ public:
 	void getEnvelopeParameters(float attack, float decay, float sustain, float release);
 
 private:
-	double level, currentGain;
+	double level, currentGain, targetGain;
 	MyOscillator oscillator;
 	ADSR* volumeEnvelope;
 	ScopedPointer<IIRFilter> filter;

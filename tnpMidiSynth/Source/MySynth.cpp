@@ -31,7 +31,9 @@ bool MySynthSound::appliesToChannel(int midiChannel)
 
 //==============================================================================
 MySynthVoice::MySynthVoice()
-	: level(0.0)
+	: level(0.0),
+	  targetGain(0.0f),
+	  currentGain(targetGain)
 {
 	volumeEnvelope = new ADSR();
 	filter = new IIRFilter();
@@ -76,22 +78,28 @@ void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSa
 {
 	for (int sample = 0; sample < numSamples; sample++)
 	{
+		// Avoid glicthes via volume increment.
+		if (currentGain != targetGain)
+		{
+			currentGain += (targetGain - currentGain) / numSamples;
+		}
+
 		double soundwave = oscillator.getNextSample();
 		double envelope = volumeEnvelope->process() * soundwave;
 		double output = filter->processSingleSampleRaw(envelope);
 
 		for (int channel = 0; channel < outputBuffer.getNumChannels(); channel++)
 		{		
-			outputBuffer.addSample(channel, startSample, output * level);
+			outputBuffer.addSample(channel, startSample, output * level * currentGain);
 		}
 		startSample++;
 	}
-	outputBuffer.applyGain(currentGain);
+
 }
 
 void MySynthVoice::getGainValue(float gain)
 {
-	currentGain = gain;
+	targetGain = gain;
 }
 
 void MySynthVoice::getEnvelopeParameters(float attack, float decay, float sustain, float release)
