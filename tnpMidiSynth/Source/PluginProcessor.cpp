@@ -39,7 +39,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("sustain", "Sustain", String(), sustainRange, 0.0f, nullptr, nullptr);
 	treeState.createAndAddParameter("release", "Release", String(), releaseRange, 0.1f, nullptr, nullptr);
 
-	// Reverb parameters
+	// Reverb parameters.
 	reverb = new Reverb();
 
 	NormalisableRange<float> dryWetRange(0.0f, 1.0f, 0.01f);
@@ -50,9 +50,12 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("roomSize", "RoomSize", String(), roomSizeRange, 0.2f, nullptr, nullptr);
 	treeState.createAndAddParameter("damping", "Damping", String(), dampingRange, 0.0f, nullptr, nullptr);
 
-	treeState.state = ValueTree(Identifier("ReverbState"));
+	// Number of voices parameter.
+	NormalisableRange<float> numVoicesRange(0, 9);
+	treeState.createAndAddParameter("numVoices", "NumVoices", "numVoices", numVoicesRange, 4, nullptr, nullptr);
 
-	// Number of voices.
+	treeState.state = ValueTree(Identifier("tnpMidiSynthState"));
+
 	setNumVoices(5);
 }
 

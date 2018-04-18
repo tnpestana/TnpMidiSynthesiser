@@ -17,16 +17,25 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
     : AudioProcessorEditor (&p), processor (p), oscillator(p), reverb(p)
 {
     // Main editor's size.
-    setSize (400, 300);
+    setSize (250, 300);
 
-	addAndMakeVisible(&oscillator);
-	addAndMakeVisible(&reverb);
+	addAndMakeVisible(numVoicesLabel);
+	numVoicesLabel.setText("number of voices:", dontSendNotification);
+	numVoicesLabel.setJustificationType(Justification::centredRight);
+	addAndMakeVisible(numVoicesInput);
+	for(int i = 1; i < 11; i++)
+		numVoicesInput.addItem((String)i, i);
+	numVoicesInput.addListener(this);
+	numVoicesAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "numVoices", numVoicesInput);
+
+	addAndMakeVisible(oscillator);
+	addAndMakeVisible(reverb);
 }
 TnpMidiSynthAudioProcessorEditor::~TnpMidiSynthAudioProcessorEditor()
 {
 }
 
-//==============================================================================
+//=============================================================================
 void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
@@ -36,6 +45,16 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 void TnpMidiSynthAudioProcessorEditor::resized()
 {
 	juce::Rectangle<int> area (getLocalBounds());
-	oscillator.setBounds(area.removeFromTop(200));
+	juce::Rectangle<int> numVoicesArea (area.removeFromTop(20));
+	numVoicesLabel.setBounds(numVoicesArea.removeFromLeft(getWidth() / 2));
+	numVoicesInput.setBounds(numVoicesArea.removeFromLeft(getWidth() / 2));
+
+	oscillator.setBounds(area.removeFromTop(180));
 	reverb.setBounds(area.removeFromTop(100));
+}
+
+void TnpMidiSynthAudioProcessorEditor::comboBoxChanged(ComboBox * comboBoxThatHasChanged)
+{
+	float currentNumVoices = *processor.treeState.getRawParameterValue("numVoices") + 1;
+	processor.setNumVoices((int)currentNumVoices);
 }

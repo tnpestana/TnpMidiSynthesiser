@@ -24,7 +24,8 @@ public:
 
 private:
 	Slider attackSlider, decaySlider, sustainSlider, releaseSlider;
-	Label attackLabel, decayLabel, sustainLabel, releaseLabel;
+	Label attackLabel, decayLabel, sustainLabel, releaseLabel, numVoicesLabel;
+	ComboBox numVoicesInput;
 
 	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> attackAttachment, 
 																  decayAttachment, 

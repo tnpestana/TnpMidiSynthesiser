@@ -2,7 +2,8 @@
 
 <JUCERPROJECT name="tnpMidiSynth" projectType="audioplug" buildStandalone="1"
               jucerVersion="5.3.1" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
-              pluginFormats="buildStandalone">
+              pluginFormats="buildVST,buildStandalone" buildVST="1" buildVST3="0"
+              buildAU="0" buildAUv3="0" buildRTAS="0" buildAAX="0" enableIAA="0">
   <MAINGROUP id="tdkgxH" name="tnpMidiSynth">
     <GROUP id="{136D5720-F5B3-DBDF-75D4-B71623C0CCBC}" name="Source">
       <GROUP id="{C7A564B1-2F20-E5C1-93B5-A0930BF65F63}" name="ADSR">

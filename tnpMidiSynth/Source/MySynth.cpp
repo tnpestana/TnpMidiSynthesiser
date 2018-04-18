@@ -52,7 +52,7 @@ void MySynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
 	level = velocity;
 
 	volumeEnvelope->gate(1);
-	filter->setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), 10000, 1.0));
+	filter->setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), 5000, 1.0));
 }
 
 void MySynthVoice::stopNote(float velocity, bool allowTailOff)
