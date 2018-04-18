@@ -51,7 +51,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	// gain
 	addAndMakeVisible(gainSlider);
 	gainSlider.setSliderStyle(Slider::LinearVertical);
-	gainSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 20);
+	gainSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(gainLabel);
 	gainLabel.setText("gain", dontSendNotification);
 	gainLabel.setJustificationType(Justification::centred);
