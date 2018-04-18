@@ -86,7 +86,12 @@ void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSa
 		}
 		startSample++;
 	}
-	
+	outputBuffer.applyGain(currentGain);
+}
+
+void MySynthVoice::getGainValue(float gain)
+{
+	currentGain = gain;
 }
 
 void MySynthVoice::getEnvelopeParameters(float attack, float decay, float sustain, float release)

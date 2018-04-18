@@ -43,10 +43,11 @@ public:
 	virtual void renderNextBlock(AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
 
 	//==============================================================================
+	void getGainValue(float gain);
 	void getEnvelopeParameters(float attack, float decay, float sustain, float release);
 
 private:
-	double level;
+	double level, currentGain;
 	MyOscillator oscillator;
 	ADSR* volumeEnvelope;
 	ScopedPointer<IIRFilter> filter;

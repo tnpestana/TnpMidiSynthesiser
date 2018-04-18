@@ -25,6 +25,10 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 		treeState(*this, nullptr)
 #endif
 {
+	// Gain parameter.
+	NormalisableRange<float> gainRange(0.0f, 2.0f, 0.01f);
+	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 1.0f, nullptr, nullptr);
+
 	// Envelope parameters.
 	NormalisableRange<float> attackRange(0.0f, 5.0f, 0.001f);
 	NormalisableRange<float> decayRange(0.0f, 5.0f, 0.001f);
@@ -52,7 +56,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 
 	// Number of voices parameter.
 	NormalisableRange<float> numVoicesRange(0, 9);
-	treeState.createAndAddParameter("numVoices", "NumVoices", "numVoices", numVoicesRange, 4, nullptr, nullptr);
+	treeState.createAndAddParameter("numVoices", "NumVoices", String(), numVoicesRange, 4, nullptr, nullptr);
 
 	treeState.state = ValueTree(Identifier("tnpMidiSynthState"));
 }
@@ -174,6 +178,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	{
 		if (mySynthVoice = dynamic_cast<MySynthVoice*>(mySynth.getVoice(i)))
 		{
+			mySynthVoice->getGainValue(*treeState.getRawParameterValue("gain"));
 			mySynthVoice->getEnvelopeParameters(*treeState.getRawParameterValue("attack"),
 				*treeState.getRawParameterValue("decay"),
 				*treeState.getRawParameterValue("sustain"),

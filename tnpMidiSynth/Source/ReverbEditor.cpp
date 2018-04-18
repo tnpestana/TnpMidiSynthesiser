@@ -15,7 +15,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
 {
 	addAndMakeVisible(dryWetSlider);
 	dryWetSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	dryWetSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 20);
+	dryWetSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	dryWetSlider.setRange(0, 1, 0.01);
 
 	addAndMakeVisible(dryWetLabel);
@@ -26,7 +26,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
 
 	addAndMakeVisible(roomSizeSlider);
 	roomSizeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	roomSizeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 20);
+	roomSizeSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	roomSizeSlider.setRange(0, 1, 0.01);
 
 	addAndMakeVisible(roomSizeLabel);
@@ -37,7 +37,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
 
 	addAndMakeVisible(dampingSlider);
 	dampingSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	dampingSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 20);
+	dampingSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	dampingSlider.setRange(0, 1, 0.01);
 
 	addAndMakeVisible(dampingLabel);

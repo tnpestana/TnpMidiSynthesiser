@@ -47,6 +47,15 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	releaseLabel.setText("release", dontSendNotification);
 	releaseLabel.setJustificationType(Justification::centred);
 	releaseAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "release", releaseSlider);
+
+	// gain
+	addAndMakeVisible(gainSlider);
+	gainSlider.setSliderStyle(Slider::LinearVertical);
+	gainSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 20);
+	addAndMakeVisible(gainLabel);
+	gainLabel.setText("gain", dontSendNotification);
+	gainLabel.setJustificationType(Justification::centred);
+	gainAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "gain", gainSlider);
 }
 
 OscillatorEditor::~OscillatorEditor()
@@ -60,13 +69,20 @@ void OscillatorEditor::paint(Graphics& g)
 
 void OscillatorEditor::resized()
 {
-	const int sliderWidth = getWidth() / 4;
+	const int sliderWidth = getWidth() / 5;
 	const int labelWidth = sliderWidth;
 
 	const int labelHeight = 20;
-	const int sliderHeight = getHeight() - labelHeight;
+	const int sliderHeight = getHeight() - 20 - 40;
 
 	juce::Rectangle<int> area(getLocalBounds());
+
+	juce::Rectangle<int> gainLocation(area.removeFromRight(sliderWidth));
+	gainSlider.setBounds(gainLocation.removeFromTop(gainLocation.getHeight() - 20));
+	gainLabel.setBounds(gainLocation.removeFromTop(20));
+
+
+	juce::Rectangle<int> controls(area.removeFromTop(40));
 	juce::Rectangle<int> sliders(area.removeFromTop(sliderHeight));
 	juce::Rectangle<int> labels(area.removeFromTop(labelHeight));
 
@@ -81,4 +97,5 @@ void OscillatorEditor::resized()
 
 	releaseSlider.setBounds(sliders.removeFromLeft(sliderWidth));
 	releaseLabel.setBounds(labels.removeFromLeft(labelWidth));
+
 }

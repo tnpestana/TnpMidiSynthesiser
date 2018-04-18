@@ -17,7 +17,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
     : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p), reverbGUI(p)
 {
     // Main editor's size.
-    setSize (250, 300);
+    setSize (250, 280);
 
 	addAndMakeVisible(numVoicesLabel);
 	numVoicesLabel.setText("number of voices:", dontSendNotification);
@@ -50,7 +50,7 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	numVoicesInput.setBounds(numVoicesArea.removeFromLeft(getWidth() / 2));
 
 	oscillatorGUI.setBounds(area.removeFromTop(180));
-	reverbGUI.setBounds(area.removeFromTop(100));
+	reverbGUI.setBounds(area.removeFromTop(80));
 }
 
 void TnpMidiSynthAudioProcessorEditor::comboBoxChanged(ComboBox * comboBoxThatHasChanged)
