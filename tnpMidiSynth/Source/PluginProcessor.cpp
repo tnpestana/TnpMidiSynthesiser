@@ -29,7 +29,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	NormalisableRange<float> gainRange(0.0f, 1.0f, 0.01f);
 	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 1.0f, nullptr, nullptr);
 
-	// Envelope parameters.
+	// Volume envelope parameters.
 	NormalisableRange<float> attackRange(0.0f, 5.0f, 0.001f);
 	NormalisableRange<float> decayRange(0.0f, 5.0f, 0.001f);
 	NormalisableRange<float> sustainRange(0.0f, 1.0f, 0.001f);
@@ -135,8 +135,6 @@ void TnpMidiSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
 
 void TnpMidiSynthAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -167,15 +165,20 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 {
 	buffer.clear();
 
-	reverbParameters.dryLevel = 1.0f - *treeState.getRawParameterValue("dryWet");
-	reverbParameters.wetLevel = *treeState.getRawParameterValue("dryWet");
+	//  Dry and wet levels are bound to the same slider as they should be
+	// inversely proportioned.
+	reverbParameters.dryLevel = 1.0f - *treeState.getRawParameterValue("dryWet");	//	Dereference the result of getRawParameterValue because it returns
+	reverbParameters.wetLevel = *treeState.getRawParameterValue("dryWet");			// a pointer to the parameter's value location.
 	reverbParameters.roomSize = *treeState.getRawParameterValue("roomSize");
 	reverbParameters.damping = *treeState.getRawParameterValue("damping");
 
 	reverb->setParameters(reverbParameters);
 
+	// Check number of voices.
 	for (int i = 0; i < mySynth.getNumVoices(); i++)
 	{
+		//  Cast them to see how many of those are being used. If they are,
+		// pass them the value tree state gain and envelope parameters.
 		if (mySynthVoice = dynamic_cast<MySynthVoice*>(mySynth.getVoice(i)))
 		{
 			mySynthVoice->getGainValue(*treeState.getRawParameterValue("gain"));
@@ -188,6 +191,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 
 	mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 
+	// Support reverb processing for mono and stereo systems.
 	if (buffer.getNumChannels() == 1)
 		reverb->processMono(buffer.getWritePointer(0), buffer.getNumSamples());
 	else if (buffer.getNumChannels() == 2)
@@ -195,6 +199,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 }
 
 //==============================================================================
+// This method is called to change the synth's number of voices.
 void TnpMidiSynthAudioProcessor::setNumVoices(int numVoices)
 {
 	mySynth.clearVoices();
@@ -218,15 +223,10 @@ AudioProcessorEditor* TnpMidiSynthAudioProcessor::createEditor()
 //==============================================================================
 void TnpMidiSynthAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
 }
 
 void TnpMidiSynthAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
 }
 
 //==============================================================================

@@ -84,12 +84,15 @@ void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSa
 			currentGain += (targetGain - currentGain) / numSamples;
 		}
 
+		//	Get initial wave via the oscillator object, process its volume with the envelope class
+		// from ADSR files and filter it with JUCEs IIRFilter.
 		double soundwave = oscillator.getNextSample();
 		double envelope = volumeEnvelope->process() * soundwave;
 		double output = filter->processSingleSampleRaw(envelope);
 
 		for (int channel = 0; channel < outputBuffer.getNumChannels(); channel++)
 		{		
+			// Multiply the output by the velocity level and the "gain" parameter.
 			outputBuffer.addSample(channel, startSample, output * level * currentGain);
 		}
 		startSample++;
@@ -97,11 +100,13 @@ void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSa
 
 }
 
+// The main apps processor needs to access this method to pass the valueTreeState gain paremeter value.
 void MySynthVoice::getGainValue(float gain)
 {
 	targetGain = gain;
 }
 
+// The main apps processor needs to access this method to pass the valueTreeState envelope paremeter values.
 void MySynthVoice::getEnvelopeParameters(float attack, float decay, float sustain, float release)
 {
 	double sampleRate = getSampleRate();

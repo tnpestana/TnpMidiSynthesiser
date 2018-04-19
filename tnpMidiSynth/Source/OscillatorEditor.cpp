@@ -5,6 +5,9 @@
     Created: 17 Apr 2018 1:57:27pm
     Author:  tnpes
 
+	Main application is suposed to run more than one oscillator, so here is a
+	template for its GUI added to the main editor as many times as needed.
+
   ==============================================================================
 */
 
@@ -69,33 +72,36 @@ void OscillatorEditor::paint(Graphics& g)
 
 void OscillatorEditor::resized()
 {
-	const int sliderWidth = getWidth() / 5;
-	const int labelWidth = sliderWidth;
+	const int sliderWidth = getWidth() / 5;				// 5 sliders total.
+	const int sliderHeight = getHeight() - 20 - 40;		// 20 is label size and 40 is control section size.
 
+	const int labelWidth = sliderWidth;					
 	const int labelHeight = 20;
-	const int sliderHeight = getHeight() - 20 - 40;
 
+	// Total oscillator area.
 	juce::Rectangle<int> area(getLocalBounds());
 
+	// Area for gain slider and its label. 
 	juce::Rectangle<int> gainLocation(area.removeFromRight(sliderWidth));
 	gainSlider.setBounds(gainLocation.removeFromTop(gainLocation.getHeight() - 20));
 	gainLabel.setBounds(gainLocation.removeFromTop(20));
 
-
+	// Area for wave type controls.
 	juce::Rectangle<int> controls(area.removeFromTop(40));
-	juce::Rectangle<int> sliders(area.removeFromTop(sliderHeight));
+
+	// Area for envelope sliders and labels - needs reviewing.
+	juce::Rectangle<int> envelopeSliders(area.removeFromTop(sliderHeight));
 	juce::Rectangle<int> labels(area.removeFromTop(labelHeight));
 
-	attackSlider.setBounds(sliders.removeFromLeft(sliderWidth));
+	attackSlider.setBounds(envelopeSliders.removeFromLeft(sliderWidth));
 	attackLabel.setBounds(labels.removeFromLeft(labelWidth));
 
-	decaySlider.setBounds(sliders.removeFromLeft(sliderWidth));
+	decaySlider.setBounds(envelopeSliders.removeFromLeft(sliderWidth));
 	decayLabel.setBounds(labels.removeFromLeft(labelWidth));
 
-	sustainSlider.setBounds(sliders.removeFromLeft(sliderWidth));
+	sustainSlider.setBounds(envelopeSliders.removeFromLeft(sliderWidth));
 	sustainLabel.setBounds(labels.removeFromLeft(labelWidth));
 
-	releaseSlider.setBounds(sliders.removeFromLeft(sliderWidth));
+	releaseSlider.setBounds(envelopeSliders.removeFromLeft(sliderWidth));
 	releaseLabel.setBounds(labels.removeFromLeft(labelWidth));
-
 }
