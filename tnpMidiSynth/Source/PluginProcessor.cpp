@@ -30,18 +30,18 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 1.0f, nullptr, nullptr);
 
 	// Volume envelope parameters.
-	NormalisableRange<float> attackRange(0.0f, 5.0f, 0.001f);
-	NormalisableRange<float> decayRange(0.0f, 5.0f, 0.001f);
-	NormalisableRange<float> sustainRange(0.0f, 1.0f, 0.001f);
-	NormalisableRange<float> releaseRange(0.0f, 5.0f, 0.001f);
+	NormalisableRange<float> attackRange(0.001f, 5.0f, 0.001f);
+	NormalisableRange<float> decayRange(0.001f, 5.0f, 0.001f);
+	NormalisableRange<float> sustainRange(0.001f, 1.0f, 0.001f);
+	NormalisableRange<float> releaseRange(0.015f, 5.0f, 0.001f);
 	attackRange.setSkewForCentre(1.0);
 	decayRange.setSkewForCentre(1.0);
 	releaseRange.setSkewForCentre(1.0);
 
-	treeState.createAndAddParameter("attack", "Attack", String(), attackRange, 0.01f, nullptr, nullptr);
+	treeState.createAndAddParameter("attack", "Attack", String(), attackRange, 0.1f, nullptr, nullptr);
 	treeState.createAndAddParameter("decay", "Decay", String(), decayRange, 0.5f, nullptr, nullptr);
-	treeState.createAndAddParameter("sustain", "Sustain", String(), sustainRange, 0.0f, nullptr, nullptr);
-	treeState.createAndAddParameter("release", "Release", String(), releaseRange, 0.1f, nullptr, nullptr);
+	treeState.createAndAddParameter("sustain", "Sustain", String(), sustainRange, 0.001f, nullptr, nullptr);
+	treeState.createAndAddParameter("release", "Release", String(), releaseRange, 0.015f, nullptr, nullptr);
 
 	// Reverb parameters.
 	reverb = new Reverb();
@@ -223,10 +223,24 @@ AudioProcessorEditor* TnpMidiSynthAudioProcessor::createEditor()
 //==============================================================================
 void TnpMidiSynthAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
+	/*
+	ScopedPointer<XmlElement> xml(treeState.state.createXml());
+	copyXmlToBinary(*xml, destData);
+	*/
 }
 
 void TnpMidiSynthAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
+	/*
+	ScopedPointer<XmlElement> savedParametersXml(getXmlFromBinary(data, sizeInBytes));
+	if (savedParametersXml != nullptr)
+	{
+		if (savedParametersXml->hasTagName(treeState.state.getType()))
+		{
+			treeState.state = ValueTree::fromXml(*savedParametersXml);
+		}
+	}
+	*/
 }
 
 //==============================================================================
