@@ -223,24 +223,17 @@ AudioProcessorEditor* TnpMidiSynthAudioProcessor::createEditor()
 //==============================================================================
 void TnpMidiSynthAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
-	/*
-	ScopedPointer<XmlElement> xml(treeState.state.createXml());
+	auto state = treeState.copyState();
+	std::unique_ptr<XmlElement> xml(state.createXml());
 	copyXmlToBinary(*xml, destData);
-	*/
 }
 
 void TnpMidiSynthAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-	/*
-	ScopedPointer<XmlElement> savedParametersXml(getXmlFromBinary(data, sizeInBytes));
-	if (savedParametersXml != nullptr)
-	{
-		if (savedParametersXml->hasTagName(treeState.state.getType()))
-		{
-			treeState.state = ValueTree::fromXml(*savedParametersXml);
-		}
-	}
-	*/
+	std::unique_ptr<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+	if (xmlState.get() != nullptr)
+		if (xmlState->hasTagName(treeState.state.getType()))
+			treeState.replaceState(ValueTree::fromXml(*xmlState));
 }
 
 //==============================================================================
