@@ -18,7 +18,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	// attack
 	addAndMakeVisible(attackSlider);
 	attackSlider.setSliderStyle(Slider::LinearVertical);
-	attackSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 20);
+	attackSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(attackLabel);
 	attackLabel.setText("attack", dontSendNotification);
 	attackLabel.setJustificationType(Justification::centred);
@@ -27,7 +27,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	// Decay.
 	addAndMakeVisible(decaySlider);
 	decaySlider.setSliderStyle(Slider::LinearVertical);
-	decaySlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 20);
+	decaySlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(decayLabel);
 	decayLabel.setText("decay", dontSendNotification);
 	decayLabel.setJustificationType(Justification::centred);
@@ -36,7 +36,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	// Sustain.
 	addAndMakeVisible(sustainSlider);
 	sustainSlider.setSliderStyle(Slider::LinearVertical);
-	sustainSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 20);
+	sustainSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(sustainLabel);
 	sustainLabel.setText("sustain", dontSendNotification);
 	sustainLabel.setJustificationType(Justification::centred);
@@ -45,7 +45,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	// Release. 
 	addAndMakeVisible(releaseSlider);
 	releaseSlider.setSliderStyle(Slider::LinearVertical);
-	releaseSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 20);
+	releaseSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(releaseLabel);
 	releaseLabel.setText("release", dontSendNotification);
 	releaseLabel.setJustificationType(Justification::centred);
@@ -62,8 +62,8 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 
 	// Oscillator type.
 	addAndMakeVisible(oscTypeLabel);
-	numVoicesLabel.setText("osc type:", dontSendNotification);
-	numVoicesLabel.setJustificationType(Justification::centredRight);
+	oscTypeLabel.setText("oscillator type:", dontSendNotification);
+	oscTypeLabel.setJustificationType(Justification::centredRight);
 	addAndMakeVisible(oscTypeInput);
 	oscTypeInput.addItem("Sine Wave", 1);				//	Even though the oscType parameter's range is defined we
 	oscTypeInput.addItem("Saw Wave", 2);			    // seem to need to populate the combo box anyway.
@@ -97,6 +97,7 @@ void OscillatorEditor::resized()
 
 	// Area for wave type controls.
 	juce::Rectangle<int> controls(area.removeFromTop(40));
+	juce::Rectangle<int> margin(controls.removeFromTop(10));
 	oscTypeLabel.setBounds(controls.removeFromLeft(100));
 	oscTypeInput.setBounds(controls.removeFromLeft(100));
 
