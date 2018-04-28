@@ -25,6 +25,8 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 		treeState(*this, nullptr)
 #endif
 {
+	MyWavetable::createWavetable();
+
 	// Gain parameter.
 	NormalisableRange<float> gainRange(0.0f, 1.0f, 0.01f);
 	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 1.0f, nullptr, nullptr);
@@ -56,7 +58,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 
 	// Number of voices parameter.
 	NormalisableRange<float> numVoicesRange(0, 9);
-	treeState.createAndAddParameter("numVoices", "NumVoices", String(), numVoicesRange, 9, nullptr, nullptr);
+	treeState.createAndAddParameter("numVoices", "NumVoices", String(), numVoicesRange, 7, nullptr, nullptr);
 
 	treeState.state = ValueTree(Identifier("tnpMidiSynthState"));
 }
@@ -174,6 +176,11 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 
 	reverb->setParameters(reverbParameters);
 
+	int numVoicesParam = *treeState.getRawParameterValue("numVoices") + 1;
+	if (numVoicesParam != mySynth.getNumVoices())
+	{
+		setNumVoices(numVoicesParam);
+	}
 	// Check number of voices.
 	for (int i = 0; i < mySynth.getNumVoices(); i++)
 	{

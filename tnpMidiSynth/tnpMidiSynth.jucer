@@ -29,6 +29,8 @@
       <FILE id="EC6MyK" name="ReverbEditor.cpp" compile="1" resource="0"
             file="Source/ReverbEditor.cpp"/>
       <FILE id="U9vcsV" name="ReverbEditor.h" compile="0" resource="0" file="Source/ReverbEditor.h"/>
+      <FILE id="plkHBY" name="MyWavetable.cpp" compile="1" resource="0" file="Source/MyWavetable.cpp"/>
+      <FILE id="Myljhl" name="MyWavetable.h" compile="0" resource="0" file="Source/MyWavetable.h"/>
     </GROUP>
   </MAINGROUP>
   <LIVE_SETTINGS>

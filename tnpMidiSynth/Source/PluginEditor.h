@@ -18,7 +18,7 @@
 //==============================================================================
 /**
 */
-class TnpMidiSynthAudioProcessorEditor  : public AudioProcessorEditor, ComboBox::Listener
+class TnpMidiSynthAudioProcessorEditor  : public AudioProcessorEditor
 {
 public:
     TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor&);
@@ -42,7 +42,4 @@ private:
 
 	//==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpMidiSynthAudioProcessorEditor)
-
-	// Inherited via Listener
-	virtual void comboBoxChanged(ComboBox * comboBoxThatHasChanged) override;
 };

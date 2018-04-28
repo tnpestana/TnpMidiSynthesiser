@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MySynth.h"
+#include "MyWavetable.h"
 
 //==============================================================================
 /**
@@ -68,6 +69,7 @@ private:
 	ScopedPointer<Reverb> reverb;
 	Reverb::Parameters reverbParameters;
 
+	int targetNumVoices;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpMidiSynthAudioProcessor)
 };
