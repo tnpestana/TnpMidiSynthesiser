@@ -32,8 +32,9 @@ bool MySynthSound::appliesToChannel(int midiChannel)
 //==============================================================================
 MySynthVoice::MySynthVoice()
 	: level(0.0),
-	  targetGain(0.0f),
-	  currentGain(targetGain)
+	targetGain(0.0),
+	currentGain(targetGain),
+	soundwave(0.f)
 {
 	volumeEnvelope = new ADSR();
 	filter = new IIRFilter();
@@ -86,7 +87,11 @@ void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSa
 
 		//	Get initial wave via the oscillator object, process its volume with the envelope class
 		// from ADSR files and filter it with JUCEs IIRFilter.
-		double soundwave = oscillator.getNextSample();
+		if (oscType == 1)
+			soundwave = oscillator.sineWave();
+		if(oscType == 2)
+			soundwave = oscillator.squareWave();
+
 		double envelope = volumeEnvelope->process() * soundwave;
 		double output = filter->processSingleSampleRaw(envelope);
 
@@ -114,4 +119,9 @@ void MySynthVoice::getEnvelopeParameters(float attack, float decay, float sustai
 	volumeEnvelope->setDecayRate(decay * sampleRate);
 	volumeEnvelope->setSustainLevel(sustain);
 	volumeEnvelope->setReleaseRate(release * sampleRate);
+}
+
+void MySynthVoice::getOscillatorType(float input)
+{
+	oscType = (int)input;
 }

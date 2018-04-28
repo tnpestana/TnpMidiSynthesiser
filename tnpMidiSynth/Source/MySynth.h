@@ -45,9 +45,12 @@ public:
 	//==============================================================================
 	void getGainValue(float gain);
 	void getEnvelopeParameters(float attack, float decay, float sustain, float release);
+	void getOscillatorType(float oscType);
 
 private:
 	double level, currentGain, targetGain;
+	float soundwave;
+	int oscType;
 	MyOscillator oscillator;
 	ADSR* volumeEnvelope;
 	ScopedPointer<IIRFilter> filter;

@@ -20,10 +20,9 @@ public:
 
 	void setFrequency(float, float);
 	void updateAngle();
-	float getNextSample();
 	float sineWave();
 	float squareWave();
 
 private:
-	float currentAngle, angleDelta;
+	float currentAngle, angleDelta, currentSample;
 };

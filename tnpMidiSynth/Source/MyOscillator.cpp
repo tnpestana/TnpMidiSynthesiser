@@ -33,20 +33,18 @@ void MyOscillator::updateAngle()
 		currentAngle -= MathConstants<float>::twoPi;
 }
 
-float MyOscillator::getNextSample()
+float MyOscillator::sineWave()
 {
-	float currentSample = (0.995f * sineWave() + 0.005f * squareWave()) * 0.2;
+	float currentSample = std::sin(currentAngle);
 	updateAngle();
 	return currentSample;
 }
 
-float MyOscillator::sineWave()
-{
-	return std::sin(currentAngle);
-}
-
 float MyOscillator::squareWave()
 {
-	float sine = sineWave();
-	return (sine < 0) ? 0 : 1;
+	float sine = std::sin(currentAngle);
+	float currentSample = (sine < 0) ? 0 : 1;
+	updateAngle();
+	return currentSample;
 }
+

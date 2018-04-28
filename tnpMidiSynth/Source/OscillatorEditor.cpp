@@ -24,7 +24,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	attackLabel.setJustificationType(Justification::centred);
 	attackAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "attack", attackSlider);
 
-	// decay
+	// Decay.
 	addAndMakeVisible(decaySlider);
 	decaySlider.setSliderStyle(Slider::LinearVertical);
 	decaySlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 20);
@@ -33,7 +33,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	decayLabel.setJustificationType(Justification::centred);
 	decayAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "decay", decaySlider);
 
-	// sustain slider
+	// Sustain.
 	addAndMakeVisible(sustainSlider);
 	sustainSlider.setSliderStyle(Slider::LinearVertical);
 	sustainSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 20);
@@ -42,7 +42,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	sustainLabel.setJustificationType(Justification::centred);
 	sustainAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "sustain", sustainSlider);
 
-	// release 
+	// Release. 
 	addAndMakeVisible(releaseSlider);
 	releaseSlider.setSliderStyle(Slider::LinearVertical);
 	releaseSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 20);
@@ -51,7 +51,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	releaseLabel.setJustificationType(Justification::centred);
 	releaseAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "release", releaseSlider);
 
-	// gain
+	// Gain.
 	addAndMakeVisible(gainSlider);
 	gainSlider.setSliderStyle(Slider::LinearVertical);
 	gainSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
@@ -59,6 +59,15 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	gainLabel.setText("gain", dontSendNotification);
 	gainLabel.setJustificationType(Justification::centred);
 	gainAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "gain", gainSlider);
+
+	// Oscillator type.
+	addAndMakeVisible(oscTypeLabel);
+	numVoicesLabel.setText("osc type:", dontSendNotification);
+	numVoicesLabel.setJustificationType(Justification::centredRight);
+	addAndMakeVisible(oscTypeInput);
+	oscTypeInput.addItem("Sine Wave", 1);				//	Even though the oscType parameter's range is defined we
+	oscTypeInput.addItem("Saw Wave", 2);			    // seem to need to populate the combo box anyway.
+	oscTypeAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "oscType", oscTypeInput);
 }
 
 OscillatorEditor::~OscillatorEditor()
@@ -88,6 +97,8 @@ void OscillatorEditor::resized()
 
 	// Area for wave type controls.
 	juce::Rectangle<int> controls(area.removeFromTop(40));
+	oscTypeLabel.setBounds(controls.removeFromLeft(100));
+	oscTypeInput.setBounds(controls.removeFromLeft(100));
 
 	// Area for envelope sliders and labels - needs reviewing.
 	juce::Rectangle<int> envelopeSliders(area.removeFromTop(sliderHeight));
