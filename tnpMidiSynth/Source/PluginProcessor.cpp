@@ -58,7 +58,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 
 	// Number of voices parameter.
 	NormalisableRange<float> numVoicesRange(0, 9);
-	treeState.createAndAddParameter("numVoices", "NumVoices", String(), numVoicesRange, 7, nullptr, nullptr);
+	treeState.createAndAddParameter("numVoices", "NumVoices", String(), numVoicesRange, 9, nullptr, nullptr);
 
 	// Oscillator type parameter.
 	NormalisableRange<float> oscTypeRange(0, 1);
@@ -185,6 +185,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	{
 		setNumVoices(numVoicesParam);
 	}
+
 	// Check number of voices.
 	for (int i = 0; i < mySynth.getNumVoices(); i++)
 	{

@@ -15,7 +15,7 @@
 
 OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 {
-	// attack
+	// Attack.
 	addAndMakeVisible(attackSlider);
 	attackSlider.setSliderStyle(Slider::LinearVertical);
 	attackSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
