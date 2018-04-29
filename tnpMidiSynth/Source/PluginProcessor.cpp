@@ -25,8 +25,6 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 		treeState(*this, nullptr)
 #endif
 {
-	MyWavetable::createWavetable();
-
 	// Gain parameter.
 	NormalisableRange<float> gainRange(0.0f, 1.0f, 0.01f);
 	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 1.0f, nullptr, nullptr);
@@ -39,7 +37,6 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	attackRange.setSkewForCentre(1.0);
 	decayRange.setSkewForCentre(1.0);
 	releaseRange.setSkewForCentre(1.0);
-
 	treeState.createAndAddParameter("attack", "Attack", String(), attackRange, 0.1f, nullptr, nullptr);
 	treeState.createAndAddParameter("decay", "Decay", String(), decayRange, 0.5f, nullptr, nullptr);
 	treeState.createAndAddParameter("sustain", "Sustain", String(), sustainRange, 0.001f, nullptr, nullptr);
@@ -47,11 +44,9 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 
 	// Reverb parameters.
 	reverb = new Reverb();
-
 	NormalisableRange<float> dryWetRange(0.0f, 1.0f, 0.01f);
 	NormalisableRange<float> roomSizeRange(0.0f, 1.0f, 0.01f);
 	NormalisableRange<float> dampingRange(0.0f, 1.0f, 0.01f);
-
 	treeState.createAndAddParameter("dryWet", "DryWet", String(), dryWetRange, 0.5f, nullptr, nullptr);
 	treeState.createAndAddParameter("roomSize", "RoomSize", String(), roomSizeRange, 0.2f, nullptr, nullptr);
 	treeState.createAndAddParameter("damping", "Damping", String(), dampingRange, 0.0f, nullptr, nullptr);
@@ -177,16 +172,16 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	reverbParameters.wetLevel = *treeState.getRawParameterValue("dryWet");			// a pointer to the parameter's value location.
 	reverbParameters.roomSize = *treeState.getRawParameterValue("roomSize");
 	reverbParameters.damping = *treeState.getRawParameterValue("damping");
-
 	reverb->setParameters(reverbParameters);
 
+	// Check if the number of voices selected has changed.
 	int numVoicesParam = *treeState.getRawParameterValue("numVoices") + 1;
 	if (numVoicesParam != mySynth.getNumVoices())
 	{
 		setNumVoices(numVoicesParam);
 	}
 
-	// Check number of voices.
+	// Iterate through activating voices.
 	for (int i = 0; i < mySynth.getNumVoices(); i++)
 	{
 		//  Cast them to see how many of those are being used. If they are,

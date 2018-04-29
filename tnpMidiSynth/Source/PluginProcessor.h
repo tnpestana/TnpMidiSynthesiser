@@ -12,11 +12,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MySynth.h"
-#include "MyWavetable.h"
 
 //==============================================================================
-/**
-*/
 class TnpMidiSynthAudioProcessor  : public AudioProcessor
 {
 public:
