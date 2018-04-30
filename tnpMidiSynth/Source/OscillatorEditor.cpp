@@ -81,8 +81,8 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	oscTypeLabel.setText("oscillator type:", dontSendNotification);
 	oscTypeLabel.setJustificationType(Justification::centredLeft);
 	addAndMakeVisible(oscTypeInput);
-	oscTypeInput.addItem("Sine Wave", 1);				//	Even though the oscType parameter's range is defined we
-	oscTypeInput.addItem("Square Wave", 2);			    // seem to need to populate the combo box anyway.
+	oscTypeInput.addItem("sine wave", 1);				//	Even though the oscType parameter's range is defined we
+	oscTypeInput.addItem("square wave", 2);			    // seem to need to populate the combo box anyway.
 	oscTypeAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "oscType", oscTypeInput);
 }
 
@@ -113,9 +113,9 @@ void OscillatorEditor::resized()
 
 	// Area for wave type controls.
 	juce::Rectangle<int> controls(area.removeFromTop(40));
-	//juce::Rectangle<int> blank1(controls.removeFromLeft(100));
-	oscTypeLabel.setBounds(controls.removeFromTop(20));
-	oscTypeInput.setBounds(controls.removeFromTop(20));
+	juce::Rectangle<int> oscTypeArea(controls.removeFromLeft(130));
+	oscTypeLabel.setBounds(oscTypeArea.removeFromTop(20));
+	oscTypeInput.setBounds(oscTypeArea.removeFromTop(20));
 
 	// Area for envelope sliders and labels - needs reviewing.
 	juce::Rectangle<int> envelopeSliders(area.removeFromTop(sliderHeight));

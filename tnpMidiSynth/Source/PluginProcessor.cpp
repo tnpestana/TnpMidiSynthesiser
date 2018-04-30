@@ -27,7 +27,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 {
 	// Gain parameter.
 	NormalisableRange<float> gainRange(0.0f, 1.0f, 0.01f);
-	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 1.0f, nullptr, nullptr);
+	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 0.5f, nullptr, nullptr);
 
 	// Volume envelope parameters.
 	NormalisableRange<float> attackRange(0.001f, 5.0f, 0.001f);
