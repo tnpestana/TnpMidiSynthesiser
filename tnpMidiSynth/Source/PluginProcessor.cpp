@@ -52,10 +52,10 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("damping", "Damping", String(), dampingRange, 0.0f, nullptr, nullptr);
 
 	// IRR Filter parameter(S).
-	NormalisableRange<float> filterFrequencyRange(20.f, 20000.f, 1.f);
+	NormalisableRange<float> filterCutoffRange(20.f, 20000.f, 1.f);
 	NormalisableRange<float> filterTypeRange(0, 1);
-	filterFrequencyRange.setSkewForCentre(5000.f);
-	treeState.createAndAddParameter("filterFrequency", "FilterFrequency", String(), filterFrequencyRange, 5000.f, nullptr, nullptr);
+	filterCutoffRange.setSkewForCentre(5000.f);
+	treeState.createAndAddParameter("filterCutoff", "FilterCutoff", String(), filterCutoffRange, 5000.f, nullptr, nullptr);
 	treeState.createAndAddParameter("filterType", "FilterType", String(), filterTypeRange, 0, nullptr, nullptr);
 
 
@@ -203,7 +203,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 				*treeState.getRawParameterValue("sustain"),
 				*treeState.getRawParameterValue("release"));
 			mySynthVoice->getFilterParameters(*treeState.getRawParameterValue("filterType"),
-										      *treeState.getRawParameterValue("filterFrequency"));
+										      *treeState.getRawParameterValue("filterCutoff"));
 		}
 	}
 

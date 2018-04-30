@@ -64,16 +64,16 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(filterTypeInput);
 	filterTypeInput.addItem("lo-pass", 1);
 	filterTypeInput.addItem("hi-pass", 2);
-	addAndMakeVisible(filterFreqSlider);
-	filterFreqSlider.setSliderStyle(Slider::LinearHorizontal);
-	filterFreqSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	addAndMakeVisible(filterCutoffSlider);
+	filterCutoffSlider.setSliderStyle(Slider::LinearHorizontal);
+	filterCutoffSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(filterTypeLabel);
 	filterTypeLabel.setText("filter type:", dontSendNotification);
 	filterTypeLabel.setJustificationType(Justification::centredLeft);
 	addAndMakeVisible(filterCutoffLabel);
 	filterCutoffLabel.setText("filter cutoff:", dontSendNotification);
 	filterCutoffLabel.setJustificationType(Justification::centredLeft);
-	filterFreqAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "filterFrequency", filterFreqSlider);
+	filterCutoffAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "filterCutoff", filterCutoffSlider);
 	filterTypeAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "filterType", filterTypeInput);
 
 	// Oscillator type.
@@ -139,5 +139,5 @@ void OscillatorEditor::resized()
 	filterCutoffLabel.setBounds(filterLabels.removeFromLeft(getWidth()));
 	juce::Rectangle<int> filterComponents(area.removeFromTop(20));
 	filterTypeInput.setBounds(filterComponents.removeFromLeft(100));
-	filterFreqSlider.setBounds(filterComponents.removeFromLeft(getWidth()));
+	filterCutoffSlider.setBounds(filterComponents.removeFromLeft(getWidth()));
 }
