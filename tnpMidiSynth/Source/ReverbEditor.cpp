@@ -66,12 +66,13 @@ void ReverbEditor::resized()
 
 	juce::Rectangle<int> area(getLocalBounds());
 
-	dryWetSlider.setBounds(0, 0, sliderWidth, sliderHeight);
-	dryWetLabel.setBounds(0, sliderHeight, labelWidth, labelHeight);
+	juce::Rectangle<int> labels(area.removeFromTop(labelHeight));
+	dryWetLabel.setBounds(labels.removeFromLeft(labelWidth));
+	roomSizeLabel.setBounds(labels.removeFromLeft(labelWidth));
+	dampingLabel.setBounds(labels.removeFromLeft(labelWidth));
 
-	roomSizeLabel.setBounds(sliderWidth, sliderHeight, labelWidth, labelHeight);
-	roomSizeSlider.setBounds(sliderWidth, 0, sliderWidth, sliderHeight);
-
-	dampingLabel.setBounds(sliderWidth * 2, sliderHeight, labelWidth, labelHeight);
-	dampingSlider.setBounds(sliderWidth * 2, 0, sliderWidth, sliderHeight);
+	juce::Rectangle<int> sliders(area.removeFromTop(getHeight()));
+	dryWetSlider.setBounds(sliders.removeFromLeft(sliderWidth));
+	roomSizeSlider.setBounds(sliders.removeFromLeft(sliderWidth));
+	dampingSlider.setBounds(sliders.removeFromLeft(sliderWidth));
 }
