@@ -51,6 +51,10 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("roomSize", "RoomSize", String(), roomSizeRange, 0.2f, nullptr, nullptr);
 	treeState.createAndAddParameter("damping", "Damping", String(), dampingRange, 0.0f, nullptr, nullptr);
 
+	// IRR Filter parameter(S).
+	NormalisableRange<float> filterFrequencyRange(20.f, 20000.f, 1.f);
+	treeState.createAndAddParameter("filterFrequency", "FilterFrequency", String(), filterFrequencyRange, 5000.f, nullptr, nullptr);
+
 	// Number of voices parameter.
 	NormalisableRange<float> numVoicesRange(0, 9);
 	treeState.createAndAddParameter("numVoices", "NumVoices", String(), numVoicesRange, 9, nullptr, nullptr);

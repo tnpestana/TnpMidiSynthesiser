@@ -60,6 +60,12 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	gainLabel.setJustificationType(Justification::centred);
 	gainAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "gain", gainSlider);
 
+	// IIR Filter.
+	addAndMakeVisible(filterFreqSlider);
+	filterFreqSlider.setSliderStyle(Slider::LinearHorizontal);
+	filterFreqSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	filterFreqAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "filterFrequncy", filterFreqSlider);
+
 	// Oscillator type.
 	addAndMakeVisible(oscTypeLabel);
 	oscTypeLabel.setText("oscillator type:", dontSendNotification);
@@ -81,8 +87,8 @@ void OscillatorEditor::paint(Graphics& g)
 
 void OscillatorEditor::resized()
 {
-	const int sliderWidth = getWidth() / 5;				// 5 sliders total.
-	const int sliderHeight = getHeight() - 20 - 40;		// 20 is label size and 40 is control section size.
+	const int sliderWidth = getWidth() / 5;						// 5 sliders total.
+	const int sliderHeight = getHeight() - 20 - 40 - 35;		// 20 - label size; 40 - control section size; 35 - fliter slider.
 
 	const int labelWidth = sliderWidth;					
 	const int labelHeight = 20;
@@ -116,4 +122,9 @@ void OscillatorEditor::resized()
 
 	releaseSlider.setBounds(envelopeSliders.removeFromLeft(sliderWidth));
 	releaseLabel.setBounds(labels.removeFromLeft(labelWidth));
+
+	// Area for IIR Filter components.
+	juce::Rectangle<int> filterComponents(area.removeFromTop(35));
+	juce::Rectangle<int> futureComboBox(filterComponents.removeFromLeft(50));
+	filterFreqSlider.setBounds(filterComponents.removeFromLeft(getWidth()));
 }

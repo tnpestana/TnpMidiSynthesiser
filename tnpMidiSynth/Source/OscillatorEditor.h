@@ -26,15 +26,12 @@ public:
 	void resized() override;
 
 private:
-	Slider attackSlider, decaySlider, sustainSlider, releaseSlider, gainSlider;
+	Slider attackSlider, decaySlider, sustainSlider, releaseSlider, gainSlider, filterFreqSlider;
 	Label attackLabel, decayLabel, sustainLabel, releaseLabel, numVoicesLabel, gainLabel, oscTypeLabel;
 	ComboBox numVoicesInput, oscTypeInput;
 
-	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> attackAttachment, 
-																  decayAttachment, 
-																  sustainAttachment, 
-																  releaseAttachment,
-																  gainAttachment;
+	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> attackAttachment, decayAttachment, sustainAttachment, 
+																  releaseAttachment, gainAttachment, filterFreqAttachment;
 	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> oscTypeAttachment;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscillatorEditor)
