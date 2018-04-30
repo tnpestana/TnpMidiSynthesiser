@@ -26,8 +26,13 @@ public:
 	void resized() override;
 
 private:
-	Slider attackSlider, decaySlider, sustainSlider, releaseSlider, gainSlider, filterFreqSlider;
-	Label attackLabel, decayLabel, sustainLabel, releaseLabel, numVoicesLabel, gainLabel, oscTypeLabel;
+	Slider attackSlider, decaySlider, sustainSlider, 
+		   releaseSlider, gainSlider, filterFreqSlider;
+
+	Label attackLabel, decayLabel, sustainLabel, 
+		  releaseLabel, numVoicesLabel, gainLabel, 
+		  oscTypeLabel, filterTypeLabel, filterCutoffLabel;
+
 	ComboBox numVoicesInput, oscTypeInput, filterTypeInput;
 
 	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> attackAttachment, decayAttachment, sustainAttachment, 

@@ -67,13 +67,19 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(filterFreqSlider);
 	filterFreqSlider.setSliderStyle(Slider::LinearHorizontal);
 	filterFreqSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	addAndMakeVisible(filterTypeLabel);
+	filterTypeLabel.setText("filter type:", dontSendNotification);
+	filterTypeLabel.setJustificationType(Justification::centredLeft);
+	addAndMakeVisible(filterCutoffLabel);
+	filterCutoffLabel.setText("filter cutoff:", dontSendNotification);
+	filterCutoffLabel.setJustificationType(Justification::centredLeft);
 	filterFreqAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "filterFrequency", filterFreqSlider);
 	filterTypeAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "filterType", filterTypeInput);
 
 	// Oscillator type.
 	addAndMakeVisible(oscTypeLabel);
 	oscTypeLabel.setText("oscillator type:", dontSendNotification);
-	oscTypeLabel.setJustificationType(Justification::centredRight);
+	oscTypeLabel.setJustificationType(Justification::centredLeft);
 	addAndMakeVisible(oscTypeInput);
 	oscTypeInput.addItem("Sine Wave", 1);				//	Even though the oscType parameter's range is defined we
 	oscTypeInput.addItem("Square Wave", 2);			    // seem to need to populate the combo box anyway.
@@ -92,7 +98,7 @@ void OscillatorEditor::paint(Graphics& g)
 void OscillatorEditor::resized()
 {
 	const int sliderWidth = getWidth() / 5;						// 5 sliders total.
-	const int sliderHeight = getHeight() - 20 - 40 - 35;		// 20 - label size; 40 - control section size; 35 - fliter slider.
+	const int sliderHeight = getHeight() - 20 - 40 - 40;		// 20 - label size; 40 - control section size; 35 - fliter slider.
 
 	const int labelWidth = sliderWidth;					
 	const int labelHeight = 20;
@@ -107,9 +113,9 @@ void OscillatorEditor::resized()
 
 	// Area for wave type controls.
 	juce::Rectangle<int> controls(area.removeFromTop(40));
-	juce::Rectangle<int> margin(controls.removeFromTop(10));
-	oscTypeLabel.setBounds(controls.removeFromLeft(100));
-	oscTypeInput.setBounds(controls.removeFromLeft(100));
+	//juce::Rectangle<int> blank1(controls.removeFromLeft(100));
+	oscTypeLabel.setBounds(controls.removeFromTop(20));
+	oscTypeInput.setBounds(controls.removeFromTop(20));
 
 	// Area for envelope sliders and labels - needs reviewing.
 	juce::Rectangle<int> envelopeSliders(area.removeFromTop(sliderHeight));
@@ -128,7 +134,10 @@ void OscillatorEditor::resized()
 	releaseLabel.setBounds(labels.removeFromLeft(labelWidth));
 
 	// Area for IIR Filter components.
-	juce::Rectangle<int> filterComponents(area.removeFromTop(35));
-	filterTypeInput.setBounds(filterComponents.removeFromLeft(70));
+	juce::Rectangle<int> filterLabels(area.removeFromTop(20));
+	filterTypeLabel.setBounds(filterLabels.removeFromLeft(100));
+	filterCutoffLabel.setBounds(filterLabels.removeFromLeft(getWidth()));
+	juce::Rectangle<int> filterComponents(area.removeFromTop(20));
+	filterTypeInput.setBounds(filterComponents.removeFromLeft(100));
 	filterFreqSlider.setBounds(filterComponents.removeFromLeft(getWidth()));
 }
