@@ -53,6 +53,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 
 	// IRR Filter parameter(S).
 	NormalisableRange<float> filterFrequencyRange(20.f, 20000.f, 1.f);
+	filterFrequencyRange.setSkewForCentre(5000.f);
 	treeState.createAndAddParameter("filterFrequency", "FilterFrequency", String(), filterFrequencyRange, 5000.f, nullptr, nullptr);
 
 	// Number of voices parameter.
