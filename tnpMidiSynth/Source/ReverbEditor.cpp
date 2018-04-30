@@ -54,7 +54,7 @@ ReverbEditor::~ReverbEditor()
 void ReverbEditor::paint(Graphics& g)
 {
 	// (Our component is opaque, so we must completely fill the background with a solid colour)
-	g.fillAll(Colours::black);
+	g.fillAll(Colours::mediumseagreen);
 }
 
 void ReverbEditor::resized()

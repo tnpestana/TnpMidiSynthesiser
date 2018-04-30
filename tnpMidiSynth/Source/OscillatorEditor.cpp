@@ -92,7 +92,7 @@ OscillatorEditor::~OscillatorEditor()
 
 void OscillatorEditor::paint(Graphics& g)
 {
-	g.fillAll(Colours::grey);
+	g.fillAll(Colours::sandybrown);
 }
 
 void OscillatorEditor::resized()

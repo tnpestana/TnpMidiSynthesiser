@@ -38,7 +38,17 @@ TnpMidiSynthAudioProcessorEditor::~TnpMidiSynthAudioProcessorEditor()
 void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (Colours::black);
+    g.fillAll (Colours::mediumseagreen);
+
+	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::rosybrown);
+	getLookAndFeel().setColour(PopupMenu::ColourIds::backgroundColourId, Colours::rosybrown);
+	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::lightpink);
+	getLookAndFeel().setColour(Slider::ColourIds::backgroundColourId, Colours::lightyellow);
+	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::coral);
+	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::lightpink);
+	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderOutlineColourId, Colours::lightyellow);
+	getLookAndFeel().setColour(Label::textColourId, Colours::black);
+	getLookAndFeel().setColour(ComboBox::textColourId, Colours::black);
 }
 
 void TnpMidiSynthAudioProcessorEditor::resized()
