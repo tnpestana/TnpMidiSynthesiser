@@ -64,7 +64,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(filterFreqSlider);
 	filterFreqSlider.setSliderStyle(Slider::LinearHorizontal);
 	filterFreqSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
-	filterFreqAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "filterFrequncy", filterFreqSlider);
+	filterFreqAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "filterFrequency", filterFreqSlider);
 
 	// Oscillator type.
 	addAndMakeVisible(oscTypeLabel);

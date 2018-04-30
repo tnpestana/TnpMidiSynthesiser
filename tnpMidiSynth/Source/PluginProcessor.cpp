@@ -198,6 +198,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 				*treeState.getRawParameterValue("decay"),
 				*treeState.getRawParameterValue("sustain"),
 				*treeState.getRawParameterValue("release"));
+			mySynthVoice->getFilterParameters(*treeState.getRawParameterValue("filterFrequency"));
 		}
 	}
 
