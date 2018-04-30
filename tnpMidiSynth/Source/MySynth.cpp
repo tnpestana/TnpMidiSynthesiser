@@ -55,7 +55,10 @@ void MySynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
 	oscillator.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber), getSampleRate());
 	level = velocity;
 
-	filter->setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), filterFrequency, 1.0));
+	if(filterType == 0)
+		filter->setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), filterFrequency, 1.0));
+	else if(filterType == 1)
+		filter->setCoefficients(IIRCoefficients::makeHighPass(getSampleRate(), filterFrequency, 1.0));
 
 	volumeEnvelope->gate(1);
 }
@@ -128,7 +131,8 @@ void MySynthVoice::getOscillatorType(float input)
 	oscType = (int)input;
 }
 
-void MySynthVoice::getFilterParameters(float frequency)
+void MySynthVoice::getFilterParameters(float type, float frequency)
 {
+	filterType = type;
 	filterFrequency = frequency;
 }

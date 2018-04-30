@@ -61,10 +61,14 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	gainAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "gain", gainSlider);
 
 	// IIR Filter.
+	addAndMakeVisible(filterTypeInput);
+	filterTypeInput.addItem("lo-pass", 1);
+	filterTypeInput.addItem("hi-pass", 2);
 	addAndMakeVisible(filterFreqSlider);
 	filterFreqSlider.setSliderStyle(Slider::LinearHorizontal);
 	filterFreqSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	filterFreqAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "filterFrequency", filterFreqSlider);
+	filterTypeAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "filterType", filterTypeInput);
 
 	// Oscillator type.
 	addAndMakeVisible(oscTypeLabel);
@@ -125,6 +129,6 @@ void OscillatorEditor::resized()
 
 	// Area for IIR Filter components.
 	juce::Rectangle<int> filterComponents(area.removeFromTop(35));
-	juce::Rectangle<int> futureComboBox(filterComponents.removeFromLeft(50));
+	filterTypeInput.setBounds(filterComponents.removeFromLeft(70));
 	filterFreqSlider.setBounds(filterComponents.removeFromLeft(getWidth()));
 }

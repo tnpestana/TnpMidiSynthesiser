@@ -28,11 +28,11 @@ public:
 private:
 	Slider attackSlider, decaySlider, sustainSlider, releaseSlider, gainSlider, filterFreqSlider;
 	Label attackLabel, decayLabel, sustainLabel, releaseLabel, numVoicesLabel, gainLabel, oscTypeLabel;
-	ComboBox numVoicesInput, oscTypeInput;
+	ComboBox numVoicesInput, oscTypeInput, filterTypeInput;
 
 	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> attackAttachment, decayAttachment, sustainAttachment, 
 																  releaseAttachment, gainAttachment, filterFreqAttachment;
-	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> oscTypeAttachment;
+	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> oscTypeAttachment, filterTypeAttachment;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscillatorEditor)
 };

@@ -46,11 +46,11 @@ public:
 	void getGainValue(float gain);
 	void getEnvelopeParameters(float attack, float decay, float sustain, float release);
 	void getOscillatorType(float oscType);
-	void getFilterParameters(float frequency);
+	void getFilterParameters(float type, float frequency);
 
 private:
 	double level, currentGain, targetGain,
-		   filterFrequency;
+		   filterFrequency, filterType;
 	float soundwave;
 	int oscType;
 	MyOscillator oscillator;
