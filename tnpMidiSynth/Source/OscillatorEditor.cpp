@@ -95,10 +95,10 @@ void OscillatorEditor::paint(Graphics& g)
 {
 	g.fillAll(Colours::sandybrown);
 
-	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::rosybrown);
+	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::sandybrown);
 	getLookAndFeel().setColour(Label::backgroundColourId, Colours::sandybrown);
 
-	oscTypeLabel.setColour(Label::backgroundColourId, Colours::rosybrown);
+	filterTypeInput.setColour(ComboBox::backgroundColourId, Colours::rosybrown);
 	filterTypeLabel.setColour(Label::backgroundColourId, Colours::rosybrown);
 }
 

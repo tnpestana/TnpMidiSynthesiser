@@ -31,6 +31,10 @@
       <FILE id="U9vcsV" name="ReverbEditor.h" compile="0" resource="0" file="Source/ReverbEditor.h"/>
       <FILE id="plkHBY" name="MyWavetable.cpp" compile="1" resource="0" file="Source/MyWavetable.cpp"/>
       <FILE id="Myljhl" name="MyWavetable.h" compile="0" resource="0" file="Source/MyWavetable.h"/>
+      <FILE id="DJw83f" name="DistortionEditor.cpp" compile="1" resource="0"
+            file="Source/DistortionEditor.cpp"/>
+      <FILE id="xMKh13" name="DistortionEditor.h" compile="0" resource="0"
+            file="Source/DistortionEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <LIVE_SETTINGS>
