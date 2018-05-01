@@ -43,7 +43,7 @@ float MyOscillator::sineWave()
 float MyOscillator::squareWave()
 {
 	float sine = std::sin(currentAngle);
-	float currentSample = (sine < 0) ? 0 : 1;
+	float currentSample = (sine < 0) ? -1 : 1;
 	updateAngle();
 	return currentSample;
 }
