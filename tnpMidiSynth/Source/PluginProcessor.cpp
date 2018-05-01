@@ -60,7 +60,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 
 	// Distortion parameters.
 	NormalisableRange<float> distortionDriveRange(0.f, 1.f, 0.01f);
-	NormalisableRange<float> distortionRangeRange(0.f, 1.f, 0.01f);
+	NormalisableRange<float> distortionRangeRange(0.f, 3000.f, 0.01f);
 	NormalisableRange<float> distortionMixRange(0.f, 1.f, 0.01f);
 	NormalisableRange<float> distortionOutputRange(0.f, 1.f, 0.01f);
 	treeState.createAndAddParameter("distortionDrive", "DistortionDrive", String(), distortionDriveRange, 0.5f, nullptr, nullptr);
@@ -181,7 +181,8 @@ bool TnpMidiSynthAudioProcessor::isBusesLayoutSupported (const BusesLayout& layo
 
 void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-	buffer.clear();
+	for (int i = getNumInputChannels(); i < getNumOutputChannels(); i++)
+		buffer.clear(i, 0, buffer.getNumSamples());
 
 	//  Dry and wet levels are bound to the same slider as they should be
 	// inversely proportioned.
@@ -190,6 +191,12 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	reverbParameters.roomSize = *treeState.getRawParameterValue("roomSize");
 	reverbParameters.damping = *treeState.getRawParameterValue("damping");
 	reverb->setParameters(reverbParameters);
+
+	// Store distortion parameters.
+	float distortionDrive = *treeState.getRawParameterValue("distortionDrive");
+	float distortionRange = *treeState.getRawParameterValue("distortionRange");
+	float distortionMix = *treeState.getRawParameterValue("distortionMix");
+	float distortionOutput = *treeState.getRawParameterValue("distortionOutput");
 
 	// Check if the number of voices selected has changed.
 	int numVoicesParam = *treeState.getRawParameterValue("numVoices") + 1;
@@ -217,6 +224,20 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	}
 
 	mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+
+	// Distortion algorithm.
+	for (int channel = 0; channel < buffer.getNumChannels(); channel++)
+	{
+		float* channelData = buffer.getWritePointer(channel);
+
+		for (int sample = 0; sample < buffer.getNumSamples(); sample++)
+		{
+			float cleanSignal = *channelData;
+			*channelData *= distortionDrive * distortionRange;
+			*channelData = (((((2.f / MathConstants<float>::pi) * atan(*channelData)) * distortionMix) + (cleanSignal * (1.f - distortionMix))) / 2) * distortionOutput;
+			channelData++;
+		}
+	}
 
 	// Support reverb processing for mono and stereo systems.
 	if (buffer.getNumChannels() == 1)
