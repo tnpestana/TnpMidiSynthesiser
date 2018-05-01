@@ -23,7 +23,9 @@ public:
 	float sineWave();
 	float squareWave();
 	float triangleWave();
+	float sawtoothWave();
 
 private:
-	float currentAngle, angleDelta, currentSample;
+	float currentAngle, angleDelta, currentSample,
+		  frequencyHz;
 };
