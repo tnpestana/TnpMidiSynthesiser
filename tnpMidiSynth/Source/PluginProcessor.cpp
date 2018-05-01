@@ -58,6 +58,15 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("filterCutoff", "FilterCutoff", String(), filterCutoffRange, 5000.f, nullptr, nullptr);
 	treeState.createAndAddParameter("filterType", "FilterType", String(), filterTypeRange, 0, nullptr, nullptr);
 
+	// Distortion parameters.
+	NormalisableRange<float> distortionDriveRange(0.f, 1.f, 0.01f);
+	NormalisableRange<float> distortionRangeRange(0.f, 1.f, 0.01f);
+	NormalisableRange<float> distortionMixRange(0.f, 1.f, 0.01f);
+	NormalisableRange<float> distortionOutputRange(0.f, 1.f, 0.01f);
+	treeState.createAndAddParameter("distortionDrive", "DistortionDrive", String(), distortionDriveRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("distortionRange", "DistortionRange", String(), distortionRangeRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("distortionMix", "DistortionMix", String(), distortionMixRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("distortionOutput", "DistortionOutput", String(), distortionOutputRange, 0.5f, nullptr, nullptr);
 
 	// Number of voices parameter.
 	NormalisableRange<float> numVoicesRange(0, 9);

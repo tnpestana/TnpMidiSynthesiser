@@ -16,7 +16,7 @@
 class DistortionEditor : public Component
 {
 public:
-	DistortionEditor();
+	DistortionEditor(TnpMidiSynthAudioProcessor&);
 	~DistortionEditor();
 
 private:
@@ -25,4 +25,9 @@ private:
 
 	Slider driveSlider, rangeSlider, mixSlider,
 		   outputSlider;
+
+	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> driveAttachment;
+	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> rangeAttachment;
+	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> mixAttachment;
+	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> outputAttachment;
 };
