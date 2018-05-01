@@ -22,6 +22,7 @@ public:
 	void updateAngle();
 	float sineWave();
 	float squareWave();
+	float triangleWave();
 
 private:
 	float currentAngle, angleDelta, currentSample;

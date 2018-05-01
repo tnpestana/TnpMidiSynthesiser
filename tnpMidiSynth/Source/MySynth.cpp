@@ -92,10 +92,22 @@ void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSa
 
 		//	Get initial wave via the oscillator object, process its volume with the envelope class
 		// from ADSR files and filter it with JUCEs IIRFilter.
-		if (oscType == 1)
+		switch (oscType)
+		{
+		case 0:
 			soundwave = oscillator.sineWave();
-		if(oscType == 2)
+			break;
+		case 1:
 			soundwave = oscillator.squareWave();
+			break;
+		case 2:
+			soundwave = oscillator.triangleWave();
+			break;
+		default:
+			soundwave = 0.0;
+			break;
+		}
+				
 
 		double envelope = volumeEnvelope->process() * soundwave;
 		double filtered = filter->processSingleSampleRaw(envelope);

@@ -82,7 +82,8 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	oscTypeLabel.setJustificationType(Justification::centredLeft);
 	addAndMakeVisible(oscTypeInput);
 	oscTypeInput.addItem("sine wave", 1);				//	Even though the oscType parameter's range is defined we
-	oscTypeInput.addItem("square wave", 2);			    // seem to need to populate the combo box anyway.
+	oscTypeInput.addItem("square wave", 2);				// seem to need to populate the combo box anyway.
+	oscTypeInput.addItem("triangle wave", 3);			
 	oscTypeAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "oscType", oscTypeInput);
 }
 

@@ -48,3 +48,11 @@ float MyOscillator::squareWave()
 	return currentSample;
 }
 
+float MyOscillator::triangleWave()
+{
+	float currentSample = std::asin(std::sin(currentAngle)) * 2.0 / MathConstants<float>::pi;
+	updateAngle();
+	return currentSample;
+}
+
+

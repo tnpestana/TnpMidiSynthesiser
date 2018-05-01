@@ -27,7 +27,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 {
 	// Gain parameter.
 	NormalisableRange<float> gainRange(0.0f, 1.0f, 0.01f);
-	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 0.3f, nullptr, nullptr);
 
 	// Volume envelope parameters.
 	NormalisableRange<float> attackRange(0.001f, 5.0f, 0.001f);
@@ -64,7 +64,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("numVoices", "NumVoices", String(), numVoicesRange, 9, nullptr, nullptr);
 
 	// Oscillator type parameter.
-	NormalisableRange<float> oscTypeRange(0, 1);
+	NormalisableRange<float> oscTypeRange(0, 2);
 	treeState.createAndAddParameter("oscType", "OscType", String(), oscTypeRange, 0, nullptr, nullptr);
 
 	treeState.state = ValueTree(Identifier("tnpMidiSynthState"));
@@ -196,7 +196,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 		// pass them the value tree state gain and envelope parameters.
 		if (mySynthVoice = dynamic_cast<MySynthVoice*>(mySynth.getVoice(i)))
 		{
-			mySynthVoice->getOscillatorType(*treeState.getRawParameterValue("oscType") + 1);
+			mySynthVoice->getOscillatorType(*treeState.getRawParameterValue("oscType"));
 			mySynthVoice->getGainValue(*treeState.getRawParameterValue("gain"));
 			mySynthVoice->getEnvelopeParameters(*treeState.getRawParameterValue("attack"),
 				*treeState.getRawParameterValue("decay"),
