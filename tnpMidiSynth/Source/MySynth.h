@@ -54,6 +54,6 @@ private:
 	float soundwave;
 	int oscType;
 	MyOscillator oscillator;
-	ADSR* volumeEnvelope;
+	ScopedPointer<ADSR> volumeEnvelope;
 	ScopedPointer<IIRFilter> filter;
 };
