@@ -47,10 +47,11 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::lightpink);
 	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderOutlineColourId, Colours::lightyellow);
 	getLookAndFeel().setColour(ComboBox::textColourId, Colours::black);
-	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::rosybrown);
+	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::mediumseagreen);
 	getLookAndFeel().setColour(PopupMenu::textColourId, Colours::black);
 	getLookAndFeel().setColour(PopupMenu::ColourIds::backgroundColourId, Colours::rosybrown);
 	getLookAndFeel().setColour(Label::textColourId, Colours::black);
+	getLookAndFeel().setColour(Label::backgroundColourId, Colours::mediumseagreen);
 }
 
 void TnpMidiSynthAudioProcessorEditor::resized()

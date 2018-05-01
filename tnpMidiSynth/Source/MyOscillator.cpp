@@ -44,8 +44,8 @@ float MyOscillator::sineWave()
 float MyOscillator::squareWave()
 {
 	float sine = std::sin(currentAngle);
-	float currentSample = ((sine < 0) ? -1 : 1 ) * 0.5;
-	updateAngle();
+	float currentSample = ((sine < 0) ? -1 : 1 ) * 0.5;		//  Here I multiplied the output by 0.5 for
+	updateAngle();											// output volume balance between waveforms.
 	return currentSample;
 }
 
