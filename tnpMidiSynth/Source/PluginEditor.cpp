@@ -17,7 +17,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
     : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p), reverbGUI(p), distortionGUI(p)
 {
     // Main editor's size.
-    setSize (250, 350);
+    setSize (250, 360);
 
 	addAndMakeVisible(numVoicesLabel);
 	numVoicesLabel.setText("number of voices:", dontSendNotification);
@@ -69,7 +69,7 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	oscillatorGUI.setBounds(area.removeFromTop(180));
 
 	// Distortion area.
-	distortionGUI.setBounds(area.removeFromTop(70));
+	distortionGUI.setBounds(area.removeFromTop(80));
 
 	// Reverb area.
 	reverbGUI.setBounds(area.removeFromTop(80));

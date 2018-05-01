@@ -23,8 +23,11 @@ private:
 	void paint(Graphics&) override;
 	void resized() override;
 
-	Slider driveSlider, rangeSlider, mixSlider,
-		   outputSlider;
+	Slider driveSlider, rangeSlider, 
+		   mixSlider, outputSlider;
+	
+	Label driveLabel, rangeLabel,
+		  mixLabel, outputLabel;
 
 	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> driveAttachment;
 	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> rangeAttachment;
