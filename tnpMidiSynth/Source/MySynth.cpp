@@ -34,11 +34,9 @@ MySynthVoice::MySynthVoice()
 	: level(0.0),
 	targetGain(0.0),
 	currentGain(targetGain),
-	soundwave(0.f),
-	filterFrequency(0.0)
+	soundwave(0.f)
 {
 	volumeEnvelope = new ADSR();
-	filter = new IIRFilter();
 }
 
 MySynthVoice::~MySynthVoice()
@@ -54,11 +52,6 @@ void MySynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
 {
 	oscillator.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber), getSampleRate());
 	level = velocity;
-
-	if(filterType == 0)
-		filter->setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), filterFrequency, 1.0));
-	else if(filterType == 1)
-		filter->setCoefficients(IIRCoefficients::makeHighPass(getSampleRate(), filterFrequency, 1.0));
 
 	volumeEnvelope->gate(1);
 }
@@ -110,12 +103,11 @@ void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSa
 				
 
 		double envelope = volumeEnvelope->process() * soundwave;
-		double filtered = filter->processSingleSampleRaw(envelope);
 
 		for (int channel = 0; channel < outputBuffer.getNumChannels(); channel++)
 		{		
 			// Multiply the output by the velocity level and the "gain" parameter.
-			outputBuffer.addSample(channel, startSample, filtered * level * currentGain);
+			outputBuffer.addSample(channel, startSample, envelope * level * currentGain);
 		}
 		startSample++;
 	}
@@ -141,10 +133,4 @@ void MySynthVoice::getEnvelopeParameters(float attack, float decay, float sustai
 void MySynthVoice::getOscillatorType(float input)
 {
 	oscType = (int)input;
-}
-
-void MySynthVoice::getFilterParameters(float type, float frequency)
-{
-	filterType = type;
-	filterFrequency = frequency;
 }

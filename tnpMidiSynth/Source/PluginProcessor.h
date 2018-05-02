@@ -66,7 +66,8 @@ private:
 	ScopedPointer<Reverb> reverb;
 	Reverb::Parameters reverbParameters;
 
-
+	ScopedPointer<IIRFilter> filterLeft;
+	ScopedPointer<IIRFilter> filterRight;
 
 	int targetNumVoices;
     //==============================================================================

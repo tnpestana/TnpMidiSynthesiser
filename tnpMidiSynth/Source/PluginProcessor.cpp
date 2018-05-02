@@ -52,6 +52,9 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("damping", "Damping", String(), dampingRange, 0.0f, nullptr, nullptr);
 
 	// IRR Filter parameter(S).
+	// One filter instance for each channel to avoid distortions.
+	filterLeft = new IIRFilter();
+	filterRight = new IIRFilter();
 	NormalisableRange<float> filterCutoffRange(20.f, 20000.f, 1.f);
 	NormalisableRange<float> filterTypeRange(0, 1);
 	filterCutoffRange.setSkewForCentre(5000.f);
@@ -218,12 +221,24 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 				*treeState.getRawParameterValue("decay"),
 				*treeState.getRawParameterValue("sustain"),
 				*treeState.getRawParameterValue("release"));
-			mySynthVoice->getFilterParameters(*treeState.getRawParameterValue("filterType"),
-										      *treeState.getRawParameterValue("filterCutoff"));
 		}
 	}
 
 	mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+	
+	// Set filter type.
+	const float filterType = *treeState.getRawParameterValue("filterType");
+	const float filterCutoff = *treeState.getRawParameterValue("filterCutoff");
+	if (filterType == 0)
+	{
+		filterLeft->setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), filterCutoff, 1.0));
+		filterRight->setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), filterCutoff, 1.0));
+	}
+	else if (filterType == 1)
+	{
+		filterLeft->setCoefficients(IIRCoefficients::makeHighPass(getSampleRate(), filterCutoff, 1.0));
+		filterRight->setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), filterCutoff, 1.0));
+	}
 
 	// Distortion algorithm.
 	for (int channel = 0; channel < buffer.getNumChannels(); channel++)
@@ -232,18 +247,34 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 
 		for (int sample = 0; sample < buffer.getNumSamples(); sample++)
 		{
+			// Store clean signal.
 			float cleanSignal = *channelData;
+
+			// Add distortion.
 			*channelData *= distortionDrive * distortionRange;
 			*channelData = (((((2.f / MathConstants<float>::pi) * atan(*channelData)) * distortionMix) + (cleanSignal * (1.f - distortionMix))) / 2) * distortionOutput;
+
+			// Filter the result.
+			//*channelData = filter->processSingleSampleRaw(*channelData);
 			channelData++;
 		}
-	}
+	}	
+
+	//for (int channel = 0; channel < buffer.getNumChannels(); channel++)
+		//filter->processSamples(buffer.getWritePointer(channel), buffer.getNumSamples());
 
 	// Support reverb processing for mono and stereo systems.
 	if (buffer.getNumChannels() == 1)
+	{
+		filterLeft->processSamples(buffer.getWritePointer(0), buffer.getNumSamples());
 		reverb->processMono(buffer.getWritePointer(0), buffer.getNumSamples());
+	}
 	else if (buffer.getNumChannels() == 2)
+	{
+		filterLeft->processSamples(buffer.getWritePointer(0), buffer.getNumSamples());
+		filterRight->processSamples(buffer.getWritePointer(1), buffer.getNumSamples());
 		reverb->processStereo(buffer.getWritePointer(0), buffer.getWritePointer(1), buffer.getNumSamples());
+	}
 }
 
 //==============================================================================
