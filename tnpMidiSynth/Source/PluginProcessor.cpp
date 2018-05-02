@@ -66,8 +66,8 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	NormalisableRange<float> distortionRangeRange(0.f, 3000.f, 0.01f);
 	NormalisableRange<float> distortionMixRange(0.f, 1.f, 0.01f);
 	treeState.createAndAddParameter("distortionDrive", "DistortionDrive", String(), distortionDriveRange, 0.5f, nullptr, nullptr);
-	treeState.createAndAddParameter("distortionRange", "DistortionRange", String(), distortionRangeRange, 0.5f, nullptr, nullptr);
-	treeState.createAndAddParameter("distortionMix", "DistortionMix", String(), distortionMixRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("distortionRange", "DistortionRange", String(), distortionRangeRange, 1500.f, nullptr, nullptr);
+	treeState.createAndAddParameter("distortionMix", "DistortionMix", String(), distortionMixRange, 0.f, nullptr, nullptr);
 
 	// Number of voices parameter.
 	NormalisableRange<float> numVoicesRange(0, 9);
@@ -197,8 +197,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	float distortionDrive = *treeState.getRawParameterValue("distortionDrive");
 	float distortionRange = *treeState.getRawParameterValue("distortionRange");
 	float distortionMix = *treeState.getRawParameterValue("distortionMix");
-	// We reduce the output when
-	float distortionOutput = 1 - (0.9 * distortionMix);
+	float distortionOutput = 1 - (0.9 * distortionMix);								// We reduce the output as the mix level increases to balance the result.
 
 	// Check if the number of voices selected has changed.
 	int numVoicesParam = *treeState.getRawParameterValue("numVoices") + 1;
