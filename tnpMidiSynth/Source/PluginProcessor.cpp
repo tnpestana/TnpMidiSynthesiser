@@ -65,11 +65,9 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	NormalisableRange<float> distortionDriveRange(0.f, 1.f, 0.01f);
 	NormalisableRange<float> distortionRangeRange(0.f, 3000.f, 0.01f);
 	NormalisableRange<float> distortionMixRange(0.f, 1.f, 0.01f);
-	NormalisableRange<float> distortionOutputRange(0.f, 1.f, 0.01f);
 	treeState.createAndAddParameter("distortionDrive", "DistortionDrive", String(), distortionDriveRange, 0.5f, nullptr, nullptr);
 	treeState.createAndAddParameter("distortionRange", "DistortionRange", String(), distortionRangeRange, 0.5f, nullptr, nullptr);
 	treeState.createAndAddParameter("distortionMix", "DistortionMix", String(), distortionMixRange, 0.5f, nullptr, nullptr);
-	treeState.createAndAddParameter("distortionOutput", "DistortionOutput", String(), distortionOutputRange, 0.5f, nullptr, nullptr);
 
 	// Number of voices parameter.
 	NormalisableRange<float> numVoicesRange(0, 9);
@@ -199,7 +197,8 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	float distortionDrive = *treeState.getRawParameterValue("distortionDrive");
 	float distortionRange = *treeState.getRawParameterValue("distortionRange");
 	float distortionMix = *treeState.getRawParameterValue("distortionMix");
-	float distortionOutput = *treeState.getRawParameterValue("distortionOutput");
+	// We reduce the output when
+	float distortionOutput = 1 - (0.9 * distortionMix);
 
 	// Check if the number of voices selected has changed.
 	int numVoicesParam = *treeState.getRawParameterValue("numVoices") + 1;
@@ -254,14 +253,9 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 			*channelData *= distortionDrive * distortionRange;
 			*channelData = (((((2.f / MathConstants<float>::pi) * atan(*channelData)) * distortionMix) + (cleanSignal * (1.f - distortionMix))) / 2) * distortionOutput;
 
-			// Filter the result.
-			//*channelData = filter->processSingleSampleRaw(*channelData);
 			channelData++;
 		}
 	}	
-
-	//for (int channel = 0; channel < buffer.getNumChannels(); channel++)
-		//filter->processSamples(buffer.getWritePointer(channel), buffer.getNumSamples());
 
 	// Support reverb processing for mono and stereo systems.
 	if (buffer.getNumChannels() == 1)
