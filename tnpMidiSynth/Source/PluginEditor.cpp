@@ -47,7 +47,6 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 	getLookAndFeel().setColour(ComboBox::textColourId, Colours::black);
 	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::mediumseagreen);
 	getLookAndFeel().setColour(PopupMenu::textColourId, Colours::black);
-	getLookAndFeel().setColour(PopupMenu::ColourIds::backgroundColourId, Colours::rosybrown);
 	getLookAndFeel().setColour(Label::textColourId, Colours::black);
 	getLookAndFeel().setColour(Label::backgroundColourId, Colours::mediumseagreen);
 }

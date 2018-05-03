@@ -23,7 +23,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
 
 	addAndMakeVisible(dryWetLabel);
 	dryWetLabel.setText("dry/Wet", dontSendNotification);
-	dryWetLabel.setJustificationType(Justification::centred);
+	dryWetLabel.setJustificationType(Justification::centredBottom);
 	dryWetAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState,
 		"dryWet", dryWetSlider);
 
@@ -33,7 +33,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
 
 	addAndMakeVisible(roomSizeLabel);
 	roomSizeLabel.setText("room size", dontSendNotification);
-	roomSizeLabel.setJustificationType(Justification::centred);
+	roomSizeLabel.setJustificationType(Justification::centredBottom);
 	roomSizeAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState,
 		"roomSize", roomSizeSlider);
 
@@ -43,7 +43,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
 
 	addAndMakeVisible(dampingLabel);
 	dampingLabel.setText("damping", dontSendNotification);
-	dampingLabel.setJustificationType(Justification::centred);
+	dampingLabel.setJustificationType(Justification::centredBottom);
 	dampingAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState,
 		"damping", dampingSlider);
 }

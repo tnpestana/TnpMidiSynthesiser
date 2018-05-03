@@ -23,7 +23,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	// Number of voices components. 
 	addAndMakeVisible(numVoicesLabel);
 	numVoicesLabel.setText("number of voices: ", dontSendNotification);
-	numVoicesLabel.setJustificationType(Justification::centredRight);
+	numVoicesLabel.setJustificationType(Justification::bottomLeft);
 	addAndMakeVisible(numVoicesInput);
 	for (int i = 1; i < 11; i++)							//	Even though the numVoices parameter's range is defined we
 		numVoicesInput.addItem((String)i, i);				// seem to need to populate the combo box anyway.
@@ -32,7 +32,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	// Oscillator type.
 	addAndMakeVisible(oscTypeLabel);
 	oscTypeLabel.setText("wave type:", dontSendNotification);
-	oscTypeLabel.setJustificationType(Justification::centredLeft);
+	oscTypeLabel.setJustificationType(Justification::bottomLeft);
 	addAndMakeVisible(oscTypeInput);
 	oscTypeInput.addItem("sine wave", 1);				//	Even though the oscType parameter's range is defined we
 	oscTypeInput.addItem("square wave", 2);				// seem to need to populate the combo box anyway.
@@ -45,7 +45,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	attackSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(attackLabel);
 	attackLabel.setText("attack", dontSendNotification);
-	attackLabel.setJustificationType(Justification::centred);
+	attackLabel.setJustificationType(Justification::centredTop);
 	attackAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "attack", attackSlider);
 
 	// Decay.
@@ -54,7 +54,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	decaySlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(decayLabel);
 	decayLabel.setText("decay", dontSendNotification);
-	decayLabel.setJustificationType(Justification::centred);
+	decayLabel.setJustificationType(Justification::centredTop);
 	decayAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "decay", decaySlider);
 
 	// Sustain.
@@ -63,7 +63,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	sustainSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(sustainLabel);
 	sustainLabel.setText("sustain", dontSendNotification);
-	sustainLabel.setJustificationType(Justification::centred);
+	sustainLabel.setJustificationType(Justification::centredTop);
 	sustainAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "sustain", sustainSlider);
 
 	// Release. 
@@ -72,7 +72,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	releaseSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(releaseLabel);
 	releaseLabel.setText("release", dontSendNotification);
-	releaseLabel.setJustificationType(Justification::centred);
+	releaseLabel.setJustificationType(Justification::centredTop);
 	releaseAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "release", releaseSlider);
 
 	// Gain.
@@ -81,7 +81,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	gainSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(gainLabel);
 	gainLabel.setText("gain", dontSendNotification);
-	gainLabel.setJustificationType(Justification::centred);
+	gainLabel.setJustificationType(Justification::centredTop);
 	gainAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "gain", gainSlider);
 
 	// IIR Filter.
@@ -94,10 +94,10 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	filterCutoffSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(filterTypeLabel);
 	filterTypeLabel.setText("filter type:", dontSendNotification);
-	filterTypeLabel.setJustificationType(Justification::centredLeft);
+	filterTypeLabel.setJustificationType(Justification::bottomLeft);
 	addAndMakeVisible(filterCutoffLabel);
 	filterCutoffLabel.setText("filter cutoff:", dontSendNotification);
-	filterCutoffLabel.setJustificationType(Justification::centredLeft);
+	filterCutoffLabel.setJustificationType(Justification::bottomLeft);
 	filterCutoffAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "filterCutoff", filterCutoffSlider);
 	filterTypeAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "filterType", filterTypeInput);
 }
@@ -113,6 +113,7 @@ void OscillatorEditor::paint(Graphics& g)
 	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::lightsalmon);
 	getLookAndFeel().setColour(ComboBox::outlineColourId, Colours::lightsalmon);
 	getLookAndFeel().setColour(Label::backgroundColourId, Colours::lightsalmon);
+	getLookAndFeel().setColour(PopupMenu::ColourIds::backgroundColourId, Colours::darksalmon);
 
 	titleLabel.setColour(Label::backgroundColourId, Colours::darksalmon);
 }
@@ -133,18 +134,18 @@ void OscillatorEditor::resized()
 
 	// Number of voices selection area.
 	juce::Rectangle<int> numVoicesArea(controls.removeFromLeft(100));
-	numVoicesLabel.setBounds(numVoicesArea.removeFromTop(15));
+	numVoicesLabel.setBounds(numVoicesArea.removeFromTop(20));
 	numVoicesInput.setBounds(numVoicesArea);
 	
 	// Oscillator Type.
 	juce::Rectangle<int> oscTypeArea(controls);
-	oscTypeLabel.setBounds(oscTypeArea.removeFromTop(15));
+	oscTypeLabel.setBounds(oscTypeArea.removeFromTop(20));
 	oscTypeInput.setBounds(oscTypeArea);
 
 	// Envelope sliders and labels area - needs reviewing.
-	juce::Rectangle<int> oscEnvelope(oscArea.removeFromTop(oscArea.getHeight() * 0.7).reduced(5));
+	juce::Rectangle<int> oscEnvelope(oscArea.removeFromTop(oscArea.getHeight() * 0.75).reduced(5));
 
-	juce::Rectangle<int> oscEnvelopeSlider(oscEnvelope.removeFromTop(oscEnvelope.getHeight() * 0.8));
+	juce::Rectangle<int> oscEnvelopeSlider(oscEnvelope.removeFromTop(oscEnvelope.getHeight() * 0.9));
 	const double sliderWidth = oscEnvelopeSlider.getWidth() / 4;
 	attackSlider.setBounds(oscEnvelopeSlider.removeFromLeft(sliderWidth));
 	decaySlider.setBounds(oscEnvelopeSlider.removeFromLeft(sliderWidth));

@@ -18,7 +18,7 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
 
 	addAndMakeVisible(driveLabel);
 	driveLabel.setText("drive", dontSendNotification);
-	driveLabel.setJustificationType(Justification::centred);
+	driveLabel.setJustificationType(Justification::centredBottom);
 	addAndMakeVisible(driveSlider);
 	driveSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	driveSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
@@ -26,7 +26,7 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
 
 	addAndMakeVisible(rangeLabel);
 	rangeLabel.setText("range", dontSendNotification);
-	rangeLabel.setJustificationType(Justification::centred);
+	rangeLabel.setJustificationType(Justification::centredBottom);
 	addAndMakeVisible(rangeSlider);
 	rangeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	rangeSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
@@ -34,7 +34,7 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
 
 	addAndMakeVisible(mixLabel);
 	mixLabel.setText("mix", dontSendNotification);
-	mixLabel.setJustificationType(Justification::centred);
+	mixLabel.setJustificationType(Justification::centredBottom);
 	addAndMakeVisible(mixSlider);
 	mixSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	mixSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
