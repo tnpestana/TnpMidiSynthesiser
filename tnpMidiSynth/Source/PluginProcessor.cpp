@@ -236,7 +236,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	else if (filterType == 1)
 	{
 		filterLeft->setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, 1.0));
-		filterRight->setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, 1.0));
+		filterRight->setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, 1.0));
 	}
 	else if (filterType == 2)
 	{
