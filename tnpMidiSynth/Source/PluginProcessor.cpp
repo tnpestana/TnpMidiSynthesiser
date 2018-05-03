@@ -56,7 +56,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	filterLeft = new IIRFilter();
 	filterRight = new IIRFilter();
 	NormalisableRange<float> filterCutoffRange(20.f, 20000.f, 1.f);
-	NormalisableRange<float> filterTypeRange(0, 1);
+	NormalisableRange<float> filterTypeRange(0, 2);
 	filterCutoffRange.setSkewForCentre(5000.f);
 	treeState.createAndAddParameter("filterCutoff", "FilterCutoff", String(), filterCutoffRange, 5000.f, nullptr, nullptr);
 	treeState.createAndAddParameter("filterType", "FilterType", String(), filterTypeRange, 0, nullptr, nullptr);
@@ -149,6 +149,7 @@ void TnpMidiSynthAudioProcessor::changeProgramName (int index, const String& new
 //==============================================================================
 void TnpMidiSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
+	localSampleRate = sampleRate;
 	mySynth.setCurrentPlaybackSampleRate(sampleRate);
 }
 
@@ -229,13 +230,18 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	const float filterCutoff = *treeState.getRawParameterValue("filterCutoff");
 	if (filterType == 0)
 	{
-		filterLeft->setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), filterCutoff, 1.0));
-		filterRight->setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), filterCutoff, 1.0));
+		filterLeft->setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, 1.0));
+		filterRight->setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, 1.0));
 	}
 	else if (filterType == 1)
 	{
-		filterLeft->setCoefficients(IIRCoefficients::makeHighPass(getSampleRate(), filterCutoff, 1.0));
-		filterRight->setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), filterCutoff, 1.0));
+		filterLeft->setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, 1.0));
+		filterRight->setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, 1.0));
+	}
+	else if (filterType == 2)
+	{
+		filterLeft->setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff));
+		filterRight->setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff));
 	}
 
 	// Distortion algorithm.

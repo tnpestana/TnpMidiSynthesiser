@@ -88,6 +88,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(filterTypeInput);
 	filterTypeInput.addItem("lo-pass", 1);
 	filterTypeInput.addItem("hi-pass", 2);
+	filterTypeInput.addItem("band-pass", 3);
 	addAndMakeVisible(filterCutoffSlider);
 	filterCutoffSlider.setSliderStyle(Slider::LinearHorizontal);
 	filterCutoffSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);

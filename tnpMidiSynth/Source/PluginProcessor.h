@@ -69,6 +69,7 @@ private:
 	ScopedPointer<IIRFilter> filterLeft;
 	ScopedPointer<IIRFilter> filterRight;
 
+	double localSampleRate;
 	int targetNumVoices;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpMidiSynthAudioProcessor)
