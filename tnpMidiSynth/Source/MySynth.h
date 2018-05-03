@@ -43,12 +43,11 @@ public:
 	virtual void renderNextBlock(AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
 
 	//==============================================================================
-	void getGainValue(float gain);
 	void getEnvelopeParameters(float attack, float decay, float sustain, float release);
 	void getOscillatorType(float oscType);
 
 private:
-	double level, currentGain, targetGain;
+	double velocityLevel;
 	float soundwave;
 	int oscType;
 	MyOscillator oscillator;

@@ -31,9 +31,7 @@ bool MySynthSound::appliesToChannel(int midiChannel)
 
 //==============================================================================
 MySynthVoice::MySynthVoice()
-	: level(0.0),
-	targetGain(0.0),
-	currentGain(targetGain),
+	: velocityLevel(0.0),
 	soundwave(0.f)
 {
 	volumeEnvelope = new ADSR();
@@ -51,7 +49,7 @@ bool MySynthVoice::canPlaySound(SynthesiserSound * sound)
 void MySynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound * sound, int currentPitchWheelPosition)
 {
 	oscillator.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber), getSampleRate());
-	level = velocity;
+	velocityLevel = velocity;
 
 	volumeEnvelope->gate(1);
 }
@@ -77,11 +75,6 @@ void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSa
 {
 	for (int sample = 0; sample < numSamples; sample++)
 	{
-		// Avoid glicthes via volume increment.
-		if (currentGain != targetGain)
-		{
-			currentGain += (targetGain - currentGain) / numSamples;
-		}
 
 		//	Get initial wave via the oscillator object, process its volume with the envelope class
 		// from ADSR files and filter it with JUCEs IIRFilter.
@@ -107,17 +100,11 @@ void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSa
 		for (int channel = 0; channel < outputBuffer.getNumChannels(); channel++)
 		{		
 			// Multiply the output by the velocity level and the "gain" parameter.
-			outputBuffer.addSample(channel, startSample, envelope * level * currentGain);
+			outputBuffer.addSample(channel, startSample, envelope * velocityLevel);
 		}
 		startSample++;
 	}
 
-}
-
-// The main apps processor needs to access this method to pass the valueTreeState gain paremeter value.
-void MySynthVoice::getGainValue(float gain)
-{
-	targetGain = gain;
 }
 
 // The main apps processor needs to access this method to pass the valueTreeState envelope paremeter values.

@@ -22,7 +22,9 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
                        .withOutput ("Output", AudioChannelSet::stereo(), true)
                      #endif
                        ),
-		treeState(*this, nullptr)
+		treeState(*this, nullptr),
+		targetGain(0.0),
+		currentGain(targetGain)
 #endif
 {
 	// Gain parameter.
@@ -215,7 +217,6 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 		if (mySynthVoice = dynamic_cast<MySynthVoice*>(mySynth.getVoice(i)))
 		{
 			mySynthVoice->getOscillatorType(*treeState.getRawParameterValue("oscType"));
-			mySynthVoice->getGainValue(*treeState.getRawParameterValue("gain"));
 			mySynthVoice->getEnvelopeParameters(*treeState.getRawParameterValue("attack"),
 				*treeState.getRawParameterValue("decay"),
 				*treeState.getRawParameterValue("sustain"),
@@ -251,16 +252,32 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 
 		for (int sample = 0; sample < buffer.getNumSamples(); sample++)
 		{
+			// Distortion processing:
 			// Store clean signal.
-			float cleanSignal = *channelData;
+			float currentSample = *channelData;
+			float cleanSignal = currentSample;
 
 			// Add distortion.
-			*channelData *= distortionDrive * distortionRange;
-			*channelData = (((((2.f / MathConstants<float>::pi) * atan(*channelData)) * distortionMix) + (cleanSignal * (1.f - distortionMix))) / 2) * distortionOutput;
+			currentSample *= distortionDrive * distortionRange;
+			currentSample = (((((2.f / MathConstants<float>::pi) * atan(*channelData)) * distortionMix) + (cleanSignal * (1.f - distortionMix))) / 2) * distortionOutput;
+
+			// Gain processing:
+			// Avoid glicthes via volume increment.
+			targetGain = *treeState.getRawParameterValue("gain");
+			if (currentGain != targetGain)
+			{
+				currentGain += (targetGain - currentGain) / buffer.getNumSamples();
+			}
+
+			// Apply gain.
+			currentSample = currentSample * currentGain;
+			
+			// Retrieve processed sample.
+			*channelData = currentSample;
 
 			channelData++;
 		}
-	}	
+	}
 
 	// Support reverb processing for mono and stereo systems.
 	if (buffer.getNumChannels() == 1)
