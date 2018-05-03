@@ -47,9 +47,11 @@ DistortionEditor::~DistortionEditor()
 
 void DistortionEditor::paint(Graphics& g)
 {
-	g.fillAll(Colours::yellowgreen);
+	g.fillAll(Colours::olive);
 
-	getLookAndFeel().setColour(Label::backgroundColourId, Colours::yellowgreen);
+	getLookAndFeel().setColour(Label::backgroundColourId, Colours::olive);
+
+	titleLabel.setColour(Label::backgroundColourId, Colours::darkolivegreen);
 }
 
 void DistortionEditor::resized()

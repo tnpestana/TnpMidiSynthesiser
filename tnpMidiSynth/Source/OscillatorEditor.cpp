@@ -113,6 +113,8 @@ void OscillatorEditor::paint(Graphics& g)
 	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::lightsalmon);
 	getLookAndFeel().setColour(ComboBox::outlineColourId, Colours::lightsalmon);
 	getLookAndFeel().setColour(Label::backgroundColourId, Colours::lightsalmon);
+
+	titleLabel.setColour(Label::backgroundColourId, Colours::darksalmon);
 }
 
 void OscillatorEditor::resized()

@@ -58,6 +58,8 @@ void ReverbEditor::paint(Graphics& g)
 	g.fillAll(Colours::goldenrod);
 
 	getLookAndFeel().setColour(Label::backgroundColourId, Colours::goldenrod);
+
+	titleLabel.setColour(Label::backgroundColourId, Colours::darkgoldenrod);
 }
 
 void ReverbEditor::resized()
