@@ -25,7 +25,8 @@ private:
 
 	Slider driveSlider, rangeSlider, mixSlider;
 	
-	Label driveLabel, rangeLabel, mixLabel;
+	Label titleLabel, driveLabel, rangeLabel, 
+		  mixLabel;
 
 	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> driveAttachment;
 	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> rangeAttachment;

@@ -23,6 +23,8 @@ private:
 	void paint(Graphics&) override;
 	void resized() override;
 
+	Label titleLabel;
+
 	Slider dryWetSlider;
 	Label dryWetLabel;
 	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> dryWetAttachment;

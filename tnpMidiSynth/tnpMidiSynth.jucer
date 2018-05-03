@@ -6,6 +6,22 @@
               buildAU="0" buildAUv3="0" buildRTAS="0" buildAAX="0" enableIAA="0">
   <MAINGROUP id="tdkgxH" name="tnpMidiSynth">
     <GROUP id="{136D5720-F5B3-DBDF-75D4-B71623C0CCBC}" name="Source">
+      <GROUP id="{1F77430E-5D7B-C4CC-3C66-E4613C2FA0F2}" name="Editors">
+        <FILE id="TrBN6t" name="PluginEditor.cpp" compile="1" resource="0"
+              file="Source/PluginEditor.cpp"/>
+        <FILE id="BdBV9o" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+        <FILE id="pNAVGN" name="OscillatorEditor.cpp" compile="1" resource="0"
+              file="Source/OscillatorEditor.cpp"/>
+        <FILE id="yAYSwH" name="OscillatorEditor.h" compile="0" resource="0"
+              file="Source/OscillatorEditor.h"/>
+        <FILE id="EC6MyK" name="ReverbEditor.cpp" compile="1" resource="0"
+              file="Source/ReverbEditor.cpp"/>
+        <FILE id="U9vcsV" name="ReverbEditor.h" compile="0" resource="0" file="Source/ReverbEditor.h"/>
+        <FILE id="DJw83f" name="DistortionEditor.cpp" compile="1" resource="0"
+              file="Source/DistortionEditor.cpp"/>
+        <FILE id="xMKh13" name="DistortionEditor.h" compile="0" resource="0"
+              file="Source/DistortionEditor.h"/>
+      </GROUP>
       <GROUP id="{C7A564B1-2F20-E5C1-93B5-A0930BF65F63}" name="ADSR">
         <FILE id="Gm0EyB" name="ADSR.cpp" compile="1" resource="0" file="../../../ADSR/ADSR.cpp"/>
         <FILE id="hdYHvS" name="ADSR.h" compile="0" resource="0" file="../../../ADSR/ADSR.h"/>
@@ -19,22 +35,8 @@
             file="Source/PluginProcessor.cpp"/>
       <FILE id="whaReg" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
-      <FILE id="TrBN6t" name="PluginEditor.cpp" compile="1" resource="0"
-            file="Source/PluginEditor.cpp"/>
-      <FILE id="BdBV9o" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <FILE id="pNAVGN" name="OscillatorEditor.cpp" compile="1" resource="0"
-            file="Source/OscillatorEditor.cpp"/>
-      <FILE id="yAYSwH" name="OscillatorEditor.h" compile="0" resource="0"
-            file="Source/OscillatorEditor.h"/>
-      <FILE id="EC6MyK" name="ReverbEditor.cpp" compile="1" resource="0"
-            file="Source/ReverbEditor.cpp"/>
-      <FILE id="U9vcsV" name="ReverbEditor.h" compile="0" resource="0" file="Source/ReverbEditor.h"/>
       <FILE id="plkHBY" name="MyWavetable.cpp" compile="1" resource="0" file="Source/MyWavetable.cpp"/>
       <FILE id="Myljhl" name="MyWavetable.h" compile="0" resource="0" file="Source/MyWavetable.h"/>
-      <FILE id="DJw83f" name="DistortionEditor.cpp" compile="1" resource="0"
-            file="Source/DistortionEditor.cpp"/>
-      <FILE id="xMKh13" name="DistortionEditor.h" compile="0" resource="0"
-            file="Source/DistortionEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <LIVE_SETTINGS>

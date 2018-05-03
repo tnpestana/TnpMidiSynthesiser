@@ -34,10 +34,6 @@ private:
     // access the processor object that created it.
 	TnpMidiSynthAudioProcessor& processor;
 
-	ComboBox numVoicesInput;
-	Label numVoicesLabel;
-	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> numVoicesAttachment;
-
 	OscillatorEditor oscillatorGUI;
 	ReverbEditor reverbGUI;
 	DistortionEditor distortionGUI;

@@ -31,13 +31,15 @@ private:
 
 	Label attackLabel, decayLabel, sustainLabel, 
 		  releaseLabel, numVoicesLabel, gainLabel, 
-		  oscTypeLabel, filterTypeLabel, filterCutoffLabel;
+		  oscTypeLabel, filterTypeLabel, filterCutoffLabel,
+		  titleLabel;
 
 	ComboBox numVoicesInput, oscTypeInput, filterTypeInput;
 
 	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> attackAttachment, decayAttachment, sustainAttachment, 
 																  releaseAttachment, gainAttachment, filterCutoffAttachment;
-	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> oscTypeAttachment, filterTypeAttachment;
+
+	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> numVoicesAttachment, oscTypeAttachment, filterTypeAttachment;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscillatorEditor)
 };

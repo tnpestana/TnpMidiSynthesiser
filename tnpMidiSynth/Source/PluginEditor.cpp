@@ -17,15 +17,9 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
     : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p), reverbGUI(p), distortionGUI(p)
 {
     // Main editor's size.
-    setSize (250, 360);
-
-	addAndMakeVisible(numVoicesLabel);
-	numVoicesLabel.setText("number of voices:", dontSendNotification);
-	numVoicesLabel.setJustificationType(Justification::centredRight);
-	addAndMakeVisible(numVoicesInput);
-	for(int i = 1; i < 11; i++)							//	Even though the numVoices parameter's range is defined we
-		numVoicesInput.addItem((String)i, i);			// seem to need to populate the combo box anyway.
-	numVoicesAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "numVoices", numVoicesInput);
+    //setSize (250, 360);
+	setSize(300, 500);
+	setResizable(true, true);
 
 	addAndMakeVisible(oscillatorGUI);
 	addAndMakeVisible(distortionGUI);
@@ -39,7 +33,10 @@ TnpMidiSynthAudioProcessorEditor::~TnpMidiSynthAudioProcessorEditor()
 void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (Colours::mediumseagreen);
+    g.fillAll (Colours::lightslategrey);
+
+	//Image oscBackground = ImageCache::getFromMemory(BinaryData::background_jpg, BinaryData::background_jpgSize);
+	//g.drawImageAt(oscBackground, 0, 0);
 
 	// Color scheme for child components.
 	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::lightpink);
@@ -60,17 +57,12 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	// Total main editor's area.
 	juce::Rectangle<int> area (getLocalBounds());
 
-	// Number of voices selection area.
-	juce::Rectangle<int> numVoicesArea (area.removeFromTop(20));
-	numVoicesLabel.setBounds(numVoicesArea.removeFromLeft(getWidth() / 2));
-	numVoicesInput.setBounds(numVoicesArea.removeFromLeft(getWidth() / 2));
-
 	// Oscillator area.
-	oscillatorGUI.setBounds(area.removeFromTop(180));
+	oscillatorGUI.setBounds(area.removeFromTop(300).reduced(5));
 
 	// Distortion area.
-	distortionGUI.setBounds(area.removeFromTop(80));
+	distortionGUI.setBounds(area.removeFromTop(100).reduced(5));
 
 	// Reverb area.
-	reverbGUI.setBounds(area.removeFromTop(80));
+	reverbGUI.setBounds(area.reduced(5));
 }

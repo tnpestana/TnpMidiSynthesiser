@@ -13,6 +13,10 @@
 ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
 	: processor(p)
 {
+	addAndMakeVisible(titleLabel);
+	titleLabel.setText("REVERB", dontSendNotification);
+	titleLabel.setJustificationType(Justification::centred);
+
 	addAndMakeVisible(dryWetSlider);
 	dryWetSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	dryWetSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
@@ -51,19 +55,21 @@ ReverbEditor::~ReverbEditor()
 void ReverbEditor::paint(Graphics& g)
 {
 	// (Our component is opaque, so we must completely fill the background with a solid colour)
-	g.fillAll(Colours::mediumseagreen);
+	g.fillAll(Colours::goldenrod);
 
-	getLookAndFeel().setColour(Label::backgroundColourId, Colours::mediumseagreen);
+	getLookAndFeel().setColour(Label::backgroundColourId, Colours::goldenrod);
 }
 
 void ReverbEditor::resized()
 {
 	const int labelWidth = getWidth() / 3;
-	const int labelHeight = 20;
+	const int labelHeight = 15;
 	const int sliderWidth = getWidth() / 3;
 	const int sliderHeight = getHeight() - labelHeight;
 
 	juce::Rectangle<int> area(getLocalBounds());
+
+	titleLabel.setBounds(area.removeFromTop(20).reduced(2));
 
 	juce::Rectangle<int> labels(area.removeFromTop(labelHeight));
 	dryWetLabel.setBounds(labels.removeFromLeft(labelWidth));

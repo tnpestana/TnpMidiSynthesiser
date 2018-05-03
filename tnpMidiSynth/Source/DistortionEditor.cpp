@@ -12,6 +12,10 @@
 
 DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
 {
+	addAndMakeVisible(titleLabel);
+	titleLabel.setText("DISTORTION", dontSendNotification);
+	titleLabel.setJustificationType(Justification::centred);
+
 	addAndMakeVisible(driveLabel);
 	driveLabel.setText("drive", dontSendNotification);
 	driveLabel.setJustificationType(Justification::centred);
@@ -52,7 +56,10 @@ void DistortionEditor::resized()
 {
 	const int sliderWidth = getWidth() / 3;
 	juce::Rectangle<int> area(getLocalBounds());
-	juce::Rectangle<int> labelArea(area.removeFromTop(20));
+
+	titleLabel.setBounds(area.removeFromTop(20).reduced(2));
+
+	juce::Rectangle<int> labelArea(area.removeFromTop(15));
 	driveLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
 	rangeLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
 	mixLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
