@@ -57,9 +57,9 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	// One filter instance for each channel to avoid distortions.
 	filterLeft = new IIRFilter();
 	filterRight = new IIRFilter();
-	NormalisableRange<float> filterCutoffRange(20.f, 20000.f, 1.f);
+	NormalisableRange<float> filterCutoffRange(20.f, 20000.f, 0.01f);
 	NormalisableRange<float> filterTypeRange(0, 2);
-	filterCutoffRange.setSkewForCentre(5000.f);
+	filterCutoffRange.setSkewForCentre(1000.f);
 	treeState.createAndAddParameter("filterCutoff", "FilterCutoff", String(), filterCutoffRange, 5000.f, nullptr, nullptr);
 	treeState.createAndAddParameter("filterType", "FilterType", String(), filterTypeRange, 0, nullptr, nullptr);
 
@@ -203,7 +203,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	float distortionOutput = 1 - (0.9 * distortionMix);								// We reduce the output as the mix level increases to balance the result.
 
 	// Check if the number of voices selected has changed.
-	int numVoicesParam = *treeState.getRawParameterValue("numVoices") + 1;
+	int numVoicesParam = *treeState.getRawParameterValue("numVoices") + 1;			// Add one for the values to match the combo box IDs.
 	if (numVoicesParam != mySynth.getNumVoices())
 	{
 		setNumVoices(numVoicesParam);
