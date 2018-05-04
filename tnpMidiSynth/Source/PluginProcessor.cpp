@@ -245,7 +245,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 		filterRight->setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff));
 	}
 
-	// Distortion algorithm.
+	// Single sample access.
 	for (int channel = 0; channel < buffer.getNumChannels(); channel++)
 	{
 		float* channelData = buffer.getWritePointer(channel);
@@ -254,12 +254,11 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 		{
 			// Distortion processing:
 			// Store clean signal.
-			float currentSample = *channelData;
-			float cleanSignal = currentSample;
+			float cleanSignal = *channelData;
 
 			// Add distortion.
-			currentSample *= distortionDrive * distortionRange;
-			currentSample = (((((2.f / MathConstants<float>::pi) * atan(*channelData)) * distortionMix) + (cleanSignal * (1.f - distortionMix))) / 2) * distortionOutput;
+			*channelData *= distortionDrive * distortionRange;
+			*channelData = (((((2.f / MathConstants<float>::pi) * atan(*channelData)) * distortionMix) + (cleanSignal * (1.f - distortionMix))) / 2) * distortionOutput;
 
 			// Gain processing:
 			// Avoid glicthes via volume increment.
@@ -270,10 +269,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 			}
 
 			// Apply gain.
-			currentSample = currentSample * currentGain;
-			
-			// Retrieve processed sample.
-			*channelData = currentSample;
+			*channelData = *channelData * currentGain;
 
 			channelData++;
 		}
