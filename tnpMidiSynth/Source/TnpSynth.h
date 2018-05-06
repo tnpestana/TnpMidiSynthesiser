@@ -11,15 +11,15 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "MyOscillator.h"
+#include "TnpOscillator.h"
 #include "ADSR.h"
 
 //==============================================================================
-class MySynthSound : public SynthesiserSound
+class TnpSynthSound : public SynthesiserSound
 {
 public:
-	MySynthSound();
-	~MySynthSound();
+	TnpSynthSound();
+	~TnpSynthSound();
 
 	// Inherited via SynthesiserSound
 	virtual bool appliesToNote(int midiNoteNumber) override;
@@ -28,11 +28,11 @@ public:
 };
 
 //==============================================================================
-class MySynthVoice : public SynthesiserVoice
+class TnpSynthVoice : public SynthesiserVoice
 {
 public:
-	MySynthVoice();
-	~MySynthVoice();
+	TnpSynthVoice();
+	~TnpSynthVoice();
 
 	// Inherited via SynthesiserVoice
 	virtual bool canPlaySound(SynthesiserSound *) override;
@@ -50,7 +50,7 @@ private:
 	double velocityLevel;
 	float soundwave;
 	int oscType;
-	MyOscillator oscillator;
+	TnpOscillator oscillator;
 	ScopedPointer<ADSR> volumeEnvelope;
 
 };

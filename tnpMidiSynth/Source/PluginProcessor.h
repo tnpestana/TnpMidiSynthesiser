@@ -11,7 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "MySynth.h"
+#include "TnpSynth.h"
 
 //==============================================================================
 class TnpMidiSynthAudioProcessor  : public AudioProcessor
@@ -61,7 +61,7 @@ public:
 
 private:
 	Synthesiser mySynth;
-	MySynthVoice* mySynthVoice;
+	TnpSynthVoice* mySynthVoice;
 
 	ScopedPointer<Reverb> reverb;
 	Reverb::Parameters reverbParameters;

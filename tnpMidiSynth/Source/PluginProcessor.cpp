@@ -214,7 +214,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	{
 		//  Cast them to see how many of those are being used. If they are,
 		// pass them the value tree state gain and envelope parameters.
-		if (mySynthVoice = dynamic_cast<MySynthVoice*>(mySynth.getVoice(i)))
+		if (mySynthVoice = dynamic_cast<TnpSynthVoice*>(mySynth.getVoice(i)))
 		{
 			mySynthVoice->getOscillatorType(*treeState.getRawParameterValue("oscType"));
 			mySynthVoice->getEnvelopeParameters(*treeState.getRawParameterValue("attack"),
@@ -295,9 +295,9 @@ void TnpMidiSynthAudioProcessor::setNumVoices(int numVoices)
 {
 	mySynth.clearVoices();
 	for (int i = 0; i < numVoices; i++)
-		mySynth.addVoice(new MySynthVoice());
+		mySynth.addVoice(new TnpSynthVoice());
 	mySynth.clearSounds();
-	mySynth.addSound(new MySynthSound());
+	mySynth.addSound(new TnpSynthSound());
 }
 
 //==============================================================================

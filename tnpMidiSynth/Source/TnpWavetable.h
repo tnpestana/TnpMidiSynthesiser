@@ -11,13 +11,13 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "MyOscillator.h"
+#include "TnpOscillator.h"
 
-class MyWavetable
+class TnpWavetable
 {
 public:
-	MyWavetable();
-	~MyWavetable();
+	TnpWavetable();
+	~TnpWavetable();
 
 	void setFrequency(float, float);
 	float getNextSample();
@@ -27,6 +27,6 @@ public:
 	static int tableSize;
 
 private:
-	MyOscillator myOscillator;
+	TnpOscillator myOscillator;
 	float currentIndex, tableDelta;
 };

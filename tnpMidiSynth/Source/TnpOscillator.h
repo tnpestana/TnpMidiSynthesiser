@@ -12,11 +12,11 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class MyOscillator
+class TnpOscillator
 {
 public:
-	MyOscillator();
-	~MyOscillator();
+	TnpOscillator();
+	~TnpOscillator();
 
 	void setFrequency(float, float);
 	void updateAngle();

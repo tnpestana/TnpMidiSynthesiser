@@ -26,17 +26,18 @@
         <FILE id="Gm0EyB" name="ADSR.cpp" compile="1" resource="0" file="../../../ADSR/ADSR.cpp"/>
         <FILE id="hdYHvS" name="ADSR.h" compile="0" resource="0" file="../../../ADSR/ADSR.h"/>
       </GROUP>
-      <FILE id="t6gt4U" name="MyOscillator.cpp" compile="1" resource="0"
-            file="Source/MyOscillator.cpp"/>
-      <FILE id="v1pj7z" name="MyOscillator.h" compile="0" resource="0" file="Source/MyOscillator.h"/>
-      <FILE id="KbVU0Z" name="MySynth.cpp" compile="1" resource="0" file="Source/MySynth.cpp"/>
-      <FILE id="b1u1EN" name="MySynth.h" compile="0" resource="0" file="Source/MySynth.h"/>
+      <FILE id="t6gt4U" name="TnpOscillator.cpp" compile="1" resource="0"
+            file="Source/TnpOscillator.cpp"/>
+      <FILE id="v1pj7z" name="TnpOscillator.h" compile="0" resource="0" file="Source/TnpOscillator.h"/>
+      <FILE id="KbVU0Z" name="TnpSynth.cpp" compile="1" resource="0" file="Source/TnpSynth.cpp"/>
+      <FILE id="b1u1EN" name="TnpSynth.h" compile="0" resource="0" file="Source/TnpSynth.h"/>
       <FILE id="ZWtIDa" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="whaReg" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
-      <FILE id="plkHBY" name="MyWavetable.cpp" compile="1" resource="0" file="Source/MyWavetable.cpp"/>
-      <FILE id="Myljhl" name="MyWavetable.h" compile="0" resource="0" file="Source/MyWavetable.h"/>
+      <FILE id="plkHBY" name="TnpWavetable.cpp" compile="1" resource="0"
+            file="Source/TnpWavetable.cpp"/>
+      <FILE id="Myljhl" name="TnpWavetable.h" compile="0" resource="0" file="Source/TnpWavetable.h"/>
     </GROUP>
   </MAINGROUP>
   <LIVE_SETTINGS>

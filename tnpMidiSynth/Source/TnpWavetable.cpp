@@ -8,27 +8,27 @@
   ==============================================================================
 */
 
-#include "MyWavetable.h"
+#include "TnpWavetable.h"
 
 //==============================================================================
-MyWavetable::MyWavetable()
+TnpWavetable::TnpWavetable()
 	: currentIndex(0.0f),
 	tableDelta(0.0f)
 {
 }
 
-MyWavetable::~MyWavetable()
+TnpWavetable::~TnpWavetable()
 {
 }
 
 //==============================================================================
-void MyWavetable::setFrequency(float frequency, float sampleRate)
+void TnpWavetable::setFrequency(float frequency, float sampleRate)
 {
 	float tableSizeOverSampleRate = wavetable->getNumSamples() / sampleRate;
 	tableDelta = frequency * tableSizeOverSampleRate;
 }
 
-float MyWavetable::getNextSample()
+float TnpWavetable::getNextSample()
 {
 	float tableSize = wavetable->getNumSamples();
 
@@ -51,11 +51,11 @@ float MyWavetable::getNextSample()
 
 //==============================================================================
 // Static class members
-int MyWavetable::tableSize = 128;
+int TnpWavetable::tableSize = 128;
 
-ScopedPointer<AudioSampleBuffer> MyWavetable::wavetable = new AudioSampleBuffer();
+ScopedPointer<AudioSampleBuffer> TnpWavetable::wavetable = new AudioSampleBuffer();
 
-void MyWavetable::createWavetable()
+void TnpWavetable::createWavetable()
 {
 	wavetable->setSize(1, tableSize);
 	float* samples = wavetable->getWritePointer(0);

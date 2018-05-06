@@ -8,45 +8,45 @@
   ==============================================================================
 */
 
-#include "MySynth.h"
+#include "TnpSynth.h"
 
 //==============================================================================
-MySynthSound::MySynthSound()
+TnpSynthSound::TnpSynthSound()
 {
 }
 
-MySynthSound::~MySynthSound()
+TnpSynthSound::~TnpSynthSound()
 {
 }
 
-bool MySynthSound::appliesToNote(int midiNoteNumber)
+bool TnpSynthSound::appliesToNote(int midiNoteNumber)
 {
 	return true;
 }
 
-bool MySynthSound::appliesToChannel(int midiChannel)
+bool TnpSynthSound::appliesToChannel(int midiChannel)
 {
 	return true;
 }
 
 //==============================================================================
-MySynthVoice::MySynthVoice()
+TnpSynthVoice::TnpSynthVoice()
 	: velocityLevel(0.0),
 	soundwave(0.f)
 {
 	volumeEnvelope = new ADSR();
 }
 
-MySynthVoice::~MySynthVoice()
+TnpSynthVoice::~TnpSynthVoice()
 {
 }
 
-bool MySynthVoice::canPlaySound(SynthesiserSound * sound)
+bool TnpSynthVoice::canPlaySound(SynthesiserSound * sound)
 {
-	return dynamic_cast<MySynthSound*> (sound) != nullptr;
+	return dynamic_cast<TnpSynthSound*> (sound) != nullptr;
 }
 
-void MySynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound * sound, int currentPitchWheelPosition)
+void TnpSynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound * sound, int currentPitchWheelPosition)
 {
 	oscillator.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber), getSampleRate());
 	velocityLevel = velocity;
@@ -54,7 +54,7 @@ void MySynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
 	volumeEnvelope->gate(1);
 }
 
-void MySynthVoice::stopNote(float velocity, bool allowTailOff)
+void TnpSynthVoice::stopNote(float velocity, bool allowTailOff)
 {
 	volumeEnvelope->gate(0);
 	allowTailOff = true;
@@ -63,15 +63,15 @@ void MySynthVoice::stopNote(float velocity, bool allowTailOff)
 		clearCurrentNote();
 }
 
-void MySynthVoice::pitchWheelMoved(int newPitchWheelValue)
+void TnpSynthVoice::pitchWheelMoved(int newPitchWheelValue)
 {
 }
 
-void MySynthVoice::controllerMoved(int controllerNumber, int newControllerValue)
+void TnpSynthVoice::controllerMoved(int controllerNumber, int newControllerValue)
 {
 }
 
-void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSample, int numSamples)
+void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSample, int numSamples)
 {
 	for (int sample = 0; sample < numSamples; sample++)
 	{
@@ -108,7 +108,7 @@ void MySynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startSa
 }
 
 // The main apps processor needs to access this method to pass the valueTreeState envelope paremeter values.
-void MySynthVoice::getEnvelopeParameters(float attack, float decay, float sustain, float release)
+void TnpSynthVoice::getEnvelopeParameters(float attack, float decay, float sustain, float release)
 {
 	double sampleRate = getSampleRate();
 	volumeEnvelope->setAttackRate(attack * sampleRate);
@@ -117,7 +117,7 @@ void MySynthVoice::getEnvelopeParameters(float attack, float decay, float sustai
 	volumeEnvelope->setReleaseRate(release * sampleRate);
 }
 
-void MySynthVoice::getOscillatorType(float input)
+void TnpSynthVoice::getOscillatorType(float input)
 {
 	oscType = (int)input;
 }

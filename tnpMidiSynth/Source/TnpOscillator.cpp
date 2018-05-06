@@ -8,40 +8,40 @@
   ==============================================================================
 */
 
-#include "MyOscillator.h"
+#include "TnpOscillator.h"
 
-MyOscillator::MyOscillator()
+TnpOscillator::TnpOscillator()
 	: currentAngle(0.0),
 	angleDelta(0.0)
 {
 }
 
-MyOscillator::~MyOscillator()
+TnpOscillator::~TnpOscillator()
 {
 }
 
-void MyOscillator::setFrequency(float frequency, float sampleRate)
+void TnpOscillator::setFrequency(float frequency, float sampleRate)
 {
 	frequencyHz = frequency;
 	float cyclesPerSample = frequency / sampleRate;
 	angleDelta = cyclesPerSample * MathConstants<float>::twoPi;
 }
 
-void MyOscillator::updateAngle()
+void TnpOscillator::updateAngle()
 {
 	currentAngle += angleDelta;
 	if (currentAngle >= MathConstants<float>::twoPi)
 		currentAngle -= MathConstants<float>::twoPi;
 }
 
-float MyOscillator::sineWave()
+float TnpOscillator::sineWave()
 {
 	float currentSample = std::sin(currentAngle);
 	updateAngle();
 	return currentSample;
 }
 
-float MyOscillator::squareWave()
+float TnpOscillator::squareWave()
 {
 	float sine = std::sin(currentAngle);
 	float currentSample = ((sine < 0) ? -1 : 1 ) * 0.5;		//  Here I multiplied the output by 0.5 for
@@ -49,14 +49,14 @@ float MyOscillator::squareWave()
 	return currentSample;
 }
 
-float MyOscillator::triangleWave()
+float TnpOscillator::triangleWave()
 {
 	float currentSample = std::asin(std::sin(currentAngle)) * 2.0 / MathConstants<float>::pi;
 	updateAngle();
 	return currentSample;
 }
 
-float MyOscillator::sawtoothWave()
+float TnpOscillator::sawtoothWave()
 {
 	return 0.f;
 }
