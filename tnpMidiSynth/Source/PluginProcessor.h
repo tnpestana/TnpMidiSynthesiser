@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TnpSynth.h"
+#include "TnpDistortion.h"
 
 //==============================================================================
 class TnpMidiSynthAudioProcessor  : public AudioProcessor
@@ -68,6 +69,8 @@ private:
 
 	ScopedPointer<IIRFilter> filterLeft;
 	ScopedPointer<IIRFilter> filterRight;
+
+	ScopedPointer<TnpDistortion> distortion;
 
 	double localSampleRate, currentGain, targetGain;
 	int targetNumVoices;

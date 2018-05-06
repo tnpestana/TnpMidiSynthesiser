@@ -64,6 +64,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("filterType", "FilterType", String(), filterTypeRange, 0, nullptr, nullptr);
 
 	// Distortion parameters.
+	distortion = new TnpDistortion();
 	NormalisableRange<float> distortionDriveRange(0.f, 1.f, 0.01f);
 	NormalisableRange<float> distortionRangeRange(0.f, 3000.f, 0.01f);
 	NormalisableRange<float> distortionMixRange(0.f, 1.f, 0.01f);
@@ -197,10 +198,10 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	reverb->setParameters(reverbParameters);
 
 	// Store distortion parameters.
-	float distortionDrive = *treeState.getRawParameterValue("distortionDrive");
-	float distortionRange = *treeState.getRawParameterValue("distortionRange");
-	float distortionMix = *treeState.getRawParameterValue("distortionMix");
-	float distortionOutput = 1 - (0.9 * distortionMix);								// We reduce the output as the mix level increases to balance the result.
+	distortion->setParameters(
+		*treeState.getRawParameterValue("distortionDrive"),
+		*treeState.getRawParameterValue("distortionRange"),
+		*treeState.getRawParameterValue("distortionMix"));								
 
 	// Check if the number of voices selected has changed.
 	int numVoicesParam = *treeState.getRawParameterValue("numVoices") + 1;			// Add one for the values to match the combo box IDs.
@@ -252,14 +253,6 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 
 		for (int sample = 0; sample < buffer.getNumSamples(); sample++)
 		{
-			// Distortion processing:
-			// Store clean signal.
-			float cleanSignal = *channelData;
-
-			// Add distortion.
-			*channelData *= distortionDrive * distortionRange;
-			*channelData = (((((2.f / MathConstants<float>::pi) * atan(*channelData)) * distortionMix) + (cleanSignal * (1.f - distortionMix))) / 2) * distortionOutput;
-
 			// Gain processing:
 			// Avoid glicthes via volume increment.
 			targetGain = *treeState.getRawParameterValue("gain");
@@ -268,9 +261,11 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 				currentGain += (targetGain - currentGain) / buffer.getNumSamples();
 			}
 
+			// Apply distortion.
+			*channelData = distortion->processSample(*channelData);
+
 			// Apply gain.
 			*channelData = *channelData * currentGain;
-
 			channelData++;
 		}
 	}

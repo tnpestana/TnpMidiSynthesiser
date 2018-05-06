@@ -26,6 +26,9 @@
         <FILE id="Gm0EyB" name="ADSR.cpp" compile="1" resource="0" file="../../../ADSR/ADSR.cpp"/>
         <FILE id="hdYHvS" name="ADSR.h" compile="0" resource="0" file="../../../ADSR/ADSR.h"/>
       </GROUP>
+      <FILE id="E40zal" name="TnpDistortion.h" compile="0" resource="0" file="Source/TnpDistortion.h"/>
+      <FILE id="wCSXrS" name="TnpDistortion.cpp" compile="1" resource="0"
+            file="Source/TnpDistortion.cpp"/>
       <FILE id="t6gt4U" name="TnpOscillator.cpp" compile="1" resource="0"
             file="Source/TnpOscillator.cpp"/>
       <FILE id="v1pj7z" name="TnpOscillator.h" compile="0" resource="0" file="Source/TnpOscillator.h"/>
