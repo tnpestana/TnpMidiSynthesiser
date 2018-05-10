@@ -40,10 +40,10 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 
 	// Color scheme for child components.
 	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::lightpink);
-	getLookAndFeel().setColour(Slider::ColourIds::backgroundColourId, Colours::lightyellow);
+	getLookAndFeel().setColour(Slider::ColourIds::backgroundColourId, Colours::floralwhite);
+	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderOutlineColourId, Colours::floralwhite);
 	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::coral);
 	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::lightpink);
-	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderOutlineColourId, Colours::lightyellow);
 	getLookAndFeel().setColour(ComboBox::textColourId, Colours::black);
 	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::mediumseagreen);
 	getLookAndFeel().setColour(PopupMenu::textColourId, Colours::black);
