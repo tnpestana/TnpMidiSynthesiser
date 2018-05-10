@@ -13,4 +13,4 @@ Both /Builds and /JuceLibraryCode folders are ignored but it is my understanding
 
 ## Author
 
-* **Tiago Pestana** - [tnpestana](https://github.com/tnpestana)
+* **Tiago Neves Pestana** - [tnpestana](https://github.com/tnpestana)
