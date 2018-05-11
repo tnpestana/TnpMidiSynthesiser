@@ -38,17 +38,12 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 	//Image oscBackground = ImageCache::getFromMemory(BinaryData::background_jpg, BinaryData::background_jpgSize);
 	//g.drawImageAt(oscBackground, 0, 0);
 
-	// Color scheme for child components.
-	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::lightpink);
+	// Color scheme for properties that always remain the same.
 	getLookAndFeel().setColour(Slider::ColourIds::backgroundColourId, Colours::floralwhite);
 	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderOutlineColourId, Colours::floralwhite);
-	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::coral);
-	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::lightpink);
 	getLookAndFeel().setColour(ComboBox::textColourId, Colours::black);
-	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::mediumseagreen);
 	getLookAndFeel().setColour(PopupMenu::textColourId, Colours::black);
 	getLookAndFeel().setColour(Label::textColourId, Colours::black);
-	getLookAndFeel().setColour(Label::backgroundColourId, Colours::mediumseagreen);
 }
 
 void TnpMidiSynthAudioProcessorEditor::resized()

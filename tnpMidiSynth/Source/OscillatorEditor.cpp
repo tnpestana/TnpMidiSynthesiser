@@ -114,6 +114,9 @@ void OscillatorEditor::paint(Graphics& g)
 	getLookAndFeel().setColour(ComboBox::outlineColourId, Colours::lightsalmon);
 	getLookAndFeel().setColour(Label::backgroundColourId, Colours::lightsalmon);
 	getLookAndFeel().setColour(PopupMenu::ColourIds::backgroundColourId, Colours::darksalmon);
+	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::lightpink);
+	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::coral);
+	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::lightpink);
 
 	titleLabel.setColour(Label::backgroundColourId, Colours::darksalmon);
 }
