@@ -8,7 +8,7 @@ Both /Builds and /JuceLibraryCode folders are ignored but it is my understanding
 
 ## Built With
 
-* [JUCE](https://juce.com/) - The framework used
+* [JUCE](https://juce.com/) - Framework used
 * [ADSR](http://www.earlevel.com/main/2013/06/03/envelope-generators-adsr-code/) - Volume envelope used
 
 ## Author
