@@ -32,7 +32,8 @@ bool TnpSynthSound::appliesToChannel(int midiChannel)
 //==============================================================================
 TnpSynthVoice::TnpSynthVoice()
 	: velocityLevel(0.0),
-	soundwave(0.f)
+	soundwave(0.f),
+	transposeValue(0)
 {
 	volumeEnvelope = new ADSR();
 }
@@ -48,7 +49,7 @@ bool TnpSynthVoice::canPlaySound(SynthesiserSound * sound)
 
 void TnpSynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound * sound, int currentPitchWheelPosition)
 {
-	oscillator.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber), getSampleRate());
+	oscillator.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber + transposeValue), getSampleRate());
 	velocityLevel = velocity;
 
 	volumeEnvelope->gate(1);
@@ -120,4 +121,9 @@ void TnpSynthVoice::getEnvelopeParameters(float attack, float decay, float susta
 void TnpSynthVoice::getOscillatorType(float input)
 {
 	oscType = (int)input;
+}
+
+void TnpSynthVoice::getTransposeValue(float transpose)
+{
+	transposeValue = (int)transpose;
 }

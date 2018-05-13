@@ -30,6 +30,18 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	// Gain parameter.
 	NormalisableRange<float> gainRange(0.0f, 1.0f, 0.01f);
 	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 0.3f, nullptr, nullptr);
+	
+	// Number of voices parameter.
+	NormalisableRange<float> numVoicesRange(0, 9);
+	treeState.createAndAddParameter("numVoices", "NumVoices", String(), numVoicesRange, 9, nullptr, nullptr);
+
+	// Oscillator type parameter.
+	NormalisableRange<float> oscTypeRange(0, 2);
+	treeState.createAndAddParameter("oscType", "OscType", String(), oscTypeRange, 0, nullptr, nullptr);
+
+	// Transpose parameter.
+	NormalisableRange<float> transposeRange(-24.f, 24.f, 1.f);
+	treeState.createAndAddParameter("transpose", "Transpose", String(), transposeRange, 0, nullptr, nullptr);
 
 	// Volume envelope parameters.
 	NormalisableRange<float> attackRange(0.001f, 5.0f, 0.001f);
@@ -71,14 +83,6 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("distortionDrive", "DistortionDrive", String(), distortionDriveRange, 0.5f, nullptr, nullptr);
 	treeState.createAndAddParameter("distortionRange", "DistortionRange", String(), distortionRangeRange, 1500.f, nullptr, nullptr);
 	treeState.createAndAddParameter("distortionMix", "DistortionMix", String(), distortionMixRange, 0.f, nullptr, nullptr);
-
-	// Number of voices parameter.
-	NormalisableRange<float> numVoicesRange(0, 9);
-	treeState.createAndAddParameter("numVoices", "NumVoices", String(), numVoicesRange, 9, nullptr, nullptr);
-
-	// Oscillator type parameter.
-	NormalisableRange<float> oscTypeRange(0, 2);
-	treeState.createAndAddParameter("oscType", "OscType", String(), oscTypeRange, 0, nullptr, nullptr);
 
 	treeState.state = ValueTree(Identifier("tnpMidiSynthState"));
 }
@@ -218,6 +222,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 		if (mySynthVoice = dynamic_cast<TnpSynthVoice*>(mySynth.getVoice(i)))
 		{
 			mySynthVoice->getOscillatorType(*treeState.getRawParameterValue("oscType"));
+			mySynthVoice->getTransposeValue(*treeState.getRawParameterValue("transpose"));
 			mySynthVoice->getEnvelopeParameters(*treeState.getRawParameterValue("attack"),
 				*treeState.getRawParameterValue("decay"),
 				*treeState.getRawParameterValue("sustain"),

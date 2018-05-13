@@ -45,11 +45,12 @@ public:
 	//==============================================================================
 	void getEnvelopeParameters(float attack, float decay, float sustain, float release);
 	void getOscillatorType(float oscType);
+	void getTransposeValue(float transpose);
 
 private:
 	double velocityLevel;
 	float soundwave;
-	int oscType;
+	int oscType, transposeValue;
 	TnpOscillator oscillator;
 	ScopedPointer<ADSR> volumeEnvelope;
 

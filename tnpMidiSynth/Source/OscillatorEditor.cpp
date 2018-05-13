@@ -32,10 +32,11 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	// Transpose
 	addAndMakeVisible(transposeSlider);
 	transposeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	transposeSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	transposeSlider.setTextBoxStyle(Slider::TextBoxAbove, true, 40, 15);
 	addAndMakeVisible(transposeLabel);
 	transposeLabel.setText("transpose: ", dontSendNotification);
 	transposeLabel.setJustificationType(Justification::bottomLeft);
+	transposeAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "transpose", transposeSlider);
 
 	// Oscillator type.
 	addAndMakeVisible(oscTypeLabel);
