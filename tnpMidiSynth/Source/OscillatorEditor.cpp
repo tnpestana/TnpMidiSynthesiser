@@ -29,6 +29,14 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 		numVoicesInput.addItem((String)i, i);				// seem to need to populate the combo box anyway.
 	numVoicesAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "numVoices", numVoicesInput);
 
+	// Transpose
+	addAndMakeVisible(transposeSlider);
+	transposeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
+	transposeSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	addAndMakeVisible(transposeLabel);
+	transposeLabel.setText("transpose: ", dontSendNotification);
+	transposeLabel.setJustificationType(Justification::bottomLeft);
+
 	// Oscillator type.
 	addAndMakeVisible(oscTypeLabel);
 	oscTypeLabel.setText("wave type:", dontSendNotification);
@@ -133,7 +141,7 @@ void OscillatorEditor::resized()
 	gainSlider.setBounds(gainLocation);
 
 	// Wave type controls area.
-	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.2).reduced(2));
+	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.3).reduced(2));
 
 	// Number of voices selection area.
 	juce::Rectangle<int> numVoicesArea(controls.removeFromLeft(controls.getWidth() / 3));
@@ -144,6 +152,11 @@ void OscillatorEditor::resized()
 	juce::Rectangle<int> oscTypeArea(controls.removeFromLeft(controls.getWidth() / 2));
 	oscTypeLabel.setBounds(oscTypeArea.removeFromTop(20));
 	oscTypeInput.setBounds(oscTypeArea);
+
+	// Transpose selection area.
+	juce::Rectangle<int> transposeArea(controls);
+	transposeLabel.setBounds(transposeArea.removeFromTop(20));
+	transposeSlider.setBounds(transposeArea);
 
 	// Envelope sliders and labels area - needs reviewing.
 	juce::Rectangle<int> oscEnvelope(oscArea.removeFromTop(oscArea.getHeight() * 0.75).reduced(5));

@@ -27,17 +27,19 @@ public:
 
 private:
 	Slider attackSlider, decaySlider, sustainSlider, 
-		   releaseSlider, gainSlider, filterCutoffSlider;
+		   releaseSlider, gainSlider, filterCutoffSlider,
+		   transposeSlider;
 
 	Label attackLabel, decayLabel, sustainLabel, 
 		  releaseLabel, numVoicesLabel, gainLabel, 
 		  oscTypeLabel, filterTypeLabel, filterCutoffLabel,
-		  titleLabel;
+		  titleLabel, transposeLabel;
 
 	ComboBox numVoicesInput, oscTypeInput, filterTypeInput;
 
 	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> attackAttachment, decayAttachment, sustainAttachment, 
-																  releaseAttachment, gainAttachment, filterCutoffAttachment;
+																  releaseAttachment, gainAttachment, filterCutoffAttachment,
+																  transposeAttachment;
 
 	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> numVoicesAttachment, oscTypeAttachment, filterTypeAttachment;
 
