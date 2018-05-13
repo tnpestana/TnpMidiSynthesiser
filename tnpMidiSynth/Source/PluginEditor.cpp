@@ -18,7 +18,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 {
     // Main editor's size.
     //setSize (250, 360);
-	setSize(300, 500);
+	setSize(300, 425);
 	setResizable(true, true);
 
 	addAndMakeVisible(oscillatorGUI);
@@ -52,7 +52,7 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	juce::Rectangle<int> area (getLocalBounds());
 
 	// Oscillator area.
-	oscillatorGUI.setBounds(area.removeFromTop(300).reduced(5));
+	oscillatorGUI.setBounds(area.removeFromTop(225).reduced(5));
 
 	// Distortion area.
 	distortionGUI.setBounds(area.removeFromTop(100).reduced(5));

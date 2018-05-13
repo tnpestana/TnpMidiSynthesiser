@@ -31,8 +31,8 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 
 	// Transpose
 	addAndMakeVisible(transposeSlider);
-	transposeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	transposeSlider.setTextBoxStyle(Slider::TextBoxAbove, true, 40, 15);
+	transposeSlider.setSliderStyle(Slider::LinearHorizontal);
+	transposeSlider.setTextBoxStyle(Slider::TextBoxLeft, true, 25, 15);
 	addAndMakeVisible(transposeLabel);
 	transposeLabel.setText("transpose: ", dontSendNotification);
 	transposeLabel.setJustificationType(Justification::bottomLeft);
@@ -43,14 +43,14 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	oscTypeLabel.setText("wave type:", dontSendNotification);
 	oscTypeLabel.setJustificationType(Justification::bottomLeft);
 	addAndMakeVisible(oscTypeInput);
-	oscTypeInput.addItem("sine wave", 1);				//	Even though the oscType parameter's range is defined we
-	oscTypeInput.addItem("square wave", 2);				// seem to need to populate the combo box anyway.
-	oscTypeInput.addItem("triangle wave", 3);
+	oscTypeInput.addItem("sine", 1);					//	Even though the oscType parameter's range is defined we
+	oscTypeInput.addItem("square", 2);					// seem to need to populate the combo box anyway.
+	oscTypeInput.addItem("triangle", 3);
 	oscTypeAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "oscType", oscTypeInput);
 
 	// Attack.
 	addAndMakeVisible(attackSlider);
-	attackSlider.setSliderStyle(Slider::LinearVertical);
+	attackSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	attackSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(attackLabel);
 	attackLabel.setText("attack", dontSendNotification);
@@ -59,7 +59,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 
 	// Decay.
 	addAndMakeVisible(decaySlider);
-	decaySlider.setSliderStyle(Slider::LinearVertical);
+	decaySlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	decaySlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(decayLabel);
 	decayLabel.setText("decay", dontSendNotification);
@@ -68,7 +68,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 
 	// Sustain.
 	addAndMakeVisible(sustainSlider);
-	sustainSlider.setSliderStyle(Slider::LinearVertical);
+	sustainSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	sustainSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(sustainLabel);
 	sustainLabel.setText("sustain", dontSendNotification);
@@ -77,7 +77,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 
 	// Release. 
 	addAndMakeVisible(releaseSlider);
-	releaseSlider.setSliderStyle(Slider::LinearVertical);
+	releaseSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	releaseSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	addAndMakeVisible(releaseLabel);
 	releaseLabel.setText("release", dontSendNotification);
@@ -137,20 +137,20 @@ void OscillatorEditor::resized()
 	titleLabel.setBounds(oscArea.removeFromTop(20).reduced(2));
 
 	// Gain controls area. 
-	juce::Rectangle<int> gainLocation(oscArea.removeFromRight(oscArea.getWidth() * 0.2).reduced(2));
+	juce::Rectangle<int> gainLocation(oscArea.removeFromRight(oscArea.getWidth() * 0.13).reduced(2));
 	gainLabel.setBounds(gainLocation.removeFromBottom(25));
 	gainSlider.setBounds(gainLocation);
 
-	// Wave type controls area.
-	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.3).reduced(2));
+	// Controls area.
+	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.25).reduced(2));
 
 	// Number of voices selection area.
-	juce::Rectangle<int> numVoicesArea(controls.removeFromLeft(controls.getWidth() / 3));
+	juce::Rectangle<int> numVoicesArea(controls.removeFromLeft(60));
 	numVoicesLabel.setBounds(numVoicesArea.removeFromTop(20));
 	numVoicesInput.setBounds(numVoicesArea);
 	
 	// Oscillator Type.
-	juce::Rectangle<int> oscTypeArea(controls.removeFromLeft(controls.getWidth() / 2));
+	juce::Rectangle<int> oscTypeArea(controls.removeFromLeft(80));
 	oscTypeLabel.setBounds(oscTypeArea.removeFromTop(20));
 	oscTypeInput.setBounds(oscTypeArea);
 
@@ -160,9 +160,9 @@ void OscillatorEditor::resized()
 	transposeSlider.setBounds(transposeArea);
 
 	// Envelope sliders and labels area - needs reviewing.
-	juce::Rectangle<int> oscEnvelope(oscArea.removeFromTop(oscArea.getHeight() * 0.75).reduced(5));
+	juce::Rectangle<int> oscEnvelope(oscArea.removeFromTop(oscArea.getHeight() * 0.7).reduced(5));
 
-	juce::Rectangle<int> oscEnvelopeSlider(oscEnvelope.removeFromTop(oscEnvelope.getHeight() * 0.9));
+	juce::Rectangle<int> oscEnvelopeSlider(oscEnvelope.removeFromTop(oscEnvelope.getHeight() * 0.7));
 	const double sliderWidth = oscEnvelopeSlider.getWidth() / 4;
 	attackSlider.setBounds(oscEnvelopeSlider.removeFromLeft(sliderWidth));
 	decaySlider.setBounds(oscEnvelopeSlider.removeFromLeft(sliderWidth));
