@@ -22,7 +22,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 
 	// Number of voices components. 
 	addAndMakeVisible(numVoicesLabel);
-	numVoicesLabel.setText("number of voices: ", dontSendNotification);
+	numVoicesLabel.setText("voices: ", dontSendNotification);
 	numVoicesLabel.setJustificationType(Justification::bottomLeft);
 	addAndMakeVisible(numVoicesInput);
 	for (int i = 1; i < 11; i++)							//	Even though the numVoices parameter's range is defined we
@@ -136,12 +136,12 @@ void OscillatorEditor::resized()
 	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.2).reduced(2));
 
 	// Number of voices selection area.
-	juce::Rectangle<int> numVoicesArea(controls.removeFromLeft(100));
+	juce::Rectangle<int> numVoicesArea(controls.removeFromLeft(controls.getWidth() / 3));
 	numVoicesLabel.setBounds(numVoicesArea.removeFromTop(20));
 	numVoicesInput.setBounds(numVoicesArea);
 	
 	// Oscillator Type.
-	juce::Rectangle<int> oscTypeArea(controls);
+	juce::Rectangle<int> oscTypeArea(controls.removeFromLeft(controls.getWidth() / 2));
 	oscTypeLabel.setBounds(oscTypeArea.removeFromTop(20));
 	oscTypeInput.setBounds(oscTypeArea);
 
