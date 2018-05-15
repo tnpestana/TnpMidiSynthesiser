@@ -22,7 +22,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
 	dryWetSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 
 	addAndMakeVisible(dryWetLabel);
-	dryWetLabel.setText("dry/Wet", dontSendNotification);
+	dryWetLabel.setText("dry/wet", dontSendNotification);
 	dryWetLabel.setJustificationType(Justification::centredBottom);
 	dryWetAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState,
 		"dryWet", dryWetSlider);
