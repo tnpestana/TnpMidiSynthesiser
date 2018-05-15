@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT name="tnpMidiSynth" projectType="audioplug" buildStandalone="1"
-              jucerVersion="5.3.1" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
+              jucerVersion="5.3.2" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
               pluginFormats="buildVST,buildStandalone" buildVST="1" buildVST3="0"
-              buildAU="0" buildAUv3="0" buildRTAS="0" buildAAX="0" enableIAA="0">
+              buildAU="0" buildAUv3="0" buildRTAS="0" buildAAX="0" enableIAA="0"
+              id="TQPIW0">
   <MAINGROUP id="tdkgxH" name="tnpMidiSynth">
     <GROUP id="{136D5720-F5B3-DBDF-75D4-B71623C0CCBC}" name="Source">
       <GROUP id="{1F77430E-5D7B-C4CC-3C66-E4613C2FA0F2}" name="Editors">
