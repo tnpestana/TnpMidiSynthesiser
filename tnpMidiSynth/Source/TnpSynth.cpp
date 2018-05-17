@@ -76,7 +76,6 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 {
 	for (int sample = 0; sample < numSamples; sample++)
 	{
-
 		//	Get initial wave via the oscillator object, process its volume with the envelope class
 		// from ADSR files and filter it with JUCEs IIRFilter.
 		switch (oscType)
@@ -105,7 +104,6 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 		}
 		startSample++;
 	}
-
 }
 
 // The main apps processor needs to access this method to pass the valueTreeState envelope paremeter values.

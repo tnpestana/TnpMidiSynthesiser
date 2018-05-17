@@ -66,12 +66,12 @@ void DistortionEditor::resized()
 	titleLabel.setBounds(area.removeFromTop(20).reduced(2));
 
 	juce::Rectangle<int> labelArea(area.removeFromTop(15));
+	mixLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
 	driveLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
 	rangeLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
-	mixLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
 
 	juce::Rectangle<int> sliderArea(area.removeFromTop(getHeight()));
+	mixSlider.setBounds(sliderArea.removeFromLeft(sliderWidth));
 	driveSlider.setBounds(sliderArea.removeFromLeft(sliderWidth));
 	rangeSlider.setBounds(sliderArea.removeFromLeft(sliderWidth));
-	mixSlider.setBounds(sliderArea.removeFromLeft(sliderWidth));
 }
