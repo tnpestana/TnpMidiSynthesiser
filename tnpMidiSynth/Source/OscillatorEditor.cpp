@@ -46,6 +46,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	oscTypeInput.addItem("sine", 1);					//	Even though the oscType parameter's range is defined we
 	oscTypeInput.addItem("square", 2);					// seem to need to populate the combo box anyway.
 	oscTypeInput.addItem("triangle", 3);
+	oscTypeInput.addItem("sawtooth", 4);
 	oscTypeAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "oscType", oscTypeInput);
 
 	// Attack.
