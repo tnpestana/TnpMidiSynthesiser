@@ -27,5 +27,6 @@ public:
 
 private:
 	float currentAngle, angleDelta, currentSample,
-		  frequencyHz;
+		frequency, cyclesPerSample;
+	float modulo, increment, sampleRate;
 };

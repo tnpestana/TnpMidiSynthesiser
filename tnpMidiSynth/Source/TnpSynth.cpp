@@ -89,6 +89,9 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 		case 2:
 			soundwave = oscillator.triangleWave();
 			break;
+		case 3:
+			soundwave = oscillator.sawtoothWave();
+			break;
 		default:
 			soundwave = 0.0;
 			break;

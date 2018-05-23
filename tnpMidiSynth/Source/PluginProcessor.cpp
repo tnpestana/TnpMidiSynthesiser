@@ -36,7 +36,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("numVoices", "NumVoices", String(), numVoicesRange, 9, nullptr, nullptr);
 
 	// Oscillator type parameter.
-	NormalisableRange<float> oscTypeRange(0, 2);
+	NormalisableRange<float> oscTypeRange(0, 3);
 	treeState.createAndAddParameter("oscType", "OscType", String(), oscTypeRange, 0, nullptr, nullptr);
 
 	// Transpose parameter.

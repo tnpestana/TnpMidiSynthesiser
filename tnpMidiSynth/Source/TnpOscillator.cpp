@@ -11,8 +11,10 @@
 #include "TnpOscillator.h"
 
 TnpOscillator::TnpOscillator()
-	: currentAngle(0.0),
-	angleDelta(0.0)
+	: currentAngle(0.f),
+	  angleDelta(0.f),
+	  modulo(0.f),
+	  increment(0.f)
 {
 }
 
@@ -22,8 +24,10 @@ TnpOscillator::~TnpOscillator()
 
 void TnpOscillator::setFrequency(float frequency, float sampleRate)
 {
-	frequencyHz = frequency;
-	float cyclesPerSample = frequency / sampleRate;
+	this->frequency = frequency;
+	this->sampleRate = sampleRate;
+	cyclesPerSample = frequency / sampleRate;
+	increment = cyclesPerSample;
 	angleDelta = cyclesPerSample * MathConstants<float>::twoPi;
 }
 
@@ -58,5 +62,16 @@ float TnpOscillator::triangleWave()
 
 float TnpOscillator::sawtoothWave()
 {
-	return 0.f;
+	// modulo wrap test
+	if (modulo >= 1.f)
+		modulo -= 1.f;
+	
+	// unipolar to bipolar
+	float currentSample = 2.0 * modulo - 1.f;
+
+	// increment angle
+	modulo += increment;
+	
+	// return sample
+	return currentSample;
 }
