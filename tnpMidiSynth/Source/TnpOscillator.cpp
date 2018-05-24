@@ -55,8 +55,17 @@ float TnpOscillator::squareWave()
 
 float TnpOscillator::triangleWave()
 {
-	float currentSample = std::asin(std::sin(currentAngle)) * 2.0 / MathConstants<float>::pi;
-	updateAngle();
+	// modulo wrap test
+	if (modulo >= 1.f)
+		modulo -= 1.f;
+
+	// (2.0 * modulo - 1.f) = sawtooth wave
+	float currentSample = 2.f * fabs(2.f * modulo - 1.f) - 1.f;
+
+	// increment angle
+	modulo += increment;
+
+	// return sample
 	return currentSample;
 }
 
