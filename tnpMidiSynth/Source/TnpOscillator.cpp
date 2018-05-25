@@ -38,6 +38,16 @@ void TnpOscillator::updateAngle()
 		currentAngle -= MathConstants<float>::twoPi;
 }
 
+void TnpOscillator::incrementModulo()
+{
+	// increment angle
+	modulo += increment;
+
+	// modulo wrap test
+	if (modulo >= 1.f)
+		modulo -= 1.f;
+}
+
 float TnpOscillator::sineWave()
 {
 	float currentSample = std::sin(currentAngle);
@@ -55,31 +65,21 @@ float TnpOscillator::squareWave()
 
 float TnpOscillator::triangleWave()
 {
-	// modulo wrap test
-	if (modulo >= 1.f)
-		modulo -= 1.f;
-
 	// (2.0 * modulo - 1.f) = sawtooth wave
 	float currentSample = 2.f * fabs(2.f * modulo - 1.f) - 1.f;
 
-	// increment angle
-	modulo += increment;
+	incrementModulo();
 
 	// return sample
 	return currentSample;
 }
 
 float TnpOscillator::sawtoothWave()
-{
-	// modulo wrap test
-	if (modulo >= 1.f)
-		modulo -= 1.f;
-	
+{	
 	// unipolar to bipolar
 	float currentSample = 2.0 * modulo - 1.f;
 
-	// increment angle
-	modulo += increment;
+	incrementModulo();
 	
 	// return sample
 	return currentSample;
