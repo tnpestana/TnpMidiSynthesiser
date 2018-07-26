@@ -1,6 +1,6 @@
 # Pesto's First Synthesiser
 
-I am learning DSP and MIDI handling by gradually stacking functionality on this main synthesiser project. 
+Learning DSP and MIDI handling by gradually stacking functionality on this main synthesiser project. 
 
 ## Building
 
