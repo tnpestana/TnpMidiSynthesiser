@@ -12,7 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TnpOscillator.h"
-#include "ADSR.h"
+#include "ADSR/ADSR.h"
 
 //==============================================================================
 class TnpSynthSound : public SynthesiserSound
