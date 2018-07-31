@@ -16,7 +16,7 @@
 class ReverbEditor : public Component
 {
 public:
-	ReverbEditor(TnpMidiSynthAudioProcessor&);
+	ReverbEditor(TnpMidiSynthAudioProcessor&, AudioProcessorValueTreeState&);
 	~ReverbEditor();
 
 private:

@@ -13,8 +13,8 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p), reverbGUI(p), distortionGUI(p)
+TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeState& apvts)
+    : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p, apvts), reverbGUI(p, apvts), distortionGUI(p, apvts)
 {
     // Main editor's size.
     //setSize (250, 360);

@@ -10,7 +10,7 @@
 
 #include "ReverbEditor.h"
 
-ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
+ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeState& apvts)
 	: processor(p)
 {
 	addAndMakeVisible(titleLabel);
@@ -24,7 +24,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(dryWetLabel);
 	dryWetLabel.setText("dry/wet", dontSendNotification);
 	dryWetLabel.setJustificationType(Justification::centredBottom);
-	dryWetAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState,
+	dryWetAttachment = new AudioProcessorValueTreeState::SliderAttachment(apvts,
 		"dryWet", dryWetSlider);
 
 	addAndMakeVisible(roomSizeSlider);
@@ -34,7 +34,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(roomSizeLabel);
 	roomSizeLabel.setText("room size", dontSendNotification);
 	roomSizeLabel.setJustificationType(Justification::centredBottom);
-	roomSizeAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState,
+	roomSizeAttachment = new AudioProcessorValueTreeState::SliderAttachment(apvts,
 		"roomSize", roomSizeSlider);
 
 	addAndMakeVisible(dampingSlider);
@@ -44,7 +44,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(dampingLabel);
 	dampingLabel.setText("damping", dontSendNotification);
 	dampingLabel.setJustificationType(Justification::centredBottom);
-	dampingAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState,
+	dampingAttachment = new AudioProcessorValueTreeState::SliderAttachment(apvts,
 		"damping", dampingSlider);
 }
 

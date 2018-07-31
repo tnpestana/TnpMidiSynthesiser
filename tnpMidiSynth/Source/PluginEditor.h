@@ -22,7 +22,7 @@
 class TnpMidiSynthAudioProcessorEditor  : public AudioProcessorEditor
 {
 public:
-    TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor&);
+    TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor&, AudioProcessorValueTreeState&);
     ~TnpMidiSynthAudioProcessorEditor();
 
     //==============================================================================

@@ -10,7 +10,7 @@
 
 #include "DistortionEditor.h"
 
-DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
+DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeState& apvts)
 {
 	addAndMakeVisible(titleLabel);
 	titleLabel.setText("DISTORTION", dontSendNotification);
@@ -22,7 +22,7 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(driveSlider);
 	driveSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	driveSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
-	driveAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "distortionDrive", driveSlider);
+	driveAttachment = new AudioProcessorValueTreeState::SliderAttachment(apvts, "distortionDrive", driveSlider);
 
 	addAndMakeVisible(rangeLabel);
 	rangeLabel.setText("range", dontSendNotification);
@@ -30,7 +30,7 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(rangeSlider);
 	rangeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	rangeSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
-	rangeAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "distortionRange", rangeSlider);
+	rangeAttachment = new AudioProcessorValueTreeState::SliderAttachment(apvts, "distortionRange", rangeSlider);
 
 	addAndMakeVisible(mixLabel);
 	mixLabel.setText("mix", dontSendNotification);
@@ -38,7 +38,7 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(mixSlider);
 	mixSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	mixSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
-	mixAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "distortionMix", mixSlider);
+	mixAttachment = new AudioProcessorValueTreeState::SliderAttachment(apvts, "distortionMix", mixSlider);
 }
 
 DistortionEditor::~DistortionEditor()

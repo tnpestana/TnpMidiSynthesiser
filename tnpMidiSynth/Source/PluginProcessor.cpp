@@ -308,7 +308,7 @@ bool TnpMidiSynthAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* TnpMidiSynthAudioProcessor::createEditor()
 {
-    return new TnpMidiSynthAudioProcessorEditor (*this);
+    return new TnpMidiSynthAudioProcessorEditor (*this, treeState);
 }
 
 //==============================================================================

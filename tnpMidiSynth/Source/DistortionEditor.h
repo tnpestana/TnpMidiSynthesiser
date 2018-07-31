@@ -16,7 +16,7 @@
 class DistortionEditor : public Component
 {
 public:
-	DistortionEditor(TnpMidiSynthAudioProcessor&);
+	DistortionEditor(TnpMidiSynthAudioProcessor&, AudioProcessorValueTreeState&);
 	~DistortionEditor();
 
 private:

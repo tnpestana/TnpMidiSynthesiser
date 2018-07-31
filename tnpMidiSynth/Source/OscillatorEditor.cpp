@@ -13,7 +13,7 @@
 
 #include "OscillatorEditor.h"
 
-OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
+OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeState& apvts)
 {
 	// Title label.
 	addAndMakeVisible(titleLabel);
@@ -27,7 +27,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(numVoicesInput);
 	for (int i = 1; i < 11; i++)							//	Even though the numVoices parameter's range is defined we
 		numVoicesInput.addItem((String)i, i);				// seem to need to populate the combo box anyway.
-	numVoicesAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "numVoices", numVoicesInput);
+	numVoicesAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(apvts, "numVoices", numVoicesInput);
 
 	// Transpose
 	addAndMakeVisible(transposeSlider);
@@ -36,7 +36,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(transposeLabel);
 	transposeLabel.setText("transpose: ", dontSendNotification);
 	transposeLabel.setJustificationType(Justification::bottomLeft);
-	transposeAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "transpose", transposeSlider);
+	transposeAttachment = new AudioProcessorValueTreeState::SliderAttachment(apvts, "transpose", transposeSlider);
 
 	// Oscillator type.
 	addAndMakeVisible(oscTypeLabel);
@@ -47,7 +47,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	oscTypeInput.addItem("square", 2);					// seem to need to populate the combo box anyway.
 	oscTypeInput.addItem("triangle", 3);
 	oscTypeInput.addItem("sawtooth", 4);
-	oscTypeAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "oscType", oscTypeInput);
+	oscTypeAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(apvts, "oscType", oscTypeInput);
 
 	// Attack.
 	addAndMakeVisible(attackSlider);
@@ -56,7 +56,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(attackLabel);
 	attackLabel.setText("attack", dontSendNotification);
 	attackLabel.setJustificationType(Justification::centredTop);
-	attackAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "attack", attackSlider);
+	attackAttachment = new AudioProcessorValueTreeState::SliderAttachment(apvts, "attack", attackSlider);
 
 	// Decay.
 	addAndMakeVisible(decaySlider);
@@ -65,7 +65,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(decayLabel);
 	decayLabel.setText("decay", dontSendNotification);
 	decayLabel.setJustificationType(Justification::centredTop);
-	decayAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "decay", decaySlider);
+	decayAttachment = new AudioProcessorValueTreeState::SliderAttachment(apvts, "decay", decaySlider);
 
 	// Sustain.
 	addAndMakeVisible(sustainSlider);
@@ -74,7 +74,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(sustainLabel);
 	sustainLabel.setText("sustain", dontSendNotification);
 	sustainLabel.setJustificationType(Justification::centredTop);
-	sustainAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "sustain", sustainSlider);
+	sustainAttachment = new AudioProcessorValueTreeState::SliderAttachment(apvts, "sustain", sustainSlider);
 
 	// Release. 
 	addAndMakeVisible(releaseSlider);
@@ -83,7 +83,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(releaseLabel);
 	releaseLabel.setText("release", dontSendNotification);
 	releaseLabel.setJustificationType(Justification::centredTop);
-	releaseAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "release", releaseSlider);
+	releaseAttachment = new AudioProcessorValueTreeState::SliderAttachment(apvts, "release", releaseSlider);
 
 	// Gain.
 	addAndMakeVisible(gainSlider);
@@ -92,7 +92,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(gainLabel);
 	gainLabel.setText("gain", dontSendNotification);
 	gainLabel.setJustificationType(Justification::centredTop);
-	gainAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "gain", gainSlider);
+	gainAttachment = new AudioProcessorValueTreeState::SliderAttachment(apvts, "gain", gainSlider);
 
 	// IIR Filter.
 	addAndMakeVisible(filterTypeInput);
@@ -108,8 +108,8 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible(filterCutoffLabel);
 	filterCutoffLabel.setText("filter cutoff:", dontSendNotification);
 	filterCutoffLabel.setJustificationType(Justification::bottomLeft);
-	filterCutoffAttachment = new AudioProcessorValueTreeState::SliderAttachment(p.treeState, "filterCutoff", filterCutoffSlider);
-	filterTypeAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "filterType", filterTypeInput);
+	filterCutoffAttachment = new AudioProcessorValueTreeState::SliderAttachment(apvts, "filterCutoff", filterCutoffSlider);
+	filterTypeAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(apvts, "filterType", filterTypeInput);
 }
 
 OscillatorEditor::~OscillatorEditor()
