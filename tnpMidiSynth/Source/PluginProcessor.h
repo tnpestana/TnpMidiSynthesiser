@@ -64,13 +64,13 @@ private:
 	Synthesiser mySynth;
 	TnpSynthVoice* mySynthVoice;
 
-	ScopedPointer<Reverb> reverb;
+	Reverb reverb;
 	Reverb::Parameters reverbParameters;
 
-	ScopedPointer<IIRFilter> filterLeft;
-	ScopedPointer<IIRFilter> filterRight;
+	IIRFilter filterLeft;
+	IIRFilter filterRight;
 
-	ScopedPointer<TnpDistortion> distortion;
+	TnpDistortion distortion;
 
 	double localSampleRate, currentGain, targetGain;
 	int targetNumVoices;

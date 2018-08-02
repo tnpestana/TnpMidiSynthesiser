@@ -57,7 +57,6 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("release", "Release", String(), releaseRange, 0.015f, nullptr, nullptr);
 
 	// Reverb parameters.
-	reverb = new Reverb();
 	NormalisableRange<float> dryWetRange(0.0f, 1.0f, 0.01f);
 	NormalisableRange<float> roomSizeRange(0.0f, 1.0f, 0.01f);
 	NormalisableRange<float> dampingRange(0.0f, 1.0f, 0.01f);
@@ -67,8 +66,6 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 
 	// IRR Filter parameter(S).
 	// One filter instance for each channel to avoid distortions.
-	filterLeft = new IIRFilter();
-	filterRight = new IIRFilter();
 	NormalisableRange<float> filterCutoffRange(20.f, 20000.f, 0.01f);
 	NormalisableRange<float> filterTypeRange(0, 2);
 	filterCutoffRange.setSkewForCentre(1000.f);
@@ -76,7 +73,6 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("filterType", "FilterType", String(), filterTypeRange, 0, nullptr, nullptr);
 
 	// Distortion parameters.
-	distortion = new TnpDistortion();
 	NormalisableRange<float> distortionDriveRange(0.f, 1.f, 0.01f);
 	NormalisableRange<float> distortionRangeRange(0.f, 3000.f, 0.01f);
 	NormalisableRange<float> distortionMixRange(0.f, 1.f, 0.01f);
@@ -199,10 +195,10 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	reverbParameters.wetLevel = *treeState.getRawParameterValue("dryWet");			// a pointer to the parameter's value location.
 	reverbParameters.roomSize = *treeState.getRawParameterValue("roomSize");
 	reverbParameters.damping = *treeState.getRawParameterValue("damping");
-	reverb->setParameters(reverbParameters);
+	reverb.setParameters(reverbParameters);
 
 	// Store distortion parameters.
-	distortion->setParameters(
+	distortion.setParameters(
 		*treeState.getRawParameterValue("distortionDrive"),
 		*treeState.getRawParameterValue("distortionRange"),
 		*treeState.getRawParameterValue("distortionMix"));								
@@ -233,22 +229,22 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 	
 	// Set filter type.
-	const float filterType = *treeState.getRawParameterValue("filterType");
+	const int filterType = *treeState.getRawParameterValue("filterType");
 	const float filterCutoff = *treeState.getRawParameterValue("filterCutoff");
-	if (filterType == 0)
+	switch (filterType)
 	{
-		filterLeft->setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, 1.0));
-		filterRight->setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, 1.0));
-	}
-	else if (filterType == 1)
-	{
-		filterLeft->setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, 1.0));
-		filterRight->setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, 1.0));
-	}
-	else if (filterType == 2)
-	{
-		filterLeft->setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff));
-		filterRight->setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff));
+		case 0:
+			filterLeft.setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, 1.0));
+			filterRight.setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, 1.0));
+			break;
+		case 1:
+			filterLeft.setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, 1.0));
+			filterRight.setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, 1.0));
+			break;
+		case 2:
+			filterLeft.setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff));
+			filterRight.setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff));
+			break;
 	}
 
 	// Single sample access.
@@ -267,7 +263,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 			}
 
 			// Apply distortion.
-			*channelData = distortion->processSample(*channelData);
+			*channelData = distortion.processSample(*channelData);
 
 			// Apply gain.
 			*channelData = *channelData * currentGain;
@@ -278,14 +274,14 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	// Support reverb processing for mono and stereo systems.
 	if (buffer.getNumChannels() == 1)
 	{
-		filterLeft->processSamples(buffer.getWritePointer(0), buffer.getNumSamples());
-		reverb->processMono(buffer.getWritePointer(0), buffer.getNumSamples());
+		filterLeft.processSamples(buffer.getWritePointer(0), buffer.getNumSamples());
+		reverb.processMono(buffer.getWritePointer(0), buffer.getNumSamples());
 	}
 	else if (buffer.getNumChannels() == 2)
 	{
-		filterLeft->processSamples(buffer.getWritePointer(0), buffer.getNumSamples());
-		filterRight->processSamples(buffer.getWritePointer(1), buffer.getNumSamples());
-		reverb->processStereo(buffer.getWritePointer(0), buffer.getWritePointer(1), buffer.getNumSamples());
+		filterLeft.processSamples(buffer.getWritePointer(0), buffer.getNumSamples());
+		filterRight.processSamples(buffer.getWritePointer(1), buffer.getNumSamples());
+		reverb.processStereo(buffer.getWritePointer(0), buffer.getWritePointer(1), buffer.getNumSamples());
 	}
 }
 
