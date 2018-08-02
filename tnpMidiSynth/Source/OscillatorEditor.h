@@ -37,11 +37,11 @@ private:
 
 	ComboBox numVoicesInput, oscTypeInput, filterTypeInput;
 
-	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> attackAttachment, decayAttachment, sustainAttachment, 
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attackAttachment, decayAttachment, sustainAttachment, 
 																  releaseAttachment, gainAttachment, filterCutoffAttachment,
 																  transposeAttachment;
 
-	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> numVoicesAttachment, oscTypeAttachment, filterTypeAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> numVoicesAttachment, oscTypeAttachment, filterTypeAttachment;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscillatorEditor)
 };

@@ -28,7 +28,7 @@ private:
 	Label titleLabel, driveLabel, rangeLabel, 
 		  mixLabel;
 
-	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> driveAttachment;
-	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> rangeAttachment;
-	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> mixAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> driveAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> rangeAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> mixAttachment;
 };

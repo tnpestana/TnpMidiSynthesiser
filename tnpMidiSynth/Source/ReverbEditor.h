@@ -27,15 +27,15 @@ private:
 
 	Slider dryWetSlider;
 	Label dryWetLabel;
-	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> dryWetAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> dryWetAttachment;
 
 	Slider roomSizeSlider;
 	Label roomSizeLabel;
-	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> roomSizeAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> roomSizeAttachment;
 
 	Slider dampingSlider;
 	Label dampingLabel;
-	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> dampingAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> dampingAttachment;
 
 	// This reference is provided as a quick way for your editor to
 	// access the processor object that created it.
