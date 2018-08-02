@@ -35,7 +35,6 @@ TnpSynthVoice::TnpSynthVoice()
 	soundwave(0.f),
 	transposeValue(0)
 {
-	volumeEnvelope = new ADSR();
 }
 
 TnpSynthVoice::~TnpSynthVoice()
@@ -52,12 +51,12 @@ void TnpSynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSou
 	oscillator.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber + transposeValue), getSampleRate());
 	velocityLevel = velocity;
 
-	volumeEnvelope->gate(1);
+	volumeEnvelope.gate(1);
 }
 
 void TnpSynthVoice::stopNote(float velocity, bool allowTailOff)
 {
-	volumeEnvelope->gate(0);
+	volumeEnvelope.gate(0);
 	allowTailOff = true;
 
 	if (velocity == 0)
@@ -98,7 +97,7 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 		}
 				
 
-		double envelope = volumeEnvelope->process() * soundwave;
+		double envelope = volumeEnvelope.process() * soundwave;
 
 		for (int channel = 0; channel < outputBuffer.getNumChannels(); channel++)
 		{		
@@ -113,10 +112,10 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 void TnpSynthVoice::getEnvelopeParameters(float attack, float decay, float sustain, float release)
 {
 	double sampleRate = getSampleRate();
-	volumeEnvelope->setAttackRate(attack * sampleRate);
-	volumeEnvelope->setDecayRate(decay * sampleRate);
-	volumeEnvelope->setSustainLevel(sustain);
-	volumeEnvelope->setReleaseRate(release * sampleRate);
+	volumeEnvelope.setAttackRate(attack * sampleRate);
+	volumeEnvelope.setDecayRate(decay * sampleRate);
+	volumeEnvelope.setSustainLevel(sustain);
+	volumeEnvelope.setReleaseRate(release * sampleRate);
 }
 
 void TnpSynthVoice::getOscillatorType(float input)

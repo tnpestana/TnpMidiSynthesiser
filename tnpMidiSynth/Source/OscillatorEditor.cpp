@@ -27,8 +27,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	addAndMakeVisible(numVoicesInput);
 	for (int i = 1; i < 11; i++)							//	Even though the numVoices parameter's range is defined we
 		numVoicesInput.addItem((String)i, i);				// seem to need to populate the combo box anyway.
-	numVoicesAttachment = std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment>
-		(new AudioProcessorValueTreeState::ComboBoxAttachment(apvts, "numVoices", numVoicesInput));
+	numVoicesAttachment = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> (apvts, "numVoices", numVoicesInput);
 
 	// Transpose
 	addAndMakeVisible(transposeSlider);
@@ -37,8 +36,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	addAndMakeVisible(transposeLabel);
 	transposeLabel.setText("transpose: ", dontSendNotification);
 	transposeLabel.setJustificationType(Justification::bottomLeft);
-	transposeAttachment = std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>
-		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "transpose", transposeSlider));
+	transposeAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "transpose", transposeSlider);
 
 	// Oscillator type.
 	addAndMakeVisible(oscTypeLabel);
@@ -49,8 +47,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	oscTypeInput.addItem("square", 2);					// seem to need to populate the combo box anyway.
 	oscTypeInput.addItem("triangle", 3);
 	oscTypeInput.addItem("sawtooth", 4);
-	oscTypeAttachment = std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> 
-		(new AudioProcessorValueTreeState::ComboBoxAttachment(apvts, "oscType", oscTypeInput));
+	oscTypeAttachment = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> (apvts, "oscType", oscTypeInput);
 
 	// Attack.
 	addAndMakeVisible(attackSlider);
@@ -59,8 +56,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	addAndMakeVisible(attackLabel);
 	attackLabel.setText("attack", dontSendNotification);
 	attackLabel.setJustificationType(Justification::centredTop);
-	attackAttachment = std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>
-		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "attack", attackSlider));
+	attackAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "attack", attackSlider);
 
 	// Decay.
 	addAndMakeVisible(decaySlider);

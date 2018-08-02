@@ -52,6 +52,6 @@ private:
 	float soundwave;
 	int oscType, transposeValue;
 	TnpOscillator oscillator;
-	ScopedPointer<ADSR> volumeEnvelope;
+	ADSR volumeEnvelope;
 
 };
