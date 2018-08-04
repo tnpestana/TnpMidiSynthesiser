@@ -33,7 +33,7 @@ DelayEditor::DelayEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeS
 	delayFeedbackAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "delayFeedback", delayFeedbackSlider);
 
 	addAndMakeVisible(delayMixLabel);
-	delayMixLabel.setText("wet", dontSendNotification);
+	delayMixLabel.setText("mix", dontSendNotification);
 	delayMixLabel.setJustificationType(Justification::centredBottom);
 	addAndMakeVisible(delayMixSlider);
 	delayMixSlider.setSliderStyle(Slider::RotaryVerticalDrag);
