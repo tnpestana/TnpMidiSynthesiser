@@ -13,6 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TnpSynth.h"
 #include "TnpDistortion.h"
+#include "TnpStereoDelay.h"
 
 //==============================================================================
 class TnpMidiSynthAudioProcessor  : public AudioProcessor
@@ -71,6 +72,8 @@ private:
 	IIRFilter filterRight;
 
 	TnpDistortion distortion;
+
+	TnpStereoDelay delay;
 
 	double localSampleRate, currentGain, targetGain;
 	int targetNumVoices;

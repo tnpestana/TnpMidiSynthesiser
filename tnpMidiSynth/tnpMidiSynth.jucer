@@ -26,22 +26,31 @@
               file="Source/DistortionEditor.cpp"/>
         <FILE id="xMKh13" name="DistortionEditor.h" compile="0" resource="0"
               file="Source/DistortionEditor.h"/>
+        <FILE id="j9WCNX" name="DelayEditor.cpp" compile="1" resource="0" file="Source/DelayEditor.cpp"/>
+        <FILE id="pxcUz9" name="DelayEditor.h" compile="0" resource="0" file="Source/DelayEditor.h"/>
       </GROUP>
-      <FILE id="E40zal" name="TnpDistortion.h" compile="0" resource="0" file="Source/TnpDistortion.h"/>
-      <FILE id="wCSXrS" name="TnpDistortion.cpp" compile="1" resource="0"
-            file="Source/TnpDistortion.cpp"/>
-      <FILE id="t6gt4U" name="TnpOscillator.cpp" compile="1" resource="0"
-            file="Source/TnpOscillator.cpp"/>
-      <FILE id="v1pj7z" name="TnpOscillator.h" compile="0" resource="0" file="Source/TnpOscillator.h"/>
-      <FILE id="KbVU0Z" name="TnpSynth.cpp" compile="1" resource="0" file="Source/TnpSynth.cpp"/>
-      <FILE id="b1u1EN" name="TnpSynth.h" compile="0" resource="0" file="Source/TnpSynth.h"/>
       <FILE id="ZWtIDa" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="whaReg" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
+      <FILE id="KbVU0Z" name="TnpSynth.cpp" compile="1" resource="0" file="Source/TnpSynth.cpp"/>
+      <FILE id="b1u1EN" name="TnpSynth.h" compile="0" resource="0" file="Source/TnpSynth.h"/>
+      <FILE id="t6gt4U" name="TnpOscillator.cpp" compile="1" resource="0"
+            file="Source/TnpOscillator.cpp"/>
+      <FILE id="v1pj7z" name="TnpOscillator.h" compile="0" resource="0" file="Source/TnpOscillator.h"/>
       <FILE id="plkHBY" name="TnpWavetable.cpp" compile="1" resource="0"
             file="Source/TnpWavetable.cpp"/>
       <FILE id="Myljhl" name="TnpWavetable.h" compile="0" resource="0" file="Source/TnpWavetable.h"/>
+      <FILE id="wCSXrS" name="TnpDistortion.cpp" compile="1" resource="0"
+            file="Source/TnpDistortion.cpp"/>
+      <FILE id="E40zal" name="TnpDistortion.h" compile="0" resource="0" file="Source/TnpDistortion.h"/>
+      <FILE id="Jh33sr" name="TnpDelayLine.cpp" compile="1" resource="0"
+            file="Source/TnpDelayLine.cpp"/>
+      <FILE id="yYwNRK" name="TnpDelayLine.h" compile="0" resource="0" file="Source/TnpDelayLine.h"/>
+      <FILE id="lSF20D" name="TnpStereoDelay.cpp" compile="1" resource="0"
+            file="Source/TnpStereoDelay.cpp"/>
+      <FILE id="ZczgO5" name="TnpStereoDelay.h" compile="0" resource="0"
+            file="Source/TnpStereoDelay.h"/>
     </GROUP>
   </MAINGROUP>
   <LIVE_SETTINGS>

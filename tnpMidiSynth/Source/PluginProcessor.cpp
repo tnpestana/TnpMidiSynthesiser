@@ -80,6 +80,14 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("distortionRange", "DistortionRange", String(), distortionRangeRange, 1500.f, nullptr, nullptr);
 	treeState.createAndAddParameter("distortionMix", "DistortionMix", String(), distortionMixRange, 0.f, nullptr, nullptr);
 
+	// Delay parameters.
+	NormalisableRange<float> delayTimeRange(0.f, 2.f, 0.001f);
+	NormalisableRange<float> delayFeedbackRange(0.f, 1.f, 0.001f);
+	NormalisableRange<float> delayWetRange(0.f, 1.f, 0.001f);
+	treeState.createAndAddParameter("delayTime", "DelayTime", String(), delayTimeRange, 0.f, nullptr, nullptr);
+	treeState.createAndAddParameter("delayFeedback", "DelayFeedback", String(), delayFeedbackRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("delayWet", "DelayWet", String(), delayWetRange, 0.5f, nullptr, nullptr);
+
 	treeState.state = ValueTree(Identifier("tnpMidiSynthState"));
 }
 
@@ -154,6 +162,7 @@ void TnpMidiSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
 {
 	localSampleRate = sampleRate;
 	mySynth.setCurrentPlaybackSampleRate(sampleRate);
+	delay.prepareToPlay(sampleRate);
 }
 
 void TnpMidiSynthAudioProcessor::releaseResources()
@@ -269,6 +278,18 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 			*channelData = *channelData * currentGain;
 			channelData++;
 		}
+	}
+
+	// Delay processing.
+	delay.updateParams(*treeState.getRawParameterValue("delayTime"),
+		*treeState.getRawParameterValue("delayFeedback"),
+		*treeState.getRawParameterValue("delayWet"));
+
+	for (int sample = 0; sample < buffer.getNumSamples(); sample++)
+	{
+		float* outputDataL = buffer.getWritePointer(0, sample);
+		float* outputDataR = buffer.getWritePointer(1, sample);
+		delay.processAudio(outputDataL, outputDataR);
 	}
 
 	// Support reverb processing for mono and stereo systems.

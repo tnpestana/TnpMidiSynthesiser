@@ -15,6 +15,7 @@
 #include "OscillatorEditor.h"
 #include "ReverbEditor.h"
 #include "DistortionEditor.h"
+#include "DelayEditor.h"
 
 //==============================================================================
 /**
@@ -37,6 +38,7 @@ private:
 	OscillatorEditor oscillatorGUI;
 	ReverbEditor reverbGUI;
 	DistortionEditor distortionGUI;
+	DelayEditor delayGUI;
 
 	//==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpMidiSynthAudioProcessorEditor)

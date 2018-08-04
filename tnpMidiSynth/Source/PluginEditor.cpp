@@ -14,16 +14,17 @@
 
 //==============================================================================
 TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeState& apvts)
-    : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p, apvts), reverbGUI(p, apvts), distortionGUI(p, apvts)
+    : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p, apvts), reverbGUI(p, apvts), distortionGUI(p, apvts), delayGUI(p, apvts)
 {
     // Main editor's size.
     //setSize (250, 360);
-	setSize(300, 425);
+	setSize(300, 525);
 	setResizable(true, true);
 
 	addAndMakeVisible(oscillatorGUI);
 	addAndMakeVisible(distortionGUI);
 	addAndMakeVisible(reverbGUI);
+	addAndMakeVisible(delayGUI);
 }
 TnpMidiSynthAudioProcessorEditor::~TnpMidiSynthAudioProcessorEditor()
 {
@@ -58,5 +59,8 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	distortionGUI.setBounds(area.removeFromTop(100).reduced(5));
 
 	// Reverb area.
-	reverbGUI.setBounds(area.reduced(5));
+	reverbGUI.setBounds(area.removeFromTop(100).reduced(5));
+
+	// Delay area.
+	delayGUI.setBounds(area.reduced(5));
 }
