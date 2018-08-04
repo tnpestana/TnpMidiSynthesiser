@@ -27,7 +27,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	addAndMakeVisible(numVoicesInput);
 	for (int i = 1; i < 11; i++)							//	Even though the numVoices parameter's range is defined we
 		numVoicesInput.addItem((String)i, i);				// seem to need to populate the combo box anyway.
-	numVoicesAttachment = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> (apvts, "numVoices", numVoicesInput);
+	numVoicesAttachment = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> (apvts, "oscNumVoices", numVoicesInput);
 
 	// Transpose
 	addAndMakeVisible(transposeSlider);
@@ -36,7 +36,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	addAndMakeVisible(transposeLabel);
 	transposeLabel.setText("transpose: ", dontSendNotification);
 	transposeLabel.setJustificationType(Justification::bottomLeft);
-	transposeAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "transpose", transposeSlider);
+	transposeAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "oscTranspose", transposeSlider);
 
 	// Oscillator type.
 	addAndMakeVisible(oscTypeLabel);
@@ -56,7 +56,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	addAndMakeVisible(attackLabel);
 	attackLabel.setText("attack", dontSendNotification);
 	attackLabel.setJustificationType(Justification::centredTop);
-	attackAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "attack", attackSlider);
+	attackAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "volEnvAttack", attackSlider);
 
 	// Decay.
 	addAndMakeVisible(decaySlider);
@@ -66,7 +66,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	decayLabel.setText("decay", dontSendNotification);
 	decayLabel.setJustificationType(Justification::centredTop);
 	decayAttachment = std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>
-		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "decay", decaySlider));
+		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "volEnvDecay", decaySlider));
 
 	// Sustain.
 	addAndMakeVisible(sustainSlider);
@@ -76,7 +76,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	sustainLabel.setText("sustain", dontSendNotification);
 	sustainLabel.setJustificationType(Justification::centredTop);
 	sustainAttachment = std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>
-		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "sustain", sustainSlider));
+		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "volEnvSustain", sustainSlider));
 
 	// Release. 
 	addAndMakeVisible(releaseSlider);
@@ -86,7 +86,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	releaseLabel.setText("release", dontSendNotification);
 	releaseLabel.setJustificationType(Justification::centredTop);
 	releaseAttachment = std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>
-		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "release", releaseSlider));
+		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "volEnvRelease", releaseSlider));
 
 	// Gain.
 	addAndMakeVisible(gainSlider);

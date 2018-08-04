@@ -32,13 +32,13 @@ DelayEditor::DelayEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeS
 	delayFeedbackSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
 	delayFeedbackAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "delayFeedback", delayFeedbackSlider);
 
-	addAndMakeVisible(delayWetLabel);
-	delayWetLabel.setText("wet", dontSendNotification);
-	delayWetLabel.setJustificationType(Justification::centredBottom);
-	addAndMakeVisible(delayWetSlider);
-	delayWetSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	delayWetSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
-	delayWetAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "delayWet", delayWetSlider);
+	addAndMakeVisible(delayMixLabel);
+	delayMixLabel.setText("wet", dontSendNotification);
+	delayMixLabel.setJustificationType(Justification::centredBottom);
+	addAndMakeVisible(delayMixSlider);
+	delayMixSlider.setSliderStyle(Slider::RotaryVerticalDrag);
+	delayMixSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	delayMixAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "delayMix", delayMixSlider);
 }
 
 DelayEditor::~DelayEditor()
@@ -62,10 +62,10 @@ void DelayEditor::resized()
 	juce::Rectangle<int> labelArea(area.removeFromTop(15));
 	delayTimeLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
 	delayFeedbackLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
-	delayWetLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
+	delayMixLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
 
 	juce::Rectangle<int> sliderArea(area.removeFromTop(getHeight()));
 	delayTimeSlider.setBounds(sliderArea.removeFromLeft(sliderWidth));
 	delayFeedbackSlider.setBounds(sliderArea.removeFromLeft(sliderWidth));
-	delayWetSlider.setBounds(sliderArea.removeFromLeft(sliderWidth));
+	delayMixSlider.setBounds(sliderArea.removeFromLeft(sliderWidth));
 }

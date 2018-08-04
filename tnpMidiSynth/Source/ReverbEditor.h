@@ -24,17 +24,16 @@ private:
 	void resized() override;
 
 	Label titleLabel;
-
-	Slider dryWetSlider;
-	Label dryWetLabel;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> dryWetAttachment;
-
-	Slider roomSizeSlider;
+	Label mixLabel;
 	Label roomSizeLabel;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> roomSizeAttachment;
-
-	Slider dampingSlider;
 	Label dampingLabel;
+
+	Slider mixSlider;
+	Slider roomSizeSlider;
+	Slider dampingSlider;
+
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> mixAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> roomSizeAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> dampingAttachment;
 
 	// This reference is provided as a quick way for your editor to

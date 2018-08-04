@@ -23,10 +23,14 @@ private:
 	void paint(Graphics&) override;
 	void resized() override;
 
-	Slider driveSlider, rangeSlider, mixSlider;
-	
-	Label titleLabel, driveLabel, rangeLabel, 
-		  mixLabel;
+	Label titleLabel;
+	Label driveLabel;
+	Label rangeLabel;
+	Label mixLabel;
+
+	Slider driveSlider;
+	Slider rangeSlider; 
+	Slider mixSlider;
 
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> driveAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> rangeAttachment;

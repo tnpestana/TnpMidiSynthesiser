@@ -22,13 +22,17 @@ public:
 private:
 	void paint(Graphics&) override;
 	void resized() override;
+	
+	Label titleLabel;
+	Label delayTimeLabel;
+	Label delayFeedbackLabel;
+	Label delayMixLabel;
 
-	Slider delayTimeSlider, delayFeedbackSlider, delayWetSlider;
-
-	Label titleLabel, delayTimeLabel, delayFeedbackLabel,
-		delayWetLabel;
+	Slider delayTimeSlider;
+	Slider delayFeedbackSlider; 
+	Slider delayMixSlider;
 
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayTimeAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayFeedbackAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayWetAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayMixAttachment;
 };

@@ -33,7 +33,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	
 	// Number of voices parameter.
 	NormalisableRange<float> numVoicesRange(0, 9);
-	treeState.createAndAddParameter("numVoices", "NumVoices", String(), numVoicesRange, 9, nullptr, nullptr);
+	treeState.createAndAddParameter("oscNumVoices", "NumVoices", String(), numVoicesRange, 9, nullptr, nullptr);
 
 	// Oscillator type parameter.
 	NormalisableRange<float> oscTypeRange(0, 3);
@@ -41,7 +41,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 
 	// Transpose parameter.
 	NormalisableRange<float> transposeRange(-24.f, 24.f, 1.f);
-	treeState.createAndAddParameter("transpose", "Transpose", String(), transposeRange, 0, nullptr, nullptr);
+	treeState.createAndAddParameter("oscTranspose", "Transpose", String(), transposeRange, 0, nullptr, nullptr);
 
 	// Volume envelope parameters.
 	NormalisableRange<float> attackRange(0.001f, 5.0f, 0.001f);
@@ -51,18 +51,18 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	attackRange.setSkewForCentre(1.0);
 	decayRange.setSkewForCentre(1.0);
 	releaseRange.setSkewForCentre(1.0);
-	treeState.createAndAddParameter("attack", "Attack", String(), attackRange, 0.1f, nullptr, nullptr);
-	treeState.createAndAddParameter("decay", "Decay", String(), decayRange, 0.5f, nullptr, nullptr);
-	treeState.createAndAddParameter("sustain", "Sustain", String(), sustainRange, 0.001f, nullptr, nullptr);
-	treeState.createAndAddParameter("release", "Release", String(), releaseRange, 0.015f, nullptr, nullptr);
+	treeState.createAndAddParameter("volEnvAttack", "VolEnvAttack", String(), attackRange, 0.1f, nullptr, nullptr);
+	treeState.createAndAddParameter("volEnvDecay", "VolEnvDecay", String(), decayRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("volEnvSustain", "VolEnvSustain", String(), sustainRange, 0.001f, nullptr, nullptr);
+	treeState.createAndAddParameter("volEnvRelease", "VolEnvRelease", String(), releaseRange, 0.015f, nullptr, nullptr);
 
 	// Reverb parameters.
 	NormalisableRange<float> dryWetRange(0.0f, 1.0f, 0.01f);
 	NormalisableRange<float> roomSizeRange(0.0f, 1.0f, 0.01f);
 	NormalisableRange<float> dampingRange(0.0f, 1.0f, 0.01f);
-	treeState.createAndAddParameter("dryWet", "DryWet", String(), dryWetRange, 0.f, nullptr, nullptr);
-	treeState.createAndAddParameter("roomSize", "RoomSize", String(), roomSizeRange, 0.2f, nullptr, nullptr);
-	treeState.createAndAddParameter("damping", "Damping", String(), dampingRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("reverbMix", "ReverbMix", String(), dryWetRange, 0.f, nullptr, nullptr);
+	treeState.createAndAddParameter("reverbRoomSize", "ReverbRoomSize", String(), roomSizeRange, 0.2f, nullptr, nullptr);
+	treeState.createAndAddParameter("reverbDamping", "ReverbDamping", String(), dampingRange, 0.5f, nullptr, nullptr);
 
 	// IRR Filter parameter(S).
 	// One filter instance for each channel to avoid distortions.
@@ -86,7 +86,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	NormalisableRange<float> delayWetRange(0.f, 1.f, 0.001f);
 	treeState.createAndAddParameter("delayTime", "DelayTime", String(), delayTimeRange, 1.f, nullptr, nullptr);
 	treeState.createAndAddParameter("delayFeedback", "DelayFeedback", String(), delayFeedbackRange, 0.f, nullptr, nullptr);
-	treeState.createAndAddParameter("delayWet", "DelayWet", String(), delayWetRange, 0.f, nullptr, nullptr);
+	treeState.createAndAddParameter("delayMix", "DelayMix", String(), delayWetRange, 0.f, nullptr, nullptr);
 
 	treeState.state = ValueTree(Identifier("tnpMidiSynthState"));
 }
@@ -200,10 +200,10 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 
 	//  Dry and wet levels are bound to the same slider as they should be
 	// inversely proportioned.
-	reverbParameters.dryLevel = 1.0f - *treeState.getRawParameterValue("dryWet");	//	Dereference the result of getRawParameterValue because it returns
-	reverbParameters.wetLevel = *treeState.getRawParameterValue("dryWet");			// a pointer to the parameter's value location.
-	reverbParameters.roomSize = *treeState.getRawParameterValue("roomSize");
-	reverbParameters.damping = *treeState.getRawParameterValue("damping");
+	reverbParameters.dryLevel = 1.0f - *treeState.getRawParameterValue("reverbMix");	//	Dereference the result of getRawParameterValue because it returns
+	reverbParameters.wetLevel = *treeState.getRawParameterValue("reverbMix");			// a pointer to the parameter's value location.
+	reverbParameters.roomSize = *treeState.getRawParameterValue("reverbRoomSize");
+	reverbParameters.damping = *treeState.getRawParameterValue("reverbDamping");
 	reverb.setParameters(reverbParameters);
 
 	// Store distortion parameters.
@@ -213,7 +213,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 		*treeState.getRawParameterValue("distortionMix"));								
 
 	// Check if the number of voices selected has changed.
-	int numVoicesParam = *treeState.getRawParameterValue("numVoices") + 1;			// Add one for the values to match the combo box IDs.
+	int numVoicesParam = *treeState.getRawParameterValue("oscNumVoices") + 1;			// Add one for the values to match the combo box IDs.
 	if (numVoicesParam != mySynth.getNumVoices())
 	{
 		setNumVoices(numVoicesParam);
@@ -227,11 +227,11 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 		if (mySynthVoice = dynamic_cast<TnpSynthVoice*>(mySynth.getVoice(i)))
 		{
 			mySynthVoice->getOscillatorType(*treeState.getRawParameterValue("oscType"));
-			mySynthVoice->getTransposeValue(*treeState.getRawParameterValue("transpose"));
-			mySynthVoice->getEnvelopeParameters(*treeState.getRawParameterValue("attack"),
-				*treeState.getRawParameterValue("decay"),
-				*treeState.getRawParameterValue("sustain"),
-				*treeState.getRawParameterValue("release"));
+			mySynthVoice->getTransposeValue(*treeState.getRawParameterValue("oscTranspose"));
+			mySynthVoice->getEnvelopeParameters(*treeState.getRawParameterValue("volEnvAttack"),
+				*treeState.getRawParameterValue("volEnvDecay"),
+				*treeState.getRawParameterValue("volEnvSustain"),
+				*treeState.getRawParameterValue("volEnvRelease"));
 		}
 	}
 
@@ -283,7 +283,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	// Delay processing.
 	delay.updateParams(*treeState.getRawParameterValue("delayTime"),
 		*treeState.getRawParameterValue("delayFeedback"),
-		*treeState.getRawParameterValue("delayWet"));
+		*treeState.getRawParameterValue("delayMix"));
 
 	for (int sample = 0; sample < buffer.getNumSamples(); sample++)
 	{
