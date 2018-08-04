@@ -58,9 +58,9 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	// Distortion area.
 	distortionGUI.setBounds(area.removeFromTop(100).reduced(5));
 
-	// Reverb area.
-	reverbGUI.setBounds(area.removeFromTop(100).reduced(5));
-
 	// Delay area.
-	delayGUI.setBounds(area.reduced(5));
+	delayGUI.setBounds(area.removeFromTop(100).reduced(5));
+
+	// Reverb area.
+	reverbGUI.setBounds(area.reduced(5));
 }

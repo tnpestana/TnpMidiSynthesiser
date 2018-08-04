@@ -36,9 +36,9 @@ private:
 	TnpMidiSynthAudioProcessor& processor;
 
 	OscillatorEditor oscillatorGUI;
-	ReverbEditor reverbGUI;
 	DistortionEditor distortionGUI;
 	DelayEditor delayGUI;
+	ReverbEditor reverbGUI;
 
 	//==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpMidiSynthAudioProcessorEditor)

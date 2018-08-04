@@ -47,15 +47,15 @@ DistortionEditor::~DistortionEditor()
 
 void DistortionEditor::paint(Graphics& g)
 {
-	g.fillAll(Colours::olive);
-	getLookAndFeel().setColour(Label::backgroundColourId, Colours::olive);
+	g.fillAll(Colours::lightgrey);
+	getLookAndFeel().setColour(Label::backgroundColourId, Colours::lightgrey);
 
-	titleLabel.setColour(Label::backgroundColourId, Colours::darkolivegreen);
+	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
 
 	// Color scheme for child components.
-	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::olivedrab);
-	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::lightgrey);
-	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::lightgrey);
+	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::cadetblue);
 }
 
 void DistortionEditor::resized()

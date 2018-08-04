@@ -53,9 +53,9 @@ void DelayEditor::paint(Graphics& g)
 	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
 
 	// Color scheme for child components.
-	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::lightskyblue);
-	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::black);
-	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::lightgrey);
+	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::cadetblue);
 }
 
 void DelayEditor::resized()

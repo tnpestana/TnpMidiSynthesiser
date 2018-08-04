@@ -85,7 +85,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	NormalisableRange<float> delayFeedbackRange(0.f, 1.f, 0.001f);
 	NormalisableRange<float> delayWetRange(0.f, 1.f, 0.001f);
 	treeState.createAndAddParameter("delayTime", "DelayTime", String(), delayTimeRange, 0.f, nullptr, nullptr);
-	treeState.createAndAddParameter("delayFeedback", "DelayFeedback", String(), delayFeedbackRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("delayFeedback", "DelayFeedback", String(), delayFeedbackRange, 0.f, nullptr, nullptr);
 	treeState.createAndAddParameter("delayWet", "DelayWet", String(), delayWetRange, 0.5f, nullptr, nullptr);
 
 	treeState.state = ValueTree(Identifier("tnpMidiSynthState"));

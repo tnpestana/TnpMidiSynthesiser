@@ -52,15 +52,15 @@ ReverbEditor::~ReverbEditor()
 void ReverbEditor::paint(Graphics& g)
 {
 	// (Our component is opaque, so we must completely fill the background with a solid colour)
-	g.fillAll(Colours::goldenrod);
-	getLookAndFeel().setColour(Label::backgroundColourId, Colours::goldenrod);
+	g.fillAll(Colours::lightgrey);
+	getLookAndFeel().setColour(Label::backgroundColourId, Colours::lightgrey);
 
-	titleLabel.setColour(Label::backgroundColourId, Colours::darkgoldenrod);
+	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
 
 	// Color scheme for child components.
-	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::palegoldenrod);
-	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::palegoldenrod);
-	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::darkorange);
+	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::cadetblue);
 }
 
 void ReverbEditor::resized()

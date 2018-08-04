@@ -124,17 +124,19 @@ OscillatorEditor::~OscillatorEditor()
 
 void OscillatorEditor::paint(Graphics& g)
 {
-	g.fillAll(Colours::lightsalmon);
-	
-	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::lightsalmon);
-	getLookAndFeel().setColour(ComboBox::outlineColourId, Colours::lightsalmon);
-	getLookAndFeel().setColour(Label::backgroundColourId, Colours::lightsalmon);
-	getLookAndFeel().setColour(PopupMenu::ColourIds::backgroundColourId, Colours::darksalmon);
-	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::lightpink);
-	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::coral);
-	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::lightpink);
+	// (Our component is opaque, so we must completely fill the background with a solid colour)
+	g.fillAll(Colours::lightgrey);
+	getLookAndFeel().setColour(Label::backgroundColourId, Colours::lightgrey);
 
-	titleLabel.setColour(Label::backgroundColourId, Colours::darksalmon);
+	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
+
+	// Color scheme for child components.
+	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::cadetblue);
+
+	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::lightgrey);
+	getLookAndFeel().setColour(ComboBox::outlineColourId, Colours::cadetblue);
 }
 
 void OscillatorEditor::resized()
@@ -154,12 +156,12 @@ void OscillatorEditor::resized()
 	// Number of voices selection area.
 	juce::Rectangle<int> numVoicesArea(controls.removeFromLeft(60));
 	numVoicesLabel.setBounds(numVoicesArea.removeFromTop(20));
-	numVoicesInput.setBounds(numVoicesArea);
+	numVoicesInput.setBounds(numVoicesArea.reduced(2));
 	
 	// Oscillator Type.
 	juce::Rectangle<int> oscTypeArea(controls.removeFromLeft(80));
 	oscTypeLabel.setBounds(oscTypeArea.removeFromTop(20));
-	oscTypeInput.setBounds(oscTypeArea);
+	oscTypeInput.setBounds(oscTypeArea.reduced(2));
 
 	// Transpose selection area.
 	juce::Rectangle<int> transposeArea(controls);
