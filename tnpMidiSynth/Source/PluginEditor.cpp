@@ -42,8 +42,16 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 	// Color scheme for properties that always remain the same.
 	getLookAndFeel().setColour(Slider::ColourIds::backgroundColourId, Colours::floralwhite);
 	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderOutlineColourId, Colours::floralwhite);
+	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::cadetblue);
+
 	getLookAndFeel().setColour(ComboBox::textColourId, Colours::black);
+	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::lightgrey);
+	getLookAndFeel().setColour(ComboBox::outlineColourId, Colours::cadetblue);
+
+	getLookAndFeel().setColour(PopupMenu::ColourIds::backgroundColourId ,Colours::lightgrey);
+
 	getLookAndFeel().setColour(PopupMenu::textColourId, Colours::black);
+
 	getLookAndFeel().setColour(Label::textColourId, Colours::black);
 }
 

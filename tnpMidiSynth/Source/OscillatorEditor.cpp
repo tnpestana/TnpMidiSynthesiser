@@ -126,17 +126,8 @@ void OscillatorEditor::paint(Graphics& g)
 {
 	// (Our component is opaque, so we must completely fill the background with a solid colour)
 	g.fillAll(Colours::lightgrey);
-	getLookAndFeel().setColour(Label::backgroundColourId, Colours::lightgrey);
 
 	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
-
-	// Color scheme for child components.
-	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::cadetblue);
-	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::cadetblue);
-	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::cadetblue);
-
-	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::lightgrey);
-	getLookAndFeel().setColour(ComboBox::outlineColourId, Colours::cadetblue);
 }
 
 void OscillatorEditor::resized()
