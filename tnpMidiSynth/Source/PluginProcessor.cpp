@@ -29,7 +29,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 {
 	// Gain parameter.
 	NormalisableRange<float> gainRange(0.0f, 1.0f, 0.01f);
-	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 0.3f, nullptr, nullptr);
+	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 0.5f, nullptr, nullptr);
 	
 	// Number of voices parameter.
 	NormalisableRange<float> numVoicesRange(0, 9);
@@ -37,7 +37,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 
 	// Oscillator type parameter.
 	NormalisableRange<float> oscTypeRange(0, 3);
-	treeState.createAndAddParameter("oscType", "OscType", String(), oscTypeRange, 0, nullptr, nullptr);
+	treeState.createAndAddParameter("oscType", "OscType", String(), oscTypeRange, 2, nullptr, nullptr);
 
 	// Transpose parameter.
 	NormalisableRange<float> transposeRange(-24.f, 24.f, 1.f);
@@ -60,9 +60,9 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	NormalisableRange<float> dryWetRange(0.0f, 1.0f, 0.01f);
 	NormalisableRange<float> roomSizeRange(0.0f, 1.0f, 0.01f);
 	NormalisableRange<float> dampingRange(0.0f, 1.0f, 0.01f);
-	treeState.createAndAddParameter("dryWet", "DryWet", String(), dryWetRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("dryWet", "DryWet", String(), dryWetRange, 0.f, nullptr, nullptr);
 	treeState.createAndAddParameter("roomSize", "RoomSize", String(), roomSizeRange, 0.2f, nullptr, nullptr);
-	treeState.createAndAddParameter("damping", "Damping", String(), dampingRange, 0.0f, nullptr, nullptr);
+	treeState.createAndAddParameter("damping", "Damping", String(), dampingRange, 0.5f, nullptr, nullptr);
 
 	// IRR Filter parameter(S).
 	// One filter instance for each channel to avoid distortions.
@@ -84,9 +84,9 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	NormalisableRange<float> delayTimeRange(0.f, 2.f, 0.001f);
 	NormalisableRange<float> delayFeedbackRange(0.f, 1.f, 0.001f);
 	NormalisableRange<float> delayWetRange(0.f, 1.f, 0.001f);
-	treeState.createAndAddParameter("delayTime", "DelayTime", String(), delayTimeRange, 0.f, nullptr, nullptr);
+	treeState.createAndAddParameter("delayTime", "DelayTime", String(), delayTimeRange, 1.f, nullptr, nullptr);
 	treeState.createAndAddParameter("delayFeedback", "DelayFeedback", String(), delayFeedbackRange, 0.f, nullptr, nullptr);
-	treeState.createAndAddParameter("delayWet", "DelayWet", String(), delayWetRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("delayWet", "DelayWet", String(), delayWetRange, 0.f, nullptr, nullptr);
 
 	treeState.state = ValueTree(Identifier("tnpMidiSynthState"));
 }
