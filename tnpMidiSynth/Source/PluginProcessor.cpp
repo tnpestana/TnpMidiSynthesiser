@@ -67,7 +67,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	// IRR Filter parameter(S).
 	// One filter instance for each channel to avoid distortions.
 	NormalisableRange<float> filterCutoffRange(20.f, 20000.f, 0.01f);
-	NormalisableRange<float> filterTypeRange(0.f, 2.f);
+	NormalisableRange<float> filterTypeRange(0.f, 3.f);
 	NormalisableRange<float> filterQRange(0.1f, 5.f);
 	filterCutoffRange.setSkewForCentre(1000.f);
 	treeState.createAndAddParameter("filterCutoff", "FilterCutoff", String(), filterCutoffRange, 5000.f, nullptr, nullptr);
@@ -256,6 +256,10 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 		case 2:
 			filterLeft.setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff, filterQ));
 			filterRight.setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff, filterQ));
+			break;
+		case 3:
+			filterLeft.setCoefficients(IIRCoefficients::makeNotchFilter(localSampleRate, filterCutoff, filterQ));
+			filterRight.setCoefficients(IIRCoefficients::makeNotchFilter(localSampleRate, filterCutoff, filterQ));
 			break;
 	}
 

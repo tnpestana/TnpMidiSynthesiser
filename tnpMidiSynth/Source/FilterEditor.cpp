@@ -21,6 +21,7 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 	filterTypeInput.addItem("lo-pass", 1);
 	filterTypeInput.addItem("hi-pass", 2);
 	filterTypeInput.addItem("band-pass", 3);
+	filterTypeInput.addItem("notch", 4);
 
 	addAndMakeVisible(filterCutoffSlider);
 	filterCutoffSlider.setSliderStyle(Slider::RotaryVerticalDrag);
