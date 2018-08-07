@@ -67,10 +67,12 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	// IRR Filter parameter(S).
 	// One filter instance for each channel to avoid distortions.
 	NormalisableRange<float> filterCutoffRange(20.f, 20000.f, 0.01f);
-	NormalisableRange<float> filterTypeRange(0, 2);
+	NormalisableRange<float> filterTypeRange(0.f, 2.f);
+	NormalisableRange<float> filterQRange(0.1f, 5.f);
 	filterCutoffRange.setSkewForCentre(1000.f);
 	treeState.createAndAddParameter("filterCutoff", "FilterCutoff", String(), filterCutoffRange, 5000.f, nullptr, nullptr);
 	treeState.createAndAddParameter("filterType", "FilterType", String(), filterTypeRange, 0, nullptr, nullptr);
+	treeState.createAndAddParameter("filterQ", "FilterQ", String(), filterQRange, 1.f, nullptr, nullptr);
 
 	// Distortion parameters.
 	NormalisableRange<float> distortionDriveRange(0.f, 1.f, 0.01f);
@@ -239,20 +241,21 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	
 	// Set filter type.
 	const int filterType = *treeState.getRawParameterValue("filterType");
+	const float filterQ = *treeState.getRawParameterValue("filterQ");
 	const float filterCutoff = *treeState.getRawParameterValue("filterCutoff");
 	switch (filterType)
 	{
 		case 0:
-			filterLeft.setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, 1.0));
-			filterRight.setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, 1.0));
+			filterLeft.setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, filterQ));
+			filterRight.setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, filterQ));
 			break;
 		case 1:
-			filterLeft.setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, 1.0));
-			filterRight.setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, 1.0));
+			filterLeft.setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, filterQ));
+			filterRight.setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, filterQ));
 			break;
 		case 2:
-			filterLeft.setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff));
-			filterRight.setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff));
+			filterLeft.setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff, filterQ));
+			filterRight.setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff, filterQ));
 			break;
 	}
 

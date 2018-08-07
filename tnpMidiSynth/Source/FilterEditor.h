@@ -26,16 +26,16 @@ private:
 	Label titleLabel;
 	Label filterTypeLabel;
 	Label filterCutoffLabel;
-	//Label filterQLabel;
+	Label filterQLabel;
 
 	Slider filterCutoffSlider;
-	//Slider filterQSlider;
+	Slider filterQSlider;
 
 	ComboBox filterTypeInput;
 
 	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> filterTypeAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterCutoffAttachment;
-	//std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterQAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterQAttachment;
 
 	// This reference is provided as a quick way for your editor to
 	// access the processor object that created it.
