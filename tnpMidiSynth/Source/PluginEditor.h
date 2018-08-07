@@ -16,6 +16,7 @@
 #include "ReverbEditor.h"
 #include "DistortionEditor.h"
 #include "DelayEditor.h"
+#include "FilterEditor.h"
 
 //==============================================================================
 /**
@@ -36,6 +37,7 @@ private:
 	TnpMidiSynthAudioProcessor& processor;
 
 	OscillatorEditor oscillatorGUI;
+	FilterEditor filterGUI;
 	DistortionEditor distortionGUI;
 	DelayEditor delayGUI;
 	ReverbEditor reverbGUI;

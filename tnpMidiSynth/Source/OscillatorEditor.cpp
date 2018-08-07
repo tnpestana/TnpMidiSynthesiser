@@ -97,25 +97,6 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	gainLabel.setJustificationType(Justification::centredTop);
 	gainAttachment = std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>
 		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "gain", gainSlider));
-
-	// IIR Filter.
-	addAndMakeVisible(filterTypeInput);
-	filterTypeInput.addItem("lo-pass", 1);
-	filterTypeInput.addItem("hi-pass", 2);
-	filterTypeInput.addItem("band-pass", 3);
-	addAndMakeVisible(filterCutoffSlider);
-	filterCutoffSlider.setSliderStyle(Slider::LinearHorizontal);
-	filterCutoffSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
-	addAndMakeVisible(filterTypeLabel);
-	filterTypeLabel.setText("filter type:", dontSendNotification);
-	filterTypeLabel.setJustificationType(Justification::bottomLeft);
-	addAndMakeVisible(filterCutoffLabel);
-	filterCutoffLabel.setText("filter cutoff:", dontSendNotification);
-	filterCutoffLabel.setJustificationType(Justification::bottomLeft);
-	filterCutoffAttachment = std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>
-		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "filterCutoff", filterCutoffSlider));
-	filterTypeAttachment = std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment>
-		(new AudioProcessorValueTreeState::ComboBoxAttachment(apvts, "filterType", filterTypeInput));
 }
 
 OscillatorEditor::~OscillatorEditor()
@@ -142,7 +123,7 @@ void OscillatorEditor::resized()
 	gainSlider.setBounds(gainLocation);
 
 	// Controls area.
-	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.25).reduced(2));
+	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.35).reduced(2));
 
 	// Number of voices selection area.
 	juce::Rectangle<int> numVoicesArea(controls.removeFromLeft(60));
@@ -160,7 +141,7 @@ void OscillatorEditor::resized()
 	transposeSlider.setBounds(transposeArea);
 
 	// Envelope sliders and labels area - needs reviewing.
-	juce::Rectangle<int> oscEnvelope(oscArea.removeFromTop(oscArea.getHeight() * 0.7).reduced(5));
+	juce::Rectangle<int> oscEnvelope(oscArea.reduced(5));
 
 	juce::Rectangle<int> oscEnvelopeSlider(oscEnvelope.removeFromTop(oscEnvelope.getHeight() * 0.7));
 	const double sliderWidth = oscEnvelopeSlider.getWidth() / 4;
@@ -174,15 +155,4 @@ void OscillatorEditor::resized()
 	decayLabel.setBounds(oscEnvelopeLabel.removeFromLeft(sliderWidth));
 	sustainLabel.setBounds(oscEnvelopeLabel.removeFromLeft(sliderWidth));
 	releaseLabel.setBounds(oscEnvelopeLabel.removeFromLeft(sliderWidth));
-
-	// IIR Filter components area.
-	juce::Rectangle<int> oscFilter(oscArea.reduced(2));
-
-	juce::Rectangle<int> oscFilterType(oscFilter.removeFromLeft(100));
-	filterTypeLabel.setBounds(oscFilterType.removeFromTop(20));
-	filterTypeInput.setBounds(oscFilterType);
-
-	juce::Rectangle<int> oscFilterCutoff(oscFilter);
-	filterCutoffLabel.setBounds(oscFilterCutoff.removeFromTop(20));
-	filterCutoffSlider.setBounds(oscFilterCutoff);
 }

@@ -22,19 +22,17 @@ public:
 	void resetDelay();
 
 	//==============================================================================
-	void setSampleRate(double sampleRate);
 	void initBuffer();
+	void setupBuffer();
 
+	void setSampleRate(double sampleRate);
 	void setFeedback(float feedback);
 	void setWetMix(float wetMix);
-
 	void setDelayTime(double delayTime_ms);
-	void setupBuffer();
 
 	void processAudio(float* inputBufferL);
 
 private:
-
 	float* buffer;
 	int bufferSize;
 	int delayReadPosition, delayWritePosition;

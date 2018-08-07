@@ -31,7 +31,6 @@ private:
 	Slider sustainSlider;
 	Slider releaseSlider; 
 	Slider gainSlider;
-	Slider filterCutoffSlider;
 	Slider transposeSlider;
 
 	Label attackLabel;
@@ -41,26 +40,21 @@ private:
 	Label numVoicesLabel; 
 	Label gainLabel;
 	Label oscTypeLabel;
-	Label filterTypeLabel;
-	Label filterCutoffLabel;
 	Label titleLabel;
 	Label transposeLabel;
 
 	ComboBox numVoicesInput;
 	ComboBox oscTypeInput;
-	ComboBox filterTypeInput;
 
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attackAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> decayAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sustainAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> releaseAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> gainAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterCutoffAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> transposeAttachment;
 
 	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> numVoicesAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> oscTypeAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> filterTypeAttachment;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscillatorEditor)
 };

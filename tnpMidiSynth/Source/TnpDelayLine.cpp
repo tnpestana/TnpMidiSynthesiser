@@ -51,14 +51,12 @@ void TnpDelayLine::initBuffer()
 	bufferSize = (int)(2.0 * sampleRate);
 	if (bufferSize < 1)
 		bufferSize = 1;
-
-	// delete old buffer
 	if (buffer)
 		delete[] buffer;
 
 	// create new buffer
 	buffer = new float[bufferSize];
-	// flush new buffer
+	// flush buffer
 	memset(buffer, 0, bufferSize);
 }
 
@@ -81,7 +79,6 @@ void TnpDelayLine::setDelayTime(double delayTime_ms)
 void TnpDelayLine::setupBuffer()
 {
 	delayInSamples = delayLength * sampleRate;
-
 	delayReadPosition = (int)(delayWritePosition - delayInSamples);
 
 	// Wrap delay read position to the buffers range.
@@ -92,18 +89,12 @@ void TnpDelayLine::setupBuffer()
 void TnpDelayLine::processAudio(float* inputBuffer)
 {
 	float output = 0.0;
-
 	float yn = buffer[delayReadPosition];
-
 	float xn = *inputBuffer;
-
 	if (delayLength == 0)
 		yn = xn;
-
 	buffer[delayWritePosition] = xn + feedback * yn;
-
 	output = (xn * (1 - wetMix)) + (yn * wetMix);
-
 	*inputBuffer = output;
 
 	delayReadPosition++;

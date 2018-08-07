@@ -14,14 +14,16 @@
 
 //==============================================================================
 TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeState& apvts)
-    : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p, apvts), reverbGUI(p, apvts), distortionGUI(p, apvts), delayGUI(p, apvts)
+    : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p, apvts), reverbGUI(p, apvts), distortionGUI(p, apvts), delayGUI(p, apvts),
+	filterGUI(p, apvts)
 {
     // Main editor's size.
     //setSize (250, 360);
-	setSize(300, 525);
+	setSize(300, 600);
 	setResizable(true, true);
 
 	addAndMakeVisible(oscillatorGUI);
+	addAndMakeVisible(filterGUI);
 	addAndMakeVisible(distortionGUI);
 	addAndMakeVisible(reverbGUI);
 	addAndMakeVisible(delayGUI);
@@ -61,7 +63,10 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	juce::Rectangle<int> area (getLocalBounds());
 
 	// Oscillator area.
-	oscillatorGUI.setBounds(area.removeFromTop(225).reduced(5));
+	oscillatorGUI.setBounds(area.removeFromTop(200).reduced(5));
+
+	// IRRFilter area.
+	filterGUI.setBounds(area.removeFromTop(100).reduced(5));
 
 	// Distortion area.
 	distortionGUI.setBounds(area.removeFromTop(100).reduced(5));

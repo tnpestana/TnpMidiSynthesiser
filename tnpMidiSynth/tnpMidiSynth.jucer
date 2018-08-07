@@ -19,6 +19,9 @@
               file="Source/OscillatorEditor.cpp"/>
         <FILE id="yAYSwH" name="OscillatorEditor.h" compile="0" resource="0"
               file="Source/OscillatorEditor.h"/>
+        <FILE id="ZuUYVM" name="FilterEditor.cpp" compile="1" resource="0"
+              file="Source/FilterEditor.cpp"/>
+        <FILE id="buruyr" name="FilterEditor.h" compile="0" resource="0" file="Source/FilterEditor.h"/>
         <FILE id="EC6MyK" name="ReverbEditor.cpp" compile="1" resource="0"
               file="Source/ReverbEditor.cpp"/>
         <FILE id="U9vcsV" name="ReverbEditor.h" compile="0" resource="0" file="Source/ReverbEditor.h"/>
