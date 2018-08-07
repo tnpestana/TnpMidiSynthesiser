@@ -68,11 +68,11 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	// One filter instance for each channel to avoid distortions.
 	NormalisableRange<float> filterCutoffRange(20.f, 20000.f, 0.01f);
 	NormalisableRange<float> filterTypeRange(0.f, 3.f);
-	NormalisableRange<float> filterQRange(0.1f, 5.f);
+	NormalisableRange<float> filterQRange(0.1f, 3.f);
 	filterCutoffRange.setSkewForCentre(1000.f);
 	treeState.createAndAddParameter("filterCutoff", "FilterCutoff", String(), filterCutoffRange, 5000.f, nullptr, nullptr);
 	treeState.createAndAddParameter("filterType", "FilterType", String(), filterTypeRange, 0, nullptr, nullptr);
-	treeState.createAndAddParameter("filterQ", "FilterQ", String(), filterQRange, 1.f, nullptr, nullptr);
+	treeState.createAndAddParameter("filterQ", "FilterQ", String(), filterQRange, 0.8f, nullptr, nullptr);
 
 	// Distortion parameters.
 	NormalisableRange<float> distortionDriveRange(0.f, 1.f, 0.01f);
@@ -198,21 +198,7 @@ bool TnpMidiSynthAudioProcessor::isBusesLayoutSupported (const BusesLayout& layo
 void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
 	for (int i = getNumInputChannels(); i < getNumOutputChannels(); i++)
-		buffer.clear(i, 0, buffer.getNumSamples());
-
-	//  Dry and wet levels are bound to the same slider as they should be
-	// inversely proportioned.
-	reverbParameters.dryLevel = 1.0f - *treeState.getRawParameterValue("reverbMix");	//	Dereference the result of getRawParameterValue because it returns
-	reverbParameters.wetLevel = *treeState.getRawParameterValue("reverbMix");			// a pointer to the parameter's value location.
-	reverbParameters.roomSize = *treeState.getRawParameterValue("reverbRoomSize");
-	reverbParameters.damping = *treeState.getRawParameterValue("reverbDamping");
-	reverb.setParameters(reverbParameters);
-
-	// Store distortion parameters.
-	distortion.setParameters(
-		*treeState.getRawParameterValue("distortionDrive"),
-		*treeState.getRawParameterValue("distortionRange"),
-		*treeState.getRawParameterValue("distortionMix"));								
+		buffer.clear(i, 0, buffer.getNumSamples());								
 
 	// Check if the number of voices selected has changed.
 	int numVoicesParam = *treeState.getRawParameterValue("oscNumVoices") + 1;			// Add one for the values to match the combo box IDs.
@@ -263,6 +249,12 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 			break;
 	}
 
+	// Store distortion parameters.
+	distortion.setParameters(
+		*treeState.getRawParameterValue("distortionDrive"),
+		*treeState.getRawParameterValue("distortionRange"),
+		*treeState.getRawParameterValue("distortionMix"));
+	
 	// Single sample access.
 	for (int channel = 0; channel < buffer.getNumChannels(); channel++)
 	{
@@ -299,6 +291,13 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 		delay.processAudio(outputDataL, outputDataR);
 	}
 
+	
+	//  Reverb processing.
+	reverbParameters.dryLevel = 1.0f - *treeState.getRawParameterValue("reverbMix");	//	Dereference the result of getRawParameterValue because it returns
+	reverbParameters.wetLevel = *treeState.getRawParameterValue("reverbMix");			// a pointer to the parameter's value location.
+	reverbParameters.roomSize = *treeState.getRawParameterValue("reverbRoomSize");
+	reverbParameters.damping = *treeState.getRawParameterValue("reverbDamping");
+	reverb.setParameters(reverbParameters);
 	// Support reverb processing for mono and stereo systems.
 	if (buffer.getNumChannels() == 1)
 	{
