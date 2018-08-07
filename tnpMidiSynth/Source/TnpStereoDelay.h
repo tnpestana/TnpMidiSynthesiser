@@ -19,8 +19,6 @@ public:
 	TnpStereoDelay();
 	~TnpStereoDelay();
 
-	void setDelayTime(float delayTime);
-
 	void updateParams(float delayTime, float feedback, float wet);
 
 	void prepareToPlay(double sampleRate);

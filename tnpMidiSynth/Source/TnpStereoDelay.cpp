@@ -18,12 +18,6 @@ TnpStereoDelay::~TnpStereoDelay()
 {
 }
 
-void TnpStereoDelay::setDelayTime(float delayTime)
-{
-	delayLeft.setDelayTime(delayTime);
-	delayRight.setDelayTime(delayTime);
-}
-
 void TnpStereoDelay::updateParams(float delayTime, float feedback, float wet)
 {
 	delayLeft.setDelayTime(delayTime);
