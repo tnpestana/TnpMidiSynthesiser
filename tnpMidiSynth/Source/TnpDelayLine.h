@@ -31,7 +31,7 @@ public:
 	void setDelayTime(double delayTime_ms);
 	void setupBuffer();
 
-	float processAudio(float* inputBufferL);
+	void processAudio(float* inputBufferL);
 
 private:
 

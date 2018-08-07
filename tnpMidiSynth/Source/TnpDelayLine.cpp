@@ -89,7 +89,7 @@ void TnpDelayLine::setupBuffer()
 		delayReadPosition += bufferSize;
 }
 
-float TnpDelayLine::processAudio(float* inputBuffer)
+void TnpDelayLine::processAudio(float* inputBuffer)
 {
 	float output = 0.0;
 
@@ -112,7 +112,4 @@ float TnpDelayLine::processAudio(float* inputBuffer)
 	delayWritePosition++;
 	if (delayWritePosition >= bufferSize)
 		delayWritePosition = 0;
-
-
-	return output;
 }
