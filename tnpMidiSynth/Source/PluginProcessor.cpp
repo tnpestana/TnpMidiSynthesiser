@@ -67,12 +67,15 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	// IRR Filter parameter(S).
 	// One filter instance for each channel to avoid distortions.
 	NormalisableRange<float> filterCutoffRange(20.f, 20000.f, 0.01f);
-	NormalisableRange<float> filterTypeRange(0.f, 3.f);
-	NormalisableRange<float> filterQRange(0.1f, 3.f);
+	NormalisableRange<float> filterTypeRange(0.f, 6.f, 1.f);
+	NormalisableRange<float> filterQRange(0.1f, 3.f, 0.01f);
+	NormalisableRange<float> filterGainFactorRange(0.f, 3.f, 0.01f);
 	filterCutoffRange.setSkewForCentre(1000.f);
+	filterGainFactorRange.setSkewForCentre(1.f);
 	treeState.createAndAddParameter("filterCutoff", "FilterCutoff", String(), filterCutoffRange, 5000.f, nullptr, nullptr);
 	treeState.createAndAddParameter("filterType", "FilterType", String(), filterTypeRange, 0, nullptr, nullptr);
-	treeState.createAndAddParameter("filterQ", "FilterQ", String(), filterQRange, 0.8f, nullptr, nullptr);
+	treeState.createAndAddParameter("filterQ", "FilterQ", String(), filterQRange, 0.80f, nullptr, nullptr);
+	treeState.createAndAddParameter("filterGainFactor", "FilterGainFactor", String(), filterGainFactorRange, 1.f, nullptr, nullptr);
 
 	// Distortion parameters.
 	NormalisableRange<float> distortionDriveRange(0.f, 1.f, 0.01f);
@@ -225,10 +228,11 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 
 	mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 	
-	// Set filter type.
+	// Filter processing.
 	const int filterType = *treeState.getRawParameterValue("filterType");
 	const float filterQ = *treeState.getRawParameterValue("filterQ");
 	const float filterCutoff = *treeState.getRawParameterValue("filterCutoff");
+	const float filterGainFactor = *treeState.getRawParameterValue("filterGainFactor");
 	switch (filterType)
 	{
 		case 0:
@@ -247,6 +251,28 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 			filterLeft.setCoefficients(IIRCoefficients::makeNotchFilter(localSampleRate, filterCutoff, filterQ));
 			filterRight.setCoefficients(IIRCoefficients::makeNotchFilter(localSampleRate, filterCutoff, filterQ));
 			break;
+		case 4:
+			filterLeft.setCoefficients(IIRCoefficients::makeLowShelf(localSampleRate, filterCutoff, filterQ, filterGainFactor));
+			filterRight.setCoefficients(IIRCoefficients::makeLowShelf(localSampleRate, filterCutoff, filterQ, filterGainFactor));
+			break;
+		case 5:
+			filterLeft.setCoefficients(IIRCoefficients::makeHighShelf(localSampleRate, filterCutoff, filterQ, filterGainFactor));
+			filterRight.setCoefficients(IIRCoefficients::makeHighShelf(localSampleRate, filterCutoff, filterQ, filterGainFactor));
+			break;
+		case 6:
+			filterLeft.setCoefficients(IIRCoefficients::makePeakFilter(localSampleRate, filterCutoff, filterQ, filterGainFactor));
+			filterRight.setCoefficients(IIRCoefficients::makePeakFilter(localSampleRate, filterCutoff, filterQ, filterGainFactor));
+			break;
+	}
+
+	if (buffer.getNumChannels() == 1)
+	{
+		filterLeft.processSamples(buffer.getWritePointer(0), buffer.getNumSamples());
+	}
+	else if (buffer.getNumChannels() == 2)
+	{
+		filterLeft.processSamples(buffer.getWritePointer(0), buffer.getNumSamples());
+		filterRight.processSamples(buffer.getWritePointer(1), buffer.getNumSamples());
 	}
 
 	// Store distortion parameters.
@@ -301,13 +327,10 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	// Support reverb processing for mono and stereo systems.
 	if (buffer.getNumChannels() == 1)
 	{
-		filterLeft.processSamples(buffer.getWritePointer(0), buffer.getNumSamples());
 		reverb.processMono(buffer.getWritePointer(0), buffer.getNumSamples());
 	}
 	else if (buffer.getNumChannels() == 2)
 	{
-		filterLeft.processSamples(buffer.getWritePointer(0), buffer.getNumSamples());
-		filterRight.processSamples(buffer.getWritePointer(1), buffer.getNumSamples());
 		reverb.processStereo(buffer.getWritePointer(0), buffer.getWritePointer(1), buffer.getNumSamples());
 	}
 }
