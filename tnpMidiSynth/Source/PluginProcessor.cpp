@@ -69,7 +69,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	NormalisableRange<float> filterCutoffRange(20.f, 20000.f, 0.01f);
 	NormalisableRange<float> filterTypeRange(0.f, 6.f, 1.f);
 	NormalisableRange<float> filterQRange(0.1f, 3.f, 0.01f);
-	NormalisableRange<float> filterGainFactorRange(0.f, 3.f, 0.01f);
+	NormalisableRange<float> filterGainFactorRange(0.01f, 3.f, 0.01f);
 	filterCutoffRange.setSkewForCentre(1000.f);
 	filterGainFactorRange.setSkewForCentre(1.f);
 	treeState.createAndAddParameter("filterCutoff", "FilterCutoff", String(), filterCutoffRange, 5000.f, nullptr, nullptr);
