@@ -23,16 +23,16 @@ private:
 	void paint(Graphics&) override;
 	void resized() override;
 
-	Label titleLabel;
-	Label filterTypeLabel;
-	Label filterCutoffLabel;
-	Label filterQLabel;
-	Label filterGainFactorLabel;
+	Label labelFilterTitle;
+	Label labelFilterType;
+	Label labelFilterCutoff;
+	Label labelFilterQ;
+	Label labelFilterGainFactor;
 
-	ComboBox filterTypeInput;
-	Slider filterCutoffSlider;
-	Slider filterQSlider;
-	Slider filterGainFactorSlider;
+	ComboBox comboFilterType;
+	Slider sliderFilterCutoff;
+	Slider sliderFilterQ;
+	Slider sliderFilterGainFactor;
 
 	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> filterTypeAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterCutoffAttachment;

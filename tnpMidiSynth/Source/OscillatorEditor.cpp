@@ -109,6 +109,9 @@ void OscillatorEditor::paint(Graphics& g)
 	g.fillAll(Colours::lightgrey);
 
 	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
+
+	// textBoxTextColourId is set here because getLookAndFeel doesnt seem to work.  
+	transposeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 }
 
 void OscillatorEditor::resized()
@@ -123,9 +126,9 @@ void OscillatorEditor::resized()
 	gainSlider.setBounds(gainLocation);
 
 	// Controls area.
-	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.35).reduced(2));
+	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.30).reduced(2));
 
-	// Number of voices selection area.
+	// Number of voices selection area.   
 	juce::Rectangle<int> numVoicesArea(controls.removeFromLeft(60));
 	numVoicesLabel.setBounds(numVoicesArea.removeFromTop(20));
 	numVoicesInput.setBounds(numVoicesArea.reduced(2));

@@ -13,55 +13,53 @@
 FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeState& apvts)
 	: processor(p)
 {
-	addAndMakeVisible(titleLabel);
-	titleLabel.setText("FILTER", dontSendNotification);
-	titleLabel.setJustificationType(Justification::centred);
+	comboFilterType.addItem ("lo-pass", 1);
+	comboFilterType.addItem ("hi-pass", 2);
+	comboFilterType.addItem ("band-pass", 3);
+	comboFilterType.addItem ("notch", 4);
+	comboFilterType.addItem ("lo-shelf", 5);
+	comboFilterType.addItem ("hi-shelf", 6);
+	comboFilterType.addItem ("peak", 7);
 
-	addAndMakeVisible(filterTypeInput);
-	filterTypeInput.addItem("lo-pass", 1);
-	filterTypeInput.addItem("hi-pass", 2);
-	filterTypeInput.addItem("band-pass", 3);
-	filterTypeInput.addItem("notch", 4);
-	filterTypeInput.addItem("lo-shelf", 5);
-	filterTypeInput.addItem("hi-shelf", 6);
-	filterTypeInput.addItem("peak", 7);
+	labelFilterTitle.setText	  ("FILTER", dontSendNotification);
+	labelFilterType.setText		  ("type:", dontSendNotification);
+	labelFilterCutoff.setText	  ("cutoff", dontSendNotification);
+	labelFilterQ.setText		  ("Q", dontSendNotification);
+	labelFilterGainFactor.setText ("gain factor:", dontSendNotification);
 
-	addAndMakeVisible(filterCutoffSlider);
-	filterCutoffSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	filterCutoffSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	labelFilterTitle.setJustificationType	   (Justification::centred);
+	labelFilterType.setJustificationType       (Justification::bottomLeft);
+	labelFilterCutoff.setJustificationType     (Justification::centredTop);
+	labelFilterQ.setJustificationType		   (Justification::centredTop);
+	labelFilterGainFactor.setJustificationType (Justification::bottomLeft);
 
-	addAndMakeVisible(filterQSlider);
-	filterQSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	filterQSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	sliderFilterCutoff.setSliderStyle	  (Slider::RotaryVerticalDrag);
+	sliderFilterQ.setSliderStyle		  (Slider::RotaryVerticalDrag);
+	sliderFilterGainFactor.setSliderStyle (Slider::LinearHorizontal);
 
-	addAndMakeVisible(filterGainFactorSlider);
-	filterGainFactorSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	filterGainFactorSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	sliderFilterQ.setTextBoxStyle		   (Slider::TextBoxBelow, true, 40, 15);
+	sliderFilterCutoff.setTextBoxStyle	   (Slider::TextBoxBelow, true, 50, 15);
+	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxLeft, true, 30, 15);
 
-	addAndMakeVisible(filterTypeLabel);
-	filterTypeLabel.setText("type", dontSendNotification);
-	filterTypeLabel.setJustificationType(Justification::centredBottom);
+	filterTypeAttachment = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> 
+		(apvts, "filterType", comboFilterType);
+	filterCutoffAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> 
+		(apvts, "filterCutoff", sliderFilterCutoff);
+	filterQAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> 
+		(apvts, "filterQ", sliderFilterQ);
+	filterGainFactorAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> 
+		(apvts, "filterGainFactor", sliderFilterGainFactor);
 
-	addAndMakeVisible(filterCutoffLabel);
-	filterCutoffLabel.setText("cutoff", dontSendNotification);
-	filterCutoffLabel.setJustificationType(Justification::centredBottom);
-
-	addAndMakeVisible(filterQLabel);
-	filterQLabel.setText("Q", dontSendNotification);
-	filterQLabel.setJustificationType(Justification::centredBottom);
-
-	addAndMakeVisible(filterGainFactorLabel);
-	filterGainFactorLabel.setText("gain", dontSendNotification);
-	filterGainFactorLabel.setJustificationType(Justification::centredBottom);
-
-	filterTypeAttachment = 
-		std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> (apvts, "filterType", filterTypeInput);
-	filterCutoffAttachment = 
-		std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "filterCutoff", filterCutoffSlider);
-	filterQAttachment = 
-		std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "filterQ", filterQSlider);
-	filterGainFactorAttachment = 
-		std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "filterGainFactor", filterGainFactorSlider);
+	addAndMakeVisible (labelFilterTitle);
+	addAndMakeVisible (labelFilterType);
+	addAndMakeVisible (labelFilterCutoff);
+	addAndMakeVisible (labelFilterQ);
+	addAndMakeVisible (labelFilterGainFactor);
+	addAndMakeVisible (comboFilterType);
+	addAndMakeVisible (sliderFilterCutoff);
+	addAndMakeVisible (sliderFilterQ);
+	addAndMakeVisible (sliderFilterGainFactor);
+	
 }
 
 FilterEditor::~FilterEditor()
@@ -73,29 +71,37 @@ void FilterEditor::paint(Graphics& g)
 	// (Our component is opaque, so we must completely fill the background with a solid colour)
 	g.fillAll(Colours::lightgrey);
 
-	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
+	labelFilterTitle.setColour(Label::backgroundColourId, Colours::cadetblue);
+
+	// textBoxTextColourId is set here because getLookAndFeel doesnt seem to work.  
+	sliderFilterCutoff.setColour(Slider::textBoxTextColourId, Colours::black);
+	sliderFilterGainFactor.setColour(Slider::textBoxTextColourId, Colours::black);
+	sliderFilterQ.setColour(Slider::textBoxTextColourId, Colours::black);
 }
 
 void FilterEditor::resized()
 {
 	const int labelWidth = getWidth() / 4;
 	const int labelHeight = 15;
-	const int sliderWidth = getWidth() / 4;
-	const int sliderHeight = getHeight() - labelHeight;
 
-	juce::Rectangle<int> area(getLocalBounds());
+	juce::Rectangle<int> area  (getLocalBounds());
+	labelFilterTitle.setBounds (area.removeFromTop(20).reduced(2));
 
-	titleLabel.setBounds(area.removeFromTop(20).reduced(2));
+	juce::Rectangle<int> leftSection (area.removeFromLeft(labelWidth * 2).reduced(5));
 
-	juce::Rectangle<int> labels(area.removeFromTop(labelHeight));
-	filterTypeLabel.setBounds(labels.removeFromLeft(labelWidth));
-	filterCutoffLabel.setBounds(labels.removeFromLeft(labelWidth));
-	filterQLabel.setBounds(labels.removeFromLeft(labelWidth));
-	filterGainFactorLabel.setBounds(labels);
+	juce::Rectangle<int> filterTypeSection (leftSection.removeFromTop(leftSection.getHeight() / 2).reduced(5));
+	labelFilterType.setBounds			   (filterTypeSection.removeFromTop(labelHeight));
+	comboFilterType.setBounds			   (filterTypeSection);
+	
+	juce::Rectangle<int> filterGainFactorSection (leftSection.reduced(5));
+	labelFilterGainFactor.setBounds			     (filterGainFactorSection.removeFromTop(labelHeight));
+	sliderFilterGainFactor.setBounds			 (filterGainFactorSection);
+	
+	juce::Rectangle<int> filterCutoffSection (area.removeFromLeft(labelWidth).reduced(5));
+	labelFilterCutoff.setBounds				 (filterCutoffSection.removeFromTop(labelHeight));
+	sliderFilterQ.setBounds					 (filterCutoffSection);
 
-	juce::Rectangle<int> sliders(area.removeFromTop(getHeight()));
-	filterTypeInput.setBounds(sliders.removeFromLeft(sliderWidth).reduced(10));
-	filterCutoffSlider.setBounds(sliders.removeFromLeft(sliderWidth));
-	filterQSlider.setBounds(sliders.removeFromLeft(sliderWidth));
-	filterGainFactorSlider.setBounds(sliders);
+	juce::Rectangle<int> filterQSection (area.reduced(5));
+	labelFilterQ.setBounds				(filterQSection.removeFromTop(labelHeight));
+	sliderFilterCutoff.setBounds		(filterQSection);
 }

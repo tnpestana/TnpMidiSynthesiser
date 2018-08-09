@@ -18,7 +18,7 @@ DelayEditor::DelayEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeS
 
 	addAndMakeVisible(delayTimeLabel);
 	delayTimeLabel.setText("time", dontSendNotification);
-	delayTimeLabel.setJustificationType(Justification::centredBottom);
+	delayTimeLabel.setJustificationType(Justification::centredTop);
 	addAndMakeVisible(delayTimeSlider);
 	delayTimeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	delayTimeSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
@@ -26,7 +26,7 @@ DelayEditor::DelayEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeS
 
 	addAndMakeVisible(delayFeedbackLabel);
 	delayFeedbackLabel.setText("feedback", dontSendNotification);
-	delayFeedbackLabel.setJustificationType(Justification::centredBottom);
+	delayFeedbackLabel.setJustificationType(Justification::centredTop);
 	addAndMakeVisible(delayFeedbackSlider);
 	delayFeedbackSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	delayFeedbackSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
@@ -34,7 +34,7 @@ DelayEditor::DelayEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeS
 
 	addAndMakeVisible(delayMixLabel);
 	delayMixLabel.setText("mix", dontSendNotification);
-	delayMixLabel.setJustificationType(Justification::centredBottom);
+	delayMixLabel.setJustificationType(Justification::centredTop);
 	addAndMakeVisible(delayMixSlider);
 	delayMixSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	delayMixSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
@@ -59,12 +59,14 @@ void DelayEditor::resized()
 
 	titleLabel.setBounds(area.removeFromTop(20).reduced(2));
 
-	juce::Rectangle<int> labelArea(area.removeFromTop(15));
+	juce::Rectangle<int> controlsArea(area.reduced(5));
+
+	juce::Rectangle<int> labelArea(controlsArea.removeFromBottom(15));
 	delayTimeLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
 	delayFeedbackLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
 	delayMixLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
 
-	juce::Rectangle<int> sliderArea(area.removeFromTop(getHeight()));
+	juce::Rectangle<int> sliderArea(controlsArea.removeFromTop(getHeight()));
 	delayTimeSlider.setBounds(sliderArea.removeFromLeft(sliderWidth));
 	delayFeedbackSlider.setBounds(sliderArea.removeFromLeft(sliderWidth));
 	delayMixSlider.setBounds(sliderArea.removeFromLeft(sliderWidth));

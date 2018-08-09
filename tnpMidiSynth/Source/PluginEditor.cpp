@@ -19,7 +19,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 {
     // Main editor's size.
     //setSize (250, 360);
-	setSize(600, 300);
+	setSize(600, 330);
 	setResizable(true, true);
 
 	addAndMakeVisible(oscillatorGUI);
@@ -42,16 +42,16 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 	//g.drawImageAt(oscBackground, 0, 0);
 
 	// Color scheme for properties that always remain the same.
-	getLookAndFeel().setColour(Slider::ColourIds::backgroundColourId, Colours::floralwhite);
-	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderOutlineColourId, Colours::floralwhite);
-	getLookAndFeel().setColour(Slider::ColourIds::thumbColourId, Colours::cadetblue);
-	getLookAndFeel().setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::black);
+	getLookAndFeel().setColour(Slider::backgroundColourId, Colours::floralwhite);
+	getLookAndFeel().setColour(Slider::rotarySliderOutlineColourId, Colours::floralwhite);
+	getLookAndFeel().setColour(Slider::thumbColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(Slider::rotarySliderFillColourId, Colours::black);
 
 	getLookAndFeel().setColour(ComboBox::textColourId, Colours::black);
 	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::lightgrey);
 	getLookAndFeel().setColour(ComboBox::outlineColourId, Colours::cadetblue);
 
-	getLookAndFeel().setColour(PopupMenu::ColourIds::backgroundColourId ,Colours::lightgrey);
+	getLookAndFeel().setColour(PopupMenu::backgroundColourId ,Colours::lightgrey);
 	getLookAndFeel().setColour(PopupMenu::textColourId, Colours::black);
 
 	getLookAndFeel().setColour(Label::textColourId, Colours::black);
@@ -59,6 +59,8 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 
 void TnpMidiSynthAudioProcessorEditor::resized()
 {
+	const int moduleHeight = getHeight() / 3;
+
 	// Total main editor's area.
 	juce::Rectangle<int> area (getLocalBounds());
 	juce::Rectangle<int> left (area.removeFromLeft(area.getWidth() / 2));
@@ -68,13 +70,13 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	oscillatorGUI.setBounds(left.removeFromTop(200).reduced(5));
 
 	// IRRFilter area.
-	filterGUI.setBounds(left.removeFromTop(100).reduced(5));
+	filterGUI.setBounds(left.reduced(5));
 
 	// Distortion area.
-	distortionGUI.setBounds(right.removeFromTop(100).reduced(5));
+	distortionGUI.setBounds(right.removeFromTop(moduleHeight).reduced(5));
 
 	// Delay area.
-	delayGUI.setBounds(right.removeFromTop(100).reduced(5));
+	delayGUI.setBounds(right.removeFromTop(moduleHeight).reduced(5));
 
 	// Reverb area.
 	reverbGUI.setBounds(right.reduced(5));

@@ -23,7 +23,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 
 	addAndMakeVisible(roomSizeLabel);
 	roomSizeLabel.setText("room size", dontSendNotification);
-	roomSizeLabel.setJustificationType(Justification::centredBottom);
+	roomSizeLabel.setJustificationType(Justification::centredTop);
 	roomSizeAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "reverbRoomSize", roomSizeSlider);
 
 	addAndMakeVisible(dampingSlider);
@@ -32,7 +32,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 
 	addAndMakeVisible(dampingLabel);
 	dampingLabel.setText("damping", dontSendNotification);
-	dampingLabel.setJustificationType(Justification::centredBottom);
+	dampingLabel.setJustificationType(Justification::centredTop);
 	dampingAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "reverbDamping", dampingSlider);
 
 	addAndMakeVisible(mixSlider);
@@ -41,7 +41,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 
 	addAndMakeVisible(mixLabel);
 	mixLabel.setText("mix", dontSendNotification);
-	mixLabel.setJustificationType(Justification::centredBottom);
+	mixLabel.setJustificationType(Justification::centredTop);
 	mixAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "reverbMix", mixSlider);
 }
 
@@ -68,12 +68,14 @@ void ReverbEditor::resized()
 
 	titleLabel.setBounds(area.removeFromTop(20).reduced(2));
 
-	juce::Rectangle<int> labels(area.removeFromTop(labelHeight));
+	juce::Rectangle<int> controlsArea(area.reduced(5));
+
+	juce::Rectangle<int> labels(controlsArea.removeFromBottom(labelHeight));
 	roomSizeLabel.setBounds(labels.removeFromLeft(labelWidth));
 	dampingLabel.setBounds(labels.removeFromLeft(labelWidth));
 	mixLabel.setBounds(labels.removeFromLeft(labelWidth));
 
-	juce::Rectangle<int> sliders(area.removeFromTop(getHeight()));
+	juce::Rectangle<int> sliders(controlsArea.removeFromTop(getHeight()));
 	roomSizeSlider.setBounds(sliders.removeFromLeft(sliderWidth));
 	dampingSlider.setBounds(sliders.removeFromLeft(sliderWidth));
 	mixSlider.setBounds(sliders.removeFromLeft(sliderWidth));
