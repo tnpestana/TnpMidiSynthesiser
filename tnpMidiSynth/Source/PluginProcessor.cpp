@@ -40,7 +40,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("oscType", "OscType", String(), oscTypeRange, 2, nullptr, nullptr);
 
 	// Transpose parameter.
-	NormalisableRange<float> transposeRange(-24.f, 24.f, 1.f);
+	NormalisableRange<float> transposeRange(-24.0f, 24.0f, 1.0f);
 	treeState.createAndAddParameter("oscTranspose", "Transpose", String(), transposeRange, 0, nullptr, nullptr);
 
 	// Volume envelope parameters.
@@ -67,11 +67,11 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	// IRR Filter parameter(S).
 	// One filter instance for each channel to avoid distortions.
 	NormalisableRange<float> filterCutoffRange(20.f, 20000.f, 0.01f);
-	NormalisableRange<float> filterTypeRange(0.f, 6.f, 1.f);
-	NormalisableRange<float> filterQRange(0.1f, 3.f, 0.01f);
+	NormalisableRange<float> filterTypeRange(0.0f, 6.f, 1.f);
+	NormalisableRange<float> filterQRange(0.01f, 3.f, 0.01f);
 	NormalisableRange<float> filterGainFactorRange(0.01f, 3.f, 0.01f);
-	filterCutoffRange.setSkewForCentre(1000.f);
-	filterGainFactorRange.setSkewForCentre(1.f);
+	filterCutoffRange.setSkewForCentre(1000.0f);
+	filterGainFactorRange.setSkewForCentre(1.0f);
 	treeState.createAndAddParameter("filterCutoff", "FilterCutoff", String(), filterCutoffRange, 5000.f, nullptr, nullptr);
 	treeState.createAndAddParameter("filterType", "FilterType", String(), filterTypeRange, 0, nullptr, nullptr);
 	treeState.createAndAddParameter("filterQ", "FilterQ", String(), filterQRange, 0.80f, nullptr, nullptr);
@@ -86,9 +86,9 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("distortionMix", "DistortionMix", String(), distortionMixRange, 0.f, nullptr, nullptr);
 
 	// Delay parameters.
-	NormalisableRange<float> delayTimeRange(0.f, 2.f, 0.001f);
-	NormalisableRange<float> delayFeedbackRange(0.f, 1.f, 0.001f);
-	NormalisableRange<float> delayWetRange(0.f, 1.f, 0.001f);
+	NormalisableRange<float> delayTimeRange(0.01f, 2.0f, 0.001f);
+	NormalisableRange<float> delayFeedbackRange(0.0f, 1.0f, 0.001f);
+	NormalisableRange<float> delayWetRange(0.0f, 1.0f, 0.001f);
 	treeState.createAndAddParameter("delayTime", "DelayTime", String(), delayTimeRange, 1.f, nullptr, nullptr);
 	treeState.createAndAddParameter("delayFeedback", "DelayFeedback", String(), delayFeedbackRange, 0.f, nullptr, nullptr);
 	treeState.createAndAddParameter("delayMix", "DelayMix", String(), delayWetRange, 0.f, nullptr, nullptr);

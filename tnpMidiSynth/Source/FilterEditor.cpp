@@ -77,6 +77,7 @@ void FilterEditor::paint(Graphics& g)
 	sliderFilterCutoff.setColour(Slider::textBoxTextColourId, Colours::black);
 	sliderFilterGainFactor.setColour(Slider::textBoxTextColourId, Colours::black);
 	sliderFilterQ.setColour(Slider::textBoxTextColourId, Colours::black);
+	comboFilterType.setColour(ComboBox::textColourId, Colours::black);
 }
 
 void FilterEditor::resized()
@@ -99,9 +100,10 @@ void FilterEditor::resized()
 	
 	juce::Rectangle<int> filterCutoffSection (area.removeFromLeft(labelWidth).reduced(5));
 	labelFilterCutoff.setBounds				 (filterCutoffSection.removeFromTop(labelHeight));
-	sliderFilterQ.setBounds					 (filterCutoffSection);
+	sliderFilterCutoff.setBounds			 (filterCutoffSection);
 
 	juce::Rectangle<int> filterQSection (area.reduced(5));
 	labelFilterQ.setBounds				(filterQSection.removeFromTop(labelHeight));
-	sliderFilterCutoff.setBounds		(filterQSection);
+	sliderFilterQ.setBounds				(filterQSection);
+	
 }

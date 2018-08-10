@@ -12,7 +12,7 @@
 
 TnpDelayLine::TnpDelayLine()
 	: buffer(nullptr),
-	delayLength(0.0),
+	delayLength(0.01),
 	bufferSize(0),
 	delayReadPosition(0),
 	delayWritePosition(0),

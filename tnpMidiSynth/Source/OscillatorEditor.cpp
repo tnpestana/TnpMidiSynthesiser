@@ -110,8 +110,11 @@ void OscillatorEditor::paint(Graphics& g)
 
 	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
 
-	// textBoxTextColourId is set here because getLookAndFeel doesnt seem to work.  
+	// These textBoxTextColourIds are set individually because getLookAndFeel doesnt seem be 
+	// totally compatible with Ableton.
 	transposeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
+	numVoicesInput.setColour(ComboBox::textColourId, Colours::black);
+	oscTypeInput.setColour(ComboBox::textColourId, Colours::black);
 }
 
 void OscillatorEditor::resized()
