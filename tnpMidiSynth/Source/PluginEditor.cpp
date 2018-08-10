@@ -19,14 +19,18 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 {
     // Main editor's size.
     //setSize (250, 360);
-	setSize(600, 330);
+	setSize(600, 370);
 	setResizable(true, true);
 
+	addAndMakeVisible(labelTitle);
 	addAndMakeVisible(oscillatorGUI);
 	addAndMakeVisible(filterGUI);
 	addAndMakeVisible(distortionGUI);
 	addAndMakeVisible(reverbGUI);
 	addAndMakeVisible(delayGUI);
+
+	labelTitle.setJustificationType(Justification::centred);
+	labelTitle.setText("TNP MIDI Synth", dontSendNotification);
 }
 TnpMidiSynthAudioProcessorEditor::~TnpMidiSynthAudioProcessorEditor()
 {
@@ -40,6 +44,8 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 
 	//Image oscBackground = ImageCache::getFromMemory(BinaryData::background_jpg, BinaryData::background_jpgSize);
 	//g.drawImageAt(oscBackground, 0, 0);
+	labelTitle.setColour(Label::backgroundColourId, Colours::black);
+	labelTitle.setColour(Label::textColourId, Colours::white);
 
 	// Color scheme for properties that always remain the same.
 	getLookAndFeel().setColour(Slider::backgroundColourId, Colours::floralwhite);
@@ -59,12 +65,14 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 
 void TnpMidiSynthAudioProcessorEditor::resized()
 {
-	const int moduleHeight = getHeight() / 3;
-
 	// Total main editor's area.
 	juce::Rectangle<int> area (getLocalBounds());
+
+	labelTitle.setBounds(area.removeFromTop(40).reduced(5));
+
 	juce::Rectangle<int> left (area.removeFromLeft(area.getWidth() / 2));
 	juce::Rectangle<int> right (area);
+	
 
 	// Oscillator area.
 	oscillatorGUI.setBounds(left.removeFromTop(200).reduced(5));
@@ -73,10 +81,10 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	filterGUI.setBounds(left.reduced(5));
 
 	// Distortion area.
-	distortionGUI.setBounds(right.removeFromTop(moduleHeight).reduced(5));
+	distortionGUI.setBounds(right.removeFromTop(area.getHeight() / 3).reduced(5));
 
 	// Delay area.
-	delayGUI.setBounds(right.removeFromTop(moduleHeight).reduced(5));
+	delayGUI.setBounds(right.removeFromTop(area.getHeight() / 3).reduced(5));
 
 	// Reverb area.
 	reverbGUI.setBounds(right.reduced(5));

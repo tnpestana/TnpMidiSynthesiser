@@ -36,6 +36,8 @@ private:
     // access the processor object that created it.
 	TnpMidiSynthAudioProcessor& processor;
 
+	Label labelTitle;
+
 	OscillatorEditor oscillatorGUI;
 	FilterEditor filterGUI;
 	DistortionEditor distortionGUI;
