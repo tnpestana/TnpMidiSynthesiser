@@ -52,39 +52,39 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	// Attack.
 	addAndMakeVisible(attackSlider);
 	attackSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	attackSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	attackSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
 	addAndMakeVisible(attackLabel);
 	attackLabel.setText("attack", dontSendNotification);
-	attackLabel.setJustificationType(Justification::centredTop);
+	attackLabel.setJustificationType(Justification::centredBottom);
 	attackAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "volEnvAttack", attackSlider);
 
 	// Decay.
 	addAndMakeVisible(decaySlider);
 	decaySlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	decaySlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	decaySlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
 	addAndMakeVisible(decayLabel);
 	decayLabel.setText("decay", dontSendNotification);
-	decayLabel.setJustificationType(Justification::centredTop);
+	decayLabel.setJustificationType(Justification::centredBottom);
 	decayAttachment = std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>
 		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "volEnvDecay", decaySlider));
 
 	// Sustain.
 	addAndMakeVisible(sustainSlider);
 	sustainSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	sustainSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	sustainSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
 	addAndMakeVisible(sustainLabel);
 	sustainLabel.setText("sustain", dontSendNotification);
-	sustainLabel.setJustificationType(Justification::centredTop);
+	sustainLabel.setJustificationType(Justification::centredBottom);
 	sustainAttachment = std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>
 		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "volEnvSustain", sustainSlider));
 
 	// Release. 
 	addAndMakeVisible(releaseSlider);
 	releaseSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	releaseSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	releaseSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
 	addAndMakeVisible(releaseLabel);
 	releaseLabel.setText("release", dontSendNotification);
-	releaseLabel.setJustificationType(Justification::centredTop);
+	releaseLabel.setJustificationType(Justification::centredBottom);
 	releaseAttachment = std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>
 		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "volEnvRelease", releaseSlider));
 
@@ -113,6 +113,10 @@ void OscillatorEditor::paint(Graphics& g)
 	// These textBoxTextColourIds are set individually because getLookAndFeel doesnt seem be 
 	// totally compatible with Ableton.
 	transposeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
+	attackSlider.setColour(Slider::textBoxTextColourId, Colours::black);
+	decaySlider.setColour(Slider::textBoxTextColourId, Colours::black);
+	sustainSlider.setColour(Slider::textBoxTextColourId, Colours::black);
+	releaseSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	numVoicesInput.setColour(ComboBox::textColourId, Colours::black);
 	oscTypeInput.setColour(ComboBox::textColourId, Colours::black);
 }
@@ -148,17 +152,17 @@ void OscillatorEditor::resized()
 
 	// Envelope sliders and labels area - needs reviewing.
 	juce::Rectangle<int> oscEnvelope(oscArea.reduced(5));
+	const double sliderWidth = oscEnvelope.getWidth() / 4;
 
-	juce::Rectangle<int> oscEnvelopeSlider(oscEnvelope.removeFromTop(oscEnvelope.getHeight() * 0.7));
-	const double sliderWidth = oscEnvelopeSlider.getWidth() / 4;
-	attackSlider.setBounds(oscEnvelopeSlider.removeFromLeft(sliderWidth));
-	decaySlider.setBounds(oscEnvelopeSlider.removeFromLeft(sliderWidth));
-	sustainSlider.setBounds(oscEnvelopeSlider.removeFromLeft(sliderWidth));
-	releaseSlider.setBounds(oscEnvelopeSlider.removeFromLeft(sliderWidth));
-
-	juce::Rectangle<int> oscEnvelopeLabel(oscEnvelope);
+	juce::Rectangle<int> oscEnvelopeLabel(oscEnvelope.removeFromTop(oscEnvelope.getHeight() * 0.3));
 	attackLabel.setBounds(oscEnvelopeLabel.removeFromLeft(sliderWidth));
 	decayLabel.setBounds(oscEnvelopeLabel.removeFromLeft(sliderWidth));
 	sustainLabel.setBounds(oscEnvelopeLabel.removeFromLeft(sliderWidth));
 	releaseLabel.setBounds(oscEnvelopeLabel.removeFromLeft(sliderWidth));
+
+	juce::Rectangle<int> oscEnvelopeSlider(oscEnvelope);
+	attackSlider.setBounds(oscEnvelopeSlider.removeFromLeft(sliderWidth));
+	decaySlider.setBounds(oscEnvelopeSlider.removeFromLeft(sliderWidth));
+	sustainSlider.setBounds(oscEnvelopeSlider.removeFromLeft(sliderWidth));
+	releaseSlider.setBounds(oscEnvelopeSlider.removeFromLeft(sliderWidth));
 }

@@ -52,6 +52,7 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 	getLookAndFeel().setColour(Slider::rotarySliderOutlineColourId, Colours::floralwhite);
 	getLookAndFeel().setColour(Slider::thumbColourId, Colours::cadetblue);
 	getLookAndFeel().setColour(Slider::rotarySliderFillColourId, Colours::black);
+	getLookAndFeel().setColour(Slider::textBoxTextColourId, Colours::black);
 
 	getLookAndFeel().setColour(ComboBox::textColourId, Colours::black);
 	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::lightgrey);
