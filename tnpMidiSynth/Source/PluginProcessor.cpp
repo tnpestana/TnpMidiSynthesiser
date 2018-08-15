@@ -60,9 +60,11 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	NormalisableRange<float> dryWetRange(0.0f, 1.0f, 0.01f);
 	NormalisableRange<float> roomSizeRange(0.0f, 1.0f, 0.01f);
 	NormalisableRange<float> dampingRange(0.0f, 1.0f, 0.01f);
+	NormalisableRange<float> widthRange(0.0f, 1.0f, 0.01f);
 	treeState.createAndAddParameter("reverbMix", "ReverbMix", String(), dryWetRange, 0.f, nullptr, nullptr);
 	treeState.createAndAddParameter("reverbRoomSize", "ReverbRoomSize", String(), roomSizeRange, 0.2f, nullptr, nullptr);
 	treeState.createAndAddParameter("reverbDamping", "ReverbDamping", String(), dampingRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("reverbWidth", "ReverbWidth", String(), widthRange, 0.5f, nullptr, nullptr);
 
 	// IRR Filter parameter(S).
 	// One filter instance for each channel to avoid distortions.
@@ -323,6 +325,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	reverbParameters.wetLevel = *treeState.getRawParameterValue("reverbMix");			// a pointer to the parameter's value location.
 	reverbParameters.roomSize = *treeState.getRawParameterValue("reverbRoomSize");
 	reverbParameters.damping = *treeState.getRawParameterValue("reverbDamping");
+	reverbParameters.width = *treeState.getRawParameterValue("reverbWidth");
 	reverb.setParameters(reverbParameters);
 	// Support reverb processing for mono and stereo systems.
 	if (buffer.getNumChannels() == 1)

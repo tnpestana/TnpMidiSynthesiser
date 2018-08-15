@@ -27,14 +27,17 @@ private:
 	Label mixLabel;
 	Label roomSizeLabel;
 	Label dampingLabel;
+	Label widthLabel;
 
 	Slider mixSlider;
 	Slider roomSizeSlider;
 	Slider dampingSlider;
+	Slider widthSlider;
 
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> mixAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> roomSizeAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> dampingAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> widthAttachment;
 
 	// This reference is provided as a quick way for your editor to
 	// access the processor object that created it.

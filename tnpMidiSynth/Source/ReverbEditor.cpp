@@ -23,7 +23,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 
 	addAndMakeVisible(roomSizeLabel);
 	roomSizeLabel.setText("room size", dontSendNotification);
-	roomSizeLabel.setJustificationType(Justification::centredTop);
+	roomSizeLabel.setJustificationType(Justification::centredBottom);
 	roomSizeAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "reverbRoomSize", roomSizeSlider);
 
 	addAndMakeVisible(dampingSlider);
@@ -32,8 +32,17 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 
 	addAndMakeVisible(dampingLabel);
 	dampingLabel.setText("damping", dontSendNotification);
-	dampingLabel.setJustificationType(Justification::centredTop);
+	dampingLabel.setJustificationType(Justification::centredBottom);
 	dampingAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "reverbDamping", dampingSlider);
+
+	addAndMakeVisible(widthSlider);
+	widthSlider.setSliderStyle(Slider::RotaryVerticalDrag);
+	widthSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
+
+	addAndMakeVisible(widthLabel);
+	widthLabel.setText("width", dontSendNotification);
+	widthLabel.setJustificationType(Justification::centredBottom);
+	mixAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "reverbWidth", widthSlider);
 
 	addAndMakeVisible(mixSlider);
 	mixSlider.setSliderStyle(Slider::RotaryVerticalDrag);
@@ -41,7 +50,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 
 	addAndMakeVisible(mixLabel);
 	mixLabel.setText("mix", dontSendNotification);
-	mixLabel.setJustificationType(Justification::centredTop);
+	mixLabel.setJustificationType(Justification::centredBottom);
 	mixAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "reverbMix", mixSlider);
 }
 
@@ -60,13 +69,14 @@ void ReverbEditor::paint(Graphics& g)
 	roomSizeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	dampingSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	mixSlider.setColour(Slider::textBoxTextColourId, Colours::black);
+	widthSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 }
 
 void ReverbEditor::resized()
 {
-	const int labelWidth = getWidth() / 3;
+	const int labelWidth = getWidth() * 0.25;
 	const int labelHeight = 15;
-	const int sliderWidth = getWidth() / 3;
+	const int sliderWidth = getWidth() * 0.25;
 	const int sliderHeight = getHeight() - labelHeight;
 
 	juce::Rectangle<int> area(getLocalBounds());
@@ -79,9 +89,11 @@ void ReverbEditor::resized()
 	roomSizeLabel.setBounds(labels.removeFromLeft(labelWidth));
 	dampingLabel.setBounds(labels.removeFromLeft(labelWidth));
 	mixLabel.setBounds(labels.removeFromLeft(labelWidth));
+	widthLabel.setBounds(labels.removeFromLeft(labelWidth));
 
 	juce::Rectangle<int> sliders(controlsArea.removeFromTop(getHeight()));
 	roomSizeSlider.setBounds(sliders.removeFromLeft(sliderWidth));
 	dampingSlider.setBounds(sliders.removeFromLeft(sliderWidth));
 	mixSlider.setBounds(sliders.removeFromLeft(sliderWidth));
+	widthSlider.setBounds(sliders.removeFromLeft(sliderWidth));
 }
