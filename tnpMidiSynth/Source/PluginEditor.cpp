@@ -19,7 +19,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 {
     // Main editor's size.
     //setSize (250, 360);
-	setSize(600, 370);
+	setSize(600, 400);
 	setResizable(true, true);
 
 	addAndMakeVisible(labelTitle);
@@ -82,10 +82,10 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	filterGUI.setBounds(left.reduced(5));
 
 	// Distortion area.
-	distortionGUI.setBounds(right.removeFromTop(area.getHeight() / 3).reduced(5));
+	distortionGUI.setBounds(right.removeFromTop(right.getHeight() * 0.33).reduced(5));
 
 	// Delay area.
-	delayGUI.setBounds(right.removeFromTop(area.getHeight() / 3).reduced(5));
+	delayGUI.setBounds(right.removeFromTop(right.getHeight() * 0.5).reduced(5));
 
 	// Reverb area.
 	reverbGUI.setBounds(right.reduced(5));

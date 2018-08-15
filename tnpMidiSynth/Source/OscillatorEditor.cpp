@@ -110,8 +110,7 @@ void OscillatorEditor::paint(Graphics& g)
 
 	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
 
-	// These textBoxTextColourIds are set individually because getLookAndFeel doesnt seem be 
-	// totally compatible with Ableton.
+	//=========================================================================================
 	transposeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	attackSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	decaySlider.setColour(Slider::textBoxTextColourId, Colours::black);
@@ -151,10 +150,10 @@ void OscillatorEditor::resized()
 	transposeSlider.setBounds(transposeArea);
 
 	// Envelope sliders and labels area - needs reviewing.
-	juce::Rectangle<int> oscEnvelope(oscArea.reduced(5));
+	juce::Rectangle<int> oscEnvelope(oscArea.reduced(10));
 	const double sliderWidth = oscEnvelope.getWidth() / 4;
 
-	juce::Rectangle<int> oscEnvelopeLabel(oscEnvelope.removeFromTop(oscEnvelope.getHeight() * 0.3));
+	juce::Rectangle<int> oscEnvelopeLabel(oscEnvelope.removeFromTop(20));
 	attackLabel.setBounds(oscEnvelopeLabel.removeFromLeft(sliderWidth));
 	decayLabel.setBounds(oscEnvelopeLabel.removeFromLeft(sliderWidth));
 	sustainLabel.setBounds(oscEnvelopeLabel.removeFromLeft(sliderWidth));

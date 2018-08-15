@@ -88,9 +88,10 @@ void FilterEditor::resized()
 	juce::Rectangle<int> area  (getLocalBounds());
 	labelFilterTitle.setBounds (area.removeFromTop(20).reduced(2));
 
-	juce::Rectangle<int> leftSection (area.removeFromLeft(labelWidth * 2).reduced(5));
+	juce::Rectangle<int> totalSection(area.reduced(5));
+	juce::Rectangle<int> leftSection (totalSection.removeFromLeft(labelWidth * 2).reduced(5));
 
-	juce::Rectangle<int> filterTypeSection (leftSection.removeFromTop(leftSection.getHeight() / 2).reduced(5));
+	juce::Rectangle<int> filterTypeSection (leftSection.removeFromTop(leftSection.getHeight() * 0.5).reduced(5));
 	labelFilterType.setBounds			   (filterTypeSection.removeFromTop(labelHeight));
 	comboFilterType.setBounds			   (filterTypeSection);
 	
@@ -98,11 +99,11 @@ void FilterEditor::resized()
 	labelFilterGainFactor.setBounds			     (filterGainFactorSection.removeFromTop(labelHeight));
 	sliderFilterGainFactor.setBounds			 (filterGainFactorSection);
 	
-	juce::Rectangle<int> filterCutoffSection (area.removeFromLeft(labelWidth).reduced(5));
+	juce::Rectangle<int> filterCutoffSection (totalSection.removeFromLeft(totalSection.getWidth() * 0.5).reduced(5));
 	labelFilterCutoff.setBounds				 (filterCutoffSection.removeFromTop(labelHeight));
 	sliderFilterCutoff.setBounds			 (filterCutoffSection);
 
-	juce::Rectangle<int> filterQSection (area.reduced(5));
+	juce::Rectangle<int> filterQSection (totalSection.reduced(5));
 	labelFilterQ.setBounds				(filterQSection.removeFromTop(labelHeight));
 	sliderFilterQ.setBounds				(filterQSection);
 	

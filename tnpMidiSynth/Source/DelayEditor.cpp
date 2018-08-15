@@ -21,7 +21,7 @@ DelayEditor::DelayEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeS
 	delayTimeLabel.setJustificationType(Justification::centredTop);
 	addAndMakeVisible(delayTimeSlider);
 	delayTimeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	delayTimeSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	delayTimeSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
 	delayTimeAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "delayTime", delayTimeSlider);
 
 	addAndMakeVisible(delayFeedbackLabel);
@@ -29,7 +29,7 @@ DelayEditor::DelayEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeS
 	delayFeedbackLabel.setJustificationType(Justification::centredTop);
 	addAndMakeVisible(delayFeedbackSlider);
 	delayFeedbackSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	delayFeedbackSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	delayFeedbackSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
 	delayFeedbackAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "delayFeedback", delayFeedbackSlider);
 
 	addAndMakeVisible(delayMixLabel);
@@ -37,7 +37,7 @@ DelayEditor::DelayEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeS
 	delayMixLabel.setJustificationType(Justification::centredTop);
 	addAndMakeVisible(delayMixSlider);
 	delayMixSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	delayMixSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	delayMixSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
 	delayMixAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "delayMix", delayMixSlider);
 }
 
@@ -50,6 +50,11 @@ void DelayEditor::paint(Graphics& g)
 	g.fillAll(Colours::lightgrey);
 
 	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
+
+	//=========================================================================================
+	delayTimeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
+	delayFeedbackSlider.setColour(Slider::textBoxTextColourId, Colours::black);
+	delayMixSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 }
 
 void DelayEditor::resized()
@@ -61,7 +66,7 @@ void DelayEditor::resized()
 
 	juce::Rectangle<int> controlsArea(area.reduced(5));
 
-	juce::Rectangle<int> labelArea(controlsArea.removeFromBottom(15));
+	juce::Rectangle<int> labelArea(controlsArea.removeFromTop(15));
 	delayTimeLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
 	delayFeedbackLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
 	delayMixLabel.setBounds(labelArea.removeFromLeft(sliderWidth));

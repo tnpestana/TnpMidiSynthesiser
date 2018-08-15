@@ -19,7 +19,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 
 	addAndMakeVisible(roomSizeSlider);
 	roomSizeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	roomSizeSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	roomSizeSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
 
 	addAndMakeVisible(roomSizeLabel);
 	roomSizeLabel.setText("room size", dontSendNotification);
@@ -28,7 +28,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 
 	addAndMakeVisible(dampingSlider);
 	dampingSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	dampingSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	dampingSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
 
 	addAndMakeVisible(dampingLabel);
 	dampingLabel.setText("damping", dontSendNotification);
@@ -37,7 +37,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 
 	addAndMakeVisible(mixSlider);
 	mixSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	mixSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+	mixSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
 
 	addAndMakeVisible(mixLabel);
 	mixLabel.setText("mix", dontSendNotification);
@@ -55,6 +55,11 @@ void ReverbEditor::paint(Graphics& g)
 	g.fillAll(Colours::lightgrey);
 
 	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
+
+	//=========================================================================================
+	roomSizeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
+	dampingSlider.setColour(Slider::textBoxTextColourId, Colours::black);
+	mixSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 }
 
 void ReverbEditor::resized()
@@ -70,7 +75,7 @@ void ReverbEditor::resized()
 
 	juce::Rectangle<int> controlsArea(area.reduced(5));
 
-	juce::Rectangle<int> labels(controlsArea.removeFromBottom(labelHeight));
+	juce::Rectangle<int> labels(controlsArea.removeFromTop(labelHeight));
 	roomSizeLabel.setBounds(labels.removeFromLeft(labelWidth));
 	dampingLabel.setBounds(labels.removeFromLeft(labelWidth));
 	mixLabel.setBounds(labels.removeFromLeft(labelWidth));
