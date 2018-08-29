@@ -65,8 +65,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	addAndMakeVisible(decayLabel);
 	decayLabel.setText("decay", dontSendNotification);
 	decayLabel.setJustificationType(Justification::centredBottom);
-	decayAttachment = std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>
-		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "volEnvDecay", decaySlider));
+	decayAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "volEnvDecay", decaySlider);
 
 	// Sustain.
 	addAndMakeVisible(sustainSlider);
@@ -75,8 +74,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	addAndMakeVisible(sustainLabel);
 	sustainLabel.setText("sustain", dontSendNotification);
 	sustainLabel.setJustificationType(Justification::centredBottom);
-	sustainAttachment = std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>
-		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "volEnvSustain", sustainSlider));
+	sustainAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "volEnvSustain", sustainSlider);
 
 	// Release. 
 	addAndMakeVisible(releaseSlider);
@@ -85,8 +83,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	addAndMakeVisible(releaseLabel);
 	releaseLabel.setText("release", dontSendNotification);
 	releaseLabel.setJustificationType(Justification::centredBottom);
-	releaseAttachment = std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>
-		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "volEnvRelease", releaseSlider));
+	releaseAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "volEnvRelease", releaseSlider);
 
 	// Gain.
 	addAndMakeVisible(gainSlider);
@@ -95,8 +92,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	addAndMakeVisible(gainLabel);
 	gainLabel.setText("gain", dontSendNotification);
 	gainLabel.setJustificationType(Justification::centredTop);
-	gainAttachment = std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>
-		(new AudioProcessorValueTreeState::SliderAttachment(apvts, "gain", gainSlider));
+	gainAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "gain", gainSlider);
 }
 
 OscillatorEditor::~OscillatorEditor()

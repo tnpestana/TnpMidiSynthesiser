@@ -23,16 +23,19 @@ private:
 	void paint(Graphics&) override;
 	void resized() override;
 
-	Label titleLabel;
-	Label driveLabel;
-	Label rangeLabel;
-	Label mixLabel;
+	ToggleButton toggleDistortion;
 
-	Slider driveSlider;
-	Slider rangeSlider; 
-	Slider mixSlider;
+	Label labelTitle;
+	Label labelDrive;
+	Label labelRange;
+	Label labelMix;
+
+	Slider sliderDrive;
+	Slider sliderRange; 
+	Slider sliderMix;
 
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> driveAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> rangeAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> mixAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment> toggleAttachment;
 };

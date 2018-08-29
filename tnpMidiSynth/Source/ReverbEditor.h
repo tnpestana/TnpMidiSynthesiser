@@ -23,8 +23,10 @@ private:
 	void paint(Graphics&) override;
 	void resized() override;
 
-	Label titleLabel;
-	Label mixLabel;
+	ToggleButton toggleReverb;
+
+	Label labelTitle;
+	Label labelMix;
 	Label roomSizeLabel;
 	Label dampingLabel;
 	Label widthLabel;
@@ -34,6 +36,7 @@ private:
 	Slider dampingSlider;
 	Slider widthSlider;
 
+	std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment> toggleAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> mixAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> roomSizeAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> dampingAttachment;

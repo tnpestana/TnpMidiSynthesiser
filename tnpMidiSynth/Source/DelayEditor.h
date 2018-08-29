@@ -23,16 +23,20 @@ private:
 	void paint(Graphics&) override;
 	void resized() override;
 	
-	Label titleLabel;
-	Label delayTimeLabel;
-	Label delayFeedbackLabel;
-	Label delayMixLabel;
+	ToggleButton toggleDelay;
 
-	Slider delayTimeSlider;
-	Slider delayFeedbackSlider; 
-	Slider delayMixSlider;
+	Label labelTitle;
+	Label labelDelayTime;
+	Label labelDelayFeedback;
+	Label labelDelayMix;
 
+	Slider sliderDelayTime;
+	Slider sliderDelayFeedback; 
+	Slider sliderdelayMix;
+
+	std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment> delayToggleAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayTimeAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayFeedbackAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayMixAttachment;
+
 };

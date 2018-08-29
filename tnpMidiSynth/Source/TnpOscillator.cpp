@@ -26,9 +26,8 @@ void TnpOscillator::setFrequency(float frequency, float sampleRate)
 {
 	this->frequency = frequency;
 	this->sampleRate = sampleRate;
-	cyclesPerSample = frequency / sampleRate;
-	increment = cyclesPerSample;
-	angleDelta = cyclesPerSample * MathConstants<float>::twoPi;
+	increment = frequency / sampleRate;
+	angleDelta = increment * MathConstants<float>::twoPi;
 }
 
 void TnpOscillator::updateAngle()
@@ -57,9 +56,8 @@ float TnpOscillator::sineWave()
 
 float TnpOscillator::squareWave()
 {
-	float sine = std::sin(currentAngle);
-	float currentSample = ((sine < 0) ? -1 : 1 ) * 0.5;		//  Here I multiplied the output by 0.5 for
-	updateAngle();											// output volume balance between waveforms.
+	float currentSample = modulo > 0.5 ? -1 : 1;
+	incrementModulo();
 	return currentSample;
 }
 

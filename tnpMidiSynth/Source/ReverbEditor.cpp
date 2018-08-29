@@ -13,9 +13,12 @@
 ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeState& apvts)
 	: processor(p)
 {
-	addAndMakeVisible(titleLabel);
-	titleLabel.setText("REVERB", dontSendNotification);
-	titleLabel.setJustificationType(Justification::centred);
+	addAndMakeVisible(labelTitle);
+	labelTitle.setText("REVERB", dontSendNotification);
+	labelTitle.setJustificationType(Justification::centred);
+
+	addAndMakeVisible(toggleReverb);
+	toggleAttachment = std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>(apvts, "reverbToggle", toggleReverb);
 
 	addAndMakeVisible(roomSizeSlider);
 	roomSizeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
@@ -48,9 +51,9 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 	mixSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	mixSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
 
-	addAndMakeVisible(mixLabel);
-	mixLabel.setText("mix", dontSendNotification);
-	mixLabel.setJustificationType(Justification::centredBottom);
+	addAndMakeVisible(labelMix);
+	labelMix.setText("mix", dontSendNotification);
+	labelMix.setJustificationType(Justification::centredBottom);
 	mixAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "reverbMix", mixSlider);
 }
 
@@ -63,7 +66,7 @@ void ReverbEditor::paint(Graphics& g)
 	// (Our component is opaque, so we must completely fill the background with a solid colour)
 	g.fillAll(Colours::lightgrey);
 
-	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
+	labelTitle.setColour(Label::backgroundColourId, Colours::cadetblue);
 
 	//=========================================================================================
 	roomSizeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
@@ -81,19 +84,21 @@ void ReverbEditor::resized()
 
 	juce::Rectangle<int> area(getLocalBounds());
 
-	titleLabel.setBounds(area.removeFromTop(20).reduced(2));
+	juce::Rectangle<int> topSection(area.removeFromTop(20).reduced(2));
+	toggleReverb.setBounds(topSection.removeFromLeft(20));
+	labelTitle.setBounds(topSection.reduced(2));
 
 	juce::Rectangle<int> controlsArea(area.reduced(5));
 
 	juce::Rectangle<int> labels(controlsArea.removeFromTop(labelHeight));
 	roomSizeLabel.setBounds(labels.removeFromLeft(labelWidth));
 	dampingLabel.setBounds(labels.removeFromLeft(labelWidth));
-	mixLabel.setBounds(labels.removeFromLeft(labelWidth));
 	widthLabel.setBounds(labels.removeFromLeft(labelWidth));
+	labelMix.setBounds(labels.removeFromLeft(labelWidth));
 
 	juce::Rectangle<int> sliders(controlsArea.removeFromTop(getHeight()));
 	roomSizeSlider.setBounds(sliders.removeFromLeft(sliderWidth));
 	dampingSlider.setBounds(sliders.removeFromLeft(sliderWidth));
-	mixSlider.setBounds(sliders.removeFromLeft(sliderWidth));
 	widthSlider.setBounds(sliders.removeFromLeft(sliderWidth));
+	mixSlider.setBounds(sliders.removeFromLeft(sliderWidth));
 }

@@ -62,6 +62,12 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 	getLookAndFeel().setColour(PopupMenu::textColourId, Colours::black);
 
 	getLookAndFeel().setColour(Label::textColourId, Colours::black);
+
+	getLookAndFeel().setColour(ToggleButton::tickColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(ToggleButton::tickDisabledColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(ToggleButton::textColourId, Colours::cadetblue);
+
+	getLookAndFeel().setColour(TextButton::buttonColourId, Colours::cadetblue);
 }
 
 void TnpMidiSynthAudioProcessorEditor::resized()

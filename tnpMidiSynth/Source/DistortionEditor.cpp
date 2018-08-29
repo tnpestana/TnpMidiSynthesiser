@@ -12,33 +12,36 @@
 
 DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeState& apvts)
 {
-	addAndMakeVisible(titleLabel);
-	titleLabel.setText("DISTORTION", dontSendNotification);
-	titleLabel.setJustificationType(Justification::centred);
+	addAndMakeVisible(labelTitle);
+	labelTitle.setText("DISTORTION", dontSendNotification);
+	labelTitle.setJustificationType(Justification::centred);
 
-	addAndMakeVisible(driveLabel);
-	driveLabel.setText("drive", dontSendNotification);
-	driveLabel.setJustificationType(Justification::centredTop);
-	addAndMakeVisible(driveSlider);
-	driveSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	driveSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
-	driveAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "distortionDrive", driveSlider);
+	addAndMakeVisible(toggleDistortion);
+	toggleAttachment = std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>(apvts, "distortionToggle", toggleDistortion);
 
-	addAndMakeVisible(rangeLabel);
-	rangeLabel.setText("range", dontSendNotification);
-	rangeLabel.setJustificationType(Justification::centredTop);
-	addAndMakeVisible(rangeSlider);
-	rangeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	rangeSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 50, 15);
-	rangeAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "distortionRange", rangeSlider);
+	addAndMakeVisible(labelDrive);
+	labelDrive.setText("drive", dontSendNotification);
+	labelDrive.setJustificationType(Justification::centredTop);
+	addAndMakeVisible(sliderDrive);
+	sliderDrive.setSliderStyle(Slider::RotaryVerticalDrag);
+	sliderDrive.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
+	driveAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "distortionDrive", sliderDrive);
 
-	addAndMakeVisible(mixLabel);
-	mixLabel.setText("mix", dontSendNotification);
-	mixLabel.setJustificationType(Justification::centredTop);
-	addAndMakeVisible(mixSlider);
-	mixSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	mixSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
-	mixAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "distortionMix", mixSlider);
+	addAndMakeVisible(labelRange);
+	labelRange.setText("range", dontSendNotification);
+	labelRange.setJustificationType(Justification::centredTop);
+	addAndMakeVisible(sliderRange);
+	sliderRange.setSliderStyle(Slider::RotaryVerticalDrag);
+	sliderRange.setTextBoxStyle(Slider::TextBoxBelow, true, 50, 15);
+	rangeAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (apvts, "distortionRange", sliderRange);
+
+	addAndMakeVisible(labelMix);
+	labelMix.setText("mix", dontSendNotification);
+	labelMix.setJustificationType(Justification::centredTop);
+	addAndMakeVisible(sliderMix);
+	sliderMix.setSliderStyle(Slider::RotaryVerticalDrag);
+	sliderMix.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
+	mixAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "distortionMix", sliderMix);
 }
 
 DistortionEditor::~DistortionEditor()
@@ -49,12 +52,12 @@ void DistortionEditor::paint(Graphics& g)
 {
 	g.fillAll(Colours::lightgrey);
 
-	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
+	labelTitle.setColour(Label::backgroundColourId, Colours::cadetblue);
 
 	//=========================================================================================
-	driveSlider.setColour(Slider::textBoxTextColourId, Colours::black);
-	rangeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
-	mixSlider.setColour(Slider::textBoxTextColourId, Colours::black);
+	sliderDrive.setColour(Slider::textBoxTextColourId, Colours::black);
+	sliderRange.setColour(Slider::textBoxTextColourId, Colours::black);
+	sliderMix.setColour(Slider::textBoxTextColourId, Colours::black);
 }
 
 void DistortionEditor::resized()
@@ -62,17 +65,18 @@ void DistortionEditor::resized()
 	const int sliderWidth = getWidth() / 3;
 	juce::Rectangle<int> area(getLocalBounds());
 
-	titleLabel.setBounds(area.removeFromTop(20).reduced(2));
-
+	juce::Rectangle<int> topSection(area.removeFromTop(20).reduced(2));
+	toggleDistortion.setBounds(topSection.removeFromLeft(20));
+	labelTitle.setBounds(topSection.reduced(2));
 	juce::Rectangle<int> controlsArea(area.reduced(5));
 
 	juce::Rectangle<int> labelArea(controlsArea.removeFromTop(15));
-	driveLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
-	rangeLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
-	mixLabel.setBounds(labelArea.removeFromLeft(sliderWidth));
+	labelDrive.setBounds(labelArea.removeFromLeft(sliderWidth));
+	labelRange.setBounds(labelArea.removeFromLeft(sliderWidth));
+	labelMix.setBounds(labelArea.removeFromLeft(sliderWidth));
 
 	juce::Rectangle<int> sliderArea(controlsArea.removeFromTop(getHeight()));
-	driveSlider.setBounds(sliderArea.removeFromLeft(sliderWidth));
-	rangeSlider.setBounds(sliderArea.removeFromLeft(sliderWidth));
-	mixSlider.setBounds(sliderArea.removeFromLeft(sliderWidth));
+	sliderDrive.setBounds(sliderArea.removeFromLeft(sliderWidth));
+	sliderRange.setBounds(sliderArea.removeFromLeft(sliderWidth));
+	sliderMix.setBounds(sliderArea.removeFromLeft(sliderWidth));
 }

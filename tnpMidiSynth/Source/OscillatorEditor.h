@@ -52,7 +52,6 @@ private:
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> releaseAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> gainAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> transposeAttachment;
-
 	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> numVoicesAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> oscTypeAttachment;
 
