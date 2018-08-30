@@ -14,7 +14,7 @@
 
 //==============================================================================
 TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeState& apvts)
-    : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p, apvts), reverbGUI(p, apvts), distortionGUI(p, apvts), delayGUI(p, apvts),
+    : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p, apvts), reverbGUI(p, apvts), /*distortionGUI(p, apvts),*/ delayGUI(p, apvts),
 	filterGUI(p, apvts)
 {
     // Main editor's size.
@@ -27,7 +27,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	addAndMakeVisible(labelTitle);
 	addAndMakeVisible(oscillatorGUI);
 	addAndMakeVisible(filterGUI);
-	addAndMakeVisible(distortionGUI);
+	//addAndMakeVisible(distortionGUI);
 	addAndMakeVisible(reverbGUI);
 	addAndMakeVisible(delayGUI);
 
@@ -93,7 +93,8 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	filterGUI.setBounds(left.reduced(5));
 
 	// Distortion area.
-	distortionGUI.setBounds(right.removeFromTop(right.getHeight() * 0.33).reduced(5));
+	juce::Rectangle<int> emptyArea(right.removeFromTop(right.getHeight() * 0.33).reduced(5));
+	//distortionGUI.setBounds(right.removeFromTop(right.getHeight() * 0.33).reduced(5));
 
 	// Delay area.
 	delayGUI.setBounds(right.removeFromTop(right.getHeight() * 0.5).reduced(5));

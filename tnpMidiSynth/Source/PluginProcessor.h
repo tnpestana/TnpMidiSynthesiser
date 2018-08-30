@@ -12,8 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TnpSynth.h"
-#include "TnpDistortion.h"
-#include "TnpLFO.h"
+//#include "TnpDistortion.h"
 #include "TnpStereoDelay.h"
 
 //==============================================================================
@@ -72,11 +71,9 @@ private:
 	IIRFilter filterLeft;
 	IIRFilter filterRight;
 	
-	TnpDistortion distortion;
+	//TnpDistortion distortion;
 	
 	TnpStereoDelay delay;
-
-	TnpLFO lfo;
 
 	double localSampleRate;
 

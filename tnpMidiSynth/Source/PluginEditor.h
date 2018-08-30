@@ -42,7 +42,7 @@ private:
 
 	OscillatorEditor oscillatorGUI;
 	FilterEditor filterGUI;
-	DistortionEditor distortionGUI;
+	//DistortionEditor distortionGUI;
 	DelayEditor delayGUI;
 	ReverbEditor reverbGUI;
 
