@@ -44,6 +44,8 @@
       <FILE id="plkHBY" name="TnpWavetable.cpp" compile="1" resource="0"
             file="Source/TnpWavetable.cpp"/>
       <FILE id="Myljhl" name="TnpWavetable.h" compile="0" resource="0" file="Source/TnpWavetable.h"/>
+      <FILE id="cpFocT" name="TnpLFO.cpp" compile="1" resource="0" file="Source/TnpLFO.cpp"/>
+      <FILE id="YHk8SP" name="TnpLFO.h" compile="0" resource="0" file="Source/TnpLFO.h"/>
       <FILE id="wCSXrS" name="TnpDistortion.cpp" compile="1" resource="0"
             file="Source/TnpDistortion.cpp"/>
       <FILE id="E40zal" name="TnpDistortion.h" compile="0" resource="0" file="Source/TnpDistortion.h"/>

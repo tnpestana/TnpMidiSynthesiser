@@ -180,6 +180,7 @@ void TnpMidiSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
 	localSampleRate = sampleRate;
 	mySynth.setCurrentPlaybackSampleRate(sampleRate);
 	delay.prepareToPlay(sampleRate);
+	//lfo.prepareToPLay(sampleRate);
 }
 
 void TnpMidiSynthAudioProcessor::releaseResources()
@@ -309,14 +310,19 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 			targetGain = *treeState.getRawParameterValue("gain");
 			if (currentGain != targetGain)
 				currentGain += (targetGain - currentGain) / buffer.getNumSamples();
-			// Apply gain.
-			*channelData = *channelData * currentGain;
-			channelData++;
+
+
+			//LFO
+			//lfo.processAudioFrame(channelData);
 
 			// Distortion processing.
 			float toggleDistortion = *treeState.getRawParameterValue("distortionToggle");
 			if (toggleDistortion == 1.0f)
 				*channelData = distortion.processSample(*channelData);
+
+			// Apply gain.
+			*channelData = *channelData * currentGain;
+			channelData++;
 		}
 	}
 

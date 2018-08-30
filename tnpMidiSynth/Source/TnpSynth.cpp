@@ -49,6 +49,7 @@ bool TnpSynthVoice::canPlaySound(SynthesiserSound * sound)
 void TnpSynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound * sound, int currentPitchWheelPosition)
 {
 	oscillator.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber + transposeValue), getSampleRate());
+	lfo.prepareToPLay(getSampleRate());
 	velocityLevel = velocity;
 
 	volumeEnvelope.gate(1);
@@ -97,11 +98,12 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 		}
 				
 
-		double envelope = volumeEnvelope.process() * soundwave;
+		float envelope = volumeEnvelope.process() * soundwave;
 
 		for (int channel = 0; channel < outputBuffer.getNumChannels(); channel++)
 		{		
 			// Multiply the output by the velocity level and the "gain" parameter.
+			lfo.processAudioFrame(&envelope);
 			outputBuffer.addSample(channel, startSample, envelope * velocityLevel);
 		}
 		startSample++;

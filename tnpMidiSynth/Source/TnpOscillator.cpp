@@ -47,6 +47,13 @@ void TnpOscillator::incrementModulo()
 		modulo -= 1.f;
 }
 
+float TnpOscillator::cosineWave()
+{
+	float currentSample = std::cos(currentAngle);
+	updateAngle();
+	return currentSample;
+}
+
 float TnpOscillator::sineWave()
 {
 	float currentSample = std::sin(currentAngle);

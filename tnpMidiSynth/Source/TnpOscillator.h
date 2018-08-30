@@ -21,6 +21,7 @@ public:
 	void setFrequency(float, float);
 	void updateAngle();
 	void incrementModulo();
+	float cosineWave();
 	float sineWave();
 	float squareWave();
 	float triangleWave();

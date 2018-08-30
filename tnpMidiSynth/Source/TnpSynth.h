@@ -13,6 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TnpOscillator.h"
 #include "ADSR/ADSR.h"
+#include "TnpLFO.h"
 
 //==============================================================================
 class TnpSynthSound : public SynthesiserSound
@@ -54,4 +55,5 @@ private:
 	TnpOscillator oscillator;
 	ADSR volumeEnvelope;
 
+	TnpLFO lfo;
 };
