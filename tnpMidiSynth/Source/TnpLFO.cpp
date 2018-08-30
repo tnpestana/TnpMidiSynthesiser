@@ -11,7 +11,7 @@
 #include "TnpLFO.h"
 
 TnpLFO::TnpLFO()
-	: depth(70.0f),
+	: depth(50.0f),
 	rate(0.5f),
 	mode(0.0f)
 {
@@ -29,7 +29,7 @@ void TnpLFO::prepareToPLay(double sampleRate)
 void TnpLFO::processAudioFrame(float* sample)
 {
 	float yn = 0;
-	yn = oscillator.cosineWave();
+	yn = oscillator.sineWave();
 	yn = yn / 2 + 0.5;
 
 	float GnL = 1.0;
@@ -48,7 +48,7 @@ void TnpLFO::processAudioFrame(float* sample)
 		calculatePanFactor(yn, &GnL, &GnR);
 	}*/
 
-	*sample = *sample * yn;
+	*sample = *sample * GnL;
 
 	/*if (inputChannels == 1 && outputChannels == 2)
 		outputBuffer[1] = outputBuffer[0];
@@ -69,7 +69,7 @@ void TnpLFO::processAudioFrame(float* sample)
 float TnpLFO::calculateGainFactor(float LFOSample)
 {
 	float output = LFOSample * (depth / 100.0f);
-	//output += 1 - depth / 100.0f;
+	output += 1 - depth / 100.0f;
 	return output;
 }
 
