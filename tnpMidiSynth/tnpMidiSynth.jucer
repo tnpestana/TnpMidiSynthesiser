@@ -12,6 +12,8 @@
         <FILE id="TLP67R" name="ADSR.h" compile="0" resource="0" file="Source/ADSR/ADSR.h"/>
       </GROUP>
       <GROUP id="{1F77430E-5D7B-C4CC-3C66-E4613C2FA0F2}" name="Editors">
+        <FILE id="JF7GDB" name="LFOEditor.cpp" compile="1" resource="0" file="Source/LFOEditor.cpp"/>
+        <FILE id="AOt7cg" name="LFOEditor.h" compile="0" resource="0" file="Source/LFOEditor.h"/>
         <FILE id="TrBN6t" name="PluginEditor.cpp" compile="1" resource="0"
               file="Source/PluginEditor.cpp"/>
         <FILE id="BdBV9o" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>

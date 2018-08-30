@@ -103,7 +103,8 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 		for (int channel = 0; channel < outputBuffer.getNumChannels(); channel++)
 		{		
 			// Multiply the output by the velocity level and the "gain" parameter.
-			lfo.processAudioFrame(&envelope);
+			if(toggleLFO)
+				lfo.processAudioFrame(&envelope);
 			outputBuffer.addSample(channel, startSample, envelope * velocityLevel);
 		}
 		startSample++;
@@ -118,6 +119,12 @@ void TnpSynthVoice::getEnvelopeParameters(float attack, float decay, float susta
 	volumeEnvelope.setDecayRate(decay * sampleRate);
 	volumeEnvelope.setSustainLevel(sustain);
 	volumeEnvelope.setReleaseRate(release * sampleRate);
+}
+
+void TnpSynthVoice::getLfoParameters(float depth, float rate, float toggle)
+{
+	lfo.updateParameters(depth, rate);
+	toggleLFO = toggle;
 }
 
 void TnpSynthVoice::getOscillatorType(float input)

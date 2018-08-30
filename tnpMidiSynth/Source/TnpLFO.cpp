@@ -11,7 +11,7 @@
 #include "TnpLFO.h"
 
 TnpLFO::TnpLFO()
-	: depth(50.0f),
+	: depth(100.0f),
 	rate(0.5f),
 	mode(0.0f)
 {
@@ -24,11 +24,13 @@ TnpLFO::~TnpLFO()
 void TnpLFO::prepareToPLay(double sampleRate)
 {
 	oscillator.setFrequency(rate, sampleRate);
+	this->sampleRate = sampleRate;
 }
 
 void TnpLFO::processAudioFrame(float* sample)
 {
 	float yn = 0;
+	oscillator.setFrequency(rate, sampleRate);
 	yn = oscillator.sineWave();
 	yn = yn / 2 + 0.5;
 
@@ -38,32 +40,7 @@ void TnpLFO::processAudioFrame(float* sample)
 
 	GnL = calculateGainFactor(yn);
 
-	/*else
-	{
-		if (numChannels == 1)
-			monoIn = *sample;
-		//else
-			//monoIn = 0.5 * (*sample + inputBuffer[1]);
-
-		calculatePanFactor(yn, &GnL, &GnR);
-	}*/
-
 	*sample = *sample * GnL;
-
-	/*if (inputChannels == 1 && outputChannels == 2)
-		outputBuffer[1] = outputBuffer[0];
-
-	if (inputChannels == 2 && outputChannels == 2)
-	{
-		if (mode == 0)
-		{
-			outputBuffer[1] = inputBuffer[1] * GnL;
-		}
-		else
-		{
-			outputBuffer[1] = inputBuffer[1] * GnR;
-		}
-	}*/
 }
 
 float TnpLFO::calculateGainFactor(float LFOSample)
@@ -71,6 +48,12 @@ float TnpLFO::calculateGainFactor(float LFOSample)
 	float output = LFOSample * (depth / 100.0f);
 	output += 1 - depth / 100.0f;
 	return output;
+}
+
+void TnpLFO::updateParameters(float depth, float rate)
+{
+	this->depth = depth;
+	this->rate = rate;
 }
 
 float TnpLFO::calculatePanFactor(float LFOSample, float * leftVolume, float * rightVolume)

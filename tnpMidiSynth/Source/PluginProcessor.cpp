@@ -58,18 +58,6 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("volEnvSustain", "VolEnvSustain", String(), sustainRange, 0.001f, nullptr, nullptr);
 	treeState.createAndAddParameter("volEnvRelease", "VolEnvRelease", String(), releaseRange, 0.015f, nullptr, nullptr);
 
-	// Reverb parameters.
-	NormalisableRange<float> dryWetRange(0.0f, 1.0f, 0.01f);
-	NormalisableRange<float> roomSizeRange(0.0f, 1.0f, 0.01f);
-	NormalisableRange<float> dampingRange(0.0f, 1.0f, 0.01f);
-	NormalisableRange<float> widthRange(0.0f, 1.0f, 0.01f);
-	NormalisableRange<float> toggleReverbRange(0, 1);
-	treeState.createAndAddParameter("reverbMix", "ReverbMix", String(), dryWetRange, 0.f, nullptr, nullptr);
-	treeState.createAndAddParameter("reverbRoomSize", "ReverbRoomSize", String(), roomSizeRange, 0.2f, nullptr, nullptr);
-	treeState.createAndAddParameter("reverbDamping", "ReverbDamping", String(), dampingRange, 0.5f, nullptr, nullptr);
-	treeState.createAndAddParameter("reverbWidth", "ReverbWidth", String(), widthRange, 0.5f, nullptr, nullptr);
-	treeState.createAndAddParameter("reverbToggle", "ReverbToggle", String(), toggleReverbRange, 0, nullptr, nullptr);
-
 	// IRR Filter parameter(S).
 	// One filter instance for each channel to avoid distortions.
 	NormalisableRange<float> filterCutoffRange(20.f, 20000.f, 0.01f);
@@ -95,6 +83,15 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("distortionMix", "DistortionMix", String(), distortionMixRange, 0.0f, nullptr, nullptr);
 	treeState.createAndAddParameter("distortionToggle", "DistortionToggle", String(), toggleDistortionRange, 0, nullptr, nullptr);*/
 
+	// LFO parameters.
+	NormalisableRange<float> lfoDepthRange(0.0f, 100.0f, 1.0f);
+	NormalisableRange<float> lfoRateRange(0.0f, 20.0f, 0.01f);
+	NormalisableRange<float> lfoToggleRange(0, 1);
+	lfoRateRange.setSkewForCentre(5.0);
+	treeState.createAndAddParameter("lfoDepth", "LfoDepth", String(), lfoDepthRange, 100.0f, nullptr, nullptr);
+	treeState.createAndAddParameter("lfoRate", "LfoRate", String(), lfoRateRange, 1.0f, nullptr, nullptr);
+	treeState.createAndAddParameter("lfoToggle", "LfoToggle", String(), lfoToggleRange, 1, nullptr, nullptr);
+
 	// Delay parameters.
 	NormalisableRange<float> delayTimeRange(0.01f, 2.0f, 0.001f);
 	NormalisableRange<float> delayFeedbackRange(0.0f, 1.0f, 0.001f);
@@ -104,6 +101,18 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("delayFeedback", "DelayFeedback", String(), delayFeedbackRange, 0.f, nullptr, nullptr);
 	treeState.createAndAddParameter("delayMix", "DelayMix", String(), delayWetRange, 0.0f, nullptr, nullptr);
 	treeState.createAndAddParameter("delayToggle", "DelayToggle", String(), toggleDelayRange, 0, nullptr, nullptr);
+
+	// Reverb parameters.
+	NormalisableRange<float> dryWetRange(0.0f, 1.0f, 0.01f);
+	NormalisableRange<float> roomSizeRange(0.0f, 1.0f, 0.01f);
+	NormalisableRange<float> dampingRange(0.0f, 1.0f, 0.01f);
+	NormalisableRange<float> widthRange(0.0f, 1.0f, 0.01f);
+	NormalisableRange<float> toggleReverbRange(0, 1);
+	treeState.createAndAddParameter("reverbMix", "ReverbMix", String(), dryWetRange, 0.f, nullptr, nullptr);
+	treeState.createAndAddParameter("reverbRoomSize", "ReverbRoomSize", String(), roomSizeRange, 0.2f, nullptr, nullptr);
+	treeState.createAndAddParameter("reverbDamping", "ReverbDamping", String(), dampingRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("reverbWidth", "ReverbWidth", String(), widthRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("reverbToggle", "ReverbToggle", String(), toggleReverbRange, 0, nullptr, nullptr);
 
 	treeState.state = ValueTree(Identifier("tnpMidiSynthState"));
 }
@@ -236,6 +245,9 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 				*treeState.getRawParameterValue("volEnvDecay"),
 				*treeState.getRawParameterValue("volEnvSustain"),
 				*treeState.getRawParameterValue("volEnvRelease"));
+			mySynthVoice->getLfoParameters(*treeState.getRawParameterValue("lfoDepth"),
+				*treeState.getRawParameterValue("lfoRate"),
+				*treeState.getRawParameterValue("lfoToggle"));
 		}
 	}
 

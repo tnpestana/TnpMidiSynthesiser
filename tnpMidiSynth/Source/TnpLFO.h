@@ -21,12 +21,14 @@ public:
 
 	void prepareToPLay(double sampleRate);
 	void processAudioFrame(float* buffer);
+	void updateParameters(float depth, float rate);
 
 private:
 	float calculateGainFactor(float LFO);
 	float calculatePanFactor(float LFO, float* leftVolume, float* rightVolume);
 
 	TnpOscillator oscillator;
+	float sampleRate;
 	float depth;
 	float rate;
 	int mode;
