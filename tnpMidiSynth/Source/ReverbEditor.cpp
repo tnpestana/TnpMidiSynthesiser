@@ -64,7 +64,7 @@ ReverbEditor::~ReverbEditor()
 void ReverbEditor::paint(Graphics& g)
 {
 	// (Our component is opaque, so we must completely fill the background with a solid colour)
-	g.fillAll(Colours::lightgrey);
+	//g.fillAll(Colours::lightgrey);
 
 	labelTitle.setColour(Label::backgroundColourId, Colours::cadetblue);
 
@@ -84,8 +84,8 @@ void ReverbEditor::resized()
 
 	juce::Rectangle<int> area(getLocalBounds());
 
-	juce::Rectangle<int> topSection(area.removeFromTop(20).reduced(2));
-	toggleReverb.setBounds(topSection.removeFromLeft(20));
+	juce::Rectangle<int> topSection(area.removeFromTop(20));
+	toggleReverb.setBounds(topSection.removeFromLeft(22));
 	labelTitle.setBounds(topSection.reduced(2));
 
 	juce::Rectangle<int> controlsArea(area.reduced(5));

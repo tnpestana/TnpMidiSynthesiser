@@ -64,14 +64,22 @@ private:
 	AudioProcessorValueTreeState treeState;
 	Synthesiser mySynth;
 	TnpSynthVoice* mySynthVoice;
+
 	Reverb reverb;
 	Reverb::Parameters reverbParameters;
+	
 	IIRFilter filterLeft;
 	IIRFilter filterRight;
+	
 	TnpDistortion distortion;
+	
 	TnpStereoDelay delay;
 
-	double localSampleRate, currentGain, targetGain;
+	double localSampleRate;
+
+	float currentGain, targetGain;
+	float currentFilterCutoff, targetFilterCutoff;
+
 	int targetNumVoices;
 
     //==============================================================================

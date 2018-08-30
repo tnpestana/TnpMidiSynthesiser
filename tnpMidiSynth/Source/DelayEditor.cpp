@@ -50,7 +50,7 @@ DelayEditor::~DelayEditor()
 
 void DelayEditor::paint(Graphics& g)
 {
-	g.fillAll(Colours::lightgrey);
+	//g.fillAll(Colours::lightgrey);
 
 	labelTitle.setColour(Label::backgroundColourId, Colours::cadetblue);
 
@@ -65,8 +65,8 @@ void DelayEditor::resized()
 	const int sliderWidth = getWidth() / 3;
 	juce::Rectangle<int> area(getLocalBounds());
 
-	juce::Rectangle<int> topSection(area.removeFromTop(20).reduced(2));
-	toggleDelay.setBounds(topSection.removeFromLeft(20));
+	juce::Rectangle<int> topSection(area.removeFromTop(20));
+	toggleDelay.setBounds(topSection.removeFromLeft(22));
 	labelTitle.setBounds(topSection.reduced(2));
 
 	juce::Rectangle<int> controlsArea(area.reduced(5));

@@ -55,6 +55,9 @@
       <FILE id="ZczgO5" name="TnpStereoDelay.h" compile="0" resource="0"
             file="Source/TnpStereoDelay.h"/>
     </GROUP>
+    <GROUP id="{A5288FAA-6551-02E0-BDF2-7078225C1A08}" name="Images">
+      <FILE id="y9TRkr" name="background.jpg" compile="0" resource="1" file="Images/background.jpg"/>
+    </GROUP>
   </MAINGROUP>
   <LIVE_SETTINGS>
     <WINDOWS/>

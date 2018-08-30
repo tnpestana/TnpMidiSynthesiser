@@ -23,8 +23,10 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
                      #endif
                        ),
 		treeState(*this, nullptr),
-		targetGain(0.0),
-		currentGain(targetGain)
+		targetGain(0.0f),
+		currentGain(targetGain),
+		targetFilterCutoff(5000.0f),
+		currentFilterCutoff(targetFilterCutoff)
 #endif
 {
 	// Gain parameter.
@@ -306,18 +308,15 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 			// Avoid glicthes via volume increment.
 			targetGain = *treeState.getRawParameterValue("gain");
 			if (currentGain != targetGain)
-			{
 				currentGain += (targetGain - currentGain) / buffer.getNumSamples();
-			}
-
-			// Distortion processing.
-			float toggleDistortion = *treeState.getRawParameterValue("distortionToggle");
-			if(toggleDistortion == 1.0f)
-				*channelData = distortion.processSample(*channelData);
-
 			// Apply gain.
 			*channelData = *channelData * currentGain;
 			channelData++;
+
+			// Distortion processing.
+			float toggleDistortion = *treeState.getRawParameterValue("distortionToggle");
+			if (toggleDistortion == 1.0f)
+				*channelData = distortion.processSample(*channelData);
 		}
 	}
 

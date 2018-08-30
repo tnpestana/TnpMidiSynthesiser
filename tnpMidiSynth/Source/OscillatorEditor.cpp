@@ -102,7 +102,7 @@ OscillatorEditor::~OscillatorEditor()
 void OscillatorEditor::paint(Graphics& g)
 {
 	// (Our component is opaque, so we must completely fill the background with a solid colour)
-	g.fillAll(Colours::lightgrey);
+	//g.fillAll(Colours::lightgrey);
 
 	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
 

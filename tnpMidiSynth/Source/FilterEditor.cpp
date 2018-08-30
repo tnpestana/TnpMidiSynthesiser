@@ -72,7 +72,7 @@ FilterEditor::~FilterEditor()
 void FilterEditor::paint(Graphics& g)
 {
 	// (Our component is opaque, so we must completely fill the background with a solid colour)
-	g.fillAll(Colours::lightgrey);
+	//g.fillAll(Colours::lightgrey);
 
 	labelFilterTitle.setColour(Label::backgroundColourId, Colours::cadetblue);
 	
@@ -90,8 +90,8 @@ void FilterEditor::resized()
 	const int labelHeight = 15;
 
 	juce::Rectangle<int> area (getLocalBounds());
-	juce::Rectangle<int> topSection	(area.removeFromTop(20).reduced(2));
-	toggleFilter.setBounds (topSection.removeFromLeft(20));
+	juce::Rectangle<int> topSection	(area.removeFromTop(20));
+	toggleFilter.setBounds (topSection.removeFromLeft(22));
 	labelFilterTitle.setBounds (topSection.reduced(2));
 
 	juce::Rectangle<int> totalSection (area.reduced(5));

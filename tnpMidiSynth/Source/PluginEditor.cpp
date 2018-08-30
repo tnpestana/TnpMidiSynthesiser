@@ -22,6 +22,8 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	setSize(600, 400);
 	setResizable(true, true);
 
+	backgroundImage = ImageCache::getFromMemory(BinaryData::background_jpg, BinaryData::background_jpgSize);
+
 	addAndMakeVisible(labelTitle);
 	addAndMakeVisible(oscillatorGUI);
 	addAndMakeVisible(filterGUI);
@@ -41,6 +43,7 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (Colours::lightslategrey);
+	g.drawImageAt(backgroundImage, 0, 0);
 
 	//Image oscBackground = ImageCache::getFromMemory(BinaryData::background_jpg, BinaryData::background_jpgSize);
 	//g.drawImageAt(oscBackground, 0, 0);
@@ -51,21 +54,23 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 	getLookAndFeel().setColour(Slider::backgroundColourId, Colours::floralwhite);
 	getLookAndFeel().setColour(Slider::rotarySliderOutlineColourId, Colours::floralwhite);
 	getLookAndFeel().setColour(Slider::thumbColourId, Colours::cadetblue);
-	getLookAndFeel().setColour(Slider::rotarySliderFillColourId, Colours::black);
+	//getLookAndFeel().setColour(Slider::rotarySliderFillColourId, Colours::black);
 	getLookAndFeel().setColour(Slider::textBoxTextColourId, Colours::black);
+	getLookAndFeel().setColour(Slider::textBoxOutlineColourId, Colours::cadetblue);
 
 	getLookAndFeel().setColour(ComboBox::textColourId, Colours::black);
-	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::lightgrey);
+	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::floralwhite);
 	getLookAndFeel().setColour(ComboBox::outlineColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(ComboBox::arrowColourId, Colours::cadetblue);
 
-	getLookAndFeel().setColour(PopupMenu::backgroundColourId ,Colours::lightgrey);
+	getLookAndFeel().setColour(PopupMenu::backgroundColourId ,Colours::floralwhite);
 	getLookAndFeel().setColour(PopupMenu::textColourId, Colours::black);
 
 	getLookAndFeel().setColour(Label::textColourId, Colours::black);
 
-	getLookAndFeel().setColour(ToggleButton::tickColourId, Colours::cadetblue);
-	getLookAndFeel().setColour(ToggleButton::tickDisabledColourId, Colours::cadetblue);
-	getLookAndFeel().setColour(ToggleButton::textColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(ToggleButton::tickColourId, Colours::floralwhite);
+	getLookAndFeel().setColour(ToggleButton::tickDisabledColourId, Colours::floralwhite);
+	getLookAndFeel().setColour(ToggleButton::textColourId, Colours::floralwhite);
 
 	getLookAndFeel().setColour(TextButton::buttonColourId, Colours::cadetblue);
 }
@@ -75,7 +80,7 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	// Total main editor's area.
 	juce::Rectangle<int> area (getLocalBounds());
 
-	labelTitle.setBounds(area.removeFromTop(40).reduced(5));
+	juce::Rectangle<int> topSection (area.removeFromTop(40).reduced(5));
 
 	juce::Rectangle<int> left (area.removeFromLeft(area.getWidth() / 2));
 	juce::Rectangle<int> right (area);
