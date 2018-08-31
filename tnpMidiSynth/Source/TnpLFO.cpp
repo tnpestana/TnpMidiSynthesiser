@@ -13,7 +13,8 @@
 TnpLFO::TnpLFO()
 	: depth(100.0f),
 	rate(0.5f),
-	mode(0.0f)
+	sampleRate(0),
+	oscillator()
 {
 }
 
@@ -21,26 +22,24 @@ TnpLFO::~TnpLFO()
 {
 }
 
-void TnpLFO::prepareToPLay(double sampleRate)
+void TnpLFO::prepareToPLay(double newSampleRate)
 {
+	sampleRate = newSampleRate;
 	oscillator.setFrequency(rate, sampleRate);
-	this->sampleRate = sampleRate;
 }
 
 void TnpLFO::processAudioFrame(float* sample)
 {
-	float yn = 0;
+	float lfo = 0;
 	oscillator.setFrequency(rate, sampleRate);
-	yn = oscillator.sineWave();
-	yn = yn / 2 + 0.5;
+	lfo = oscillator.sineWave();
+	lfo = lfo / 2 + 0.5;
 
-	float GnL = 1.0;
-	float GnR = 1.0;
-	float monoIn = 0.0;
+	float gainFactor = 1.0;
 
-	GnL = calculateGainFactor(yn);
+	gainFactor = calculateGainFactor(lfo);
 
-	*sample = *sample * GnL;
+	*sample = *sample * gainFactor;
 }
 
 float TnpLFO::calculateGainFactor(float LFOSample)
@@ -56,11 +55,11 @@ void TnpLFO::updateParameters(float depth, float rate)
 	this->rate = rate;
 }
 
-float TnpLFO::calculatePanFactor(float LFOSample, float * leftVolume, float * rightVolume)
+/*float TnpLFO::calculatePanFactor(float LFOSample, float * leftVolume, float * rightVolume)
 {
 	float pan = ((depth / 100.0f) * LFOSample + 1) * MathConstants<float>::pi / 4.0f;
 
 	*rightVolume = cos(pan);
 	*leftVolume = sin(pan);
 	return 0.0f;
-}
+}*/

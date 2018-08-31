@@ -32,11 +32,8 @@ void TnpStereoDelay::updateParams(float delayTime, float feedback, float wet)
 
 void TnpStereoDelay::prepareToPlay(double sampleRate)
 {
-	delayLeft.resetDelay();
-	delayRight.resetDelay();
-
-	delayLeft.setSampleRate(sampleRate);
-	delayRight.setSampleRate(sampleRate);
+	delayLeft.resetDelay(sampleRate);
+	delayRight.resetDelay(sampleRate);
 }
 
 void TnpStereoDelay::processAudio(float* inputBufferL, float* inputBufferR)

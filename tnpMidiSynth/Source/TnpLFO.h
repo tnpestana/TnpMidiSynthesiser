@@ -25,11 +25,10 @@ public:
 
 private:
 	float calculateGainFactor(float LFO);
-	float calculatePanFactor(float LFO, float* leftVolume, float* rightVolume);
+	//float calculatePanFactor(float LFO, float* leftVolume, float* rightVolume);
 
 	TnpOscillator oscillator;
 	float sampleRate;
 	float depth;
 	float rate;
-	int mode;
 };

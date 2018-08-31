@@ -189,7 +189,7 @@ void TnpMidiSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
 	localSampleRate = sampleRate;
 	mySynth.setCurrentPlaybackSampleRate(sampleRate);
 	delay.prepareToPlay(sampleRate);
-	//lfo.prepareToPLay(sampleRate);
+	reverb.setSampleRate(sampleRate);
 }
 
 void TnpMidiSynthAudioProcessor::releaseResources()
@@ -352,7 +352,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 
 	//  Reverb processing.
 	float toggleReverb = *treeState.getRawParameterValue("reverbToggle");
-	if (toggleReverb == 1)
+	if (toggleReverb == 1.0f)
 	{
 		reverbParameters.dryLevel = 1.0f - *treeState.getRawParameterValue("reverbMix");	//	Dereference the result of getRawParameterValue because it returns
 		reverbParameters.wetLevel = *treeState.getRawParameterValue("reverbMix");			// a pointer to the parameter's value location.

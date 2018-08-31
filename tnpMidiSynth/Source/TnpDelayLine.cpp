@@ -13,6 +13,7 @@
 TnpDelayLine::TnpDelayLine()
 	: buffer(nullptr),
 	delayLength(0.01),
+	delayInSamples(1),
 	bufferSize(0),
 	delayReadPosition(0),
 	delayWritePosition(0),
@@ -27,7 +28,7 @@ TnpDelayLine::~TnpDelayLine()
 	delete[] buffer;
 }
 
-void TnpDelayLine::resetDelay()
+void TnpDelayLine::resetDelay(double sampleRate)
 {
 	if (buffer)
 		memset(buffer, 0, bufferSize);
@@ -35,13 +36,7 @@ void TnpDelayLine::resetDelay()
 	delayReadPosition = 0.0;
 	delayWritePosition = 0.0;
 
-	setupBuffer();
-}
-
-void TnpDelayLine::setSampleRate(double sampleRate)
-{
 	this->sampleRate = sampleRate;
-
 	initBuffer();
 }
 
@@ -58,6 +53,8 @@ void TnpDelayLine::initBuffer()
 	buffer = new float[bufferSize];
 	// flush buffer
 	memset(buffer, 0, bufferSize);
+
+	setupBuffer();
 }
 
 void TnpDelayLine::setFeedback(float feedback)

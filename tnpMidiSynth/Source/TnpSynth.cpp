@@ -33,8 +33,12 @@ bool TnpSynthSound::appliesToChannel(int midiChannel)
 TnpSynthVoice::TnpSynthVoice()
 	: velocityLevel(0.0),
 	soundwave(0.f),
-	transposeValue(0)
+	oscType(0),
+	transposeValue(0),
+	toggleLFO(0.0f),
+	oscillator()
 {
+	lfo.prepareToPLay(getSampleRate());
 }
 
 TnpSynthVoice::~TnpSynthVoice()
@@ -49,7 +53,6 @@ bool TnpSynthVoice::canPlaySound(SynthesiserSound * sound)
 void TnpSynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound * sound, int currentPitchWheelPosition)
 {
 	oscillator.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber + transposeValue), getSampleRate());
-	lfo.prepareToPLay(getSampleRate());
 	velocityLevel = velocity;
 
 	volumeEnvelope.gate(1);
@@ -98,14 +101,15 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 		}
 				
 
-		float envelope = volumeEnvelope.process() * soundwave;
+		float envelope = volumeEnvelope.process() * soundwave * velocityLevel;
 
 		for (int channel = 0; channel < outputBuffer.getNumChannels(); channel++)
 		{		
-			// Multiply the output by the velocity level and the "gain" parameter.
-			if(toggleLFO)
+			if (toggleLFO != 0.0f)
+			{
 				lfo.processAudioFrame(&envelope);
-			outputBuffer.addSample(channel, startSample, envelope * velocityLevel);
+			}
+			outputBuffer.addSample(channel, startSample, envelope);
 		}
 		startSample++;
 	}

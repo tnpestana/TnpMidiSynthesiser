@@ -50,7 +50,7 @@ public:
 	void getTransposeValue(float transpose);
 
 private:
-	bool toggleLFO;
+	float toggleLFO;
 
 	double velocityLevel;
 	float soundwave;

@@ -26,7 +26,7 @@ LFOEditor::LFOEditor(TnpMidiSynthAudioProcessor&p , AudioProcessorValueTreeState
 
 	labelLfoDepth.setText("depth: ", dontSendNotification);
 	labelLfoDepth.setJustificationType(Justification::centredRight);
-	labelLfoRate.setText("rate :", dontSendNotification);
+	labelLfoRate.setText("rate: ", dontSendNotification);
 	labelLfoRate.setJustificationType(Justification::centredRight);
 
 	labelTitle.setText("LFO", dontSendNotification);
