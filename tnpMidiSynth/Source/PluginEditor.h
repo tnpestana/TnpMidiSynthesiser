@@ -14,7 +14,6 @@
 #include "PluginProcessor.h"
 #include "OscillatorEditor.h"
 #include "ReverbEditor.h"
-#include "DistortionEditor.h"
 #include "DelayEditor.h"
 #include "FilterEditor.h"
 #include "LFOEditor.h"
@@ -43,7 +42,6 @@ private:
 
 	OscillatorEditor oscillatorGUI;
 	FilterEditor filterGUI;
-	//DistortionEditor distortionGUI;
 	LFOEditor lfoGUI;
 	DelayEditor delayGUI;
 	ReverbEditor reverbGUI;

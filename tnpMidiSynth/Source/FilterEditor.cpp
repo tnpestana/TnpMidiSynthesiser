@@ -3,7 +3,7 @@
 
     FilterEditor.cpp
     Created: 7 Aug 2018 6:24:53pm
-    Author:  tnpes
+    Author:  Tiago Pestana
 
   ==============================================================================
 */

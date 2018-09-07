@@ -3,7 +3,7 @@
 
     ReverbEditor.h
     Created: 17 Apr 2018 5:19:12pm
-    Author:  tnpes
+    Author:  Tiago Pestana
 
   ==============================================================================
 */

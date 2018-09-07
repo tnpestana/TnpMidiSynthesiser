@@ -3,7 +3,7 @@
 
     TnpStereoDelay.cpp
     Created: 4 Aug 2018 6:10:56pm
-    Author:  tnpes
+    Author:  Tiago Pestana
 
   ==============================================================================
 */

@@ -3,7 +3,7 @@
 
     MySynth.cpp
     Created: 14 Apr 2018 9:38:56pm
-    Author:  tnpes
+    Author:  Tiago Pestana
 
   ==============================================================================
 */

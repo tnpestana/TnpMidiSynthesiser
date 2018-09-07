@@ -3,7 +3,7 @@
 
     OscillatorEditor.h
     Created: 17 Apr 2018 1:57:27pm
-    Author:  tnpes
+    Author:  Tiago Pestana
 
 	Main application is suposed to run more than one oscillator, so here is a
 	template for its GUI added to the main editor as many times as needed.

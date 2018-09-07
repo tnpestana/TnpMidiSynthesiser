@@ -3,7 +3,7 @@
 
     MyOscillator.cpp
     Created: 14 Apr 2018 9:58:24pm
-    Author:  tnpes
+    Author:  Tiago Pestana
 
   ==============================================================================
 */

@@ -14,11 +14,10 @@
 
 //==============================================================================
 TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeState& apvts)
-    : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p, apvts), reverbGUI(p, apvts), /*distortionGUI(p, apvts),*/ lfoGUI(p, apvts), delayGUI(p, apvts),
+    : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p, apvts), reverbGUI(p, apvts), lfoGUI(p, apvts), delayGUI(p, apvts),
 	filterGUI(p, apvts)
 {
     // Main editor's size.
-    //setSize (250, 360);
 	setSize(600, 400);
 	setResizable(true, true);
 
@@ -27,7 +26,6 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	addAndMakeVisible(labelTitle);
 	addAndMakeVisible(oscillatorGUI);
 	addAndMakeVisible(filterGUI);
-	//addAndMakeVisible(distortionGUI);
 	addAndMakeVisible(lfoGUI);
 	addAndMakeVisible(reverbGUI);
 	addAndMakeVisible(delayGUI);

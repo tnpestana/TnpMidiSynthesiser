@@ -3,7 +3,7 @@
 
     TnpLFO.cpp
     Created: 30 Aug 2018 1:29:02pm
-    Author:  tnpes
+    Author:  Tiago Pestana
 
   ==============================================================================
 */

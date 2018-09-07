@@ -3,7 +3,7 @@
 
     DelayEditor.cpp
     Created: 4 Aug 2018 6:29:27pm
-    Author:  tnpes
+    Author:  Tiago Pestana
 
   ==============================================================================
 */

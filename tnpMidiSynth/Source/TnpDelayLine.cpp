@@ -3,7 +3,7 @@
 
     TnpDelayLine.cpp
     Created: 4 Aug 2018 6:09:20pm
-    Author:  tnpes
+    Author:  Tiago Pestana
 
   ==============================================================================
 */

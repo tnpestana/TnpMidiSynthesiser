@@ -27,10 +27,6 @@
         <FILE id="EC6MyK" name="ReverbEditor.cpp" compile="1" resource="0"
               file="Source/ReverbEditor.cpp"/>
         <FILE id="U9vcsV" name="ReverbEditor.h" compile="0" resource="0" file="Source/ReverbEditor.h"/>
-        <FILE id="DJw83f" name="DistortionEditor.cpp" compile="1" resource="0"
-              file="Source/DistortionEditor.cpp"/>
-        <FILE id="xMKh13" name="DistortionEditor.h" compile="0" resource="0"
-              file="Source/DistortionEditor.h"/>
         <FILE id="j9WCNX" name="DelayEditor.cpp" compile="1" resource="0" file="Source/DelayEditor.cpp"/>
         <FILE id="pxcUz9" name="DelayEditor.h" compile="0" resource="0" file="Source/DelayEditor.h"/>
       </GROUP>
@@ -43,14 +39,8 @@
       <FILE id="t6gt4U" name="TnpOscillator.cpp" compile="1" resource="0"
             file="Source/TnpOscillator.cpp"/>
       <FILE id="v1pj7z" name="TnpOscillator.h" compile="0" resource="0" file="Source/TnpOscillator.h"/>
-      <FILE id="plkHBY" name="TnpWavetable.cpp" compile="1" resource="0"
-            file="Source/TnpWavetable.cpp"/>
-      <FILE id="Myljhl" name="TnpWavetable.h" compile="0" resource="0" file="Source/TnpWavetable.h"/>
       <FILE id="cpFocT" name="TnpLFO.cpp" compile="1" resource="0" file="Source/TnpLFO.cpp"/>
       <FILE id="YHk8SP" name="TnpLFO.h" compile="0" resource="0" file="Source/TnpLFO.h"/>
-      <FILE id="wCSXrS" name="TnpDistortion.cpp" compile="1" resource="0"
-            file="Source/TnpDistortion.cpp"/>
-      <FILE id="E40zal" name="TnpDistortion.h" compile="0" resource="0" file="Source/TnpDistortion.h"/>
       <FILE id="Jh33sr" name="TnpDelayLine.cpp" compile="1" resource="0"
             file="Source/TnpDelayLine.cpp"/>
       <FILE id="yYwNRK" name="TnpDelayLine.h" compile="0" resource="0" file="Source/TnpDelayLine.h"/>

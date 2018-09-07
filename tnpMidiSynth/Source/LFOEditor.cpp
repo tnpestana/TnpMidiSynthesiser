@@ -3,7 +3,7 @@
 
     LFOEditor.cpp
     Created: 30 Aug 2018 6:26:46pm
-    Author:  tnpes
+    Author:  Tiago Pestana
 
   ==============================================================================
 */

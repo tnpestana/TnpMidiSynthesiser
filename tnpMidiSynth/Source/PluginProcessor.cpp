@@ -73,16 +73,6 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("filterGainFactor", "FilterGainFactor", String(), filterGainFactorRange, 0.01f, nullptr, nullptr);
 	treeState.createAndAddParameter("filterToggle", "FilterToggle", String(), toggleFilterRange, 0, nullptr, nullptr);
 
-	/* Distortion parameters.
-	NormalisableRange<float> distortionDriveRange(0.f, 1.f, 0.01f);
-	NormalisableRange<float> distortionRangeRange(0.f, 3000.f, 0.01f);
-	NormalisableRange<float> distortionMixRange(0.f, 1.f, 0.01f);
-	NormalisableRange<float> toggleDistortionRange(0, 1);
-	treeState.createAndAddParameter("distortionDrive", "DistortionDrive", String(), distortionDriveRange, 0.5f, nullptr, nullptr);
-	treeState.createAndAddParameter("distortionRange", "DistortionRange", String(), distortionRangeRange, 1500.f, nullptr, nullptr);
-	treeState.createAndAddParameter("distortionMix", "DistortionMix", String(), distortionMixRange, 0.0f, nullptr, nullptr);
-	treeState.createAndAddParameter("distortionToggle", "DistortionToggle", String(), toggleDistortionRange, 0, nullptr, nullptr);*/
-
 	// LFO parameters.
 	NormalisableRange<float> lfoDepthRange(0.0f, 100.0f, 1.0f);
 	NormalisableRange<float> lfoRateRange(0.0f, 20.0f, 0.01f);
@@ -304,12 +294,6 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 		}
 	}
 
-	// Store distortion parameters.
-	/*distortion.setParameters(
-		*treeState.getRawParameterValue("distortionDrive"),
-		*treeState.getRawParameterValue("distortionRange"),
-		*treeState.getRawParameterValue("distortionMix"));*/
-	
 	// Single sample access.
 	for (int channel = 0; channel < buffer.getNumChannels(); channel++)
 	{
@@ -322,11 +306,6 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 			targetGain = *treeState.getRawParameterValue("gain");
 			if (currentGain != targetGain)
 				currentGain += (targetGain - currentGain) / buffer.getNumSamples();
-
-			/* Distortion processing.
-			float toggleDistortion = *treeState.getRawParameterValue("distortionToggle");
-			if (toggleDistortion == 1.0f)
-				*channelData = distortion.processSample(*channelData);*/
 
 			// Apply gain.
 			*channelData = *channelData * currentGain;
