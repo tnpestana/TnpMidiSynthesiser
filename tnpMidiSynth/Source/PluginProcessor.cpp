@@ -32,15 +32,12 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	// Gain parameter.
 	NormalisableRange<float> gainRange(0.0f, 1.0f, 0.01f);
 	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 0.5f, nullptr, nullptr);
-	
 	// Number of voices parameter.
 	NormalisableRange<float> numVoicesRange(0, 9);
 	treeState.createAndAddParameter("oscNumVoices", "NumVoices", String(), numVoicesRange, 9, nullptr, nullptr);
-
 	// Oscillator type parameter.
 	NormalisableRange<float> oscTypeRange(0, 3);
 	treeState.createAndAddParameter("oscType", "OscType", String(), oscTypeRange, 2, nullptr, nullptr);
-
 	// Transpose parameter.
 	NormalisableRange<float> transposeRange(-24.0f, 24.0f, 1.0f);
 	treeState.createAndAddParameter("oscTranspose", "Transpose", String(), transposeRange, 0, nullptr, nullptr);
@@ -59,7 +56,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("volEnvRelease", "VolEnvRelease", String(), releaseRange, 0.015f, nullptr, nullptr);
 
 	// IRR Filter parameter(S).
-	// One filter instance for each channel to avoid distortions.
+	// One filter instance for each channel to avoid distortion.
 	NormalisableRange<float> filterCutoffRange(20.f, 20000.f, 0.01f);
 	NormalisableRange<float> filterTypeRange(0.0f, 6.f, 1.f);
 	NormalisableRange<float> filterQRange(0.01f, 3.f, 0.01f);

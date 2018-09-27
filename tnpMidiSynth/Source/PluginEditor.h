@@ -37,9 +37,7 @@ private:
 	TnpMidiSynthAudioProcessor& processor;
 
 	Label labelTitle;
-
 	juce::Image backgroundImage;
-
 	OscillatorEditor oscillatorGUI;
 	FilterEditor filterGUI;
 	LFOEditor lfoGUI;

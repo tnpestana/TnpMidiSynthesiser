@@ -101,12 +101,7 @@ OscillatorEditor::~OscillatorEditor()
 
 void OscillatorEditor::paint(Graphics& g)
 {
-	// (Our component is opaque, so we must completely fill the background with a solid colour)
-	//g.fillAll(Colours::lightgrey);
-
 	titleLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
-
-	//=========================================================================================
 	transposeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	attackSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	decaySlider.setColour(Slider::textBoxTextColourId, Colours::black);

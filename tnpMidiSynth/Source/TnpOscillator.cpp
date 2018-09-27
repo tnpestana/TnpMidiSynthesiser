@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    MyOscillator.cpp
+    TnpOscillator.cpp
     Created: 14 Apr 2018 9:58:24pm
     Author:  Tiago Pestana
 
@@ -70,11 +70,7 @@ float TnpOscillator::squareWave()
 
 float TnpOscillator::triangleWave()
 {
-	// (2.0 * modulo - 1.f) = sawtooth wave
-	float currentSample = 2.f * fabs(2.f * modulo - 1.f) - 1.f;
-
-	incrementModulo();
-
+	float currentSample = 2.f * fabs(sawtoothWave()) - 1.f;
 	// return sample
 	return currentSample;
 }

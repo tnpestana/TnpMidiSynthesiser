@@ -59,24 +59,18 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
-	//==============================================================================
 	AudioProcessorValueTreeState treeState;
 	Synthesiser mySynth;
 	TnpSynthVoice* mySynthVoice;
-
 	Reverb reverb;
 	Reverb::Parameters reverbParameters;
-	
 	IIRFilter filterLeft;
 	IIRFilter filterRight;
-
 	TnpStereoDelay delay;
 
 	double localSampleRate;
-
 	float currentGain, targetGain;
 	float currentFilterCutoff, targetFilterCutoff;
-
 	int targetNumVoices;
 
     //==============================================================================

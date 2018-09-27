@@ -112,5 +112,4 @@ void FilterEditor::resized()
 	juce::Rectangle<int> filterQSection (totalSection.reduced(5));
 	labelFilterQ.setBounds (filterQSection.removeFromTop(labelHeight));
 	sliderFilterQ.setBounds	(filterQSection);
-	
 }

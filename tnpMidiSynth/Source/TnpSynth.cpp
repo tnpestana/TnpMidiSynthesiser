@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    MySynth.cpp
+    TnpSynth.cpp
     Created: 14 Apr 2018 9:38:56pm
     Author:  Tiago Pestana
 
@@ -36,7 +36,8 @@ TnpSynthVoice::TnpSynthVoice()
 	oscType(0),
 	transposeValue(0),
 	toggleLFO(0.0f),
-	oscillator()
+	oscillator(),
+	volumeEnvelope()
 {
 	lfo.prepareToPLay(getSampleRate());
 }
@@ -79,8 +80,6 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 {
 	for (int sample = 0; sample < numSamples; sample++)
 	{
-		//	Get initial wave via the oscillator object, process its volume with the envelope class
-		// from ADSR files and filter it with JUCEs IIRFilter.
 		switch (oscType)
 		{
 		case 0:
