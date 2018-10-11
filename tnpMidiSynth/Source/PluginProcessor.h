@@ -30,7 +30,12 @@ public:
     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
    #endif
 
-    void processBlock (AudioBuffer<float>&, MidiBuffer&) override;
+    void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages) override;
+	void manageActiveVoices();
+	void processGain (AudioBuffer<float>& buffer);
+	void processFilter (AudioBuffer<float>& buffer);
+	void processDelay (AudioBuffer<float>& buffer);
+	void processReverb (AudioBuffer<float>& buffer);
 
 	//==============================================================================
 	void setNumVoices(int numVoices);

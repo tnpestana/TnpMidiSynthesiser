@@ -78,26 +78,18 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 {
 	// Total main editor's area.
 	juce::Rectangle<int> area (getLocalBounds());
-
 	juce::Rectangle<int> topSection (area.removeFromTop(40).reduced(5));
-
 	juce::Rectangle<int> left (area.removeFromLeft(area.getWidth() / 2));
 	juce::Rectangle<int> right (area);
-	
 
 	// Oscillator area.
 	oscillatorGUI.setBounds(left.removeFromTop(200).reduced(5));
-
 	// IRRFilter area.
 	filterGUI.setBounds(left.reduced(5));
-
 	// Distortion area.
 	lfoGUI.setBounds((right.removeFromTop(right.getHeight() * 0.33).reduced(5)));
-	//distortionGUI.setBounds(right.removeFromTop(right.getHeight() * 0.33).reduced(5));
-
 	// Delay area.
 	delayGUI.setBounds(right.removeFromTop(right.getHeight() * 0.5).reduced(5));
-
 	// Reverb area.
 	reverbGUI.setBounds(right.reduced(5));
 }

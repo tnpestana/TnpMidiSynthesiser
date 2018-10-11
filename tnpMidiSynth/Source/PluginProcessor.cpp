@@ -212,13 +212,22 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	for (int i = getNumInputChannels(); i < getNumOutputChannels(); i++)
 		buffer.clear(i, 0, buffer.getNumSamples());								
 
+	manageActiveVoices();
+	mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+	processGain(buffer);
+	processFilter(buffer);
+	processDelay(buffer);
+	processReverb(buffer);
+}
+
+void TnpMidiSynthAudioProcessor::manageActiveVoices()
+{
 	// Check if the number of voices selected has changed.
 	int numVoicesParam = *treeState.getRawParameterValue("oscNumVoices") + 1;			// Add one for the values to match the combo box IDs.
 	if (numVoicesParam != mySynth.getNumVoices())
 	{
 		setNumVoices(numVoicesParam);
 	}
-
 	// Iterate through activating voices.
 	for (int i = 0; i < mySynth.getNumVoices(); i++)
 	{
@@ -237,10 +246,30 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 				*treeState.getRawParameterValue("lfoToggle"));
 		}
 	}
+}
 
-	mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
-	
-	// Filter processing.
+void TnpMidiSynthAudioProcessor::processGain(AudioBuffer<float>& buffer)
+{
+	for (int channel = 0; channel < buffer.getNumChannels(); channel++)
+	{
+		float* channelData = buffer.getWritePointer(channel);
+
+		for (int sample = 0; sample < buffer.getNumSamples(); sample++)
+		{
+			// Avoid glicthes via volume increment.
+			targetGain = *treeState.getRawParameterValue("gain");
+			if (currentGain != targetGain)
+				currentGain += (targetGain - currentGain) / buffer.getNumSamples();
+
+			// Apply gain.
+			*channelData = *channelData * currentGain;
+			channelData++;
+		}
+	}
+}
+
+void TnpMidiSynthAudioProcessor::processFilter(AudioBuffer<float>& buffer)
+{
 	float toggleFilter = *treeState.getRawParameterValue("filterToggle");
 	if (toggleFilter == 1.0f)
 	{
@@ -290,27 +319,10 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 			filterRight.processSamples(buffer.getWritePointer(1), buffer.getNumSamples());
 		}
 	}
+}
 
-	// Single sample access.
-	for (int channel = 0; channel < buffer.getNumChannels(); channel++)
-	{
-		float* channelData = buffer.getWritePointer(channel);
-
-		for (int sample = 0; sample < buffer.getNumSamples(); sample++)
-		{
-			// Gain processing:
-			// Avoid glicthes via volume increment.
-			targetGain = *treeState.getRawParameterValue("gain");
-			if (currentGain != targetGain)
-				currentGain += (targetGain - currentGain) / buffer.getNumSamples();
-
-			// Apply gain.
-			*channelData = *channelData * currentGain;
-			channelData++;
-		}
-	}
-
-	// Delay processing.
+void TnpMidiSynthAudioProcessor::processDelay(AudioBuffer<float>& buffer)
+{
 	float toggleDelay = *treeState.getRawParameterValue("delayToggle");
 	if (toggleDelay == 1.0f)
 	{
@@ -325,8 +337,10 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 			delay.processAudio(outputDataL, outputDataR);
 		}
 	}
+}
 
-	//  Reverb processing.
+void TnpMidiSynthAudioProcessor::processReverb(AudioBuffer<float>& buffer)
+{
 	float toggleReverb = *treeState.getRawParameterValue("reverbToggle");
 	if (toggleReverb == 1.0f)
 	{
