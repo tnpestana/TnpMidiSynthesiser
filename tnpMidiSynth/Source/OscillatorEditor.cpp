@@ -27,6 +27,8 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	addAndMakeVisible(numVoicesInput);
 	for (int i = 1; i < 11; i++)							//	Even though the numVoices parameter's range is defined we
 		numVoicesInput.addItem((String)i, i);				// seem to need to populate the combo box anyway.
+	numVoicesInput.addItem("16", 11);
+	numVoicesInput.addItem("32", 12);
 	numVoicesAttachment = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> (apvts, "oscNumVoices", numVoicesInput);
 
 	// Transpose

@@ -33,8 +33,8 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	NormalisableRange<float> gainRange(0.0f, 1.0f, 0.01f);
 	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 0.5f, nullptr, nullptr);
 	// Number of voices parameter.
-	NormalisableRange<float> numVoicesRange(0, 9);
-	treeState.createAndAddParameter("oscNumVoices", "NumVoices", String(), numVoicesRange, 9, nullptr, nullptr);
+	NormalisableRange<float> numVoicesRange(0, 11);
+	treeState.createAndAddParameter("oscNumVoices", "NumVoices", String(), numVoicesRange, 10, nullptr, nullptr);
 	// Oscillator type parameter.
 	NormalisableRange<float> oscTypeRange(0, 3);
 	treeState.createAndAddParameter("oscType", "OscType", String(), oscTypeRange, 2, nullptr, nullptr);
@@ -211,7 +211,6 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 {
 	for (int i = getNumInputChannels(); i < getNumOutputChannels(); i++)
 		buffer.clear(i, 0, buffer.getNumSamples());								
-
 	manageActiveVoices();
 	mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 	processGain(buffer);
@@ -223,7 +222,9 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 void TnpMidiSynthAudioProcessor::manageActiveVoices()
 {
 	// Check if the number of voices selected has changed.
-	int numVoicesParam = *treeState.getRawParameterValue("oscNumVoices") + 1;			// Add one for the values to match the combo box IDs.
+	int numVoicesParam = *treeState.getRawParameterValue("oscNumVoices") + 1;	// Add one for the values to match the combo box IDs.
+	numVoicesParam = numVoicesParam == 11 ? 16 : numVoicesParam;				// If the parameter returns the value 11 it means there are 16 voices.
+	numVoicesParam = numVoicesParam == 12 ? 32 : numVoicesParam;
 	if (numVoicesParam != mySynth.getNumVoices())
 	{
 		setNumVoices(numVoicesParam);
