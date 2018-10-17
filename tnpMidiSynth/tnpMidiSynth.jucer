@@ -36,6 +36,9 @@
             file="Source/PluginProcessor.h"/>
       <FILE id="KbVU0Z" name="TnpSynth.cpp" compile="1" resource="0" file="Source/TnpSynth.cpp"/>
       <FILE id="b1u1EN" name="TnpSynth.h" compile="0" resource="0" file="Source/TnpSynth.h"/>
+      <FILE id="Wwlcfx" name="TnpWavetable.h" compile="0" resource="0" file="Source/TnpWavetable.h"/>
+      <FILE id="mPDLVn" name="TnpWavetable.cpp" compile="1" resource="0"
+            file="Source/TnpWavetable.cpp"/>
       <FILE id="t6gt4U" name="TnpOscillator.cpp" compile="1" resource="0"
             file="Source/TnpOscillator.cpp"/>
       <FILE id="v1pj7z" name="TnpOscillator.h" compile="0" resource="0" file="Source/TnpOscillator.h"/>
