@@ -37,6 +37,7 @@ TnpSynthVoice::TnpSynthVoice()
 	transposeValue(0),
 	toggleLFO(0.0f),
 	oscillator(),
+	wOscillator(),
 	volumeEnvelope()
 {
 	lfo.prepareToPLay(getSampleRate());
@@ -54,6 +55,7 @@ bool TnpSynthVoice::canPlaySound(SynthesiserSound * sound)
 void TnpSynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound * sound, int currentPitchWheelPosition)
 {
 	oscillator.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber + transposeValue), getSampleRate());
+	wOscillator.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber + transposeValue), getSampleRate());
 	velocityLevel = velocity;
 
 	volumeEnvelope.gate(1);
@@ -83,7 +85,8 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 		switch (oscType)
 		{
 		case 0:
-			soundwave = oscillator.sineWave();
+			//soundwave = oscillator.sineWave();
+			soundwave = wOscillator.getNextSample();
 			break;
 		case 1:
 			soundwave = oscillator.squareWave();

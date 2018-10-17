@@ -29,6 +29,8 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 		currentFilterCutoff(targetFilterCutoff)
 #endif
 {
+	WavetableOscillator::createWavetable();
+
 	// Gain parameter.
 	NormalisableRange<float> gainRange(0.0f, 1.0f, 0.01f);
 	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 0.5f, nullptr, nullptr);

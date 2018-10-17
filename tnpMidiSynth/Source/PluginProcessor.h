@@ -13,6 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TnpSynth.h"
 #include "TnpStereoDelay.h"
+#include "TnpWavetable.h"
 
 //==============================================================================
 class TnpMidiSynthAudioProcessor : public AudioProcessor
