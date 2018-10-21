@@ -18,10 +18,14 @@ public:
 	~WavetableOscillator();
 
 	void setFrequency(float, float);
-	float getNextSample();
+	float getNextSample(AudioSampleBuffer* currentTable);
 
 	static void createWavetable();
-	static ScopedPointer<AudioSampleBuffer> wavetable;
+	static void createSine();
+	static void createSaw();
+
+	static ScopedPointer<AudioSampleBuffer> sinetable;
+	static ScopedPointer<AudioSampleBuffer> sawtable;
 	static int tableSize;
 
 private:

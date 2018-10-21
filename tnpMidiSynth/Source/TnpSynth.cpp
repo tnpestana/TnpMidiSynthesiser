@@ -86,7 +86,7 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 		{
 		case 0:
 			//soundwave = oscillator.sineWave();
-			soundwave = wOscillator.getNextSample();
+			soundwave = wOscillator.getNextSample(WavetableOscillator::sinetable);
 			break;
 		case 1:
 			soundwave = oscillator.squareWave();
@@ -95,7 +95,8 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 			soundwave = oscillator.triangleWave();
 			break;
 		case 3:
-			soundwave = oscillator.sawtoothWave();
+			//soundwave = oscillator.sawtoothWave();
+			soundwave = wOscillator.getNextSample(WavetableOscillator::sawtable);
 			break;
 		default:
 			soundwave = 0.0;

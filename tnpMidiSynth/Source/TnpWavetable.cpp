@@ -24,20 +24,18 @@ WavetableOscillator::~WavetableOscillator()
 //==============================================================================
 void WavetableOscillator::setFrequency(float frequency, float sampleRate)
 {
-	float tableSizeOverSampleRate = wavetable->getNumSamples() / sampleRate;
+	float tableSizeOverSampleRate = tableSize / sampleRate;
 	tableDelta = frequency * tableSizeOverSampleRate;
 }
 
-float WavetableOscillator::getNextSample()
+float WavetableOscillator::getNextSample(AudioSampleBuffer* currentTable)
 {
-	float tableSize = wavetable->getNumSamples();
-
 	int index0 = (int)currentIndex;
 	int index1 = index0 == (tableSize - 1) ? 0 : index0 + 1;
 
 	float fraction = currentIndex - (float)index0;
 
-	const float* table = wavetable->getReadPointer(0);
+	const float* table = currentTable->getReadPointer(0);
 	float value0 = table[index0];
 	float value1 = table[index1];
 
@@ -53,12 +51,19 @@ float WavetableOscillator::getNextSample()
 // Static class members
 int WavetableOscillator::tableSize = 128;
 
-ScopedPointer<AudioSampleBuffer> WavetableOscillator::wavetable = new AudioSampleBuffer();
+ScopedPointer<AudioSampleBuffer> WavetableOscillator::sinetable = new AudioSampleBuffer();
+ScopedPointer<AudioSampleBuffer> WavetableOscillator::sawtable = new AudioSampleBuffer();
 
 void WavetableOscillator::createWavetable()
 {
-	wavetable->setSize(1, tableSize);
-	float* samples = wavetable->getWritePointer(0);
+	createSine();
+	createSaw();
+}
+
+void WavetableOscillator::createSine()
+{
+	sinetable->setSize(1, tableSize);
+	float* samples = sinetable->getWritePointer(0);
 
 	float angleDelta = MathConstants<double>::twoPi / (float)tableSize;
 	float currentAngle = 0.0;
@@ -70,3 +75,22 @@ void WavetableOscillator::createWavetable()
 		currentAngle += angleDelta;
 	}
 }
+
+void WavetableOscillator::createSaw()
+{
+	sawtable->setSize(1, tableSize);
+	float* samples = sawtable->getWritePointer(0);
+
+	float modulo = 0.0f;
+	float increment = 1.0f / (float)tableSize;
+
+	for (int i = 0; i < tableSize; i++)
+	{
+		// unipolar to bipolar
+		samples[i] = 2.0 * modulo - 1;
+		// increment angle
+		modulo += increment;
+	}
+}
+
+
