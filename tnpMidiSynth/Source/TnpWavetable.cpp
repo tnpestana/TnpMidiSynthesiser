@@ -81,7 +81,7 @@ void WavetableOscillator::createSaw()
 	sawtable->setSize(1, tableSize);
 	float* samples = sawtable->getWritePointer(0);
 
-	float modulo = 0.0f;
+	float modulo = 0.5f;
 	float increment = 1.0f / (float)tableSize;
 
 	for (int i = 0; i < tableSize; i++)
@@ -90,6 +90,8 @@ void WavetableOscillator::createSaw()
 		samples[i] = 2.0 * modulo - 1;
 		// increment angle
 		modulo += increment;
+		if (modulo >= 1.0f)
+			modulo -= 1.0f;
 	}
 }
 
