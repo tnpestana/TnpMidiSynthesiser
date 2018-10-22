@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TnpOscillator.h"
+#include "tnpWavetable.h"
 
 class TnpLFO
 {
@@ -27,6 +28,7 @@ private:
 	float calculateGainFactor(float LFO);
 
 	TnpOscillator oscillator;
+	
 	float sampleRate;
 	float depth;
 	float rate;

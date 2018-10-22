@@ -11,7 +11,6 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "TnpOscillator.h"
 #include "TnpWavetable.h"
 #include "ADSR/ADSR.h"
 #include "TnpLFO.h"
@@ -56,7 +55,6 @@ private:
 	double velocityLevel;
 	float soundwave;
 	int oscType, transposeValue;
-	TnpOscillator oscillator;
 	WavetableOscillator wOscillator;
 	ADSR volumeEnvelope;
 
