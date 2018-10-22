@@ -83,16 +83,16 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 		switch (oscType)
 		{
 		case 0:
-			soundwave = wOscillator.getNextSample(WavetableOscillator::sinetable);
+			soundwave = wOscillator.getNextSample(*WavetableOscillator::sinetable);
 			break;
 		case 1:
-			soundwave = wOscillator.getNextSample(WavetableOscillator::squaretable);
+			soundwave = wOscillator.getNextSample(*WavetableOscillator::squaretable);
 			break;
 		case 2:
-			soundwave = wOscillator.getNextSample(WavetableOscillator::tritable);
+			soundwave = wOscillator.getNextSample(*WavetableOscillator::tritable);
 			break;
 		case 3:
-			soundwave = wOscillator.getNextSample(WavetableOscillator::sawtable);
+			soundwave = wOscillator.getNextSample(*WavetableOscillator::sawtable);
 			break;
 		default:
 			soundwave = 0.0;

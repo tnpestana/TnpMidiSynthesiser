@@ -18,16 +18,16 @@ public:
 	~WavetableOscillator();
 
 	void setFrequency(float, float);
-	float getNextSample(AudioSampleBuffer* currentTable);
+	float getNextSample(AudioSampleBuffer& currentTable);
 
 	static void createWavetable();
 	static void createSine();
 	static void createSawTriSquare();
 
-	static ScopedPointer<AudioSampleBuffer> sinetable;
-	static ScopedPointer<AudioSampleBuffer> sawtable;
-	static ScopedPointer<AudioSampleBuffer> tritable;
-	static ScopedPointer<AudioSampleBuffer> squaretable;
+	static std::unique_ptr<AudioSampleBuffer> sinetable;
+	static std::unique_ptr<AudioSampleBuffer> sawtable;
+	static std::unique_ptr<AudioSampleBuffer> tritable;
+	static std::unique_ptr<AudioSampleBuffer> squaretable;
 
 	static int tableSize;
 

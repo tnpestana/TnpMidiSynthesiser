@@ -57,6 +57,5 @@ private:
 	int oscType, transposeValue;
 	WavetableOscillator wOscillator;
 	ADSR volumeEnvelope;
-
 	TnpLFO lfo;
 };

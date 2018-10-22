@@ -28,14 +28,14 @@ void WavetableOscillator::setFrequency(float frequency, float sampleRate)
 	tableDelta = frequency * tableSizeOverSampleRate;
 }
 
-float WavetableOscillator::getNextSample(AudioSampleBuffer* currentTable)
+float WavetableOscillator::getNextSample(AudioSampleBuffer& currentTable)
 {
 	int index0 = (int)currentIndex;
 	int index1 = index0 == (tableSize - 1) ? 0 : index0 + 1;
 
 	float fraction = currentIndex - (float)index0;
 
-	const float* table = currentTable->getReadPointer(0);
+	const float* table = currentTable.getReadPointer(0);
 	float value0 = table[index0];
 	float value1 = table[index1];
 
@@ -51,10 +51,10 @@ float WavetableOscillator::getNextSample(AudioSampleBuffer* currentTable)
 // Static class members
 int WavetableOscillator::tableSize = 128;
 
-ScopedPointer<AudioSampleBuffer> WavetableOscillator::sinetable = new AudioSampleBuffer();
-ScopedPointer<AudioSampleBuffer> WavetableOscillator::sawtable = new AudioSampleBuffer();
-ScopedPointer<AudioSampleBuffer> WavetableOscillator::tritable = new AudioSampleBuffer();
-ScopedPointer<AudioSampleBuffer> WavetableOscillator::squaretable = new AudioSampleBuffer();
+std::unique_ptr<AudioSampleBuffer> WavetableOscillator::sinetable = std::make_unique<AudioSampleBuffer>();
+std::unique_ptr<AudioSampleBuffer> WavetableOscillator::sawtable = std::make_unique<AudioSampleBuffer>();
+std::unique_ptr<AudioSampleBuffer> WavetableOscillator::tritable = std::make_unique<AudioSampleBuffer>();
+std::unique_ptr<AudioSampleBuffer> WavetableOscillator::squaretable = std::make_unique<AudioSampleBuffer>();
 
 void WavetableOscillator::createWavetable()
 {
