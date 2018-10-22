@@ -22,10 +22,12 @@ public:
 
 	static void createWavetable();
 	static void createSine();
-	static void createSaw();
+	static void createSawAndTri();
 
 	static ScopedPointer<AudioSampleBuffer> sinetable;
 	static ScopedPointer<AudioSampleBuffer> sawtable;
+	static ScopedPointer<AudioSampleBuffer> tritable;
+
 	static int tableSize;
 
 private:

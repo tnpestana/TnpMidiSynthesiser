@@ -53,11 +53,12 @@ int WavetableOscillator::tableSize = 128;
 
 ScopedPointer<AudioSampleBuffer> WavetableOscillator::sinetable = new AudioSampleBuffer();
 ScopedPointer<AudioSampleBuffer> WavetableOscillator::sawtable = new AudioSampleBuffer();
+ScopedPointer<AudioSampleBuffer> WavetableOscillator::tritable = new AudioSampleBuffer();
 
 void WavetableOscillator::createWavetable()
 {
 	createSine();
-	createSaw();
+	createSawAndTri();
 }
 
 void WavetableOscillator::createSine()
@@ -76,10 +77,14 @@ void WavetableOscillator::createSine()
 	}
 }
 
-void WavetableOscillator::createSaw()
+// We use the same method for creating both saw and triangular waves because one can be calculated from the other.
+void WavetableOscillator::createSawAndTri()
 {
 	sawtable->setSize(1, tableSize);
-	float* samples = sawtable->getWritePointer(0);
+	float* sawSamples = sawtable->getWritePointer(0);
+
+	tritable->setSize(1, tableSize);
+	float* triSamples = tritable->getWritePointer(0);
 
 	float modulo = 0.5f;
 	float increment = 1.0f / (float)tableSize;
@@ -87,7 +92,9 @@ void WavetableOscillator::createSaw()
 	for (int i = 0; i < tableSize; i++)
 	{
 		// unipolar to bipolar
-		samples[i] = 2.0 * modulo - 1;
+		sawSamples[i] = 2.0f * modulo - 1.0f;
+		triSamples[i] = 2.0f * fabs(sawSamples[i]) - 1.0f;
+
 		// increment angle
 		modulo += increment;
 		if (modulo >= 1.0f)
