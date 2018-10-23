@@ -32,7 +32,25 @@ void TnpLFO::processAudioFrame(float* sample)
 {
 	float lfo = 0;
 	wOscillator.setFrequency(rate, sampleRate);
-	lfo = wOscillator.getNextSample(*WavetableOscillator::sinetable);
+	switch(oscType)
+	{
+		case 0:
+			lfo = wOscillator.getNextSample(*WavetableOscillator::sinetable);
+			break;
+		case 1:
+			lfo = wOscillator.getNextSample(*WavetableOscillator::squaretable);
+			break;
+		case 2:
+			lfo = wOscillator.getNextSample(*WavetableOscillator::tritable);
+			break;
+		case 3:
+			lfo = wOscillator.getNextSample(*WavetableOscillator::sawtable);
+			break;
+		default:
+			lfo = 0.0;
+			break;
+	}
+
 	lfo = lfo / 2 + 0.5;
 
 	float gainFactor = 1.0;
@@ -49,10 +67,11 @@ float TnpLFO::calculateGainFactor(float LFOSample)
 	return output;
 }
 
-void TnpLFO::updateParameters(float depth, float rate)
+void TnpLFO::updateParameters(float depth, float rate, int oscType)
 {
 	this->depth = depth;
 	this->rate = rate;
+	this->oscType = oscType;
 }
 
 /*float TnpLFO::calculatePanFactor(float LFOSample, float * leftVolume, float * rightVolume)

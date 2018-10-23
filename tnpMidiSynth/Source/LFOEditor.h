@@ -25,13 +25,17 @@ private:
 
 	ToggleButton toggleLfo;
 
+	ComboBox comboOscType;
+
 	Label labelTitle;
+	Label labelLfoOscType;
 	Label labelLfoDepth;
 	Label labelLfoRate;
 
 	Slider sliderLfoDepth;
 	Slider sliderLfoRate;
 
+	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> oscTypeAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> depthAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> rateAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment> toggleAttachment;

@@ -21,13 +21,14 @@ public:
 
 	void prepareToPLay(double sampleRate);
 	void processAudioFrame(float* buffer);
-	void updateParameters(float depth, float rate);
+	void updateParameters(float depth, float rate, int oscType);
 
 private:
 	float calculateGainFactor(float LFO);
 
 	WavetableOscillator wOscillator;
 	
+	int oscType;
 	float sampleRate;
 	float depth;
 	float rate;

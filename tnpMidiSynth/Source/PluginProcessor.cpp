@@ -73,10 +73,12 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("filterToggle", "FilterToggle", String(), toggleFilterRange, 0, nullptr, nullptr);
 
 	// LFO parameters.
+	NormalisableRange<float> lfoOscTypeRange(0, 3);
 	NormalisableRange<float> lfoDepthRange(0.0f, 100.0f, 1.0f);
 	NormalisableRange<float> lfoRateRange(0.0f, 20.0f, 0.01f);
 	NormalisableRange<float> lfoToggleRange(0, 1);
 	lfoRateRange.setSkewForCentre(5.0);
+	treeState.createAndAddParameter("lfoOscType", "LfoOscType", String(), lfoOscTypeRange, 2, nullptr, nullptr);
 	treeState.createAndAddParameter("lfoDepth", "LfoDepth", String(), lfoDepthRange, 100.0f, nullptr, nullptr);
 	treeState.createAndAddParameter("lfoRate", "LfoRate", String(), lfoRateRange, 1.0f, nullptr, nullptr);
 	treeState.createAndAddParameter("lfoToggle", "LfoToggle", String(), lfoToggleRange, 1, nullptr, nullptr);
@@ -246,7 +248,8 @@ void TnpMidiSynthAudioProcessor::manageActiveVoices()
 				*treeState.getRawParameterValue("volEnvRelease"));
 			mySynthVoice->getLfoParameters(*treeState.getRawParameterValue("lfoDepth"),
 				*treeState.getRawParameterValue("lfoRate"),
-				*treeState.getRawParameterValue("lfoToggle"));
+				*treeState.getRawParameterValue("lfoToggle"),
+				*treeState.getRawParameterValue("lfoOscType"));
 		}
 	}
 }

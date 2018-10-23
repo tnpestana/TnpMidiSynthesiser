@@ -45,7 +45,7 @@ public:
 
 	//==============================================================================
 	void getEnvelopeParameters(float attack, float decay, float sustain, float release);
-	void getLfoParameters(float depth, float rate, float toggle);
+	void getLfoParameters(float depth, float rate, float toggle, int oscType);
 	void getOscillatorType(float oscType);
 	void getTransposeValue(float transpose);
 

@@ -123,9 +123,9 @@ void TnpSynthVoice::getEnvelopeParameters(float attack, float decay, float susta
 	volumeEnvelope.setReleaseRate(release * sampleRate);
 }
 
-void TnpSynthVoice::getLfoParameters(float depth, float rate, float toggle)
+void TnpSynthVoice::getLfoParameters(float depth, float rate, float toggle, int oscType)
 {
-	lfo.updateParameters(depth, rate);
+	lfo.updateParameters(depth, rate, oscType);
 	toggleLFO = toggle;
 }
 
