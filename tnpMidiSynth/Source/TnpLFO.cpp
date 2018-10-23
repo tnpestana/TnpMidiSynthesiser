@@ -14,7 +14,7 @@ TnpLFO::TnpLFO()
 	: depth(100.0f),
 	rate(0.5f),
 	sampleRate(0),
-	oscillator()
+	wOscillator()
 {
 }
 
@@ -25,14 +25,14 @@ TnpLFO::~TnpLFO()
 void TnpLFO::prepareToPLay(double newSampleRate)
 {
 	sampleRate = newSampleRate;
-	oscillator.setFrequency(rate, sampleRate);
+	wOscillator.setFrequency(rate, sampleRate);
 }
 
 void TnpLFO::processAudioFrame(float* sample)
 {
 	float lfo = 0;
-	oscillator.setFrequency(rate, sampleRate);
-	lfo = oscillator.sineWave();
+	wOscillator.setFrequency(rate, sampleRate);
+	lfo = wOscillator.getNextSample(*WavetableOscillator::sinetable);
 	lfo = lfo / 2 + 0.5;
 
 	float gainFactor = 1.0;

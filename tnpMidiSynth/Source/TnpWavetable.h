@@ -20,6 +20,7 @@ public:
 	void setFrequency(float, float);
 	float getNextSample(AudioSampleBuffer& currentTable);
 
+	// Static public class members
 	static void createWavetable();
 	static void createSine();
 	static void createSawTriSquare();
