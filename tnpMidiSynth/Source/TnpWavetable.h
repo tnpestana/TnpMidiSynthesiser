@@ -21,17 +21,20 @@ public:
 	float getNextSample(AudioSampleBuffer& currentTable);
 
 	// Static public class members
-	static void createWavetable();
+	static void createWavetable(float sampleRate);
 	static void createSine();
+	static void createHarmonicSine();
 	static void createSawTriSquare();
 
-	static std::unique_ptr<AudioSampleBuffer> sinetable;
-	static std::unique_ptr<AudioSampleBuffer> sawtable;
-	static std::unique_ptr<AudioSampleBuffer> tritable;
-	static std::unique_ptr<AudioSampleBuffer> squaretable;
+	static std::unique_ptr<AudioSampleBuffer> sineTable;
+	static std::unique_ptr<AudioSampleBuffer> harmonicSineTable;
+	static std::unique_ptr<AudioSampleBuffer> sawTable;
+	static std::unique_ptr<AudioSampleBuffer> triTable;
+	static std::unique_ptr<AudioSampleBuffer> squareTable;
 
 	static int tableSize;
 
 private:
-	float currentIndex, tableDelta;
+	float currentIndex, frequency;
+	float tableDelta;
 };

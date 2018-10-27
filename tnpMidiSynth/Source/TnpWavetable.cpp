@@ -13,6 +13,7 @@
 //==============================================================================
 WavetableOscillator::WavetableOscillator()
 	: currentIndex(0.0f),
+	frequency(0.0f),
 	tableDelta(0.0f)
 {
 }
@@ -24,6 +25,7 @@ WavetableOscillator::~WavetableOscillator()
 //==============================================================================
 void WavetableOscillator::setFrequency(float frequency, float sampleRate)
 {
+	this->frequency = frequency;
 	float tableSizeOverSampleRate = tableSize / sampleRate;
 	tableDelta = frequency * tableSizeOverSampleRate;
 }
@@ -51,43 +53,84 @@ float WavetableOscillator::getNextSample(AudioSampleBuffer& currentTable)
 // Static class members
 int WavetableOscillator::tableSize = 127;
 
-std::unique_ptr<AudioSampleBuffer> WavetableOscillator::sinetable = std::make_unique<AudioSampleBuffer>();
-std::unique_ptr<AudioSampleBuffer> WavetableOscillator::sawtable = std::make_unique<AudioSampleBuffer>();
-std::unique_ptr<AudioSampleBuffer> WavetableOscillator::tritable = std::make_unique<AudioSampleBuffer>();
-std::unique_ptr<AudioSampleBuffer> WavetableOscillator::squaretable = std::make_unique<AudioSampleBuffer>();
+std::unique_ptr<AudioSampleBuffer> WavetableOscillator::sineTable = std::make_unique<AudioSampleBuffer>();
+std::unique_ptr<AudioSampleBuffer> WavetableOscillator::harmonicSineTable = std::make_unique<AudioSampleBuffer>();
+std::unique_ptr<AudioSampleBuffer> WavetableOscillator::sawTable = std::make_unique<AudioSampleBuffer>();
+std::unique_ptr<AudioSampleBuffer> WavetableOscillator::triTable = std::make_unique<AudioSampleBuffer>();
+std::unique_ptr<AudioSampleBuffer> WavetableOscillator::squareTable = std::make_unique<AudioSampleBuffer>();
 
-void WavetableOscillator::createWavetable()
+void WavetableOscillator::createWavetable(float sampleRate)
 {
 	createSine();
+	createHarmonicSine();
 	createSawTriSquare();
 }
 
 void WavetableOscillator::createSine()
 {
-	sinetable->setSize(1, tableSize);
-	float* samples = sinetable->getWritePointer(0);
+	sineTable->setSize(1, tableSize + 1);
+	sineTable->clear();
 
-	float angleDelta = MathConstants<double>::twoPi / (float)tableSize;
-	float currentAngle = 0.0;
+	float* samples = sineTable->getWritePointer(0);
 
-	for (int i = 0; i < tableSize; i++)
+		float angleDelta = MathConstants<double>::twoPi / (float)(tableSize);
+
+		float currentAngle = 0.0;
+
+		for (int i = 0; i < tableSize; i++)
+		{
+			float sample = std::sin(currentAngle);
+			samples[i] += (float)sample;
+			currentAngle += angleDelta;
+		}
+
+	samples[tableSize] = samples[0];
+}
+
+void WavetableOscillator::createHarmonicSine()
+{
+	harmonicSineTable->setSize(1, tableSize + 1);
+	harmonicSineTable->clear();
+
+	float* samples = harmonicSineTable->getWritePointer(0);
+
+	/*
+	int harmonics[] = { 1, 3, 5, 6, 7, 9, 13, 15 };
+	float harmonicWeights[] = { 0.5f, 0.1f, 0.05f, 0.125f, 0.09f, 0.005,
+	0.002f, 0.001f };
+	*/
+
+	int harmonics[] = { 1, 2, 4, 6 };
+	float harmonicWeights[] = { 0.5f, 0.1f, 0.05f, 0.025f };
+
+	for (int harmonic = 0; harmonic < numElementsInArray(harmonics); ++harmonic)
 	{
-		float sample = std::sin(currentAngle);
-		samples[i] = (float)sample;
-		currentAngle += angleDelta;
-	}
+		float angleDelta = MathConstants<double>::twoPi / (float)(tableSize) *
+			harmonics[harmonic];
 
+		float currentAngle = 0.0;
+
+		for (int i = 0; i < tableSize; i++)
+		{
+			float sample = std::sin(currentAngle);
+			samples[i] += (float)sample * harmonicWeights[harmonic];
+			currentAngle += angleDelta;
+		}
+	}
 	samples[tableSize] = samples[0];
 }
 
 void WavetableOscillator::createSawTriSquare()
 {
-	sawtable->setSize(1, tableSize + 1);
-	float* sawSamples = sawtable->getWritePointer(0);
-	tritable->setSize(1, tableSize + 1);
-	float* triSamples = tritable->getWritePointer(0);
-	squaretable->setSize(1, tableSize + 1);
-	float* squareSamples = squaretable->getWritePointer(0);
+	sawTable->setSize(1, tableSize + 1);
+	sawTable->clear();
+	float* sawSamples = sawTable->getWritePointer(0);
+	triTable->setSize(1, tableSize + 1);
+	triTable->clear();
+	float* triSamples = triTable->getWritePointer(0);
+	squareTable->setSize(1, tableSize + 1);
+	squareTable->clear();
+	float* squareSamples = squareTable->getWritePointer(0);
 
 	float modulo = 0.5f;
 	float increment = 1.0f / (float)tableSize;

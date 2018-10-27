@@ -29,8 +29,6 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 		currentFilterCutoff(targetFilterCutoff)
 #endif
 {
-	WavetableOscillator::createWavetable();
-
 	// Gain parameter.
 	NormalisableRange<float> gainRange(0.0f, 1.0f, 0.01f);
 	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 0.5f, nullptr, nullptr);
@@ -38,7 +36,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	NormalisableRange<float> numVoicesRange(0, 11);
 	treeState.createAndAddParameter("oscNumVoices", "NumVoices", String(), numVoicesRange, 10, nullptr, nullptr);
 	// Oscillator type parameter.
-	NormalisableRange<float> oscTypeRange(0, 3);
+	NormalisableRange<float> oscTypeRange(0, 4);
 	treeState.createAndAddParameter("oscType", "OscType", String(), oscTypeRange, 2, nullptr, nullptr);
 	// Transpose parameter.
 	NormalisableRange<float> transposeRange(-24.0f, 24.0f, 1.0f);
@@ -178,6 +176,7 @@ void TnpMidiSynthAudioProcessor::changeProgramName (int index, const String& new
 void TnpMidiSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
 	localSampleRate = sampleRate;
+	WavetableOscillator::createWavetable(sampleRate);
 	mySynth.setCurrentPlaybackSampleRate(sampleRate);
 	delay.prepareToPlay(sampleRate);
 	reverb.setSampleRate(sampleRate);

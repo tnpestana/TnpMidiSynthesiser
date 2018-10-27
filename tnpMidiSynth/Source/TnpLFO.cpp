@@ -35,16 +35,16 @@ void TnpLFO::processAudioFrame(float* sample)
 	switch(oscType)
 	{
 		case 0:
-			lfo = wOscillator.getNextSample(*WavetableOscillator::sinetable);
+			lfo = wOscillator.getNextSample(*WavetableOscillator::sineTable);
 			break;
 		case 1:
-			lfo = wOscillator.getNextSample(*WavetableOscillator::squaretable);
+			lfo = wOscillator.getNextSample(*WavetableOscillator::squareTable);
 			break;
 		case 2:
-			lfo = wOscillator.getNextSample(*WavetableOscillator::tritable);
+			lfo = wOscillator.getNextSample(*WavetableOscillator::triTable);
 			break;
 		case 3:
-			lfo = wOscillator.getNextSample(*WavetableOscillator::sawtable);
+			lfo = wOscillator.getNextSample(*WavetableOscillator::sawTable);
 			break;
 		default:
 			lfo = 0.0;
