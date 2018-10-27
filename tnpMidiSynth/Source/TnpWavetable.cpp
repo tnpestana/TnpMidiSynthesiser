@@ -31,7 +31,7 @@ void WavetableOscillator::setFrequency(float frequency, float sampleRate)
 float WavetableOscillator::getNextSample(AudioSampleBuffer& currentTable)
 {
 	int index0 = (int)currentIndex;
-	int index1 = index0 == (tableSize - 1) ? 0 : index0 + 1;
+	int index1 = index0 + 1;
 
 	float fraction = currentIndex - (float)index0;
 
@@ -49,7 +49,7 @@ float WavetableOscillator::getNextSample(AudioSampleBuffer& currentTable)
 
 //==============================================================================
 // Static class members
-int WavetableOscillator::tableSize = 128;
+int WavetableOscillator::tableSize = 127;
 
 std::unique_ptr<AudioSampleBuffer> WavetableOscillator::sinetable = std::make_unique<AudioSampleBuffer>();
 std::unique_ptr<AudioSampleBuffer> WavetableOscillator::sawtable = std::make_unique<AudioSampleBuffer>();
@@ -76,15 +76,17 @@ void WavetableOscillator::createSine()
 		samples[i] = (float)sample;
 		currentAngle += angleDelta;
 	}
+
+	samples[tableSize] = samples[0];
 }
 
 void WavetableOscillator::createSawTriSquare()
 {
-	sawtable->setSize(1, tableSize);
+	sawtable->setSize(1, tableSize + 1);
 	float* sawSamples = sawtable->getWritePointer(0);
-	tritable->setSize(1, tableSize);
+	tritable->setSize(1, tableSize + 1);
 	float* triSamples = tritable->getWritePointer(0);
-	squaretable->setSize(1, tableSize);
+	squaretable->setSize(1, tableSize + 1);
 	float* squareSamples = squaretable->getWritePointer(0);
 
 	float modulo = 0.5f;
@@ -104,6 +106,9 @@ void WavetableOscillator::createSawTriSquare()
 		if (modulo >= 1.0f)
 			modulo -= 1.0f;
 	}
+	sawSamples[tableSize] = sawSamples[0];
+	triSamples[tableSize] = triSamples[0];
+	squareSamples[tableSize] = squareSamples[0];
 }
 
 
