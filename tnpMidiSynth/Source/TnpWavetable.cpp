@@ -55,13 +55,22 @@ int WavetableOscillator::tableSize = 2047;
 
 std::unique_ptr<AudioSampleBuffer> WavetableOscillator::sineTable = std::make_unique<AudioSampleBuffer>();
 std::unique_ptr<AudioSampleBuffer> WavetableOscillator::harmonicSineTable = std::make_unique<AudioSampleBuffer>();
+
 std::unique_ptr<AudioSampleBuffer> WavetableOscillator::sawTable = std::make_unique<AudioSampleBuffer>();
+std::unique_ptr<AudioSampleBuffer> WavetableOscillator::adSawTable = std::make_unique<AudioSampleBuffer>();
+
 std::unique_ptr<AudioSampleBuffer> WavetableOscillator::triTable = std::make_unique<AudioSampleBuffer>();
+std::unique_ptr<AudioSampleBuffer> WavetableOscillator::adTriTable = std::make_unique<AudioSampleBuffer>();
+
 std::unique_ptr<AudioSampleBuffer> WavetableOscillator::squareTable = std::make_unique<AudioSampleBuffer>();
+std::unique_ptr<AudioSampleBuffer> WavetableOscillator::adSquareTable = std::make_unique<AudioSampleBuffer>();
 
 void WavetableOscillator::createWavetable(float sampleRate)
 {
 	createSine();
+	createSawtooth();
+	createSquare();
+	createTriangle();
 	createHarmonicSine();
 	createSawTriSquare();
 }
@@ -106,6 +115,92 @@ void WavetableOscillator::createHarmonicSine()
 	for (int harmonic = 0; harmonic < numElementsInArray(harmonics); ++harmonic)
 	{
 		float angleDelta = MathConstants<double>::twoPi / (float)(tableSize) *
+			harmonics[harmonic];
+
+		float currentAngle = 0.0;
+
+		for (int i = 0; i < tableSize; i++)
+		{
+			float sample = std::sin(currentAngle);
+			samples[i] += (float)sample * harmonicWeights[harmonic];
+			currentAngle += angleDelta;
+		}
+	}
+	samples[tableSize] = samples[0];
+}
+
+void WavetableOscillator::createSawtooth()
+{
+	adSawTable->setSize(1, tableSize + 1);
+	adSawTable->clear();
+
+	float* samples = adSawTable->getWritePointer(0);
+
+	int harmonics[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+	float harmonicWeights[] = { 0.5f, 0.5f / 2.0f, 0.5f / 3.0f, 0.5f / 4.0f,
+		0.5f / 5.0f, 0.5f / 6.0f, 0.5f / 7.0f, 0.5f / 8.0f, 0.5f / 9.0f, 0.5f / 10.0f };
+
+	for (int harmonic = 0; harmonic < numElementsInArray(harmonics); ++harmonic)
+	{
+		float angleDelta = MathConstants<double>::twoPi / (float)(tableSize)*
+			harmonics[harmonic];
+
+		float currentAngle = 0.0;
+
+		for (int i = 0; i < tableSize; i++)
+		{
+			float sample = std::sin(currentAngle);
+			samples[i] += (float)sample * harmonicWeights[harmonic];
+			currentAngle += angleDelta;
+		}
+	}
+	samples[tableSize] = samples[0];
+}
+
+void WavetableOscillator::createSquare()
+{
+	adSquareTable->setSize(1, tableSize + 1);
+	adSquareTable->clear();
+
+	float* samples = adSquareTable->getWritePointer(0);
+
+	int harmonics[] = { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19 };
+	float harmonicWeights[] = { 0.5f, 0.5f / 3.0f, 0.5f / 5.0f, 0.5f / 7.0f,
+		0.5f / 9.0f, 0.5f / 11.0f, 0.5f / 13.0f, 0.5f / 15.0f, 0.5f / 17.0f, 0.5f / 19.0f };
+
+	for (int harmonic = 0; harmonic < numElementsInArray(harmonics); ++harmonic)
+	{
+		float angleDelta = MathConstants<double>::twoPi / (float)(tableSize)*
+			harmonics[harmonic];
+
+		float currentAngle = 0.0;
+
+		for (int i = 0; i < tableSize; i++)
+		{
+			float sample = std::sin(currentAngle);
+			samples[i] += (float)sample * harmonicWeights[harmonic];
+			currentAngle += angleDelta;
+		}
+	}
+	samples[tableSize] = samples[0];
+}
+
+void WavetableOscillator::createTriangle()
+{
+	adTriTable->setSize(1, tableSize + 1);
+	adTriTable->clear();
+
+	float* samples = adTriTable->getWritePointer(0);
+
+	int harmonics[] = { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19 };
+	float harmonicWeights[] = { 0.5f, 0.5f / pow(3.0f, 2), 0.5f / pow(5.0f, 2),
+		0.5f / pow(7.0f, 2), 0.5f / pow(9.0f, 2), 0.5f / pow(11.0f, 2), 
+		0.5f / pow(13.0f, 2), 0.5f / pow(15.0f, 2), 0.5f / pow(17.0f, 2), 
+		0.5f / pow(19.0f, 2) };
+
+	for (int harmonic = 0; harmonic < numElementsInArray(harmonics); ++harmonic)
+	{
+		float angleDelta = MathConstants<double>::twoPi / (float)(tableSize)*
 			harmonics[harmonic];
 
 		float currentAngle = 0.0;
