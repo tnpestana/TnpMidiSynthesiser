@@ -46,7 +46,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	oscTypeLabel.setJustificationType(Justification::bottomLeft);
 	addAndMakeVisible(oscTypeInput);
 	oscTypeInput.addItem("sine", 1);
-	oscTypeInput.addItem("harmonicSine", 2);			//	Even though the oscType parameter's range is defined we
+	oscTypeInput.addItem("harmonic", 2);			//	Even though the oscType parameter's range is defined we
 	oscTypeInput.addItem("square", 3);					// seem to need to populate the combo box anyway.
 	oscTypeInput.addItem("triangle", 4);
 	oscTypeInput.addItem("sawtooth", 5);
