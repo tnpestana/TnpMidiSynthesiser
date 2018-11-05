@@ -51,7 +51,7 @@ float WavetableOscillator::getNextSample(AudioSampleBuffer& currentTable)
 
 //==============================================================================
 // Static class members
-int WavetableOscillator::tableSize = 127;
+int WavetableOscillator::tableSize = 2047;
 
 std::unique_ptr<AudioSampleBuffer> WavetableOscillator::sineTable = std::make_unique<AudioSampleBuffer>();
 std::unique_ptr<AudioSampleBuffer> WavetableOscillator::harmonicSineTable = std::make_unique<AudioSampleBuffer>();
