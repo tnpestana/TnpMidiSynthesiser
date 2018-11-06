@@ -26,4 +26,5 @@ public:
 
 private:
 	TnpDelayLine delayLeft, delayRight;
+	float currentDelayTime, currentFeedback, currentMix;
 };

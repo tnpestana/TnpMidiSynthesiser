@@ -32,12 +32,21 @@ void TnpStereoDelay::processAudio(float* inputBufferL, float* inputBufferR)
 
 void TnpStereoDelay::updateParams(float delayTime, float feedback, float wet)
 {
-	delayLeft.setDelayTime(delayTime);
-	delayRight.setDelayTime(delayTime);
+	if (currentDelayTime != delayTime)
+	{
+		delayLeft.setDelayTime(delayTime);
+		delayRight.setDelayTime(delayTime);
+	}
 
-	delayLeft.setFeedback(feedback);
-	delayRight.setFeedback(feedback);
+	if (currentFeedback != feedback)
+	{
+		delayLeft.setFeedback(feedback);
+		delayRight.setFeedback(feedback);
+	}
 
-	delayLeft.setWetMix(wet);
-	delayRight.setWetMix(wet);
+	if (currentMix != wet)
+	{
+		delayLeft.setWetMix(wet);
+		delayRight.setWetMix(wet);
+	}
 }
