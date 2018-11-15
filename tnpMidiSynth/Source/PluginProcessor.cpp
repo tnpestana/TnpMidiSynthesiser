@@ -34,7 +34,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("gain", "Gain", String(), gainRange, 0.5f, nullptr, nullptr);
 	// Number of voices parameter.
 	NormalisableRange<float> numVoicesRange(0, 11);
-	treeState.createAndAddParameter("oscNumVoices", "NumVoices", String(), numVoicesRange, 10, nullptr, nullptr);
+	treeState.createAndAddParameter("oscNumVoices", "NumVoices", String(), numVoicesRange, 11, nullptr, nullptr);
 	// Oscillator type parameter.
 	NormalisableRange<float> oscTypeRange(0, 4);
 	treeState.createAndAddParameter("oscType", "OscType", String(), oscTypeRange, 2, nullptr, nullptr);
@@ -50,10 +50,10 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	attackRange.setSkewForCentre(1.0);
 	decayRange.setSkewForCentre(1.0);
 	releaseRange.setSkewForCentre(1.0);
-	treeState.createAndAddParameter("volEnvAttack", "VolEnvAttack", String(), attackRange, 0.1f, nullptr, nullptr);
+	treeState.createAndAddParameter("volEnvAttack", "VolEnvAttack", String(), attackRange, 0.05f, nullptr, nullptr);
 	treeState.createAndAddParameter("volEnvDecay", "VolEnvDecay", String(), decayRange, 0.5f, nullptr, nullptr);
-	treeState.createAndAddParameter("volEnvSustain", "VolEnvSustain", String(), sustainRange, 0.001f, nullptr, nullptr);
-	treeState.createAndAddParameter("volEnvRelease", "VolEnvRelease", String(), releaseRange, 0.015f, nullptr, nullptr);
+	treeState.createAndAddParameter("volEnvSustain", "VolEnvSustain", String(), sustainRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("volEnvRelease", "VolEnvRelease", String(), releaseRange, 0.05f, nullptr, nullptr);
 
 	// IRR Filter parameter(S).
 	// One filter instance for each channel to avoid distortion.
@@ -64,11 +64,11 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	NormalisableRange<float> toggleFilterRange(0, 1);
 	filterCutoffRange.setSkewForCentre(1000.0f);
 	filterGainFactorRange.setSkewForCentre(1.0f);
-	treeState.createAndAddParameter("filterCutoff", "FilterCutoff", String(), filterCutoffRange, 5000.f, nullptr, nullptr);
+	treeState.createAndAddParameter("filterCutoff", "FilterCutoff", String(), filterCutoffRange, 1500.f, nullptr, nullptr);
 	treeState.createAndAddParameter("filterType", "FilterType", String(), filterTypeRange, 0, nullptr, nullptr);
-	treeState.createAndAddParameter("filterQ", "FilterQ", String(), filterQRange, 0.8f, nullptr, nullptr);
-	treeState.createAndAddParameter("filterGainFactor", "FilterGainFactor", String(), filterGainFactorRange, 0.01f, nullptr, nullptr);
-	treeState.createAndAddParameter("filterToggle", "FilterToggle", String(), toggleFilterRange, 0, nullptr, nullptr);
+	treeState.createAndAddParameter("filterQ", "FilterQ", String(), filterQRange, 1.6f, nullptr, nullptr);
+	treeState.createAndAddParameter("filterGainFactor", "FilterGainFactor", String(), filterGainFactorRange, 0.5f, nullptr, nullptr);
+	treeState.createAndAddParameter("filterToggle", "FilterToggle", String(), toggleFilterRange, 1, nullptr, nullptr);
 
 	// LFO parameters.
 	NormalisableRange<float> lfoOscTypeRange(0, 3);
@@ -79,17 +79,17 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	treeState.createAndAddParameter("lfoOscType", "LfoOscType", String(), lfoOscTypeRange, 2, nullptr, nullptr);
 	treeState.createAndAddParameter("lfoDepth", "LfoDepth", String(), lfoDepthRange, 100.0f, nullptr, nullptr);
 	treeState.createAndAddParameter("lfoRate", "LfoRate", String(), lfoRateRange, 1.0f, nullptr, nullptr);
-	treeState.createAndAddParameter("lfoToggle", "LfoToggle", String(), lfoToggleRange, 1, nullptr, nullptr);
+	treeState.createAndAddParameter("lfoToggle", "LfoToggle", String(), lfoToggleRange, 0, nullptr, nullptr);
 
 	// Delay parameters.
 	NormalisableRange<float> delayTimeRange(0.01f, 2.0f, 0.001f);
 	NormalisableRange<float> delayFeedbackRange(0.0f, 1.0f, 0.001f);
 	NormalisableRange<float> delayWetRange(0.0f, 1.0f, 0.001f);
 	NormalisableRange<float> toggleDelayRange(0, 1);
-	treeState.createAndAddParameter("delayTime", "DelayTime", String(), delayTimeRange, 1.f, nullptr, nullptr);
-	treeState.createAndAddParameter("delayFeedback", "DelayFeedback", String(), delayFeedbackRange, 0.f, nullptr, nullptr);
-	treeState.createAndAddParameter("delayMix", "DelayMix", String(), delayWetRange, 0.0f, nullptr, nullptr);
-	treeState.createAndAddParameter("delayToggle", "DelayToggle", String(), toggleDelayRange, 0, nullptr, nullptr);
+	treeState.createAndAddParameter("delayTime", "DelayTime", String(), delayTimeRange, 0.8f, nullptr, nullptr);
+	treeState.createAndAddParameter("delayFeedback", "DelayFeedback", String(), delayFeedbackRange, 0.2f, nullptr, nullptr);
+	treeState.createAndAddParameter("delayMix", "DelayMix", String(), delayWetRange, 0.2f, nullptr, nullptr);
+	treeState.createAndAddParameter("delayToggle", "DelayToggle", String(), toggleDelayRange, 1, nullptr, nullptr);
 
 	// Reverb parameters.
 	NormalisableRange<float> dryWetRange(0.0f, 1.0f, 0.01f);
