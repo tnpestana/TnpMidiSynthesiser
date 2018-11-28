@@ -4,7 +4,7 @@
               jucerVersion="5.4.1" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
               pluginFormats="buildVST,buildVST3,buildStandalone" buildVST="1"
               buildVST3="1" buildAU="0" buildAUv3="0" buildRTAS="0" buildAAX="0"
-              enableIAA="0" id="TQPIW0">
+              enableIAA="0" id="TQPIW0" pluginName="TnpMidiSynth" pluginManufacturer="Tiago Pestana">
   <MAINGROUP id="tdkgxH" name="tnpMidiSynth">
     <GROUP id="{136D5720-F5B3-DBDF-75D4-B71623C0CCBC}" name="Source">
       <GROUP id="{A143093E-4961-6827-0FE1-0168BBFE262A}" name="ADSR">
