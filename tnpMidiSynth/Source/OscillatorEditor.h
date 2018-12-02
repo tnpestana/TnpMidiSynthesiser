@@ -30,7 +30,7 @@ private:
 	Slider decaySlider; 
 	Slider sustainSlider;
 	Slider releaseSlider; 
-	Slider gainSlider;
+	
 	Slider transposeSlider;
 
 	Label attackLabel;
@@ -38,7 +38,6 @@ private:
 	Label sustainLabel;
 	Label releaseLabel; 
 	Label numVoicesLabel; 
-	Label gainLabel;
 	Label oscTypeLabel;
 	Label titleLabel;
 	Label transposeLabel;
@@ -50,7 +49,6 @@ private:
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> decayAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sustainAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> releaseAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> gainAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> transposeAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> numVoicesAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> oscTypeAttachment;

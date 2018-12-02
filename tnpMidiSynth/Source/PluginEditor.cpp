@@ -18,7 +18,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	filterGUI(p, apvts)
 {
     // Main editor's size.
-	setSize(600, 400);
+	setSize(650, 400);
 	setResizable(true, true);
 
 	backgroundImage = ImageCache::getFromMemory(BinaryData::background_jpg, BinaryData::background_jpgSize);
@@ -29,6 +29,15 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	addAndMakeVisible(lfoGUI);
 	addAndMakeVisible(reverbGUI);
 	addAndMakeVisible(delayGUI);
+
+	// Gain.
+	addAndMakeVisible(gainSlider);
+	gainSlider.setSliderStyle(Slider::LinearVertical);
+	gainSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 45, 20);
+	addAndMakeVisible(gainLabel);
+	gainLabel.setText("GAIN", dontSendNotification);
+	gainLabel.setJustificationType(Justification::centredTop);
+	gainAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "gain", gainSlider);
 
 	labelTitle.setJustificationType(Justification::centred);
 	labelTitle.setText("TNP MIDI Synth", dontSendNotification);
@@ -49,11 +58,14 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 	labelTitle.setColour(Label::backgroundColourId, Colours::black);
 	labelTitle.setColour(Label::textColourId, Colours::white);
 
+	gainLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
+	gainSlider.setColour(Slider::textBoxTextColourId, Colours::black);
+	gainSlider.setColour(Slider::textBoxOutlineColourId, Colours::cadetblue);
+
 	// Color scheme for properties that always remain the same.
 	getLookAndFeel().setColour(Slider::backgroundColourId, Colours::floralwhite);
 	getLookAndFeel().setColour(Slider::rotarySliderOutlineColourId, Colours::floralwhite);
 	getLookAndFeel().setColour(Slider::thumbColourId, Colours::cadetblue);
-	//getLookAndFeel().setColour(Slider::rotarySliderFillColourId, Colours::black);
 	getLookAndFeel().setColour(Slider::textBoxTextColourId, Colours::black);
 	getLookAndFeel().setColour(Slider::textBoxOutlineColourId, Colours::cadetblue);
 
@@ -79,6 +91,12 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	// Total main editor's area.
 	juce::Rectangle<int> area (getLocalBounds());
 	juce::Rectangle<int> topSection (area.removeFromTop(40).reduced(5));
+
+	// Gain controls area. 
+	juce::Rectangle<int> gainLocation(area.removeFromRight(50).reduced(5));
+	gainLabel.setBounds(gainLocation.removeFromTop(20).reduced(2));
+	gainSlider.setBounds(gainLocation);
+
 	juce::Rectangle<int> left (area.removeFromLeft(area.getWidth() / 2));
 	juce::Rectangle<int> right (area);
 

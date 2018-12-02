@@ -10,7 +10,7 @@
 
 #include "LFOEditor.h"
 
-LFOEditor::LFOEditor(TnpMidiSynthAudioProcessor&p , AudioProcessorValueTreeState& apvts)
+LFOEditor::LFOEditor(TnpMidiSynthAudioProcessor& p , AudioProcessorValueTreeState& apvts)
 {
 	addAndMakeVisible(toggleLfo);
 	addAndMakeVisible(labelTitle);

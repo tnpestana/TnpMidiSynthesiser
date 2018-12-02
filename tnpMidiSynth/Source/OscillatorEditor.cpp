@@ -34,7 +34,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	// Transpose
 	addAndMakeVisible(transposeSlider);
 	transposeSlider.setSliderStyle(Slider::LinearHorizontal);
-	transposeSlider.setTextBoxStyle(Slider::TextBoxLeft, true, 25, 15);
+	transposeSlider.setTextBoxStyle(Slider::TextBoxLeft, true, 40, 15);
 	addAndMakeVisible(transposeLabel);
 	transposeLabel.setText("transpose: ", dontSendNotification);
 	transposeLabel.setJustificationType(Justification::bottomLeft);
@@ -87,15 +87,6 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	releaseLabel.setText("release", dontSendNotification);
 	releaseLabel.setJustificationType(Justification::centredBottom);
 	releaseAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "volEnvRelease", releaseSlider);
-
-	// Gain.
-	addAndMakeVisible(gainSlider);
-	gainSlider.setSliderStyle(Slider::LinearVertical);
-	gainSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
-	addAndMakeVisible(gainLabel);
-	gainLabel.setText("gain", dontSendNotification);
-	gainLabel.setJustificationType(Justification::centredTop);
-	gainAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "gain", gainSlider);
 }
 
 OscillatorEditor::~OscillatorEditor()
@@ -120,11 +111,6 @@ void OscillatorEditor::resized()
 	juce::Rectangle<int> oscArea(getLocalBounds());
 	titleLabel.setBounds(oscArea.removeFromTop(20).reduced(2));
 
-	// Gain controls area. 
-	juce::Rectangle<int> gainLocation(oscArea.removeFromRight(oscArea.getWidth() * 0.13).reduced(2));
-	gainLabel.setBounds(gainLocation.removeFromBottom(25));
-	gainSlider.setBounds(gainLocation);
-
 	// Controls area.
 	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.30).reduced(2));
 
@@ -134,7 +120,7 @@ void OscillatorEditor::resized()
 	numVoicesInput.setBounds(numVoicesArea.reduced(2));
 	
 	// Oscillator Type.
-	juce::Rectangle<int> oscTypeArea(controls.removeFromLeft(80));
+	juce::Rectangle<int> oscTypeArea(controls.removeFromLeft(100));
 	oscTypeLabel.setBounds(oscTypeArea.removeFromTop(20));
 	oscTypeInput.setBounds(oscTypeArea.reduced(2));
 

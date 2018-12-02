@@ -37,12 +37,19 @@ private:
 	TnpMidiSynthAudioProcessor& processor;
 
 	Label labelTitle;
+	Label gainLabel;
+
 	juce::Image backgroundImage;
+
+	Slider gainSlider;
+
 	OscillatorEditor oscillatorGUI;
 	FilterEditor filterGUI;
 	LFOEditor lfoGUI;
 	DelayEditor delayGUI;
 	ReverbEditor reverbGUI;
+
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> gainAttachment;
 
 	//==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpMidiSynthAudioProcessorEditor)
