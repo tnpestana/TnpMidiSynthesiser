@@ -52,7 +52,7 @@ LFOEditor::~LFOEditor()
 
 void LFOEditor::paint(Graphics &)
 {
-	labelTitle.setColour(Label::backgroundColourId, Colours::cadetblue);
+	labelTitle.setColour(Label::backgroundColourId, Colours::lightgrey);
 	comboOscType.setColour(ComboBox::textColourId, Colours::black);
 	sliderLfoDepth.setColour(Slider::textBoxTextColourId, Colours::black);
 	sliderLfoRate.setColour(Slider::textBoxTextColourId, Colours::black);

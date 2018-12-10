@@ -62,25 +62,20 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
     g.fillAll (Colours::lightslategrey);
 	g.drawImageAt(backgroundImage, 0, 0);
 
-	//Image oscBackground = ImageCache::getFromMemory(BinaryData::background_jpg, BinaryData::background_jpgSize);
-	//g.drawImageAt(oscBackground, 0, 0);
-	labelTitle.setColour(Label::backgroundColourId, Colours::black);
-	labelTitle.setColour(Label::textColourId, Colours::white);
-
-	gainLabel.setColour(Label::backgroundColourId, Colours::cadetblue);
+	gainLabel.setColour(Label::backgroundColourId, Colours::lightgrey);
 	gainSlider.setColour(Slider::textBoxTextColourId, Colours::black);
-	gainSlider.setColour(Slider::textBoxOutlineColourId, Colours::cadetblue);
+	//gainSlider.setColour(Slider::textBoxOutlineColourId, Colours::lightgrey);
 
 	// Color scheme for properties that always remain the same.
 	getLookAndFeel().setColour(Slider::backgroundColourId, Colours::floralwhite);
 	getLookAndFeel().setColour(Slider::rotarySliderOutlineColourId, Colours::floralwhite);
-	getLookAndFeel().setColour(Slider::thumbColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(Slider::thumbColourId, Colours::lightgrey);
 	getLookAndFeel().setColour(Slider::textBoxTextColourId, Colours::black);
-	getLookAndFeel().setColour(Slider::textBoxOutlineColourId, Colours::cadetblue);
+	//getLookAndFeel().setColour(Slider::textBoxOutlineColourId, Colours::cadetblue);
 
 	getLookAndFeel().setColour(ComboBox::textColourId, Colours::black);
 	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::floralwhite);
-	getLookAndFeel().setColour(ComboBox::outlineColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(ComboBox::outlineColourId, Colours::lightgrey);
 	getLookAndFeel().setColour(ComboBox::arrowColourId, Colours::cadetblue);
 
 	getLookAndFeel().setColour(PopupMenu::backgroundColourId ,Colours::floralwhite);
@@ -92,7 +87,8 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 	getLookAndFeel().setColour(ToggleButton::tickDisabledColourId, Colours::floralwhite);
 	getLookAndFeel().setColour(ToggleButton::textColourId, Colours::floralwhite);
 
-	getLookAndFeel().setColour(TextButton::buttonColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(TextButton::buttonColourId, Colours::lightgrey);
+	getLookAndFeel().setColour(TextButton::textColourOffId, Colours::black);
 }
 
 void TnpMidiSynthAudioProcessorEditor::resized()

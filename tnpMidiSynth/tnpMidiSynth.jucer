@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT name="tnpMidiSynth" projectType="audioplug" buildStandalone="1"
+<JUCERPROJECT name="TnpMidiSynth" projectType="audioplug" buildStandalone="1"
               jucerVersion="5.4.1" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
               pluginFormats="buildVST,buildVST3,buildStandalone" buildVST="1"
               buildVST3="1" buildAU="0" buildAUv3="0" buildRTAS="0" buildAAX="0"
-              enableIAA="0" id="TQPIW0" pluginName="TnpMidiSynth" pluginManufacturer="Tiago Pestana">
-  <MAINGROUP id="tdkgxH" name="tnpMidiSynth">
+              enableIAA="0" id="TQPIW0" pluginName="tnpMidiSynth" pluginManufacturer="Tiago Pestana">
+  <MAINGROUP id="tdkgxH" name="TnpMidiSynth">
     <GROUP id="{136D5720-F5B3-DBDF-75D4-B71623C0CCBC}" name="Source">
       <GROUP id="{A143093E-4961-6827-0FE1-0168BBFE262A}" name="ADSR">
         <FILE id="b42q90" name="ADSR.cpp" compile="1" resource="0" file="Source/ADSR/ADSR.cpp"/>

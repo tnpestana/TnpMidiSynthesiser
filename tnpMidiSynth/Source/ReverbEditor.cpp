@@ -66,7 +66,7 @@ void ReverbEditor::paint(Graphics& g)
 	// (Our component is opaque, so we must completely fill the background with a solid colour)
 	//g.fillAll(Colours::lightgrey);
 
-	labelTitle.setColour(Label::backgroundColourId, Colours::cadetblue);
+	labelTitle.setColour(Label::backgroundColourId, Colours::lightgrey);
 
 	//=========================================================================================
 	roomSizeSlider.setColour(Slider::textBoxTextColourId, Colours::black);

@@ -52,7 +52,7 @@ void DelayEditor::paint(Graphics& g)
 {
 	//g.fillAll(Colours::lightgrey);
 
-	labelTitle.setColour(Label::backgroundColourId, Colours::cadetblue);
+	labelTitle.setColour(Label::backgroundColourId, Colours::lightgrey);
 
 	//=========================================================================================
 	sliderDelayTime.setColour(Slider::textBoxTextColourId, Colours::black);
