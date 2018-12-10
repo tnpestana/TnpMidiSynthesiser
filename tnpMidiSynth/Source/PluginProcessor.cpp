@@ -23,6 +23,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
                      #endif
                        ),
 		treeState(*this, nullptr),
+		keyboardState(),
 		targetGain(0.0f),
 		currentGain(targetGain),
 		targetFilterCutoff(5000.0f),
@@ -215,6 +216,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	for (int i = getNumInputChannels(); i < getNumOutputChannels(); i++)
 		buffer.clear(i, 0, buffer.getNumSamples());								
 	manageActiveVoices();
+	keyboardState.processNextMidiBuffer(midiMessages, 0, buffer.getNumSamples(), true);
 	mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 	processGain(buffer);
 	processFilter(buffer);
@@ -386,7 +388,7 @@ bool TnpMidiSynthAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* TnpMidiSynthAudioProcessor::createEditor()
 {
-    return new TnpMidiSynthAudioProcessorEditor (*this, treeState);
+    return new TnpMidiSynthAudioProcessorEditor (*this, treeState, keyboardState);
 }
 
 //==============================================================================

@@ -24,7 +24,8 @@
 class TnpMidiSynthAudioProcessorEditor  : public AudioProcessorEditor
 {
 public:
-    TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor&, AudioProcessorValueTreeState&);
+    TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor&, AudioProcessorValueTreeState&,
+									  MidiKeyboardState&);
     ~TnpMidiSynthAudioProcessorEditor();
 
     //==============================================================================
@@ -42,6 +43,8 @@ private:
 	juce::Image backgroundImage;
 
 	Slider gainSlider;
+
+	MidiKeyboardComponent midiKeyboard;
 
 	OscillatorEditor oscillatorGUI;
 	FilterEditor filterGUI;

@@ -13,12 +13,20 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeState& apvts)
-    : AudioProcessorEditor (&p), processor (p), oscillatorGUI(p, apvts), reverbGUI(p, apvts), lfoGUI(p, apvts), delayGUI(p, apvts),
+TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor& p, 
+																	AudioProcessorValueTreeState& apvts,
+																	MidiKeyboardState& mks)
+    : AudioProcessorEditor (&p), 
+	processor (p), 
+	midiKeyboard(mks, MidiKeyboardComponent::horizontalKeyboard), 
+	oscillatorGUI(p, apvts), 
+	reverbGUI(p, apvts), 
+	lfoGUI(p, apvts), 
+	delayGUI(p, apvts), 
 	filterGUI(p, apvts)
 {
     // Main editor's size.
-	setSize(650, 400);
+	setSize(650, 500);
 	setResizable(true, true);
 
 	backgroundImage = ImageCache::getFromMemory(BinaryData::background_jpg, BinaryData::background_jpgSize);
@@ -29,6 +37,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	addAndMakeVisible(lfoGUI);
 	addAndMakeVisible(reverbGUI);
 	addAndMakeVisible(delayGUI);
+	addAndMakeVisible(midiKeyboard);
 
 	// Gain.
 	addAndMakeVisible(gainSlider);
@@ -91,6 +100,8 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	// Total main editor's area.
 	juce::Rectangle<int> area (getLocalBounds());
 	juce::Rectangle<int> topSection (area.removeFromTop(40).reduced(5));
+
+	midiKeyboard.setBounds(area.removeFromBottom(100).reduced(5));
 
 	// Gain controls area. 
 	juce::Rectangle<int> gainLocation(area.removeFromRight(50).reduced(5));
