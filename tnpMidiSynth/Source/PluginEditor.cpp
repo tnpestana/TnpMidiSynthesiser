@@ -31,14 +31,16 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 
 	backgroundImage = ImageCache::getFromMemory(BinaryData::background_jpg, BinaryData::background_jpgSize);
 
-	addAndMakeVisible(labelTitle);
 	addAndMakeVisible(oscillatorGUI);
 	addAndMakeVisible(filterGUI);
 	addAndMakeVisible(lfoGUI);
 	addAndMakeVisible(reverbGUI);
 	addAndMakeVisible(delayGUI);
-	addAndMakeVisible(midiKeyboard);
 
+	addAndMakeVisible(labelTitle);
+	labelTitle.setJustificationType(Justification::centred);
+	labelTitle.setText("TNP MIDI Synth", dontSendNotification);
+	
 	// Gain.
 	addAndMakeVisible(gainSlider);
 	gainSlider.setSliderStyle(Slider::LinearVertical);
@@ -48,8 +50,8 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	gainLabel.setJustificationType(Justification::centredTop);
 	gainAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "gain", gainSlider);
 
-	labelTitle.setJustificationType(Justification::centred);
-	labelTitle.setText("TNP MIDI Synth", dontSendNotification);
+	addAndMakeVisible(midiKeyboard);
+	midiKeyboard.setLowestVisibleKey(36);
 }
 TnpMidiSynthAudioProcessorEditor::~TnpMidiSynthAudioProcessorEditor()
 {
