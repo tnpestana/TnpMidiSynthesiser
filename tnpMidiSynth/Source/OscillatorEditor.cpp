@@ -34,7 +34,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	// Transpose
 	addAndMakeVisible(transposeSlider);
 	transposeSlider.setSliderStyle(Slider::LinearHorizontal);
-	transposeSlider.setTextBoxStyle(Slider::TextBoxLeft, true, 40, 15);
+	transposeSlider.setTextBoxStyle(Slider::TextBoxLeft, false, 40, 15);
 	addAndMakeVisible(transposeLabel);
 	transposeLabel.setText("transpose: ", dontSendNotification);
 	transposeLabel.setJustificationType(Justification::bottomLeft);
@@ -55,7 +55,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	// Attack.
 	addAndMakeVisible(attackSlider);
 	attackSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	attackSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
+	attackSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	addAndMakeVisible(attackLabel);
 	attackLabel.setText("attack", dontSendNotification);
 	attackLabel.setJustificationType(Justification::centredBottom);
@@ -64,7 +64,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	// Decay.
 	addAndMakeVisible(decaySlider);
 	decaySlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	decaySlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
+	decaySlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	addAndMakeVisible(decayLabel);
 	decayLabel.setText("decay", dontSendNotification);
 	decayLabel.setJustificationType(Justification::centredBottom);
@@ -73,7 +73,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	// Sustain.
 	addAndMakeVisible(sustainSlider);
 	sustainSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	sustainSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
+	sustainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	addAndMakeVisible(sustainLabel);
 	sustainLabel.setText("sustain", dontSendNotification);
 	sustainLabel.setJustificationType(Justification::centredBottom);
@@ -82,7 +82,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, AudioProcessor
 	// Release. 
 	addAndMakeVisible(releaseSlider);
 	releaseSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	releaseSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
+	releaseSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	addAndMakeVisible(releaseLabel);
 	releaseLabel.setText("release", dontSendNotification);
 	releaseLabel.setJustificationType(Justification::centredBottom);

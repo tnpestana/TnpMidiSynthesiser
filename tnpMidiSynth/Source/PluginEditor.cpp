@@ -44,7 +44,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	// Gain.
 	addAndMakeVisible(gainSlider);
 	gainSlider.setSliderStyle(Slider::LinearVertical);
-	gainSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 45, 20);
+	gainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 45, 20);
 	addAndMakeVisible(gainLabel);
 	gainLabel.setText("GAIN", dontSendNotification);
 	gainLabel.setJustificationType(Justification::centredTop);

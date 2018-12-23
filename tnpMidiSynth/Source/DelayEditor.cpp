@@ -24,7 +24,7 @@ DelayEditor::DelayEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeS
 	labelDelayTime.setJustificationType(Justification::centredTop);
 	addAndMakeVisible(sliderDelayTime);
 	sliderDelayTime.setSliderStyle(Slider::RotaryVerticalDrag);
-	sliderDelayTime.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
+	sliderDelayTime.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	delayTimeAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "delayTime", sliderDelayTime);
 
 	addAndMakeVisible(labelDelayFeedback);
@@ -32,7 +32,7 @@ DelayEditor::DelayEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeS
 	labelDelayFeedback.setJustificationType(Justification::centredTop);
 	addAndMakeVisible(sliderDelayFeedback);
 	sliderDelayFeedback.setSliderStyle(Slider::RotaryVerticalDrag);
-	sliderDelayFeedback.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
+	sliderDelayFeedback.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	delayFeedbackAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "delayFeedback", sliderDelayFeedback);
 
 	addAndMakeVisible(labelDelayMix);
@@ -40,7 +40,7 @@ DelayEditor::DelayEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeS
 	labelDelayMix.setJustificationType(Justification::centredTop);
 	addAndMakeVisible(sliderdelayMix);
 	sliderdelayMix.setSliderStyle(Slider::RotaryVerticalDrag);
-	sliderdelayMix.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
+	sliderdelayMix.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	delayMixAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "delayMix", sliderdelayMix);
 }
 

@@ -27,8 +27,8 @@ LFOEditor::LFOEditor(TnpMidiSynthAudioProcessor& p , AudioProcessorValueTreeStat
 	addAndMakeVisible(labelLfoDepth);
 	addAndMakeVisible(labelLfoRate);
 
-	sliderLfoDepth.setTextBoxStyle(Slider::TextBoxLeft, true, 40, 15);
-	sliderLfoRate.setTextBoxStyle(Slider::TextBoxLeft, true, 40, 15);
+	sliderLfoDepth.setTextBoxStyle(Slider::TextBoxLeft, false, 40, 15);
+	sliderLfoRate.setTextBoxStyle(Slider::TextBoxLeft, false, 40, 15);
 
 	labelLfoOscType.setText("wave: ", dontSendNotification);
 	labelLfoOscType.setJustificationType(Justification::centredRight);

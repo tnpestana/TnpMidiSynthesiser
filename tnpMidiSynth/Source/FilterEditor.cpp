@@ -37,9 +37,9 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 	sliderFilterQ.setSliderStyle		  (Slider::RotaryVerticalDrag);
 	sliderFilterGainFactor.setSliderStyle (Slider::LinearHorizontal);
 
-	sliderFilterQ.setTextBoxStyle		   (Slider::TextBoxBelow, true, 40, 15);
-	sliderFilterCutoff.setTextBoxStyle	   (Slider::TextBoxBelow, true, 50, 15);
-	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxLeft, true, 30, 15);
+	sliderFilterQ.setTextBoxStyle		   (Slider::TextBoxBelow, false, 40, 15);
+	sliderFilterCutoff.setTextBoxStyle	   (Slider::TextBoxBelow, false, 50, 15);
+	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxLeft, false, 30, 15);
 
 	filterTypeAttachment = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> 
 		(apvts, "filterType", comboFilterType);

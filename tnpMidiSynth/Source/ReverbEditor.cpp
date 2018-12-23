@@ -22,7 +22,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 
 	addAndMakeVisible(roomSizeSlider);
 	roomSizeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	roomSizeSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
+	roomSizeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	roomSizeAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "reverbRoomSize", roomSizeSlider);
 
 	addAndMakeVisible(roomSizeLabel);
@@ -31,7 +31,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 
 	addAndMakeVisible(dampingSlider);
 	dampingSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	dampingSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
+	dampingSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	dampingAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "reverbDamping", dampingSlider);
 
 	addAndMakeVisible(dampingLabel);
@@ -40,7 +40,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 
 	addAndMakeVisible(widthSlider);
 	widthSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	widthSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
+	widthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 
 	addAndMakeVisible(widthLabel);
 	widthLabel.setText("width", dontSendNotification);
@@ -49,7 +49,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 
 	addAndMakeVisible(mixSlider);
 	mixSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	mixSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 15);
+	mixSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 
 	addAndMakeVisible(labelMix);
 	labelMix.setText("mix", dontSendNotification);
