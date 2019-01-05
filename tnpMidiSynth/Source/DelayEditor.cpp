@@ -11,39 +11,45 @@
 #include "DelayEditor.h"
 
 DelayEditor::DelayEditor(TnpMidiSynthAudioProcessor& p)
+	//	Processor references
 	: processor (p),
-	treeState (p.getTreeState())
+	treeState (p.getTreeState()),
+	//	Parameter attachments
+	attToggle (std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
+		(treeState, "delayToggle", toggleDelay)),
+	attDelayTime (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+		(treeState, "delayTime", sliderDelayTime)),
+	attFeedback (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+		(treeState, "delayFeedback", sliderDelayFeedback)),
+	attMix (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+		(treeState, "delayMix", sliderdelayMix))
 {
-	addAndMakeVisible(labelTitle);
 	labelTitle.setText("DELAY", dontSendNotification);
-	labelTitle.setJustificationType(Justification::centred);
-
-	addAndMakeVisible(toggleDelay);
-	delayToggleAttachment = std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>(treeState, "delayToggle", toggleDelay);
-
-	addAndMakeVisible(labelDelayTime);
 	labelDelayTime.setText("time", dontSendNotification);
-	labelDelayTime.setJustificationType(Justification::centredTop);
-	addAndMakeVisible(sliderDelayTime);
-	sliderDelayTime.setSliderStyle(Slider::RotaryVerticalDrag);
-	sliderDelayTime.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	delayTimeAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "delayTime", sliderDelayTime);
-
-	addAndMakeVisible(labelDelayFeedback);
 	labelDelayFeedback.setText("feedback", dontSendNotification);
-	labelDelayFeedback.setJustificationType(Justification::centredTop);
-	addAndMakeVisible(sliderDelayFeedback);
-	sliderDelayFeedback.setSliderStyle(Slider::RotaryVerticalDrag);
-	sliderDelayFeedback.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	delayFeedbackAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "delayFeedback", sliderDelayFeedback);
-
-	addAndMakeVisible(labelDelayMix);
 	labelDelayMix.setText("mix", dontSendNotification);
+
+	labelTitle.setJustificationType(Justification::centred);
+	labelDelayTime.setJustificationType(Justification::centredTop);
+	labelDelayFeedback.setJustificationType(Justification::centredTop);
 	labelDelayMix.setJustificationType(Justification::centredTop);
-	addAndMakeVisible(sliderdelayMix);
+
+	sliderDelayTime.setSliderStyle(Slider::RotaryVerticalDrag);
+	sliderDelayFeedback.setSliderStyle(Slider::RotaryVerticalDrag);
 	sliderdelayMix.setSliderStyle(Slider::RotaryVerticalDrag);
+
+	sliderDelayTime.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
+	sliderDelayFeedback.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	sliderdelayMix.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	delayMixAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "delayMix", sliderdelayMix);
+
+	addAndMakeVisible(labelTitle);
+	addAndMakeVisible(toggleDelay);
+	addAndMakeVisible(labelDelayTime);
+	addAndMakeVisible(sliderDelayTime);
+	addAndMakeVisible(labelDelayFeedback);
+	addAndMakeVisible(sliderDelayFeedback);
+	addAndMakeVisible(labelDelayMix);
+	addAndMakeVisible(sliderdelayMix);
 }
 
 DelayEditor::~DelayEditor()

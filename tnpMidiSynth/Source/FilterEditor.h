@@ -39,9 +39,9 @@ private:
 	Slider sliderFilterQ;
 	Slider sliderFilterGainFactor;
 
-	std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment> filterToggleAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> filterTypeAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterCutoffAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterQAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterGainFactorAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment> attToggle;
+	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> attFilterType;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attCutoff;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attQ;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attGainFactor;
 };

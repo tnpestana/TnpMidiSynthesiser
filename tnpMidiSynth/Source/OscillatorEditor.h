@@ -48,13 +48,13 @@ private:
 	ComboBox numVoicesInput;
 	ComboBox oscTypeInput;
 
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attackAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> decayAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sustainAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> releaseAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> transposeAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> numVoicesAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> oscTypeAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attAttack;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attDecay;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attSustain;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attRelease;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attTranspose;
+	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> attNumVoices;
+	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> attOscType;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscillatorEditor)
 };

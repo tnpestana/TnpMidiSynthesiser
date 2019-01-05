@@ -11,17 +11,21 @@
 #include "FilterEditor.h"
 
 FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
+	//	Processor references
 	: processor (p),
-	treeState (p.getTreeState())
+	treeState (p.getTreeState()),
+	//	Parameter attachments
+	attToggle (std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
+		(treeState, "filterToggle", toggleFilter)),
+	attFilterType (std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
+		(treeState, "filterType", comboFilterType)),
+	attCutoff (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+		(treeState, "filterCutoff", sliderFilterCutoff)),
+	attQ (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+		(treeState, "filterQ", sliderFilterQ)),
+	attGainFactor (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+		(treeState, "filterGainFactor", sliderFilterGainFactor))
 {
-	comboFilterType.addItem ("lo-pass", 1);
-	comboFilterType.addItem ("hi-pass", 2);
-	comboFilterType.addItem ("band-pass", 3);
-	comboFilterType.addItem ("notch", 4);
-	comboFilterType.addItem ("lo-shelf", 5);
-	comboFilterType.addItem ("hi-shelf", 6);
-	comboFilterType.addItem ("peak", 7);
-
 	labelFilterTitle.setText	  ("FILTER", dontSendNotification);
 	labelFilterType.setText		  ("type:", dontSendNotification);
 	labelFilterCutoff.setText	  ("cutoff", dontSendNotification);
@@ -38,20 +42,20 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
 	sliderFilterQ.setSliderStyle		  (Slider::RotaryVerticalDrag);
 	sliderFilterGainFactor.setSliderStyle (Slider::LinearHorizontal);
 
+	sliderFilterCutoff.setSkewFactorFromMidPoint(1000.0f);
+	sliderFilterGainFactor.setSkewFactorFromMidPoint(1.0f);
+
 	sliderFilterQ.setTextBoxStyle		   (Slider::TextBoxBelow, false, 40, 15);
 	sliderFilterCutoff.setTextBoxStyle	   (Slider::TextBoxBelow, false, 50, 15);
 	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxLeft, false, 30, 15);
 
-	filterTypeAttachment = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> 
-		(treeState, "filterType", comboFilterType);
-	filterCutoffAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> 
-		(treeState, "filterCutoff", sliderFilterCutoff);
-	filterQAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> 
-		(treeState, "filterQ", sliderFilterQ);
-	filterGainFactorAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> 
-		(treeState, "filterGainFactor", sliderFilterGainFactor);
-	filterToggleAttachment = std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
-		(treeState, "filterToggle", toggleFilter);
+	comboFilterType.addItem("lo-pass", 1);
+	comboFilterType.addItem("hi-pass", 2);
+	comboFilterType.addItem("band-pass", 3);
+	comboFilterType.addItem("notch", 4);
+	comboFilterType.addItem("lo-shelf", 5);
+	comboFilterType.addItem("hi-shelf", 6);
+	comboFilterType.addItem("peak", 7);
 
 	addAndMakeVisible (toggleFilter);
 	addAndMakeVisible (labelFilterTitle);
@@ -63,7 +67,6 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible (sliderFilterCutoff);
 	addAndMakeVisible (sliderFilterQ);
 	addAndMakeVisible (sliderFilterGainFactor);
-	
 }
 
 FilterEditor::~FilterEditor()
@@ -73,7 +76,6 @@ FilterEditor::~FilterEditor()
 void FilterEditor::paint(Graphics& g)
 {
 	labelFilterTitle.setColour(Label::backgroundColourId, Colours::lightgrey);
-	// textBoxTextColourId is set here because getLookAndFeel doesnt seem to work.  
 	sliderFilterCutoff.setColour(Slider::textBoxTextColourId, Colours::black);
 	sliderFilterGainFactor.setColour(Slider::textBoxTextColourId, Colours::black);
 	sliderFilterQ.setColour(Slider::textBoxTextColourId, Colours::black);

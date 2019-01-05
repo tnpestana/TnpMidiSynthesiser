@@ -11,51 +11,54 @@
 #include "ReverbEditor.h"
 
 ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
+	//	Processor references
 	: processor(p),
-	treeState(p.getTreeState())
+	treeState(p.getTreeState()),
+	//	Parameter attachments
+	attToggle (std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
+		(treeState, "reverbToggle", toggleReverb)),
+	attRoomSize (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+		(treeState, "reverbRoomSize", roomSizeSlider)),
+	attDamping (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+		(treeState, "reverbDamping", dampingSlider)),
+	attWidth (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+		(treeState, "reverbWidth", widthSlider)),
+	attMix (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+		(treeState, "reverbMix", mixSlider))
+
 {
-	addAndMakeVisible(labelTitle);
 	labelTitle.setText("REVERB", dontSendNotification);
-	labelTitle.setJustificationType(Justification::centred);
-
-	addAndMakeVisible(toggleReverb);
-	toggleAttachment = std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>(treeState, "reverbToggle", toggleReverb);
-
-	addAndMakeVisible(roomSizeSlider);
-	roomSizeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	roomSizeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	roomSizeAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "reverbRoomSize", roomSizeSlider);
-
-	addAndMakeVisible(roomSizeLabel);
 	roomSizeLabel.setText("room size", dontSendNotification);
-	roomSizeLabel.setJustificationType(Justification::centredBottom);
-
-	addAndMakeVisible(dampingSlider);
-	dampingSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	dampingSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	dampingAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "reverbDamping", dampingSlider);
-
-	addAndMakeVisible(dampingLabel);
 	dampingLabel.setText("damping", dontSendNotification);
-	dampingLabel.setJustificationType(Justification::centredBottom);
-
-	addAndMakeVisible(widthSlider);
-	widthSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-	widthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-
-	addAndMakeVisible(widthLabel);
 	widthLabel.setText("width", dontSendNotification);
-	widthLabel.setJustificationType(Justification::centredBottom);
-	widthAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "reverbWidth", widthSlider);
+	labelMix.setText("mix", dontSendNotification);
 
-	addAndMakeVisible(mixSlider);
+	labelTitle.setJustificationType(Justification::centred);
+	roomSizeLabel.setJustificationType(Justification::centredBottom);
+	dampingLabel.setJustificationType(Justification::centredBottom);
+	widthLabel.setJustificationType(Justification::centredBottom);
+	labelMix.setJustificationType(Justification::centredBottom);
+
+	roomSizeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
+	dampingSlider.setSliderStyle(Slider::RotaryVerticalDrag);
+	widthSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	mixSlider.setSliderStyle(Slider::RotaryVerticalDrag);
+
+	roomSizeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
+	dampingSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
+	widthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	mixSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 
+	addAndMakeVisible(labelTitle);
+	addAndMakeVisible(toggleReverb);
+	addAndMakeVisible(roomSizeLabel);
+	addAndMakeVisible(roomSizeSlider);
+	addAndMakeVisible(dampingLabel);
+	addAndMakeVisible(dampingSlider);
+	addAndMakeVisible(widthLabel);
+	addAndMakeVisible(widthSlider);
 	addAndMakeVisible(labelMix);
-	labelMix.setText("mix", dontSendNotification);
-	labelMix.setJustificationType(Justification::centredBottom);
-	mixAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "reverbMix", mixSlider);
+	addAndMakeVisible(mixSlider);
 }
 
 ReverbEditor::~ReverbEditor()

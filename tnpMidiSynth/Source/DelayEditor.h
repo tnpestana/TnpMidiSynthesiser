@@ -37,8 +37,8 @@ private:
 	Slider sliderDelayFeedback; 
 	Slider sliderdelayMix;
 
-	std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment> delayToggleAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayTimeAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayFeedbackAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayMixAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment> attToggle;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attDelayTime;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attFeedback;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attMix;
 };

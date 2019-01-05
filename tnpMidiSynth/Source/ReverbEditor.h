@@ -39,9 +39,9 @@ private:
 	Slider dampingSlider;
 	Slider widthSlider;
 
-	std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment> toggleAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> mixAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> roomSizeAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> dampingAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> widthAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment> attToggle;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attMix;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attRoomSize;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attDamping;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attWidth;
 };

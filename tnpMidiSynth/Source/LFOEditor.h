@@ -38,8 +38,8 @@ private:
 	Slider sliderLfoDepth;
 	Slider sliderLfoRate;
 
-	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> oscTypeAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> depthAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> rateAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment> toggleAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> attOscType;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attDepth;
+	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attRate;
+	std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment> attToggle;
 };
