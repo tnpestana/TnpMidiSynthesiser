@@ -19,13 +19,16 @@
 class OscillatorEditor : public Component
 {
 public:
-	OscillatorEditor(TnpMidiSynthAudioProcessor&, AudioProcessorValueTreeState&);
+	OscillatorEditor(TnpMidiSynthAudioProcessor&);
 	~OscillatorEditor();
 
 	void paint(Graphics&) override;
 	void resized() override;
 
 private:
+	TnpMidiSynthAudioProcessor& processor;
+	AudioProcessorValueTreeState& treeState;
+
 	Slider attackSlider;
 	Slider decaySlider; 
 	Slider sustainSlider;

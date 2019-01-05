@@ -39,6 +39,10 @@ public:
 	void processReverb (AudioBuffer<float>& buffer);
 
 	//==============================================================================
+	AudioProcessorValueTreeState& getTreeState();
+	MidiKeyboardState& getMidiState();
+
+	//==============================================================================
 	void setNumVoices(int numVoices);
 
     //==============================================================================

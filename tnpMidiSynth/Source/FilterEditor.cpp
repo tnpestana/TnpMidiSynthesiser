@@ -10,8 +10,9 @@
 
 #include "FilterEditor.h"
 
-FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeState& apvts)
-	: processor(p)
+FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
+	: processor (p),
+	treeState (p.getTreeState())
 {
 	comboFilterType.addItem ("lo-pass", 1);
 	comboFilterType.addItem ("hi-pass", 2);
@@ -42,15 +43,15 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxLeft, false, 30, 15);
 
 	filterTypeAttachment = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> 
-		(apvts, "filterType", comboFilterType);
+		(treeState, "filterType", comboFilterType);
 	filterCutoffAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> 
-		(apvts, "filterCutoff", sliderFilterCutoff);
+		(treeState, "filterCutoff", sliderFilterCutoff);
 	filterQAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> 
-		(apvts, "filterQ", sliderFilterQ);
+		(treeState, "filterQ", sliderFilterQ);
 	filterGainFactorAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> 
-		(apvts, "filterGainFactor", sliderFilterGainFactor);
+		(treeState, "filterGainFactor", sliderFilterGainFactor);
 	filterToggleAttachment = std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
-		(apvts, "filterToggle", toggleFilter);
+		(treeState, "filterToggle", toggleFilter);
 
 	addAndMakeVisible (toggleFilter);
 	addAndMakeVisible (labelFilterTitle);
@@ -71,12 +72,7 @@ FilterEditor::~FilterEditor()
 
 void FilterEditor::paint(Graphics& g)
 {
-	// (Our component is opaque, so we must completely fill the background with a solid colour)
-	//g.fillAll(Colours::lightgrey);
-
 	labelFilterTitle.setColour(Label::backgroundColourId, Colours::lightgrey);
-	
-
 	// textBoxTextColourId is set here because getLookAndFeel doesnt seem to work.  
 	sliderFilterCutoff.setColour(Slider::textBoxTextColourId, Colours::black);
 	sliderFilterGainFactor.setColour(Slider::textBoxTextColourId, Colours::black);

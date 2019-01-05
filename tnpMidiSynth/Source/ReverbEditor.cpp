@@ -10,20 +10,21 @@
 
 #include "ReverbEditor.h"
 
-ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTreeState& apvts)
-	: processor(p)
+ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
+	: processor(p),
+	treeState(p.getTreeState())
 {
 	addAndMakeVisible(labelTitle);
 	labelTitle.setText("REVERB", dontSendNotification);
 	labelTitle.setJustificationType(Justification::centred);
 
 	addAndMakeVisible(toggleReverb);
-	toggleAttachment = std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>(apvts, "reverbToggle", toggleReverb);
+	toggleAttachment = std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>(treeState, "reverbToggle", toggleReverb);
 
 	addAndMakeVisible(roomSizeSlider);
 	roomSizeSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	roomSizeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	roomSizeAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "reverbRoomSize", roomSizeSlider);
+	roomSizeAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "reverbRoomSize", roomSizeSlider);
 
 	addAndMakeVisible(roomSizeLabel);
 	roomSizeLabel.setText("room size", dontSendNotification);
@@ -32,7 +33,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 	addAndMakeVisible(dampingSlider);
 	dampingSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	dampingSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	dampingAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "reverbDamping", dampingSlider);
+	dampingAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "reverbDamping", dampingSlider);
 
 	addAndMakeVisible(dampingLabel);
 	dampingLabel.setText("damping", dontSendNotification);
@@ -45,7 +46,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 	addAndMakeVisible(widthLabel);
 	widthLabel.setText("width", dontSendNotification);
 	widthLabel.setJustificationType(Justification::centredBottom);
-	widthAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "reverbWidth", widthSlider);
+	widthAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "reverbWidth", widthSlider);
 
 	addAndMakeVisible(mixSlider);
 	mixSlider.setSliderStyle(Slider::RotaryVerticalDrag);
@@ -54,7 +55,7 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p, AudioProcessorValueTre
 	addAndMakeVisible(labelMix);
 	labelMix.setText("mix", dontSendNotification);
 	labelMix.setJustificationType(Justification::centredBottom);
-	mixAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "reverbMix", mixSlider);
+	mixAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "reverbMix", mixSlider);
 }
 
 ReverbEditor::~ReverbEditor()
@@ -63,12 +64,7 @@ ReverbEditor::~ReverbEditor()
 
 void ReverbEditor::paint(Graphics& g)
 {
-	// (Our component is opaque, so we must completely fill the background with a solid colour)
-	//g.fillAll(Colours::lightgrey);
-
 	labelTitle.setColour(Label::backgroundColourId, Colours::lightgrey);
-
-	//=========================================================================================
 	roomSizeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	dampingSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	mixSlider.setColour(Slider::textBoxTextColourId, Colours::black);

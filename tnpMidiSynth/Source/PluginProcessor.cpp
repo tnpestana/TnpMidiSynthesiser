@@ -22,8 +22,12 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
                        .withOutput ("Output", AudioChannelSet::stereo(), true)
                      #endif
                        ),
+		//	Local state variables
 		treeState(*this, nullptr),
 		keyboardState(),
+		//	Parameter attachments
+
+		//	Local variables
 		targetGain(0.0f),
 		currentGain(targetGain),
 		targetFilterCutoff(5000.0f),
@@ -369,6 +373,16 @@ void TnpMidiSynthAudioProcessor::processReverb(AudioBuffer<float>& buffer)
 	}
 }
 
+AudioProcessorValueTreeState & TnpMidiSynthAudioProcessor::getTreeState()
+{
+	return treeState;
+}
+
+MidiKeyboardState & TnpMidiSynthAudioProcessor::getMidiState()
+{
+	return keyboardState;
+}
+
 //==============================================================================
 // This method is called to change the synth's number of voices.
 void TnpMidiSynthAudioProcessor::setNumVoices(int numVoices)
@@ -388,7 +402,7 @@ bool TnpMidiSynthAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* TnpMidiSynthAudioProcessor::createEditor()
 {
-    return new TnpMidiSynthAudioProcessorEditor (*this, treeState, keyboardState);
+    return new TnpMidiSynthAudioProcessorEditor (*this);
 }
 
 //==============================================================================

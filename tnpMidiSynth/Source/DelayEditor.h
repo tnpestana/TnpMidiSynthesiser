@@ -16,13 +16,16 @@
 class DelayEditor : public Component
 {
 public:
-	DelayEditor(TnpMidiSynthAudioProcessor&, AudioProcessorValueTreeState&);
+	DelayEditor(TnpMidiSynthAudioProcessor&);
 	~DelayEditor();
 
 private:
 	void paint(Graphics&) override;
 	void resized() override;
 	
+	TnpMidiSynthAudioProcessor& processor;
+	AudioProcessorValueTreeState& treeState;
+
 	ToggleButton toggleDelay;
 
 	Label labelTitle;
@@ -38,5 +41,4 @@ private:
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayTimeAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayFeedbackAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayMixAttachment;
-
 };

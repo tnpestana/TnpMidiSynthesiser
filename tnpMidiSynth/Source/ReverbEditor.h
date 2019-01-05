@@ -16,12 +16,15 @@
 class ReverbEditor : public Component
 {
 public:
-	ReverbEditor(TnpMidiSynthAudioProcessor&, AudioProcessorValueTreeState&);
+	ReverbEditor(TnpMidiSynthAudioProcessor&);
 	~ReverbEditor();
 
 private:
 	void paint(Graphics&) override;
 	void resized() override;
+
+	TnpMidiSynthAudioProcessor& processor;
+	AudioProcessorValueTreeState& treeState;
 
 	ToggleButton toggleReverb;
 
@@ -41,8 +44,4 @@ private:
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> roomSizeAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> dampingAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> widthAttachment;
-
-	// This reference is provided as a quick way for your editor to
-	// access the processor object that created it.
-	TnpMidiSynthAudioProcessor& processor;
 };

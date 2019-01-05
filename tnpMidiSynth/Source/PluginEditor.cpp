@@ -13,17 +13,19 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor& p, 
-																	AudioProcessorValueTreeState& apvts,
-																	MidiKeyboardState& mks)
+TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor& p)
     : AudioProcessorEditor (&p), 
-	processor (p), 
-	midiKeyboard(mks, MidiKeyboardComponent::horizontalKeyboard), 
-	oscillatorGUI(p, apvts), 
-	reverbGUI(p, apvts), 
-	lfoGUI(p, apvts), 
-	delayGUI(p, apvts), 
-	filterGUI(p, apvts)
+	//	Processor references
+	processor (p),
+	treeState(p.getTreeState()),
+	midiState (p.getMidiState()),
+	midiKeyboard(p.getMidiState() , MidiKeyboardComponent::horizontalKeyboard),
+	//	Editor components
+	oscillatorGUI(p), 
+	reverbGUI(p), 
+	lfoGUI(p), 
+	delayGUI(p), 
+	filterGUI(p)
 {
     // Main editor's size.
 	setSize(650, 500);
@@ -48,7 +50,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	addAndMakeVisible(gainLabel);
 	gainLabel.setText("GAIN", dontSendNotification);
 	gainLabel.setJustificationType(Justification::centredTop);
-	gainAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "gain", gainSlider);
+	gainAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "gain", gainSlider);
 
 	addAndMakeVisible(midiKeyboard);
 	midiKeyboard.setLowestVisibleKey(36);

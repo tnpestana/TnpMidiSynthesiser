@@ -16,12 +16,15 @@
 class LFOEditor : public Component
 {
 public:
-	LFOEditor(TnpMidiSynthAudioProcessor&, AudioProcessorValueTreeState&);
+	LFOEditor(TnpMidiSynthAudioProcessor&);
 	~LFOEditor();
 
 private:
 	void paint(Graphics&) override;
 	void resized() override;
+
+	TnpMidiSynthAudioProcessor& processor;
+	AudioProcessorValueTreeState& treeState;
 
 	ToggleButton toggleLfo;
 

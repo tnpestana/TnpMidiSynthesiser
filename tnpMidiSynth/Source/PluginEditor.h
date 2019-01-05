@@ -24,8 +24,7 @@
 class TnpMidiSynthAudioProcessorEditor  : public AudioProcessorEditor
 {
 public:
-    TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor&, AudioProcessorValueTreeState&,
-									  MidiKeyboardState&);
+    TnpMidiSynthAudioProcessorEditor (TnpMidiSynthAudioProcessor&);
     ~TnpMidiSynthAudioProcessorEditor();
 
     //==============================================================================
@@ -36,6 +35,8 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
 	TnpMidiSynthAudioProcessor& processor;
+	AudioProcessorValueTreeState& treeState;
+	MidiKeyboardState& midiState;
 
 	Label labelTitle;
 	Label gainLabel;

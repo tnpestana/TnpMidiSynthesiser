@@ -10,7 +10,9 @@
 
 #include "LFOEditor.h"
 
-LFOEditor::LFOEditor(TnpMidiSynthAudioProcessor& p , AudioProcessorValueTreeState& apvts)
+LFOEditor::LFOEditor(TnpMidiSynthAudioProcessor& p)
+	: processor (p),
+	treeState(p.getTreeState())
 {
 	addAndMakeVisible(toggleLfo);
 	addAndMakeVisible(labelTitle);
@@ -40,10 +42,10 @@ LFOEditor::LFOEditor(TnpMidiSynthAudioProcessor& p , AudioProcessorValueTreeStat
 	labelTitle.setText("LFO", dontSendNotification);
 	labelTitle.setJustificationType(Justification::centred);
 
-	oscTypeAttachment = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>(apvts, "lfoOscType", comboOscType);
-	depthAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "lfoDepth", sliderLfoDepth);
-	rateAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(apvts, "lfoRate", sliderLfoRate);
-	toggleAttachment = std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>(apvts, "lfoToggle", toggleLfo);
+	oscTypeAttachment = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>(treeState, "lfoOscType", comboOscType);
+	depthAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "lfoDepth", sliderLfoDepth);
+	rateAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "lfoRate", sliderLfoRate);
+	toggleAttachment = std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>(treeState, "lfoToggle", toggleLfo);
 }
 
 LFOEditor::~LFOEditor()
