@@ -49,13 +49,12 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
 	sliderFilterCutoff.setTextBoxStyle	   (Slider::TextBoxBelow, false, 50, 15);
 	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxLeft, false, 30, 15);
 
-	comboFilterType.addItem("lo-pass", 1);
-	comboFilterType.addItem("hi-pass", 2);
-	comboFilterType.addItem("band-pass", 3);
-	comboFilterType.addItem("notch", 4);
-	comboFilterType.addItem("lo-shelf", 5);
-	comboFilterType.addItem("hi-shelf", 6);
-	comboFilterType.addItem("peak", 7);
+	// populate keyboard choice combo boxes with strings stored as choices in keyboard parameter
+	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("filterType")))
+	{
+		comboFilterType.addItemList(choiceParameter->choices, 1);
+		comboFilterType.setSelectedId(choiceParameter->getIndex() + 1);
+	}
 
 	addAndMakeVisible (toggleFilter);
 	addAndMakeVisible (labelFilterTitle);

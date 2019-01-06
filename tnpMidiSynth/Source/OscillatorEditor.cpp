@@ -65,17 +65,19 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	decaySlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	sustainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	releaseSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	
-	oscTypeInput.addItem("sine", 1);
-	oscTypeInput.addItem("harmonic", 2);			//	Even though the oscType parameter's range is defined we
-	oscTypeInput.addItem("square", 3);				// seem to need to populate the combo box anyway.
-	oscTypeInput.addItem("triangle", 4);
-	oscTypeInput.addItem("sawtooth", 5);
 
-	for (int i = 1; i < 11; i++)					//	Even though the numVoices parameter's range is defined we
-		numVoicesInput.addItem((String)i, i);		// seem to need to populate the combo box anyway.
-	numVoicesInput.addItem("16", 11);
-	numVoicesInput.addItem("32", 12);
+	// populate keyboard choice combo boxes with strings stored as choices in keyboard parameter
+	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("oscNumVoices")))
+	{
+		numVoicesInput.addItemList(choiceParameter->choices, 1);
+		numVoicesInput.setSelectedId(choiceParameter->getIndex() + 1);
+	}
+
+	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("oscType")))
+	{
+		oscTypeInput.addItemList(choiceParameter->choices, 1);
+		oscTypeInput.setSelectedId(choiceParameter->getIndex() + 1);
+	}
 
 	addAndMakeVisible(titleLabel);
 	addAndMakeVisible(numVoicesLabel);

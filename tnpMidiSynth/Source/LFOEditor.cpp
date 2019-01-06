@@ -39,10 +39,12 @@ LFOEditor::LFOEditor(TnpMidiSynthAudioProcessor& p)
 
 	sliderLfoRate.setSkewFactorFromMidPoint(5.0);
 
-	comboOscType.addItem("sine", 1);					//	Even though the oscType parameter's range is defined we
-	comboOscType.addItem("square", 2);					// seem to need to populate the combo box anyway.
-	comboOscType.addItem("triangle", 3);
-	comboOscType.addItem("sawtooth", 4);
+	// populate keyboard choice combo boxes with strings stored as choices in keyboard parameter
+	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("lfoOscType")))
+	{
+		comboOscType.addItemList(choiceParameter->choices, 1);
+		comboOscType.setSelectedId(choiceParameter->getIndex() + 1);
+	}
 
 	addAndMakeVisible(labelTitle);
 	addAndMakeVisible(toggleLfo);
