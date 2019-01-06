@@ -11,10 +11,10 @@
 #include "FilterEditor.h"
 
 FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
-	//	Processor references
+	//  Processor references
 	: processor (p),
 	treeState (p.getTreeState()),
-	//	Parameter attachments
+	//  Parameter attachments
 	attToggle (std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
 		(treeState, "filterToggle", toggleFilter)),
 	attFilterType (std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
@@ -42,14 +42,11 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
 	sliderFilterQ.setSliderStyle		  (Slider::RotaryVerticalDrag);
 	sliderFilterGainFactor.setSliderStyle (Slider::LinearHorizontal);
 
-	sliderFilterCutoff.setSkewFactorFromMidPoint(1000.0f);
-	sliderFilterGainFactor.setSkewFactorFromMidPoint(1.0f);
-
 	sliderFilterQ.setTextBoxStyle		   (Slider::TextBoxBelow, false, 40, 15);
 	sliderFilterCutoff.setTextBoxStyle	   (Slider::TextBoxBelow, false, 50, 15);
 	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxLeft, false, 30, 15);
 
-	// populate keyboard choice combo boxes with strings stored as choices in keyboard parameter
+	//  Populate combo boxes with strings stored as paramneter choices
 	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("filterType")))
 	{
 		comboFilterType.addItemList(choiceParameter->choices, 1);

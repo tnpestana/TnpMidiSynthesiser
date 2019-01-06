@@ -11,10 +11,10 @@
 #include "DelayEditor.h"
 
 DelayEditor::DelayEditor(TnpMidiSynthAudioProcessor& p)
-	//	Processor references
+	//  Processor references
 	: processor (p),
 	treeState (p.getTreeState()),
-	//	Parameter attachments
+	//  Parameter attachments
 	attToggle (std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
 		(treeState, "delayToggle", toggleDelay)),
 	attDelayTime (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>

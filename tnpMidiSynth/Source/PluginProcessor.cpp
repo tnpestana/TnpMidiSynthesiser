@@ -22,7 +22,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
                        .withOutput ("Output", AudioChannelSet::stereo(), true)
                      #endif
                        ),
-		//	Processor state variables
+		//  Processor state variables
 		treeState(*this, nullptr, "tnpMidiSynthState",
 			//	Parameters
 			{
@@ -81,21 +81,20 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 			}
 		),
 		keyboardState(),
-		//	Local variables
+		//  Local variables
 		targetGain(0.0f),
 		currentGain(targetGain),
 		targetFilterCutoff(5000.0f),
-		currentFilterCutoff(targetFilterCutoff)
+		currentFilterCutoff(targetFilterCutoff),
+		localSampleRate(1.0)
 #endif
 {
-	/*
-	attackRange.setSkewForCentre(1.0);
-	decayRange.setSkewForCentre(1.0);
-	releaseRange.setSkewForCentre(1.0);
-	filterCutoffRange.setSkewForCentre(1000.0f);
-	filterGainFactorRange.setSkewForCentre(1.0f);
-	lfoRateRange.setSkewForCentre(5.0);
-	*/
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("volEnvAttack"))->range.setSkewForCentre(1.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("volEnvDecay"))->range.setSkewForCentre(1.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("volEnvRelease"))->range.setSkewForCentre(1.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("filterCutoff"))->range.setSkewForCentre(1000.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("filterGainFactor"))->range.setSkewForCentre(1.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("lfoRate"))->range.setSkewForCentre(5.0f);
 }
 
 TnpMidiSynthAudioProcessor::~TnpMidiSynthAudioProcessor()
@@ -218,9 +217,9 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 void TnpMidiSynthAudioProcessor::manageActiveVoices()
 {
 	// Check if the number of voices selected has changed.
-	int numVoicesParam = *treeState.getRawParameterValue("oscNumVoices") + 1;	// Add one for the values to match the combo box IDs.
-	numVoicesParam = numVoicesParam == 11 ? 16 : numVoicesParam;				// If the parameter returns the value 11 it means there are 16 voices.
-	numVoicesParam = numVoicesParam == 12 ? 32 : numVoicesParam;
+	int numVoicesParam = *treeState.getRawParameterValue("oscNumVoices") + 1;	//  Add one for the values to match the combo box IDs.
+	numVoicesParam = numVoicesParam == 11 ? 16 : numVoicesParam;				//  If the parameter returns the value 11 it means there 
+	numVoicesParam = numVoicesParam == 12 ? 32 : numVoicesParam;				// are 16 voices.
 	if (numVoicesParam != mySynth.getNumVoices())
 	{
 		setNumVoices(numVoicesParam);

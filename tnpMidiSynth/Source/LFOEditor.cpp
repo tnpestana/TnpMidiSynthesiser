@@ -11,10 +11,10 @@
 #include "LFOEditor.h"
 
 LFOEditor::LFOEditor(TnpMidiSynthAudioProcessor& p)
-	//	Processor references
+	//  Processor references
 	: processor (p),
 	treeState(p.getTreeState()),
-	//	Parameter attachments
+	//  Parameter attachments
 	attOscType (std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
 		(treeState, "lfoOscType", comboOscType)),
 	attDepth (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
@@ -37,9 +37,7 @@ LFOEditor::LFOEditor(TnpMidiSynthAudioProcessor& p)
 	sliderLfoDepth.setTextBoxStyle(Slider::TextBoxLeft, false, 40, 15);
 	sliderLfoRate.setTextBoxStyle(Slider::TextBoxLeft, false, 40, 15);
 
-	sliderLfoRate.setSkewFactorFromMidPoint(5.0);
-
-	// populate keyboard choice combo boxes with strings stored as choices in keyboard parameter
+	//  Populate combo boxes with strings stored as paramneter choices
 	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("lfoOscType")))
 	{
 		comboOscType.addItemList(choiceParameter->choices, 1);

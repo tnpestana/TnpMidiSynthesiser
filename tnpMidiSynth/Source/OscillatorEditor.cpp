@@ -14,10 +14,10 @@
 #include "OscillatorEditor.h"
 
 OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
-	//	Processor references
+	//  Processor references
 	: processor (p),
 	treeState (p.getTreeState()),
-	//	Parameter attachments
+	//  Parameter attachments
 	attNumVoices (std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
 		(treeState, "oscNumVoices", numVoicesInput)),
 	attTranspose (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
@@ -56,17 +56,13 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	sustainSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	releaseSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 
-	attackSlider.setSkewFactorFromMidPoint(1.0);
-	decaySlider.setSkewFactorFromMidPoint(1.0);
-	releaseSlider.setSkewFactorFromMidPoint(1.0);
-
 	transposeSlider.setTextBoxStyle(Slider::TextBoxLeft, false, 40, 15);
 	attackSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	decaySlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	sustainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	releaseSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 
-	// populate keyboard choice combo boxes with strings stored as choices in keyboard parameter
+	//  Populate combo boxes with strings stored as paramneter choices
 	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("oscNumVoices")))
 	{
 		numVoicesInput.addItemList(choiceParameter->choices, 1);
@@ -114,29 +110,29 @@ void OscillatorEditor::paint(Graphics& g)
 
 void OscillatorEditor::resized()
 {
-	// Total oscillator area.
+	//  Total oscillator area.
 	juce::Rectangle<int> oscArea(getLocalBounds());
 	titleLabel.setBounds(oscArea.removeFromTop(20).reduced(2));
 
-	// Controls area.
+	//  Controls area.
 	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.30).reduced(2));
 
-	// Number of voices selection area.   
+	//  Number of voices selection area.   
 	juce::Rectangle<int> numVoicesArea(controls.removeFromLeft(60));
 	numVoicesLabel.setBounds(numVoicesArea.removeFromTop(20));
 	numVoicesInput.setBounds(numVoicesArea.reduced(2));
 	
-	// Oscillator Type.
+	//  Oscillator Type.
 	juce::Rectangle<int> oscTypeArea(controls.removeFromLeft(100));
 	oscTypeLabel.setBounds(oscTypeArea.removeFromTop(20));
 	oscTypeInput.setBounds(oscTypeArea.reduced(2));
 
-	// Transpose selection area.
+	//  Transpose selection area.
 	juce::Rectangle<int> transposeArea(controls);
 	transposeLabel.setBounds(transposeArea.removeFromTop(20));
 	transposeSlider.setBounds(transposeArea);
 
-	// Envelope sliders and labels area - needs reviewing.
+	//  Envelope sliders and labels area - needs reviewing.
 	juce::Rectangle<int> oscEnvelope(oscArea.reduced(10));
 	const double sliderWidth = oscEnvelope.getWidth() / 4;
 

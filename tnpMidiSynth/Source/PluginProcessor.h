@@ -71,6 +71,7 @@ public:
 private:
 	AudioProcessorValueTreeState treeState;
 	MidiKeyboardState keyboardState;
+
 	Synthesiser mySynth;
 	TnpSynthVoice* mySynthVoice;
 	Reverb reverb;
