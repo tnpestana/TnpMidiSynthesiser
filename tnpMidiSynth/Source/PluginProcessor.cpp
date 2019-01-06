@@ -169,8 +169,21 @@ void TnpMidiSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
 	localSampleRate = sampleRate;
 	WavetableOscillator::createWavetable(sampleRate);
 	mySynth.setCurrentPlaybackSampleRate(sampleRate);
-	delay.prepareToPlay(sampleRate);
+
 	reverb.setSampleRate(sampleRate);
+	updateReverb();
+
+	treeState.addParameterListener("delayTime", this);
+	treeState.addParameterListener("delayFeedback", this);
+	treeState.addParameterListener("delayMix", this);
+	delay.prepareToPlay(sampleRate);
+	updateDelay();
+
+	treeState.addParameterListener("filterType", this);
+	treeState.addParameterListener("filterCutoff", this);
+	treeState.addParameterListener("filterQ", this);
+	treeState.addParameterListener("filterGainFactor", this);
+	updateFilter();
 }
 
 void TnpMidiSynthAudioProcessor::releaseResources()
@@ -209,11 +222,18 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	keyboardState.processNextMidiBuffer(midiMessages, 0, buffer.getNumSamples(), true);
 	mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 	processGain(buffer);
-	processFilter(buffer);
-	processDelay(buffer);
-	processReverb(buffer);
+
+	if (*treeState.getRawParameterValue("filterToggle") == 1.0f)
+		processFilter(buffer);
+	
+	if (*treeState.getRawParameterValue("delayToggle") == 1.0f)
+		processDelay(buffer);
+
+	if (*treeState.getRawParameterValue("reverbToggle") == 1.0f)
+		processReverb(buffer);
 }
 
+//==============================================================================
 void TnpMidiSynthAudioProcessor::manageActiveVoices()
 {
 	// Check if the number of voices selected has changed.
@@ -245,6 +265,7 @@ void TnpMidiSynthAudioProcessor::manageActiveVoices()
 	}
 }
 
+//==============================================================================
 void TnpMidiSynthAudioProcessor::processGain(AudioBuffer<float>& buffer)
 {
 	for (int channel = 0; channel < buffer.getNumChannels(); channel++)
@@ -265,100 +286,102 @@ void TnpMidiSynthAudioProcessor::processGain(AudioBuffer<float>& buffer)
 	}
 }
 
+//==============================================================================
+void TnpMidiSynthAudioProcessor::updateFilter()
+{
+	const int filterType = *treeState.getRawParameterValue("filterType");
+	const float filterQ = *treeState.getRawParameterValue("filterQ");
+	const float filterCutoff = *treeState.getRawParameterValue("filterCutoff");
+	const float filterGainFactor = *treeState.getRawParameterValue("filterGainFactor");
+	switch (filterType)
+	{
+	case 0:
+		filterLeft.setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, filterQ));
+		filterRight.setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, filterQ));
+		break;
+	case 1:
+		filterLeft.setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, filterQ));
+		filterRight.setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, filterQ));
+		break;
+	case 2:
+		filterLeft.setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff, filterQ));
+		filterRight.setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff, filterQ));
+		break;
+	case 3:
+		filterLeft.setCoefficients(IIRCoefficients::makeNotchFilter(localSampleRate, filterCutoff, filterQ));
+		filterRight.setCoefficients(IIRCoefficients::makeNotchFilter(localSampleRate, filterCutoff, filterQ));
+		break;
+	case 4:
+		filterLeft.setCoefficients(IIRCoefficients::makeLowShelf(localSampleRate, filterCutoff, filterQ, filterGainFactor));
+		filterRight.setCoefficients(IIRCoefficients::makeLowShelf(localSampleRate, filterCutoff, filterQ, filterGainFactor));
+		break;
+	case 5:
+		filterLeft.setCoefficients(IIRCoefficients::makeHighShelf(localSampleRate, filterCutoff, filterQ, filterGainFactor));
+		filterRight.setCoefficients(IIRCoefficients::makeHighShelf(localSampleRate, filterCutoff, filterQ, filterGainFactor));
+		break;
+	case 6:
+		filterLeft.setCoefficients(IIRCoefficients::makePeakFilter(localSampleRate, filterCutoff, filterQ, filterGainFactor));
+		filterRight.setCoefficients(IIRCoefficients::makePeakFilter(localSampleRate, filterCutoff, filterQ, filterGainFactor));
+		break;
+	}
+}
+
 void TnpMidiSynthAudioProcessor::processFilter(AudioBuffer<float>& buffer)
 {
-	float toggleFilter = *treeState.getRawParameterValue("filterToggle");
-	if (toggleFilter == 1.0f)
+	if (buffer.getNumChannels() == 1)
 	{
-		const int filterType = *treeState.getRawParameterValue("filterType");
-		const float filterQ = *treeState.getRawParameterValue("filterQ");
-		const float filterCutoff = *treeState.getRawParameterValue("filterCutoff");
-		const float filterGainFactor = *treeState.getRawParameterValue("filterGainFactor");
-		switch (filterType)
-		{
-		case 0:
-			filterLeft.setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, filterQ));
-			filterRight.setCoefficients(IIRCoefficients::makeLowPass(localSampleRate, filterCutoff, filterQ));
-			break;
-		case 1:
-			filterLeft.setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, filterQ));
-			filterRight.setCoefficients(IIRCoefficients::makeHighPass(localSampleRate, filterCutoff, filterQ));
-			break;
-		case 2:
-			filterLeft.setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff, filterQ));
-			filterRight.setCoefficients(IIRCoefficients::makeBandPass(localSampleRate, filterCutoff, filterQ));
-			break;
-		case 3:
-			filterLeft.setCoefficients(IIRCoefficients::makeNotchFilter(localSampleRate, filterCutoff, filterQ));
-			filterRight.setCoefficients(IIRCoefficients::makeNotchFilter(localSampleRate, filterCutoff, filterQ));
-			break;
-		case 4:
-			filterLeft.setCoefficients(IIRCoefficients::makeLowShelf(localSampleRate, filterCutoff, filterQ, filterGainFactor));
-			filterRight.setCoefficients(IIRCoefficients::makeLowShelf(localSampleRate, filterCutoff, filterQ, filterGainFactor));
-			break;
-		case 5:
-			filterLeft.setCoefficients(IIRCoefficients::makeHighShelf(localSampleRate, filterCutoff, filterQ, filterGainFactor));
-			filterRight.setCoefficients(IIRCoefficients::makeHighShelf(localSampleRate, filterCutoff, filterQ, filterGainFactor));
-			break;
-		case 6:
-			filterLeft.setCoefficients(IIRCoefficients::makePeakFilter(localSampleRate, filterCutoff, filterQ, filterGainFactor));
-			filterRight.setCoefficients(IIRCoefficients::makePeakFilter(localSampleRate, filterCutoff, filterQ, filterGainFactor));
-			break;
-		}
-
-		if (buffer.getNumChannels() == 1)
-		{
-			filterLeft.processSamples(buffer.getWritePointer(0), buffer.getNumSamples());
-		}
-		else if (buffer.getNumChannels() == 2)
-		{
-			filterLeft.processSamples(buffer.getWritePointer(0), buffer.getNumSamples());
-			filterRight.processSamples(buffer.getWritePointer(1), buffer.getNumSamples());
-		}
+		filterLeft.processSamples(buffer.getWritePointer(0), buffer.getNumSamples());
 	}
+	else if (buffer.getNumChannels() == 2)
+	{
+		filterLeft.processSamples(buffer.getWritePointer(0), buffer.getNumSamples());
+		filterRight.processSamples(buffer.getWritePointer(1), buffer.getNumSamples());
+	}
+}
+
+//==============================================================================
+void TnpMidiSynthAudioProcessor::updateDelay()
+{
+	delay.updateParams(*treeState.getRawParameterValue("delayTime"),
+		*treeState.getRawParameterValue("delayFeedback"),
+		*treeState.getRawParameterValue("delayMix"));
 }
 
 void TnpMidiSynthAudioProcessor::processDelay(AudioBuffer<float>& buffer)
 {
-	float toggleDelay = *treeState.getRawParameterValue("delayToggle");
-	if (toggleDelay == 1.0f)
+	for (int sample = 0; sample < buffer.getNumSamples(); sample++)
 	{
-		delay.updateParams(*treeState.getRawParameterValue("delayTime"),
-			*treeState.getRawParameterValue("delayFeedback"),
-			*treeState.getRawParameterValue("delayMix"));
-
-		for (int sample = 0; sample < buffer.getNumSamples(); sample++)
-		{
-			float* outputDataL = buffer.getWritePointer(0, sample);
-			float* outputDataR = buffer.getWritePointer(1, sample);
-			delay.processAudio(outputDataL, outputDataR);
-		}
+		float* outputDataL = buffer.getWritePointer(0, sample);
+		float* outputDataR = buffer.getWritePointer(1, sample);
+		delay.processAudio(outputDataL, outputDataR);
 	}
+}
+
+//==============================================================================
+void TnpMidiSynthAudioProcessor::updateReverb()
+{
+	reverbParameters.dryLevel = 1.0f - *treeState.getRawParameterValue("reverbMix");	//	Dereference the result of getRawParameterValue because it returns
+	reverbParameters.wetLevel = *treeState.getRawParameterValue("reverbMix");			// a pointer to the parameter's value location.
+	reverbParameters.roomSize = *treeState.getRawParameterValue("reverbRoomSize");
+	reverbParameters.damping = *treeState.getRawParameterValue("reverbDamping");
+	reverbParameters.width = *treeState.getRawParameterValue("reverbWidth");
+	reverb.setParameters(reverbParameters);
 }
 
 void TnpMidiSynthAudioProcessor::processReverb(AudioBuffer<float>& buffer)
 {
-	float toggleReverb = *treeState.getRawParameterValue("reverbToggle");
-	if (toggleReverb == 1.0f)
+	// Support reverb processing for mono and stereo systems.
+	if (buffer.getNumChannels() == 1)
 	{
-		reverbParameters.dryLevel = 1.0f - *treeState.getRawParameterValue("reverbMix");	//	Dereference the result of getRawParameterValue because it returns
-		reverbParameters.wetLevel = *treeState.getRawParameterValue("reverbMix");			// a pointer to the parameter's value location.
-		reverbParameters.roomSize = *treeState.getRawParameterValue("reverbRoomSize");
-		reverbParameters.damping = *treeState.getRawParameterValue("reverbDamping");
-		reverbParameters.width = *treeState.getRawParameterValue("reverbWidth");
-		reverb.setParameters(reverbParameters);
-		// Support reverb processing for mono and stereo systems.
-		if (buffer.getNumChannels() == 1)
-		{
-			reverb.processMono(buffer.getWritePointer(0), buffer.getNumSamples());
-		}
-		else if (buffer.getNumChannels() == 2)
-		{
-			reverb.processStereo(buffer.getWritePointer(0), buffer.getWritePointer(1), buffer.getNumSamples());
-		}
+		reverb.processMono(buffer.getWritePointer(0), buffer.getNumSamples());
+	}
+	else if (buffer.getNumChannels() == 2)
+	{
+		reverb.processStereo(buffer.getWritePointer(0), buffer.getWritePointer(1), buffer.getNumSamples());
 	}
 }
 
+//==============================================================================
 AudioProcessorValueTreeState & TnpMidiSynthAudioProcessor::getTreeState()
 {
 	return treeState;
@@ -405,6 +428,30 @@ void TnpMidiSynthAudioProcessor::setStateInformation (const void* data, int size
 	if (xmlState.get() != nullptr)
 		if (xmlState->hasTagName(treeState.state.getType()))
 			treeState.replaceState(ValueTree::fromXml(*xmlState));
+}
+
+void TnpMidiSynthAudioProcessor::parameterChanged(const String & parameterID, float newValue)
+{
+	if (parameterID == "filterToggle" ||
+		parameterID == "filterType" ||
+		parameterID == "filterCutoff" ||
+		parameterID == "filterQ" ||
+		parameterID == "filterGainFactor")
+	{
+		updateFilter();
+	}
+	else if (parameterID == "delayTime" ||
+		parameterID == "delayFeedback" ||
+		parameterID == "delayMix")
+	{
+		updateDelay();
+	}
+	else if (parameterID == "reverbMix" ||
+		parameterID == "reverbRoomSize" ||
+		parameterID == "delayDamping")
+	{
+		updateReverb();
+	}
 }
 
 //==============================================================================

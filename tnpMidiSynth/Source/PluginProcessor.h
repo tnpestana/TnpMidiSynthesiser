@@ -16,7 +16,7 @@
 #include "TnpWavetable.h"
 
 //==============================================================================
-class TnpMidiSynthAudioProcessor : public AudioProcessor
+class TnpMidiSynthAudioProcessor : public AudioProcessor, public AudioProcessorValueTreeState::Listener
 {
 public:
     //==============================================================================
@@ -34,8 +34,14 @@ public:
     void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages) override;
 	void manageActiveVoices();
 	void processGain (AudioBuffer<float>& buffer);
+
+	void updateFilter();
 	void processFilter (AudioBuffer<float>& buffer);
+
+	void updateDelay();
 	void processDelay (AudioBuffer<float>& buffer);
+
+	void updateReverb();
 	void processReverb (AudioBuffer<float>& buffer);
 
 	//==============================================================================
@@ -69,9 +75,12 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
+	// Inherited via Listener
+	virtual void parameterChanged(const String & parameterID, float newValue) override;
+
 	AudioProcessorValueTreeState treeState;
 	MidiKeyboardState keyboardState;
-
+	
 	Synthesiser mySynth;
 	TnpSynthVoice* mySynthVoice;
 	Reverb reverb;
