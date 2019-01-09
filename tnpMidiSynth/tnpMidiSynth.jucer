@@ -39,9 +39,6 @@
       <FILE id="Wwlcfx" name="TnpWavetable.h" compile="0" resource="0" file="Source/TnpWavetable.h"/>
       <FILE id="mPDLVn" name="TnpWavetable.cpp" compile="1" resource="0"
             file="Source/TnpWavetable.cpp"/>
-      <FILE id="t6gt4U" name="TnpOscillator.cpp" compile="1" resource="0"
-            file="Source/TnpOscillator.cpp"/>
-      <FILE id="v1pj7z" name="TnpOscillator.h" compile="0" resource="0" file="Source/TnpOscillator.h"/>
       <FILE id="cpFocT" name="TnpLFO.cpp" compile="1" resource="0" file="Source/TnpLFO.cpp"/>
       <FILE id="YHk8SP" name="TnpLFO.h" compile="0" resource="0" file="Source/TnpLFO.h"/>
       <FILE id="Jh33sr" name="TnpDelayLine.cpp" compile="1" resource="0"
