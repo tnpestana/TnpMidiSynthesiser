@@ -30,10 +30,24 @@ public:
 
 	// Waveforms
 	static AudioSampleBuffer sineTable;
+
 	static AudioSampleBuffer harmonicTable;
+
 	static AudioSampleBuffer sawtoothTable;
+	static AudioSampleBuffer sawtoothTableB6;
+	static AudioSampleBuffer sawtoothTableB7;
+	static AudioSampleBuffer sawtoothTableB8;
+
 	static AudioSampleBuffer triangleTable;
+	static AudioSampleBuffer triangleTableB5;
+	static AudioSampleBuffer triangleTableB6;
+	static AudioSampleBuffer triangleTableB7;
+
 	static AudioSampleBuffer squareTable;
+	static AudioSampleBuffer squareTableB5;
+	static AudioSampleBuffer squareTableB6;
+	static AudioSampleBuffer squareTableB7;
+
 
 	static int tableSize;
 

@@ -37,7 +37,8 @@ TnpSynthVoice::TnpSynthVoice()
 	transposeValue(0),
 	toggleLFO(0.0f),
 	wOscillator(),
-	volumeEnvelope()
+	volumeEnvelope(),
+	frequency(0.0f)
 {
 	lfo.prepareToPLay(getSampleRate());
 }
@@ -53,7 +54,8 @@ bool TnpSynthVoice::canPlaySound(SynthesiserSound * sound)
 
 void TnpSynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound * sound, int currentPitchWheelPosition)
 {
-	wOscillator.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber + transposeValue), getSampleRate());
+	frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber + transposeValue);
+	wOscillator.setFrequency(frequency, getSampleRate());
 	velocityLevel = velocity;
 
 	volumeEnvelope.gate(1);
@@ -89,13 +91,37 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 			soundwave = wOscillator.getNextSample(WavetableOscillator::harmonicTable);
 			break;
 		case 2:
-			soundwave = wOscillator.getNextSample(WavetableOscillator::squareTable);
+			// Check the frequency played to choose which wavetable to use
+			if (frequency <= 987.78 /*B5*/)
+				soundwave = wOscillator.getNextSample(WavetableOscillator::squareTable);
+			else if (frequency > 987.78 /*B5*/ && frequency <= 1975.55 /*B6*/)
+				soundwave = wOscillator.getNextSample(WavetableOscillator::squareTableB5);
+			else if (frequency > 1975.55 /*B6*/ && frequency <= 3951.1 /*B7*/)
+				soundwave = wOscillator.getNextSample(WavetableOscillator::squareTableB6);
+			else
+				soundwave = wOscillator.getNextSample(WavetableOscillator::squareTableB7);
 			break;
 		case 3:
-			soundwave = wOscillator.getNextSample(WavetableOscillator::triangleTable);
+			// Check the frequency played to choose which wavetable to use
+			if (frequency <= 987.78 /*B5*/)
+				soundwave = wOscillator.getNextSample(WavetableOscillator::triangleTable);
+			else if (frequency > 987.78 /*B5*/ && frequency <= 1975.55 /*B6*/)
+				soundwave = wOscillator.getNextSample(WavetableOscillator::triangleTableB5);
+			else if (frequency > 1975.55 /*B6*/ && frequency <= 3951.1 /*B7*/)
+				soundwave = wOscillator.getNextSample(WavetableOscillator::triangleTableB6);
+			else
+				soundwave = wOscillator.getNextSample(WavetableOscillator::triangleTableB7);
 			break;
 		case 4:
-			soundwave = wOscillator.getNextSample(WavetableOscillator::sawtoothTable);
+			// Check the frequency played to choose which wavetable to use
+			if (frequency <= 1975.55 /*B6*/)
+				soundwave = wOscillator.getNextSample(WavetableOscillator::sawtoothTable);
+			else if (frequency > 1975.55 /*B6*/ && frequency <= 3951.1 /*B7*/)
+				soundwave = wOscillator.getNextSample(WavetableOscillator::sawtoothTableB6);
+			else if (frequency > 3951.1 /*B7*/ && frequency <= 7902.21 /*B8*/)
+				soundwave = wOscillator.getNextSample(WavetableOscillator::sawtoothTableB7);
+			else
+				soundwave = wOscillator.getNextSample(WavetableOscillator::sawtoothTableB8);
 			break;
 		default:
 			soundwave = 0.0;

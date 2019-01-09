@@ -51,7 +51,7 @@ public:
 
 private:
 	float toggleLFO;
-
+	float frequency;
 	double velocityLevel;
 	float soundwave;
 	int oscType, transposeValue;
