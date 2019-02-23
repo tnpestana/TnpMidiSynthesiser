@@ -90,9 +90,8 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 
 	getLookAndFeel().setColour(Label::textColourId, Colours::black);
 
-	getLookAndFeel().setColour(ToggleButton::tickColourId, Colours::floralwhite);
+	getLookAndFeel().setColour(ToggleButton::tickColourId, Colours::black);
 	getLookAndFeel().setColour(ToggleButton::tickDisabledColourId, Colours::floralwhite);
-	getLookAndFeel().setColour(ToggleButton::textColourId, Colours::floralwhite);
 
 	getLookAndFeel().setColour(TextButton::buttonColourId, Colours::lightgrey);
 	getLookAndFeel().setColour(TextButton::textColourOffId, Colours::black);
