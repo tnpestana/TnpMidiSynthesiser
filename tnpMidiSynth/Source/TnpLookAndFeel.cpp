@@ -42,15 +42,15 @@ void TnpLookAndFeel::drawTickBox(Graphics & g, Component & component, float x, f
 
 	g.setColour(component.findColour(ToggleButton::tickDisabledColourId));
 	//g.drawRoundedRectangle(tickBounds, 4.0f, 1.0f);
-	g.fillEllipse(tickBounds.reduced(3));
+	g.fillEllipse(tickBounds.reduced(2.0f));
 
 	g.setColour(component.findColour(ToggleButton::tickColourId));
-	g.drawEllipse(tickBounds.reduced(3), 1.0f);
+	g.drawEllipse(tickBounds.reduced(2.0f), 1.0f);
 
 	if (ticked)
 	{
 		g.setColour(component.findColour(ToggleButton::tickColourId));
-		g.fillEllipse(tickBounds.reduced(5.0f));
+		g.fillEllipse(tickBounds.reduced(4.0f));
 		//auto tick = getTickShape(0.75f);
 		//g.fillPath(tick, tick.getTransformToScaleToFit(tickBounds.reduced(4, 5).toFloat(), false));
 	}

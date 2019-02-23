@@ -68,6 +68,7 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 	g.drawImageAt(backgroundImage, 0, 0);
 
 	gainLabel.setColour(Label::backgroundColourId, Colours::lightgrey);
+	gainLabel.setColour(Label::outlineColourId, Colours::black);
 	gainSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	//gainSlider.setColour(Slider::textBoxOutlineColourId, Colours::lightgrey);
 

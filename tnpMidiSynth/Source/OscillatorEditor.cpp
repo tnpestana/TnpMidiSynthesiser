@@ -48,6 +48,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	oscTypeLabel.setJustificationType(Justification::bottomLeft);
 	attackLabel.setJustificationType(Justification::centredBottom);
 	decayLabel.setJustificationType(Justification::centredBottom);
+	sustainLabel.setJustificationType(Justification::centredBottom);
 	releaseLabel.setJustificationType(Justification::centredBottom);
 
 	transposeSlider.setSliderStyle(Slider::LinearHorizontal);
@@ -99,6 +100,7 @@ OscillatorEditor::~OscillatorEditor()
 void OscillatorEditor::paint(Graphics& g)
 {
 	titleLabel.setColour(Label::backgroundColourId, Colours::lightgrey);
+	titleLabel.setColour(Label::outlineColourId, Colours::black);
 	transposeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	attackSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	decaySlider.setColour(Slider::textBoxTextColourId, Colours::black);
