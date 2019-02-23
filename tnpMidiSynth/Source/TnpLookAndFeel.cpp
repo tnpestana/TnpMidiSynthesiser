@@ -23,13 +23,13 @@ void TnpLookAndFeel::drawRotarySlider(Graphics & g, int x, int y, int width,
 	float rx = centreX - radius;
 	float ry = centreY - radius;
 	float angle = rotaryStartAngle + (sliderPos * (rotaryEndAngle - rotaryStartAngle));
-	auto backgroundColor = slider.findColour(Slider::ColourIds::backgroundColourId);
+	auto fillColor = slider.findColour(Slider::ColourIds::rotarySliderFillColourId);
 	auto outlineColor = slider.findColour(Slider::ColourIds::rotarySliderOutlineColourId);
 	auto thumbColor = slider.findColour(Slider::ColourIds::thumbColourId);
 
 	Rectangle<float> dialArea(centreX, centreY, dialWidth, dialHeight);
 
-	g.setColour(backgroundColor);
+	g.setColour(fillColor);
 	g.fillEllipse(rx, ry, diameter, diameter);
 
 	g.setColour(thumbColor);
