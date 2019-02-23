@@ -30,6 +30,12 @@
         <FILE id="j9WCNX" name="DelayEditor.cpp" compile="1" resource="0" file="Source/DelayEditor.cpp"/>
         <FILE id="pxcUz9" name="DelayEditor.h" compile="0" resource="0" file="Source/DelayEditor.h"/>
       </GROUP>
+      <GROUP id="{1BF9E916-6527-54CB-7671-8E91F9C306F1}" name="UI">
+        <FILE id="ybE83Y" name="TnpLookAndFeel.cpp" compile="1" resource="0"
+              file="Source/TnpLookAndFeel.cpp"/>
+        <FILE id="lqIe5D" name="TnpLookAndFeel.h" compile="0" resource="0"
+              file="Source/TnpLookAndFeel.h"/>
+      </GROUP>
       <FILE id="ZWtIDa" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="whaReg" name="PluginProcessor.h" compile="0" resource="0"

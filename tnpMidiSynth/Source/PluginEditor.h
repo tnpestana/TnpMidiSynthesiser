@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
+#include "TnpLookAndFeel.h"
 #include "OscillatorEditor.h"
 #include "ReverbEditor.h"
 #include "DelayEditor.h"
@@ -37,6 +38,8 @@ private:
 	TnpMidiSynthAudioProcessor& processor;
 	AudioProcessorValueTreeState& treeState;
 	MidiKeyboardState& midiState;
+
+	TnpLookAndFeel tnpLookAndFeel;
 
 	Label labelTitle;
 	Label gainLabel;

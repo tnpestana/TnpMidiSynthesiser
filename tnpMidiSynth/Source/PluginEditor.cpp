@@ -29,7 +29,8 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 {
     // Main editor's size.
 	setSize(650, 500);
-	setResizable(true, true);
+	setLookAndFeel(&tnpLookAndFeel);
+	setResizable(false, false);
 
 	backgroundImage = ImageCache::getFromMemory(BinaryData::background_jpg, BinaryData::background_jpgSize);
 
