@@ -170,6 +170,10 @@ void TnpMidiSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
 	WavetableOscillator::createWavetable(sampleRate);
 	mySynth.setCurrentPlaybackSampleRate(sampleRate);
 
+	treeState.addParameterListener("reverbMix", this);
+	treeState.addParameterListener("reverbRoomSize", this);
+	treeState.addParameterListener("reverbDamping", this);
+	treeState.addParameterListener("reverbWidth", this);
 	reverb.setSampleRate(sampleRate);
 	updateReverb();
 
@@ -448,7 +452,8 @@ void TnpMidiSynthAudioProcessor::parameterChanged(const String & parameterID, fl
 	}
 	else if (parameterID == "reverbMix" ||
 		parameterID == "reverbRoomSize" ||
-		parameterID == "delayDamping")
+		parameterID == "delayDamping" ||
+		parameterID == "reverbWidth")
 	{
 		updateReverb();
 	}
