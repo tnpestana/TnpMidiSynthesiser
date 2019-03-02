@@ -20,17 +20,17 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	//  Parameter attachments
 	
 	attTranspose (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "oscTranspose", transposeSlider)),
+		(treeState, "osc1Transpose", transposeSlider)),
 	attOscType (std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
-		(treeState, "oscType", oscTypeInput)),
+		(treeState, "osc1Type", oscTypeInput)),
 	attAttack (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "volEnvAttack", attackSlider)),
+		(treeState, "osc1Attack", attackSlider)),
 	attDecay (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "volEnvDecay", decaySlider)),
+		(treeState, "osc1Decay", decaySlider)),
 	attSustain (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "volEnvSustain", sustainSlider)),
+		(treeState, "osc1Sustain", sustainSlider)),
 	attRelease (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "volEnvRelease", releaseSlider))
+		(treeState, "osc1Release", releaseSlider))
 {
 	titleLabel.setText("OSCILLATOR", dontSendNotification);
 	transposeLabel.setText("transpose: ", dontSendNotification);
@@ -61,7 +61,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	releaseSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 
 	//  Populate combo boxes with strings stored as parameter choices
-	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("oscType")))
+	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("osc1Type")))
 	{
 		oscTypeInput.addItemList(choiceParameter->choices, 1);
 		oscTypeInput.setSelectedId(choiceParameter->getIndex() + 1);

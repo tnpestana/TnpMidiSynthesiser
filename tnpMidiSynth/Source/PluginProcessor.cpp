@@ -28,19 +28,19 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 			{
 				std::make_unique<AudioParameterFloat>("gain", "Master Gain",
 					NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.5f),
-				std::make_unique<AudioParameterChoice>("oscNumVoices", "Number of Voices", 
+				std::make_unique<AudioParameterChoice>("numVoices", "Number of Voices", 
 					StringArray("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "16", "32"), 11),
 				//  Oscillator
-				std::make_unique<AudioParameterChoice>("oscType", "Oscillator Type", 
+				std::make_unique<AudioParameterChoice>("osc1Type", "Oscillator Type", 
 					StringArray("sine", "harmonic", "square", "triangle", "sawtooth"), 2),
-				std::make_unique<AudioParameterInt>("oscTranspose", "Transpose", -24, 24, 0),
-				std::make_unique<AudioParameterFloat>("volEnvAttack", "Volume Envelope Attack",
+				std::make_unique<AudioParameterInt>("osc1Transpose", "Transpose", -24, 24, 0),
+				std::make_unique<AudioParameterFloat>("osc1Attack", "Volume Envelope Attack",
 					NormalisableRange<float>(0.001f, 5.0f, 0.001f), 0.05f),
-				std::make_unique<AudioParameterFloat>("volEnvDecay", "Volume Envelope Decay",
+				std::make_unique<AudioParameterFloat>("osc1Decay", "Volume Envelope Decay",
 					NormalisableRange<float>(0.001f, 5.0f, 0.001f), 0.5f),
-				std::make_unique<AudioParameterFloat>("volEnvSustain", "Volume Envelope Sustain",
+				std::make_unique<AudioParameterFloat>("osc1Sustain", "Volume Envelope Sustain",
 					NormalisableRange<float>(0.001f, 1.0f, 0.001f), 0.05f),
-				std::make_unique<AudioParameterFloat>("volEnvRelease", "Volume Envelope Release",
+				std::make_unique<AudioParameterFloat>("osc1Release", "Volume Envelope Release",
 					NormalisableRange<float>(0.015f, 5.0f, 0.001f), 0.05f),
 				//  Filter
 				std::make_unique<AudioParameterFloat>("filterCutoff", "Filter Cutoff",
@@ -89,9 +89,9 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 		localSampleRate(1.0)
 #endif
 {
-	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("volEnvAttack"))->range.setSkewForCentre(1.0f);
-	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("volEnvDecay"))->range.setSkewForCentre(1.0f);
-	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("volEnvRelease"))->range.setSkewForCentre(1.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Attack"))->range.setSkewForCentre(1.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Decay"))->range.setSkewForCentre(1.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Release"))->range.setSkewForCentre(1.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("filterCutoff"))->range.setSkewForCentre(1000.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("filterGainFactor"))->range.setSkewForCentre(1.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("lfoRate"))->range.setSkewForCentre(5.0f);
@@ -252,7 +252,7 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 void TnpMidiSynthAudioProcessor::manageActiveVoices()
 {
 	// Check if the number of voices selected has changed.
-	int numVoicesParam = *treeState.getRawParameterValue("oscNumVoices") + 1;	//  Add one for the values to match the combo box IDs.
+	int numVoicesParam = *treeState.getRawParameterValue("numVoices") + 1;	//  Add one for the values to match the combo box IDs.
 	numVoicesParam = numVoicesParam == 11 ? 16 : numVoicesParam;				//  If the parameter returns the value 11 it means there 
 	numVoicesParam = numVoicesParam == 12 ? 32 : numVoicesParam;				// are 16 voices.
 	if (numVoicesParam != mySynth.getNumVoices())
@@ -266,12 +266,12 @@ void TnpMidiSynthAudioProcessor::manageActiveVoices()
 		// pass them the value tree state gain and envelope parameters.
 		if (mySynthVoice = dynamic_cast<TnpSynthVoice*>(mySynth.getVoice(i)))
 		{
-			mySynthVoice->getOscillatorType(*treeState.getRawParameterValue("oscType"));
-			mySynthVoice->getTransposeValue(*treeState.getRawParameterValue("oscTranspose"));
-			mySynthVoice->getEnvelopeParameters(*treeState.getRawParameterValue("volEnvAttack"),
-				*treeState.getRawParameterValue("volEnvDecay"),
-				*treeState.getRawParameterValue("volEnvSustain"),
-				*treeState.getRawParameterValue("volEnvRelease"));
+			mySynthVoice->getOscillatorType(*treeState.getRawParameterValue("osc1Type"));
+			mySynthVoice->getTransposeValue(*treeState.getRawParameterValue("osc1Transpose"));
+			mySynthVoice->getEnvelopeParameters(*treeState.getRawParameterValue("osc1Attack"),
+				*treeState.getRawParameterValue("osc1Decay"),
+				*treeState.getRawParameterValue("osc1Sustain"),
+				*treeState.getRawParameterValue("osc1Release"));
 		}
 	}
 }

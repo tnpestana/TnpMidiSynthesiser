@@ -26,8 +26,9 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	lfoGUI(p), 
 	delayGUI(p), 
 	filterGUI(p),
+	//	Attachments
 	attNumVoices(std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
-		(treeState, "oscNumVoices", numVoicesInput)),
+		(treeState, "numVoices", numVoicesInput)),
 	gainAttachment(std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
 		(treeState, "gain", gainSlider))
 {
@@ -62,7 +63,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	gainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 45, 20);
 	
 	//  Populate combo boxes with strings stored as parameter choices
-	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("oscNumVoices")))
+	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("numVoices")))
 	{
 		numVoicesInput.addItemList(choiceParameter->choices, 1);
 		numVoicesInput.setSelectedId(choiceParameter->getIndex() + 1);
@@ -70,6 +71,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	
 	midiKeyboard.setLowestVisibleKey(36);
 }
+
 TnpMidiSynthAudioProcessorEditor::~TnpMidiSynthAudioProcessorEditor()
 {
 }
