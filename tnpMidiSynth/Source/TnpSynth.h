@@ -13,7 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TnpWavetable.h"
 #include "ADSR/ADSR.h"
-#include "TnpLFO.h"
+
 
 //==============================================================================
 class TnpSynthSound : public SynthesiserSound
@@ -45,17 +45,14 @@ public:
 
 	//==============================================================================
 	void getEnvelopeParameters(float attack, float decay, float sustain, float release);
-	void getLfoParameters(float depth, float rate, float toggle, int oscType);
 	void getOscillatorType(float oscType);
 	void getTransposeValue(float transpose);
 
 private:
-	float toggleLFO;
 	float frequency;
 	double velocityLevel;
 	float soundwave;
 	int oscType, transposeValue;
 	WavetableOscillator wOscillator;
 	ADSR volumeEnvelope;
-	TnpLFO lfo;
 };

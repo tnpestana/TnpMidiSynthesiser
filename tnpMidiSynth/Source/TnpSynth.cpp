@@ -35,12 +35,10 @@ TnpSynthVoice::TnpSynthVoice()
 	soundwave(0.f),
 	oscType(0),
 	transposeValue(0),
-	toggleLFO(0.0f),
 	wOscillator(),
 	volumeEnvelope(),
 	frequency(0.0f)
 {
-	lfo.prepareToPLay(getSampleRate());
 }
 
 TnpSynthVoice::~TnpSynthVoice()
@@ -132,10 +130,6 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 
 		for (int channel = 0; channel < outputBuffer.getNumChannels(); channel++)
 		{		
-			if (toggleLFO != 0.0f)
-			{
-				lfo.processAudioFrame(&envelope);
-			}
 			outputBuffer.addSample(channel, startSample, envelope);
 		}
 		startSample++;
@@ -150,12 +144,6 @@ void TnpSynthVoice::getEnvelopeParameters(float attack, float decay, float susta
 	volumeEnvelope.setDecayRate(decay * sampleRate);
 	volumeEnvelope.setSustainLevel(sustain);
 	volumeEnvelope.setReleaseRate(release * sampleRate);
-}
-
-void TnpSynthVoice::getLfoParameters(float depth, float rate, float toggle, int oscType)
-{
-	lfo.updateParameters(depth, rate, oscType);
-	toggleLFO = toggle;
 }
 
 void TnpSynthVoice::getOscillatorType(float input)

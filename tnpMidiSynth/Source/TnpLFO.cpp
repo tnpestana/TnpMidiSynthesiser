@@ -54,7 +54,6 @@ void TnpLFO::processAudioFrame(float* sample)
 	lfo = lfo / 2 + 0.5;
 
 	float gainFactor = 1.0;
-
 	gainFactor = calculateGainFactor(lfo);
 
 	*sample = *sample * gainFactor;

@@ -20,7 +20,7 @@ public:
 	~TnpLFO();
 
 	void prepareToPLay(double sampleRate);
-	void processAudioFrame(float* buffer);
+	void processAudioFrame(float* sample);
 	void updateParameters(float depth, float rate, int oscType);
 
 private:

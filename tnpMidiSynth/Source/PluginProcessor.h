@@ -13,7 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TnpSynth.h"
 #include "TnpStereoDelay.h"
-#include "TnpWavetable.h"
+#include "TnpLFO.h"
 
 //==============================================================================
 class TnpMidiSynthAudioProcessor : public AudioProcessor, public AudioProcessorValueTreeState::Listener
@@ -37,6 +37,9 @@ public:
 
 	void updateFilter();
 	void processFilter (AudioBuffer<float>& buffer);
+
+	void updateLFO();
+	void processLFO(AudioBuffer<float>& buffer);
 
 	void updateDelay();
 	void processDelay (AudioBuffer<float>& buffer);
@@ -88,6 +91,7 @@ private:
 	IIRFilter filterLeft;
 	IIRFilter filterRight;
 	TnpStereoDelay delay;
+	TnpLFO lfo;
 
 	double localSampleRate;
 	float currentGain, targetGain;

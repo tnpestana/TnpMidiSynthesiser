@@ -170,12 +170,18 @@ void TnpMidiSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
 	WavetableOscillator::createWavetable(sampleRate);
 	mySynth.setCurrentPlaybackSampleRate(sampleRate);
 
-	treeState.addParameterListener("reverbMix", this);
-	treeState.addParameterListener("reverbRoomSize", this);
-	treeState.addParameterListener("reverbDamping", this);
-	treeState.addParameterListener("reverbWidth", this);
-	reverb.setSampleRate(sampleRate);
-	updateReverb();
+	treeState.addParameterListener("filterType", this);
+	treeState.addParameterListener("filterCutoff", this);
+	treeState.addParameterListener("filterQ", this);
+	treeState.addParameterListener("filterGainFactor", this);
+	updateFilter();
+
+	treeState.addParameterListener("lfoToggle", this);
+	treeState.addParameterListener("lfoOscType", this);
+	treeState.addParameterListener("lfoDepth", this);
+	treeState.addParameterListener("lfoRate", this);
+	lfo.prepareToPLay(getSampleRate());
+	updateLFO();
 
 	treeState.addParameterListener("delayTime", this);
 	treeState.addParameterListener("delayFeedback", this);
@@ -183,11 +189,12 @@ void TnpMidiSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
 	delay.prepareToPlay(sampleRate);
 	updateDelay();
 
-	treeState.addParameterListener("filterType", this);
-	treeState.addParameterListener("filterCutoff", this);
-	treeState.addParameterListener("filterQ", this);
-	treeState.addParameterListener("filterGainFactor", this);
-	updateFilter();
+	treeState.addParameterListener("reverbMix", this);
+	treeState.addParameterListener("reverbRoomSize", this);
+	treeState.addParameterListener("reverbDamping", this);
+	treeState.addParameterListener("reverbWidth", this);
+	reverb.setSampleRate(sampleRate);
+	updateReverb();
 }
 
 void TnpMidiSynthAudioProcessor::releaseResources()
@@ -229,6 +236,9 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 
 	if (*treeState.getRawParameterValue("filterToggle") == 1.0f)
 		processFilter(buffer);
+
+	if (*treeState.getRawParameterValue("lfoToggle") == 1.0)
+		processLFO(buffer);
 	
 	if (*treeState.getRawParameterValue("delayToggle") == 1.0f)
 		processDelay(buffer);
@@ -261,10 +271,6 @@ void TnpMidiSynthAudioProcessor::manageActiveVoices()
 				*treeState.getRawParameterValue("volEnvDecay"),
 				*treeState.getRawParameterValue("volEnvSustain"),
 				*treeState.getRawParameterValue("volEnvRelease"));
-			mySynthVoice->getLfoParameters(*treeState.getRawParameterValue("lfoDepth"),
-				*treeState.getRawParameterValue("lfoRate"),
-				*treeState.getRawParameterValue("lfoToggle"),
-				*treeState.getRawParameterValue("lfoOscType"));
 		}
 	}
 }
@@ -286,6 +292,29 @@ void TnpMidiSynthAudioProcessor::processGain(AudioBuffer<float>& buffer)
 			// Apply gain.
 			*channelData = *channelData * currentGain;
 			channelData++;
+		}
+	}
+}
+
+
+//==============================================================================
+void TnpMidiSynthAudioProcessor::updateLFO()
+{
+	const float lfoDepth = *treeState.getRawParameterValue("lfoDepth");
+	const float lfoRate = *treeState.getRawParameterValue("lfoRate");
+	const int lfoOscType = *treeState.getRawParameterValue("lfoOscType");
+
+	lfo.updateParameters(lfoDepth, lfoRate, lfoOscType);
+}
+
+void TnpMidiSynthAudioProcessor::processLFO(AudioBuffer<float>& buffer)
+{
+	for (int sample = 0; sample < buffer.getNumSamples(); sample++)
+	{
+		for (int channel = 0; channel < buffer.getNumChannels(); channel++)
+		{
+			float* channelData = buffer.getWritePointer(channel, sample);
+			lfo.processAudioFrame(channelData);
 		}
 	}
 }
@@ -443,6 +472,12 @@ void TnpMidiSynthAudioProcessor::parameterChanged(const String & parameterID, fl
 		parameterID == "filterGainFactor")
 	{
 		updateFilter();
+	}
+	else if (parameterID == "lfoOscType" ||
+		parameterID == "lfoDepth" ||
+		parameterID == "lfoRate")
+	{
+		updateLFO();
 	}
 	else if (parameterID == "delayTime" ||
 		parameterID == "delayFeedback" ||
