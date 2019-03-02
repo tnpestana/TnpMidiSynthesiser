@@ -18,8 +18,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	: processor (p),
 	treeState (p.getTreeState()),
 	//  Parameter attachments
-	attNumVoices (std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
-		(treeState, "oscNumVoices", numVoicesInput)),
+	
 	attTranspose (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
 		(treeState, "oscTranspose", transposeSlider)),
 	attOscType (std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
@@ -35,7 +34,6 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 {
 	titleLabel.setText("OSCILLATOR", dontSendNotification);
 	transposeLabel.setText("transpose: ", dontSendNotification);
-	numVoicesLabel.setText("voices: ", dontSendNotification);
 	oscTypeLabel.setText("wave type:", dontSendNotification);
 	attackLabel.setText("attack", dontSendNotification);
 	decayLabel.setText("decay", dontSendNotification);
@@ -43,7 +41,6 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	releaseLabel.setText("release", dontSendNotification);
 
 	titleLabel.setJustificationType(Justification::centred);
-	numVoicesLabel.setJustificationType(Justification::bottomLeft);
 	transposeLabel.setJustificationType(Justification::bottomLeft);
 	oscTypeLabel.setJustificationType(Justification::bottomLeft);
 	attackLabel.setJustificationType(Justification::centredBottom);
@@ -63,13 +60,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	sustainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	releaseSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 
-	//  Populate combo boxes with strings stored as paramneter choices
-	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("oscNumVoices")))
-	{
-		numVoicesInput.addItemList(choiceParameter->choices, 1);
-		numVoicesInput.setSelectedId(choiceParameter->getIndex() + 1);
-	}
-
+	//  Populate combo boxes with strings stored as parameter choices
 	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("oscType")))
 	{
 		oscTypeInput.addItemList(choiceParameter->choices, 1);
@@ -77,8 +68,6 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	}
 
 	addAndMakeVisible(titleLabel);
-	addAndMakeVisible(numVoicesLabel);
-	addAndMakeVisible(numVoicesInput);
 	addAndMakeVisible(transposeLabel);
 	addAndMakeVisible(transposeSlider);
 	addAndMakeVisible(oscTypeLabel);
@@ -106,7 +95,6 @@ void OscillatorEditor::paint(Graphics& g)
 	decaySlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	sustainSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	releaseSlider.setColour(Slider::textBoxTextColourId, Colours::black);
-	numVoicesInput.setColour(ComboBox::textColourId, Colours::black);
 	oscTypeInput.setColour(ComboBox::textColourId, Colours::black);
 }
 
@@ -118,11 +106,6 @@ void OscillatorEditor::resized()
 
 	//  Controls area.
 	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.30).reduced(2));
-
-	//  Number of voices selection area.   
-	juce::Rectangle<int> numVoicesArea(controls.removeFromLeft(60));
-	numVoicesLabel.setBounds(numVoicesArea.removeFromTop(20));
-	numVoicesInput.setBounds(numVoicesArea.reduced(2));
 	
 	//  Oscillator Type.
 	juce::Rectangle<int> oscTypeArea(controls.removeFromLeft(100));

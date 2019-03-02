@@ -25,35 +25,49 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	reverbGUI(p), 
 	lfoGUI(p), 
 	delayGUI(p), 
-	filterGUI(p)
+	filterGUI(p),
+	attNumVoices(std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
+		(treeState, "oscNumVoices", numVoicesInput)),
+	gainAttachment(std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+		(treeState, "gain", gainSlider))
 {
     // Main editor's size.
-	setSize(650, 500);
+	setSize(650, 510);
 	setLookAndFeel(&tnpLookAndFeel);
 	setResizable(false, false);
 
 	backgroundImage = ImageCache::getFromMemory(BinaryData::background_jpg, BinaryData::background_jpgSize);
 
+	addAndMakeVisible(numVoicesLabel);
+	addAndMakeVisible(numVoicesInput);
 	addAndMakeVisible(oscillatorGUI);
 	addAndMakeVisible(filterGUI);
 	addAndMakeVisible(lfoGUI);
 	addAndMakeVisible(reverbGUI);
 	addAndMakeVisible(delayGUI);
-
 	addAndMakeVisible(labelTitle);
-	labelTitle.setJustificationType(Justification::centred);
-	labelTitle.setText("TNP MIDI Synth", dontSendNotification);
-	
-	// Gain.
 	addAndMakeVisible(gainSlider);
+	addAndMakeVisible(gainLabel);
+	addAndMakeVisible(midiKeyboard);
+
+	labelTitle.setText("TNP MIDI Synth", dontSendNotification);
+	gainLabel.setText("GAIN", dontSendNotification);
+	numVoicesLabel.setText("voices: ", dontSendNotification);
+
+	labelTitle.setJustificationType(Justification::centred);
+	gainLabel.setJustificationType(Justification::centredTop);
+	numVoicesLabel.setJustificationType(Justification::bottomLeft);
+
 	gainSlider.setSliderStyle(Slider::LinearVertical);
 	gainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 45, 20);
-	addAndMakeVisible(gainLabel);
-	gainLabel.setText("GAIN", dontSendNotification);
-	gainLabel.setJustificationType(Justification::centredTop);
-	gainAttachment = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "gain", gainSlider);
-
-	addAndMakeVisible(midiKeyboard);
+	
+	//  Populate combo boxes with strings stored as parameter choices
+	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("oscNumVoices")))
+	{
+		numVoicesInput.addItemList(choiceParameter->choices, 1);
+		numVoicesInput.setSelectedId(choiceParameter->getIndex() + 1);
+	}
+	
 	midiKeyboard.setLowestVisibleKey(36);
 }
 TnpMidiSynthAudioProcessorEditor::~TnpMidiSynthAudioProcessorEditor()
@@ -66,6 +80,8 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (Colours::lightslategrey);
 	g.drawImageAt(backgroundImage, 0, 0);
+
+	numVoicesInput.setColour(ComboBox::textColourId, Colours::black);
 
 	gainLabel.setColour(Label::backgroundColourId, Colours::lightgrey);
 	gainLabel.setColour(Label::outlineColourId, Colours::black);
@@ -102,8 +118,14 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 {
 	// Total main editor's area.
 	juce::Rectangle<int> area (getLocalBounds());
-	juce::Rectangle<int> topSection (area.removeFromTop(40).reduced(5));
+	juce::Rectangle<int> topSection (area.removeFromTop(50).reduced(5));
 
+	//  Number of voices selection area.   
+	juce::Rectangle<int> numVoicesArea(topSection.removeFromLeft(60));
+	numVoicesLabel.setBounds(numVoicesArea.removeFromTop(15));
+	numVoicesInput.setBounds(numVoicesArea.reduced(2));
+
+	// MIDI keyboard area.
 	midiKeyboard.setBounds(area.removeFromBottom(100).reduced(5));
 
 	// Gain controls area. 

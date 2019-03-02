@@ -39,13 +39,11 @@ private:
 	Label attackLabel;
 	Label decayLabel;
 	Label sustainLabel;
-	Label releaseLabel; 
-	Label numVoicesLabel; 
+	Label releaseLabel;  
 	Label oscTypeLabel;
 	Label titleLabel;
 	Label transposeLabel;
 
-	ComboBox numVoicesInput;
 	ComboBox oscTypeInput;
 
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attAttack;
@@ -53,7 +51,6 @@ private:
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attSustain;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attRelease;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attTranspose;
-	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> attNumVoices;
 	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> attOscType;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscillatorEditor)

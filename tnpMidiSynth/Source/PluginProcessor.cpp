@@ -26,11 +26,11 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 		treeState(*this, nullptr, "tnpMidiSynthState",
 			//	Parameters
 			{
-				//  Oscillator
 				std::make_unique<AudioParameterFloat>("gain", "Master Gain",
 					NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.5f),
 				std::make_unique<AudioParameterChoice>("oscNumVoices", "Number of Voices", 
 					StringArray("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "16", "32"), 11),
+				//  Oscillator
 				std::make_unique<AudioParameterChoice>("oscType", "Oscillator Type", 
 					StringArray("sine", "harmonic", "square", "triangle", "sawtooth"), 2),
 				std::make_unique<AudioParameterInt>("oscTranspose", "Transpose", -24, 24, 0),
@@ -232,7 +232,6 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	manageActiveVoices();
 	keyboardState.processNextMidiBuffer(midiMessages, 0, buffer.getNumSamples(), true);
 	mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
-	processGain(buffer);
 
 	if (*treeState.getRawParameterValue("filterToggle") == 1.0f)
 		processFilter(buffer);
@@ -245,6 +244,8 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 
 	if (*treeState.getRawParameterValue("reverbToggle") == 1.0f)
 		processReverb(buffer);
+
+	processGain(buffer);
 }
 
 //==============================================================================

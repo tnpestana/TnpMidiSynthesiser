@@ -42,10 +42,12 @@ private:
 	TnpLookAndFeel tnpLookAndFeel;
 
 	Label labelTitle;
+	Label numVoicesLabel;
 	Label gainLabel;
 
 	juce::Image backgroundImage;
 
+	ComboBox numVoicesInput;
 	Slider gainSlider;
 
 	MidiKeyboardComponent midiKeyboard;
@@ -57,6 +59,7 @@ private:
 	ReverbEditor reverbGUI;
 
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> gainAttachment;
+	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> attNumVoices;
 
 	//==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpMidiSynthAudioProcessorEditor)
