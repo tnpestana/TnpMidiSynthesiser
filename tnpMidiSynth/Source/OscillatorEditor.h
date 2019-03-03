@@ -19,7 +19,7 @@
 class OscillatorEditor : public Component
 {
 public:
-	OscillatorEditor(TnpMidiSynthAudioProcessor&);
+	OscillatorEditor(TnpMidiSynthAudioProcessor&, int);
 	~OscillatorEditor();
 
 	void paint(Graphics&) override;
@@ -29,12 +29,15 @@ private:
 	TnpMidiSynthAudioProcessor& processor;
 	AudioProcessorValueTreeState& treeState;
 
+	int osc;
+
 	Slider attackSlider;
 	Slider decaySlider; 
 	Slider sustainSlider;
 	Slider releaseSlider; 
-	
 	Slider transposeSlider;
+
+	ToggleButton toggle;
 
 	Label attackLabel;
 	Label decayLabel;
@@ -52,6 +55,7 @@ private:
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attRelease;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attTranspose;
 	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> attOscType;
+	std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment> attOsc2Toggle;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscillatorEditor)
 };

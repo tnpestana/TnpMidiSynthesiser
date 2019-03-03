@@ -44,15 +44,20 @@ public:
 	virtual void renderNextBlock(AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
 
 	//==============================================================================
-	void getEnvelopeParameters(float attack, float decay, float sustain, float release);
-	void getOscillatorType(float oscType);
-	void getTransposeValue(float transpose);
+	void getEnvelopeParameters(float attack1, float decay1, float sustain1, float release1,
+							   float attack2, float decay2, float sustain2, float release2, float osc2Toggle);
+	void getOscillatorType(float osc1Type, float osc2Type);
+	void getTransposeValue(float transpose1, float transpose2);
 
 private:
-	float frequency;
+	float frequency1, frequency2;
 	double velocityLevel;
-	float soundwave;
-	int oscType, transposeValue;
-	WavetableOscillator wOscillator;
-	ADSR volumeEnvelope;
+	float soundwave1, soundwave2;
+	int osc1Type, osc1Transpose;
+	int osc2Type, osc2Transpose;
+	float osc2Toggle;
+	WavetableOscillator wOscillator1;
+	WavetableOscillator wOscillator2;
+	ADSR volumeEnvelope1;
+	ADSR volumeEnvelope2;
 };

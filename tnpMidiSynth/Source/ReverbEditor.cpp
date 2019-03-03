@@ -91,14 +91,14 @@ void ReverbEditor::resized()
 	juce::Rectangle<int> controlsArea(area.reduced(5));
 
 	juce::Rectangle<int> labels(controlsArea.removeFromTop(labelHeight));
-	roomSizeLabel.setBounds(labels.removeFromLeft(labelWidth));
-	dampingLabel.setBounds(labels.removeFromLeft(labelWidth));
-	widthLabel.setBounds(labels.removeFromLeft(labelWidth));
+	roomSizeLabel.setBounds(labels.removeFromLeft(labels.getWidth() / 4));
+	dampingLabel.setBounds(labels.removeFromLeft(labels.getWidth() / 3));
+	widthLabel.setBounds(labels.removeFromLeft(labels.getWidth() / 2));
 	labelMix.setBounds(labels.removeFromLeft(labelWidth));
 
 	juce::Rectangle<int> sliders(controlsArea.removeFromTop(getHeight()));
-	roomSizeSlider.setBounds(sliders.removeFromLeft(sliderWidth));
-	dampingSlider.setBounds(sliders.removeFromLeft(sliderWidth));
-	widthSlider.setBounds(sliders.removeFromLeft(sliderWidth));
-	mixSlider.setBounds(sliders.removeFromLeft(sliderWidth));
+	roomSizeSlider.setBounds(sliders.removeFromLeft(sliders.getWidth() / 4));
+	dampingSlider.setBounds(sliders.removeFromLeft(sliders.getWidth() / 3));
+	widthSlider.setBounds(sliders.removeFromLeft(sliders.getWidth() / 2));
+	mixSlider.setBounds(sliders);
 }

@@ -21,7 +21,8 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	midiState (p.getMidiState()),
 	midiKeyboard(p.getMidiState() , MidiKeyboardComponent::horizontalKeyboard),
 	//	Editor components
-	oscillatorGUI(p), 
+	oscillator1GUI(p, 1),
+	oscillator2GUI(p, 2),
 	reverbGUI(p), 
 	lfoGUI(p), 
 	delayGUI(p), 
@@ -33,7 +34,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 		(treeState, "gain", gainSlider))
 {
     // Main editor's size.
-	setSize(650, 510);
+	setSize(650, 660);
 	setLookAndFeel(&tnpLookAndFeel);
 	setResizable(false, false);
 
@@ -41,7 +42,8 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 
 	addAndMakeVisible(numVoicesLabel);
 	addAndMakeVisible(numVoicesInput);
-	addAndMakeVisible(oscillatorGUI);
+	addAndMakeVisible(oscillator1GUI);
+	addAndMakeVisible(oscillator2GUI);
 	addAndMakeVisible(filterGUI);
 	addAndMakeVisible(lfoGUI);
 	addAndMakeVisible(reverbGUI);
@@ -139,13 +141,15 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	juce::Rectangle<int> right (area);
 
 	// Oscillator area.
-	oscillatorGUI.setBounds(left.removeFromTop(200).reduced(5));
+	oscillator1GUI.setBounds(left.removeFromTop(200).reduced(5));
+	oscillator2GUI.setBounds(right.removeFromTop(200).reduced(5));
+
 	// IRRFilter area.
-	filterGUI.setBounds(left.reduced(5));
+	filterGUI.setBounds(left.removeFromTop(150).reduced(5));
 	// Distortion area.
-	lfoGUI.setBounds((right.removeFromTop(right.getHeight() * 0.33).reduced(5)));
+	lfoGUI.setBounds((right.removeFromTop(150).reduced(5)));
 	// Delay area.
-	delayGUI.setBounds(right.removeFromTop(right.getHeight() * 0.5).reduced(5));
+	delayGUI.setBounds(right.reduced(5));
 	// Reverb area.
-	reverbGUI.setBounds(right.reduced(5));
+	reverbGUI.setBounds(left.reduced(5));
 }

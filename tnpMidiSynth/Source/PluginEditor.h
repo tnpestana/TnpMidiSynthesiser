@@ -52,7 +52,8 @@ private:
 
 	MidiKeyboardComponent midiKeyboard;
 
-	OscillatorEditor oscillatorGUI;
+	OscillatorEditor oscillator1GUI;
+	OscillatorEditor oscillator2GUI;
 	FilterEditor filterGUI;
 	LFOEditor lfoGUI;
 	DelayEditor delayGUI;

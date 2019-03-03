@@ -82,7 +82,7 @@ void DelayEditor::resized()
 	labelDelayMix.setBounds(labelArea.removeFromLeft(sliderWidth));
 
 	juce::Rectangle<int> sliderArea(controlsArea.removeFromTop(getHeight()));
-	sliderDelayTime.setBounds(sliderArea.removeFromLeft(sliderWidth));
-	sliderDelayFeedback.setBounds(sliderArea.removeFromLeft(sliderWidth));
-	sliderdelayMix.setBounds(sliderArea.removeFromLeft(sliderWidth));
+	sliderDelayTime.setBounds(sliderArea.removeFromLeft(sliderWidth).reduced(5));
+	sliderDelayFeedback.setBounds(sliderArea.removeFromLeft(sliderWidth).reduced(5));
+	sliderdelayMix.setBounds(sliderArea.removeFromLeft(sliderWidth).reduced(5));
 }

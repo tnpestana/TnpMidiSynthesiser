@@ -30,7 +30,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 					NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.5f),
 				std::make_unique<AudioParameterChoice>("numVoices", "Number of Voices", 
 					StringArray("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "16", "32"), 11),
-				//  Oscillator
+				//  Oscillator 1
 				std::make_unique<AudioParameterChoice>("osc1Type", "Oscillator Type", 
 					StringArray("sine", "harmonic", "square", "triangle", "sawtooth"), 2),
 				std::make_unique<AudioParameterInt>("osc1Transpose", "Transpose", -24, 24, 0),
@@ -42,6 +42,19 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 					NormalisableRange<float>(0.001f, 1.0f, 0.001f), 0.05f),
 				std::make_unique<AudioParameterFloat>("osc1Release", "Volume Envelope Release",
 					NormalisableRange<float>(0.015f, 5.0f, 0.001f), 0.05f),
+				//	Oscillator 2
+				std::make_unique<AudioParameterChoice>("osc2Type", "Oscillator Type",
+					StringArray("sine", "harmonic", "square", "triangle", "sawtooth"), 2),
+				std::make_unique<AudioParameterInt>("osc2Transpose", "Transpose", -24, 24, 0),
+				std::make_unique<AudioParameterFloat>("osc2Attack", "Volume Envelope Attack",
+					NormalisableRange<float>(0.001f, 5.0f, 0.001f), 0.05f),
+				std::make_unique<AudioParameterFloat>("osc2Decay", "Volume Envelope Decay",
+					NormalisableRange<float>(0.001f, 5.0f, 0.001f), 0.5f),
+				std::make_unique<AudioParameterFloat>("osc2Sustain", "Volume Envelope Sustain",
+					NormalisableRange<float>(0.001f, 1.0f, 0.001f), 0.05f),
+				std::make_unique<AudioParameterFloat>("osc2Release", "Volume Envelope Release",
+					NormalisableRange<float>(0.015f, 5.0f, 0.001f), 0.05f),
+				std::make_unique<AudioParameterInt>("osc2Toggle", "Filter Toggle", 0, 1, 1),
 				//  Filter
 				std::make_unique<AudioParameterFloat>("filterCutoff", "Filter Cutoff",
 					NormalisableRange<float>(20.0f, 20000.0f, 0.01f), 1500.0f),
@@ -92,6 +105,9 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Attack"))->range.setSkewForCentre(1.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Decay"))->range.setSkewForCentre(1.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Release"))->range.setSkewForCentre(1.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc2Attack"))->range.setSkewForCentre(1.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc2Decay"))->range.setSkewForCentre(1.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc2Release"))->range.setSkewForCentre(1.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("filterCutoff"))->range.setSkewForCentre(1000.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("filterGainFactor"))->range.setSkewForCentre(1.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("lfoRate"))->range.setSkewForCentre(5.0f);
@@ -266,12 +282,19 @@ void TnpMidiSynthAudioProcessor::manageActiveVoices()
 		// pass them the value tree state gain and envelope parameters.
 		if (mySynthVoice = dynamic_cast<TnpSynthVoice*>(mySynth.getVoice(i)))
 		{
-			mySynthVoice->getOscillatorType(*treeState.getRawParameterValue("osc1Type"));
-			mySynthVoice->getTransposeValue(*treeState.getRawParameterValue("osc1Transpose"));
+			mySynthVoice->getOscillatorType(*treeState.getRawParameterValue("osc1Type"),
+				*treeState.getRawParameterValue("osc2Type"));
+			mySynthVoice->getTransposeValue(*treeState.getRawParameterValue("osc1Transpose"),
+				*treeState.getRawParameterValue("osc2Transpose"));
 			mySynthVoice->getEnvelopeParameters(*treeState.getRawParameterValue("osc1Attack"),
 				*treeState.getRawParameterValue("osc1Decay"),
 				*treeState.getRawParameterValue("osc1Sustain"),
-				*treeState.getRawParameterValue("osc1Release"));
+				*treeState.getRawParameterValue("osc1Release"),
+				*treeState.getRawParameterValue("osc2Attack"),
+				*treeState.getRawParameterValue("osc2Decay"),
+				*treeState.getRawParameterValue("osc2Sustain"),
+				*treeState.getRawParameterValue("osc2Release"),
+				*treeState.getRawParameterValue("osc2Toggle"));
 		}
 	}
 }

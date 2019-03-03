@@ -13,26 +13,12 @@
 
 #include "OscillatorEditor.h"
 
-OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
+OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, int osc)
 	//  Processor references
 	: processor (p),
 	treeState (p.getTreeState()),
-	//  Parameter attachments
-	
-	attTranspose (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "osc1Transpose", transposeSlider)),
-	attOscType (std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
-		(treeState, "osc1Type", oscTypeInput)),
-	attAttack (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "osc1Attack", attackSlider)),
-	attDecay (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "osc1Decay", decaySlider)),
-	attSustain (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "osc1Sustain", sustainSlider)),
-	attRelease (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "osc1Release", releaseSlider))
+	osc(osc)
 {
-	titleLabel.setText("OSCILLATOR", dontSendNotification);
 	transposeLabel.setText("transpose: ", dontSendNotification);
 	oscTypeLabel.setText("wave type:", dontSendNotification);
 	attackLabel.setText("attack", dontSendNotification);
@@ -60,11 +46,56 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p)
 	sustainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	releaseSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 
-	//  Populate combo boxes with strings stored as parameter choices
-	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("osc1Type")))
+	//  Parameter attachments
+	if (osc == 1)
 	{
-		oscTypeInput.addItemList(choiceParameter->choices, 1);
-		oscTypeInput.setSelectedId(choiceParameter->getIndex() + 1);
+		titleLabel.setText("OSCILLATOR 1", dontSendNotification);
+		attTranspose = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+			(treeState, "osc1Transpose", transposeSlider);
+		attOscType = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
+			(treeState, "osc1Type", oscTypeInput);
+		attAttack = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+			(treeState, "osc1Attack", attackSlider);
+		attDecay = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+			(treeState, "osc1Decay", decaySlider);
+		attSustain = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+			(treeState, "osc1Sustain", sustainSlider);
+		attRelease = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+				(treeState, "osc1Release", releaseSlider);
+
+		//  Populate combo boxes with strings stored as parameter choices
+		if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("osc1Type")))
+		{
+			oscTypeInput.addItemList(choiceParameter->choices, 1);
+			oscTypeInput.setSelectedId(choiceParameter->getIndex() + 1);
+		}
+	}
+	else if (osc == 2)
+	{
+		titleLabel.setText("OSCILLATOR 2", dontSendNotification);
+		attTranspose = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+			(treeState, "osc2Transpose", transposeSlider);
+		attOscType = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
+			(treeState, "osc2Type", oscTypeInput);
+		attAttack = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+			(treeState, "osc2Attack", attackSlider);
+		attDecay = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+			(treeState, "osc2Decay", decaySlider);
+		attSustain = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+			(treeState, "osc2Sustain", sustainSlider);
+		attRelease = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+			(treeState, "osc2Release", releaseSlider);
+		attOsc2Toggle = std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
+			(treeState, "osc2Toggle", toggle);
+
+		//  Populate combo boxes with strings stored as parameter choices
+		if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("osc1Type")))
+		{
+			oscTypeInput.addItemList(choiceParameter->choices, 1);
+			oscTypeInput.setSelectedId(choiceParameter->getIndex() + 1);
+		}
+
+		addAndMakeVisible(toggle);
 	}
 
 	addAndMakeVisible(titleLabel);
@@ -102,7 +133,12 @@ void OscillatorEditor::resized()
 {
 	//  Total oscillator area.
 	juce::Rectangle<int> oscArea(getLocalBounds());
-	titleLabel.setBounds(oscArea.removeFromTop(20).reduced(2));
+
+	juce::Rectangle<int> topSection(oscArea.removeFromTop(20));
+	if (osc == 2)
+		toggle.setBounds(topSection.removeFromLeft(22));
+	titleLabel.setBounds(topSection.reduced(2));
+	
 
 	//  Controls area.
 	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.30).reduced(2));
