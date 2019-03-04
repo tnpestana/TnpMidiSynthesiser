@@ -67,7 +67,6 @@ void DelayEditor::paint(Graphics& g)
 
 void DelayEditor::resized()
 {
-	const int sliderWidth = getWidth() / 3;
 	juce::Rectangle<int> area(getLocalBounds());
 
 	juce::Rectangle<int> topSection(area.removeFromTop(20));
@@ -76,13 +75,23 @@ void DelayEditor::resized()
 
 	juce::Rectangle<int> controlsArea(area.reduced(5));
 
-	juce::Rectangle<int> labelArea(controlsArea.removeFromTop(15));
-	labelDelayTime.setBounds(labelArea.removeFromLeft(sliderWidth));
-	labelDelayFeedback.setBounds(labelArea.removeFromLeft(sliderWidth));
-	labelDelayMix.setBounds(labelArea.removeFromLeft(sliderWidth));
+	int controlWidth = controlsArea.getWidth() / 16;
 
-	juce::Rectangle<int> sliderArea(controlsArea.removeFromTop(getHeight()));
-	sliderDelayTime.setBounds(sliderArea.removeFromLeft(sliderWidth).reduced(5));
-	sliderDelayFeedback.setBounds(sliderArea.removeFromLeft(sliderWidth).reduced(5));
-	sliderdelayMix.setBounds(sliderArea.removeFromLeft(sliderWidth).reduced(5));
+	juce::Rectangle<int> firstRemovedAreaLeft(controlsArea.removeFromLeft(controlWidth * 2));
+
+	juce::Rectangle<int> delayTimeArea(controlsArea.removeFromLeft(controlWidth * 4));
+	labelDelayTime.setBounds(delayTimeArea.removeFromTop(15));
+	sliderDelayTime.setBounds(delayTimeArea);
+
+	juce::Rectangle<int> secondRemovedAreaLeft(controlsArea.removeFromLeft(controlWidth));
+
+	juce::Rectangle<int> feedbackArea(controlsArea.removeFromLeft(controlWidth * 4));
+	labelDelayFeedback.setBounds(feedbackArea.removeFromTop(15));
+	sliderDelayFeedback.setBounds(feedbackArea);
+
+	juce::Rectangle<int> thirdRemovedAreaLeft(controlsArea.removeFromLeft(controlWidth));
+
+	juce::Rectangle<int> mixArea(controlsArea.removeFromLeft(controlWidth * 4));
+	labelDelayMix.setBounds(mixArea.removeFromTop(15));
+	sliderdelayMix.setBounds(mixArea);
 }

@@ -44,6 +44,9 @@ public:
 	virtual void renderNextBlock(AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
 
 	//==============================================================================
+	float processOscillator(WavetableOscillator& oscillator, int oscType, float frequency);
+
+	//==============================================================================
 	void getEnvelopeParameters(float attack1, float decay1, float sustain1, float release1,
 							   float attack2, float decay2, float sustain2, float release2, float osc2Toggle);
 	void getOscillatorType(float osc1Type, float osc2Type);

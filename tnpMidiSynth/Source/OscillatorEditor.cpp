@@ -89,7 +89,7 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, int osc)
 			(treeState, "osc2Toggle", toggle);
 
 		//  Populate combo boxes with strings stored as parameter choices
-		if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("osc1Type")))
+		if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("osc2Type")))
 		{
 			oscTypeInput.addItemList(choiceParameter->choices, 1);
 			oscTypeInput.setSelectedId(choiceParameter->getIndex() + 1);
