@@ -16,4 +16,4 @@ Both /Builds and /JuceLibraryCode folders are ignored but it is my understanding
 
 ## Screenshot
 
-![capture](https://user-images.githubusercontent.com/22794411/53520222-0b12d100-3acd-11e9-9fd2-db507d2f99ee.JPG)
+![capture](https://user-images.githubusercontent.com/22794411/53762208-63781300-3ebf-11e9-8421-2bfa8242ceac.JPG)
