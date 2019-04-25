@@ -44,7 +44,7 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
 
 	sliderFilterQ.setTextBoxStyle		   (Slider::TextBoxBelow, false, 60, 15);
 	sliderFilterCutoff.setTextBoxStyle	   (Slider::TextBoxBelow, false, 70, 15);
-	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxLeft, false, 40, 15);
+	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxLeft, false, 50, 15);
 
 	sliderFilterQ.setTextValueSuffix(" oct");
 	sliderFilterCutoff.setTextValueSuffix(" Hz");

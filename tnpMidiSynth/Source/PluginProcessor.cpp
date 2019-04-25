@@ -27,7 +27,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 			//	Parameters
 			{
 				std::make_unique<AudioParameterFloat>("gain", "Master Gain",
-					NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.5f),
+					NormalisableRange<float>(-48.0f, 6.0f, 0.1f), 0.0f),
 				std::make_unique<AudioParameterChoice>("numVoices", "Number of Voices", 
 					StringArray("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "16", "32"), 11),
 				//  Oscillator 1
@@ -63,7 +63,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 				std::make_unique<AudioParameterFloat>("filterQ", "Filter Q",
 					NormalisableRange<float>(0.01f, 3.0f, 0.01f), 1.6f),
 				std::make_unique<AudioParameterFloat>("filterGainFactor", "Filter Gain Factor",
-					NormalisableRange<float>(0.01f, 3.0f, 0.01f), 0.5f),
+					NormalisableRange<float>(0.0f, 300.0f, 1.0f), 50.0f),
 				std::make_unique<AudioParameterInt>("filterToggle", "Filter Toggle", 0, 1, 1),
 				//  LFO
 				std::make_unique<AudioParameterChoice>("lfoOscType", "LFO Oscillator Type", 
@@ -102,6 +102,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 		localSampleRate(1.0)
 #endif
 {
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("gain"))->range.setSkewForCentre(-12.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Attack"))->range.setSkewForCentre(1000.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Decay"))->range.setSkewForCentre(1000.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Release"))->range.setSkewForCentre(1000.0f);
@@ -109,7 +110,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc2Decay"))->range.setSkewForCentre(1000.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc2Release"))->range.setSkewForCentre(1000.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("filterCutoff"))->range.setSkewForCentre(1000.0f);
-	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("filterGainFactor"))->range.setSkewForCentre(1.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("filterGainFactor"))->range.setSkewForCentre(100.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("lfoRate"))->range.setSkewForCentre(5.0f);
 }
 
@@ -308,8 +309,10 @@ void TnpMidiSynthAudioProcessor::processGain(AudioBuffer<float>& buffer)
 
 		for (int sample = 0; sample < buffer.getNumSamples(); sample++)
 		{
+			// Transform decibels to gain.
+			targetGain = Decibels::decibelsToGain(*treeState.getRawParameterValue("gain"));
+			
 			// Avoid glicthes via volume increment.
-			targetGain = *treeState.getRawParameterValue("gain");
 			if (currentGain != targetGain)
 				currentGain += (targetGain - currentGain) / buffer.getNumSamples();
 
@@ -349,7 +352,7 @@ void TnpMidiSynthAudioProcessor::updateFilter()
 	const int filterType = *treeState.getRawParameterValue("filterType");
 	const float filterQ = *treeState.getRawParameterValue("filterQ");
 	const float filterCutoff = *treeState.getRawParameterValue("filterCutoff");
-	const float filterGainFactor = *treeState.getRawParameterValue("filterGainFactor");
+	const float filterGainFactor = *treeState.getRawParameterValue("filterGainFactor") * 0.01;
 	switch (filterType)
 	{
 	case 0:

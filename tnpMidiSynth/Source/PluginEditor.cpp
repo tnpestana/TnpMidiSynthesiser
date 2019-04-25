@@ -62,7 +62,8 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	numVoicesLabel.setJustificationType(Justification::bottomLeft);
 
 	gainSlider.setSliderStyle(Slider::LinearVertical);
-	gainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 45, 20);
+	gainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 70, 20);
+	gainSlider.setTextValueSuffix(" dB");
 	
 	//  Populate combo boxes with strings stored as parameter choices
 	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("numVoices")))
@@ -133,7 +134,7 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	midiKeyboard.setBounds(area.removeFromBottom(100).reduced(5));
 
 	// Gain controls area. 
-	juce::Rectangle<int> gainLocation(area.removeFromRight(50).reduced(5));
+	juce::Rectangle<int> gainLocation(area.removeFromRight(60).reduced(5));
 	gainLabel.setBounds(gainLocation.removeFromTop(20).reduced(2));
 	gainSlider.setBounds(gainLocation);
 
