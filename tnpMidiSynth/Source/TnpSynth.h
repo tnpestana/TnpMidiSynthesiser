@@ -61,6 +61,6 @@ private:
 	float osc2Toggle;
 	WavetableOscillator wOscillator1;
 	WavetableOscillator wOscillator2;
-	ADSR volumeEnvelope1;
-	ADSR volumeEnvelope2;
+	EarLevelADSR volumeEnvelope1;
+	EarLevelADSR volumeEnvelope2;
 };

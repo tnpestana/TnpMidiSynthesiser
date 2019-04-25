@@ -23,7 +23,7 @@
 #include <math.h>
 
 
-ADSR::ADSR(void) {
+EarLevelADSR::EarLevelADSR(void) {
     reset();
     setAttackRate(0);
     setDecayRate(0);
@@ -33,37 +33,37 @@ ADSR::ADSR(void) {
     setTargetRatioDR(0.0001);
 }
 
-ADSR::~ADSR(void) {
+EarLevelADSR::~EarLevelADSR(void) {
 }
 
-void ADSR::setAttackRate(float rate) {
+void EarLevelADSR::setAttackRate(float rate) {
     attackRate = rate;
     attackCoef = calcCoef(rate, targetRatioA);
     attackBase = (1.0 + targetRatioA) * (1.0 - attackCoef);
 }
 
-void ADSR::setDecayRate(float rate) {
+void EarLevelADSR::setDecayRate(float rate) {
     decayRate = rate;
     decayCoef = calcCoef(rate, targetRatioDR);
     decayBase = (sustainLevel - targetRatioDR) * (1.0 - decayCoef);
 }
 
-void ADSR::setReleaseRate(float rate) {
+void EarLevelADSR::setReleaseRate(float rate) {
     releaseRate = rate;
     releaseCoef = calcCoef(rate, targetRatioDR);
     releaseBase = -targetRatioDR * (1.0 - releaseCoef);
 }
 
-float ADSR::calcCoef(float rate, float targetRatio) {
+float EarLevelADSR::calcCoef(float rate, float targetRatio) {
     return (rate <= 0) ? 0.0 : exp(-log((1.0 + targetRatio) / targetRatio) / rate);
 }
 
-void ADSR::setSustainLevel(float level) {
+void EarLevelADSR::setSustainLevel(float level) {
     sustainLevel = level;
     decayBase = (sustainLevel - targetRatioDR) * (1.0 - decayCoef);
 }
 
-void ADSR::setTargetRatioA(float targetRatio) {
+void EarLevelADSR::setTargetRatioA(float targetRatio) {
     if (targetRatio < 0.000000001)
         targetRatio = 0.000000001;  // -180 dB
     targetRatioA = targetRatio;
@@ -71,7 +71,7 @@ void ADSR::setTargetRatioA(float targetRatio) {
     attackBase = (1.0 + targetRatioA) * (1.0 - attackCoef);
 }
 
-void ADSR::setTargetRatioDR(float targetRatio) {
+void EarLevelADSR::setTargetRatioDR(float targetRatio) {
     if (targetRatio < 0.000000001)
         targetRatio = 0.000000001;  // -180 dB
     targetRatioDR = targetRatio;

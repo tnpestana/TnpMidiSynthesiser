@@ -83,13 +83,13 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 				std::make_unique<AudioParameterInt>("delayToggle", "Delay Toggle", 0, 1, 1),
 				//  Reverb
 				std::make_unique<AudioParameterFloat>("reverbMix", "Reverb Mix",
-					NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.0f),
+					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 0.0f),
 				std::make_unique<AudioParameterFloat>("reverbRoomSize", "Reverb Room Size",
-					NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.2f),
+					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 20.0f),
 				std::make_unique<AudioParameterFloat>("reverbDamping", "Reverb Damping",
-					NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.5f),
-				std::make_unique<AudioParameterFloat>("reverbWidth", "Rever bWidth",
-					NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.5f),
+					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 50.0f),
+				std::make_unique<AudioParameterFloat>("reverbWidth", "Reverb Width",
+					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 50.0f),
 				std::make_unique<AudioParameterInt>("reverbToggle", "Reverb Toggle", 0, 1, 0),
 			}
 		),
@@ -417,11 +417,11 @@ void TnpMidiSynthAudioProcessor::processDelay(AudioBuffer<float>& buffer)
 //==============================================================================
 void TnpMidiSynthAudioProcessor::updateReverb()
 {
-	reverbParameters.dryLevel = 1.0f - *treeState.getRawParameterValue("reverbMix");	//	Dereference the result of getRawParameterValue because it returns
-	reverbParameters.wetLevel = *treeState.getRawParameterValue("reverbMix");			// a pointer to the parameter's value location.
-	reverbParameters.roomSize = *treeState.getRawParameterValue("reverbRoomSize");
-	reverbParameters.damping = *treeState.getRawParameterValue("reverbDamping");
-	reverbParameters.width = *treeState.getRawParameterValue("reverbWidth");
+	reverbParameters.dryLevel = (100.0f - *treeState.getRawParameterValue("reverbMix")) * 0.01;	//	Dereference the result of getRawParameterValue because it returns
+	reverbParameters.wetLevel = *treeState.getRawParameterValue("reverbMix") * 0.01;			// a pointer to the parameter's value location.
+	reverbParameters.roomSize = *treeState.getRawParameterValue("reverbRoomSize") * 0.01;
+	reverbParameters.damping = *treeState.getRawParameterValue("reverbDamping") * 0.01;
+	reverbParameters.width = *treeState.getRawParameterValue("reverbWidth") * 0.01;
 	reverb.setParameters(reverbParameters);
 }
 

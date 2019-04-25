@@ -49,6 +49,11 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
 	widthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 	mixSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
 
+	roomSizeSlider.setTextValueSuffix(" %");
+	dampingSlider.setTextValueSuffix(" %");
+	widthSlider.setTextValueSuffix(" %");
+	mixSlider.setTextValueSuffix(" %");
+
 	addAndMakeVisible(labelTitle);
 	addAndMakeVisible(toggleReverb);
 	addAndMakeVisible(roomSizeLabel);

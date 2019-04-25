@@ -20,10 +20,10 @@
 #define ADRS_h
 
 
-class ADSR {
+class EarLevelADSR {
 public:
-	ADSR(void);
-	~ADSR(void);
+	EarLevelADSR(void);
+	~EarLevelADSR(void);
 	float process(void);
     float getOutput(void);
     int getState(void);
@@ -63,7 +63,7 @@ protected:
     float calcCoef(float rate, float targetRatio);
 };
 
-inline float ADSR::process() {
+inline float EarLevelADSR::process() {
 	switch (state) {
         case env_idle:
             break;
@@ -93,23 +93,23 @@ inline float ADSR::process() {
 	return output;
 }
 
-inline void ADSR::gate(int gate) {
+inline void EarLevelADSR::gate(int gate) {
 	if (gate)
 		state = env_attack;
 	else if (state != env_idle)
         state = env_release;
 }
 
-inline int ADSR::getState() {
+inline int EarLevelADSR::getState() {
     return state;
 }
 
-inline void ADSR::reset() {
+inline void EarLevelADSR::reset() {
     state = env_idle;
     output = 0.0;
 }
 
-inline float ADSR::getOutput() {
+inline float EarLevelADSR::getOutput() {
 	return output;
 }
 
