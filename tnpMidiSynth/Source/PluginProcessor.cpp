@@ -35,25 +35,25 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 					StringArray("sine", "harmonic", "square", "triangle", "sawtooth"), 2),
 				std::make_unique<AudioParameterInt>("osc1Transpose", "Transpose", -24, 24, 0),
 				std::make_unique<AudioParameterFloat>("osc1Attack", "Volume Envelope Attack",
-					NormalisableRange<float>(0.001f, 5.0f, 0.001f), 0.05f),
+					NormalisableRange<float>(1.0f, 5000.0f, 1.0f), 50.0f),
 				std::make_unique<AudioParameterFloat>("osc1Decay", "Volume Envelope Decay",
-					NormalisableRange<float>(0.001f, 5.0f, 0.001f), 0.5f),
+					NormalisableRange<float>(1.0f, 5000.0f, 1.0f), 50.0f),
 				std::make_unique<AudioParameterFloat>("osc1Sustain", "Volume Envelope Sustain",
-					NormalisableRange<float>(0.001f, 1.0f, 0.001f), 0.05f),
+					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 5.0f),
 				std::make_unique<AudioParameterFloat>("osc1Release", "Volume Envelope Release",
-					NormalisableRange<float>(0.015f, 5.0f, 0.001f), 0.05f),
+					NormalisableRange<float>(1.0f, 5000.0f, 1.0f), 50.0f),
 				//	Oscillator 2
 				std::make_unique<AudioParameterChoice>("osc2Type", "Oscillator Type",
 					StringArray("sine", "harmonic", "square", "triangle", "sawtooth"), 2),
 				std::make_unique<AudioParameterInt>("osc2Transpose", "Transpose", -24, 24, 0),
 				std::make_unique<AudioParameterFloat>("osc2Attack", "Volume Envelope Attack",
-					NormalisableRange<float>(0.001f, 5.0f, 0.001f), 0.05f),
+					NormalisableRange<float>(1.0f, 5000.0f, 1.0f), 50.0f),
 				std::make_unique<AudioParameterFloat>("osc2Decay", "Volume Envelope Decay",
-					NormalisableRange<float>(0.001f, 5.0f, 0.001f), 0.5f),
+					NormalisableRange<float>(1.0f, 5000.0f, 1.0f), 50.0f),
 				std::make_unique<AudioParameterFloat>("osc2Sustain", "Volume Envelope Sustain",
-					NormalisableRange<float>(0.001f, 1.0f, 0.001f), 0.05f),
+					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 5.0f),
 				std::make_unique<AudioParameterFloat>("osc2Release", "Volume Envelope Release",
-					NormalisableRange<float>(0.015f, 5.0f, 0.001f), 0.05f),
+					NormalisableRange<float>(1.0f, 5000.0f, 1.0f), 50.0f),
 				std::make_unique<AudioParameterInt>("osc2Toggle", "Filter Toggle", 0, 1, 1),
 				//  Filter
 				std::make_unique<AudioParameterFloat>("filterCutoff", "Filter Cutoff",
@@ -75,11 +75,11 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 				std::make_unique<AudioParameterInt>("lfoToggle", "LFO Toggle", 0, 1, 0),
 				//  Delay
 				std::make_unique<AudioParameterFloat>("delayTime", "Delay Time",
-					NormalisableRange<float>(0.01f, 2.0f, 0.001f), 0.8f),
+					NormalisableRange<float>(0.0f, 2000.0f, 1.0f), 800.0f),
 				std::make_unique<AudioParameterFloat>("delayFeedback", "Delay Feedback",
-					NormalisableRange<float>(0.0f, 1.0f, 0.001f), 0.2f),
+					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 20.0f),
 				std::make_unique<AudioParameterFloat>("delayMix", "Delay Mix",
-					NormalisableRange<float>(0.0f, 1.0f, 0.001f), 0.2f),
+					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 20.0f),
 				std::make_unique<AudioParameterInt>("delayToggle", "Delay Toggle", 0, 1, 1),
 				//  Reverb
 				std::make_unique<AudioParameterFloat>("reverbMix", "Reverb Mix",
@@ -102,12 +102,12 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 		localSampleRate(1.0)
 #endif
 {
-	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Attack"))->range.setSkewForCentre(1.0f);
-	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Decay"))->range.setSkewForCentre(1.0f);
-	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Release"))->range.setSkewForCentre(1.0f);
-	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc2Attack"))->range.setSkewForCentre(1.0f);
-	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc2Decay"))->range.setSkewForCentre(1.0f);
-	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc2Release"))->range.setSkewForCentre(1.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Attack"))->range.setSkewForCentre(1000.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Decay"))->range.setSkewForCentre(1000.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Release"))->range.setSkewForCentre(1000.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc2Attack"))->range.setSkewForCentre(1000.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc2Decay"))->range.setSkewForCentre(1000.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc2Release"))->range.setSkewForCentre(1000.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("filterCutoff"))->range.setSkewForCentre(1000.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("filterGainFactor"))->range.setSkewForCentre(1.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("lfoRate"))->range.setSkewForCentre(5.0f);
@@ -286,10 +286,10 @@ void TnpMidiSynthAudioProcessor::manageActiveVoices()
 				*treeState.getRawParameterValue("osc2Type"));
 			mySynthVoice->getTransposeValue(*treeState.getRawParameterValue("osc1Transpose"),
 				*treeState.getRawParameterValue("osc2Transpose"));
-			mySynthVoice->getEnvelopeParameters(*treeState.getRawParameterValue("osc1Attack"),
-				*treeState.getRawParameterValue("osc1Decay"),
-				*treeState.getRawParameterValue("osc1Sustain"),
-				*treeState.getRawParameterValue("osc1Release"),
+			mySynthVoice->getEnvelopeParameters(*treeState.getRawParameterValue("osc1Attack") * 0.001,
+				*treeState.getRawParameterValue("osc1Decay") * 0.001,
+				*treeState.getRawParameterValue("osc1Sustain") * 0.01,
+				*treeState.getRawParameterValue("osc1Release") * 0.001,
 				*treeState.getRawParameterValue("osc2Attack"),
 				*treeState.getRawParameterValue("osc2Decay"),
 				*treeState.getRawParameterValue("osc2Sustain"),
@@ -399,9 +399,9 @@ void TnpMidiSynthAudioProcessor::processFilter(AudioBuffer<float>& buffer)
 //==============================================================================
 void TnpMidiSynthAudioProcessor::updateDelay()
 {
-	delay.updateParams(*treeState.getRawParameterValue("delayTime"),
-		*treeState.getRawParameterValue("delayFeedback"),
-		*treeState.getRawParameterValue("delayMix"));
+	delay.updateParams(*treeState.getRawParameterValue("delayTime") * 0.001,
+		*treeState.getRawParameterValue("delayFeedback") * 0.01,
+		*treeState.getRawParameterValue("delayMix") * 0.01);
 }
 
 void TnpMidiSynthAudioProcessor::processDelay(AudioBuffer<float>& buffer)

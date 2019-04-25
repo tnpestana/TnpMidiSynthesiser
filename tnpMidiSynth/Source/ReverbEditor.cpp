@@ -44,10 +44,10 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
 	widthSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	mixSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 
-	roomSizeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	dampingSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	widthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	mixSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
+	roomSizeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
+	dampingSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
+	widthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
+	mixSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
 
 	roomSizeSlider.setTextValueSuffix(" %");
 	dampingSlider.setTextValueSuffix(" %");

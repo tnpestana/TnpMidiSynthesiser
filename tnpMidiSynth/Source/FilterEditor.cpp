@@ -42,9 +42,13 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
 	sliderFilterQ.setSliderStyle		  (Slider::RotaryVerticalDrag);
 	sliderFilterGainFactor.setSliderStyle (Slider::LinearHorizontal);
 
-	sliderFilterQ.setTextBoxStyle		   (Slider::TextBoxBelow, false, 40, 15);
-	sliderFilterCutoff.setTextBoxStyle	   (Slider::TextBoxBelow, false, 50, 15);
-	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxLeft, false, 30, 15);
+	sliderFilterQ.setTextBoxStyle		   (Slider::TextBoxBelow, false, 60, 15);
+	sliderFilterCutoff.setTextBoxStyle	   (Slider::TextBoxBelow, false, 70, 15);
+	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxLeft, false, 40, 15);
+
+	sliderFilterQ.setTextValueSuffix(" oct");
+	sliderFilterCutoff.setTextValueSuffix(" Hz");
+	sliderFilterGainFactor.setTextValueSuffix(" %");
 
 	//  Populate combo boxes with strings stored as paramneter choices
 	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("filterType")))

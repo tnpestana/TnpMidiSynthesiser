@@ -34,8 +34,11 @@ LFOEditor::LFOEditor(TnpMidiSynthAudioProcessor& p)
 	labelLfoRate.setJustificationType(Justification::centredRight);
 	labelTitle.setJustificationType(Justification::centred);
 
-	sliderLfoDepth.setTextBoxStyle(Slider::TextBoxLeft, false, 40, 15);
-	sliderLfoRate.setTextBoxStyle(Slider::TextBoxLeft, false, 40, 15);
+	sliderLfoDepth.setTextBoxStyle(Slider::TextBoxLeft, false, 50, 15);
+	sliderLfoRate.setTextBoxStyle(Slider::TextBoxLeft, false, 50, 15);
+
+	sliderLfoDepth.setTextValueSuffix(" %");
+	sliderLfoRate.setTextValueSuffix(" Hz");
 
 	//  Populate combo boxes with strings stored as paramneter choices
 	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("lfoOscType")))

@@ -38,9 +38,13 @@ DelayEditor::DelayEditor(TnpMidiSynthAudioProcessor& p)
 	sliderDelayFeedback.setSliderStyle(Slider::RotaryVerticalDrag);
 	sliderdelayMix.setSliderStyle(Slider::RotaryVerticalDrag);
 
-	sliderDelayTime.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	sliderDelayFeedback.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	sliderdelayMix.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
+	sliderDelayTime.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
+	sliderDelayFeedback.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
+	sliderdelayMix.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
+
+	sliderDelayTime.setTextValueSuffix(" ms");
+	sliderDelayFeedback.setTextValueSuffix(" %");
+	sliderdelayMix.setTextValueSuffix(" %");
 
 	addAndMakeVisible(labelTitle);
 	addAndMakeVisible(toggleDelay);

@@ -40,11 +40,17 @@ OscillatorEditor::OscillatorEditor(TnpMidiSynthAudioProcessor& p, int osc)
 	sustainSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 	releaseSlider.setSliderStyle(Slider::RotaryVerticalDrag);
 
-	transposeSlider.setTextBoxStyle(Slider::TextBoxLeft, false, 40, 15);
-	attackSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	decaySlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	sustainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
-	releaseSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 40, 15);
+	transposeSlider.setTextValueSuffix(" st");
+	attackSlider.setTextValueSuffix(" ms");
+	decaySlider.setTextValueSuffix(" ms");
+	sustainSlider.setTextValueSuffix(" %");
+	releaseSlider.setTextValueSuffix(" ms");
+
+	transposeSlider.setTextBoxStyle(Slider::TextBoxLeft, false, 50, 15);
+	attackSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
+	decaySlider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
+	sustainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
+	releaseSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
 
 	//  Parameter attachments
 	if (osc == 1)
