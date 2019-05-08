@@ -224,10 +224,10 @@ void WavetableOscillator::createTriangle()
 	
 
 	int harmonics[] = { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19 };
-	float harmonicWeights[] = { 0.5f, -0.5f / pow(3.0f, 2), 0.5f / pow(5.0f, 2),
-		-0.5f / pow(7.0f, 2), 0.5f / pow(9.0f, 2), -0.5f / pow(11.0f, 2), 
-		0.5f / pow(13.0f, 2), -0.5f / pow(15.0f, 2), 0.5f / pow(17.0f, 2), 
-		-0.5f / pow(19.0f, 2) };
+	float harmonicWeights[] = { 0.5f, -0.5f / pow(3.0f, 2.0f), 0.5f / pow(5.0f, 2.0f),
+		-0.5f / pow(7.0f, 2.0f), 0.5f / pow(9.0f, 2.0f), -0.5f / pow(11.0f, 2.0f),
+		0.5f / pow(13.0f, 2.0f), -0.5f / pow(15.0f, 2.0f), 0.5f / pow(17.0f, 2.0f),
+		-0.5f / pow(19.0f, 2.0f) };
 
 	for (int harmonic = 0; harmonic < numElementsInArray(harmonics); ++harmonic)
 	{

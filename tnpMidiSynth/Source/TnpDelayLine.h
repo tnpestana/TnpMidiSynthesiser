@@ -34,9 +34,9 @@ public:
 private:
 	float* buffer;
 	int bufferSize;
+    int sampleRate;
 	int delayReadPosition, delayWritePosition;
-	int sampleRate;
-	float targetDelayLength, currentDelayLength, delayInSamples;
-	LinearSmoothedValue<float> smoothDelayLength;
+    float targetDelayLength, currentDelayLength, delayInSamples;
 	double feedback, wetMix;
+    LinearSmoothedValue<float> smoothDelayLength;
 };

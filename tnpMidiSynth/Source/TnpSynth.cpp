@@ -31,7 +31,10 @@ bool TnpSynthSound::appliesToChannel(int midiChannel)
 
 //==============================================================================
 TnpSynthVoice::TnpSynthVoice()
-	: velocityLevel(0.0),
+    :
+    frequency1(0.0f),
+    frequency2(0.0f),
+    velocityLevel(0.0),
 	soundwave1(0.f),
 	soundwave2(0.f),
 	osc1Type(0),
@@ -41,9 +44,7 @@ TnpSynthVoice::TnpSynthVoice()
 	wOscillator1(),
 	wOscillator2(),
 	volumeEnvelope1(),
-	volumeEnvelope2(),
-	frequency1(0.0f),
-	frequency2(0.0f)
+	volumeEnvelope2()
 {
 }
 

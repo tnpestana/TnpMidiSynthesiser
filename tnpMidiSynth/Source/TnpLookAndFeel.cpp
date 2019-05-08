@@ -138,7 +138,7 @@ void TnpLookAndFeel::drawLinearSlider(Graphics &g, int x, int y, int width, int 
 			maxPoint = { kx, ky };
 		}
 
-		auto thumbWidth = getSliderThumbRadius(slider);
+		//auto thumbWidth = getSliderThumbRadius(slider);
 
 		valueTrack.startNewSubPath(minPoint);
 		valueTrack.lineTo(isThreeVal ? thumbPoint : maxPoint);

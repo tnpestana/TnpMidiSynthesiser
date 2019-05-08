@@ -17,14 +17,14 @@ ReverbEditor::ReverbEditor(TnpMidiSynthAudioProcessor& p)
 	//	Parameter attachments
 	attToggle (std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
 		(treeState, "reverbToggle", toggleReverb)),
-	attRoomSize (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "reverbRoomSize", roomSizeSlider)),
-	attDamping (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "reverbDamping", dampingSlider)),
-	attWidth (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "reverbWidth", widthSlider)),
 	attMix (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "reverbMix", mixSlider))
+		(treeState, "reverbMix", mixSlider)),
+    attRoomSize (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+             (treeState, "reverbRoomSize", roomSizeSlider)),
+    attDamping (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+            (treeState, "reverbDamping", dampingSlider)),
+    attWidth (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+          (treeState, "reverbWidth", widthSlider))
 
 {
 	labelTitle.setText("REVERB", dontSendNotification);
@@ -84,8 +84,8 @@ void ReverbEditor::resized()
 {
 	const int labelWidth = getWidth() * 0.25;
 	const int labelHeight = 15;
-	const int sliderWidth = getWidth() * 0.25;
-	const int sliderHeight = getHeight() - labelHeight;
+	//const int sliderWidth = getWidth() * 0.25;
+	//const int sliderHeight = getHeight() - labelHeight;
 
 	juce::Rectangle<int> area(getLocalBounds());
 

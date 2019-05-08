@@ -56,8 +56,7 @@ private:
 	float frequency1, frequency2;
 	double velocityLevel;
 	float soundwave1, soundwave2;
-	int osc1Type, osc1Transpose;
-	int osc2Type, osc2Transpose;
+	int osc1Type, osc2Type, osc1Transpose, osc2Transpose;
 	float osc2Toggle;
 	WavetableOscillator wOscillator1;
 	WavetableOscillator wOscillator2;

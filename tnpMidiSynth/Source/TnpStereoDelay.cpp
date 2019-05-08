@@ -11,11 +11,11 @@
 #include "TnpStereoDelay.h"
 
 TnpStereoDelay::TnpStereoDelay()
-	: currentDelayTime(0.0f),
-	currentFeedback(0.0f),
-	currentMix(0.0f),
-	delayLeft(),
-	delayRight()
+	: delayLeft(),
+	delayRight(),
+    currentDelayTime(0.0f),
+    currentFeedback(0.0f),
+    currentMix(0.0f)
 {
 }
 

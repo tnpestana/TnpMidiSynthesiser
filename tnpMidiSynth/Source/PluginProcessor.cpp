@@ -244,7 +244,7 @@ bool TnpMidiSynthAudioProcessor::isBusesLayoutSupported (const BusesLayout& layo
 
 void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-	for (int i = getNumInputChannels(); i < getNumOutputChannels(); i++)
+	for (int i = getTotalNumInputChannels(); i < getTotalNumOutputChannels(); i++)
 		buffer.clear(i, 0, buffer.getNumSamples());								
 	manageActiveVoices();
 	keyboardState.processNextMidiBuffer(midiMessages, 0, buffer.getNumSamples(), true);
@@ -281,7 +281,7 @@ void TnpMidiSynthAudioProcessor::manageActiveVoices()
 	{
 		//  Cast them to see how many of those are being used. If they are,
 		// pass them the value tree state gain and envelope parameters.
-		if (mySynthVoice = dynamic_cast<TnpSynthVoice*>(mySynth.getVoice(i)))
+        if ((mySynthVoice = dynamic_cast<TnpSynthVoice*>(mySynth.getVoice(i))))
 		{
 			mySynthVoice->getOscillatorType(*treeState.getRawParameterValue("osc1Type"),
 				*treeState.getRawParameterValue("osc2Type"));

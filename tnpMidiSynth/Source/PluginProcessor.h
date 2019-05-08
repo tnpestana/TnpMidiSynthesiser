@@ -93,11 +93,11 @@ private:
 	TnpStereoDelay delay;
 	TnpLFO lfo;
 
-	double localSampleRate;
-	float currentGain, targetGain;
-	float currentFilterCutoff, targetFilterCutoff;
+	float targetGain, currentGain;
+	float  targetFilterCutoff, currentFilterCutoff;
 	int targetNumVoices;
-
+    double localSampleRate;
+    
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpMidiSynthAudioProcessor)
 };

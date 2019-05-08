@@ -7,8 +7,6 @@
 
   ==============================================================================
 */
-#pragma once
-
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
@@ -23,15 +21,15 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	//	Editor components
 	oscillator1GUI(p, 1),
 	oscillator2GUI(p, 2),
-	reverbGUI(p), 
-	lfoGUI(p), 
-	delayGUI(p), 
 	filterGUI(p),
+    lfoGUI(p),
+    delayGUI(p),
+    reverbGUI(p),
 	//	Attachments
-	attNumVoices(std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
-		(treeState, "numVoices", numVoicesInput)),
 	gainAttachment(std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "gain", gainSlider))
+		(treeState, "gain", gainSlider)),
+    attNumVoices(std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
+             (treeState, "numVoices", numVoicesInput))
 {
     // Main editor's size.
 	setSize(650, 660);

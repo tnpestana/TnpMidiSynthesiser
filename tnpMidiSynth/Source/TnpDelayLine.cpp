@@ -12,13 +12,13 @@
 
 TnpDelayLine::TnpDelayLine()
 	: buffer(nullptr),
+    bufferSize(0),
+    sampleRate(0),
+    delayReadPosition(0),
+    delayWritePosition(0),
 	targetDelayLength(0.0f),
 	currentDelayLength(0.0f),
 	delayInSamples(1),
-	bufferSize(0),
-	delayReadPosition(0),
-	delayWritePosition(0),
-	sampleRate(0),
 	feedback(0.0),
 	wetMix(0.0),
 	smoothDelayLength(0.0f)
