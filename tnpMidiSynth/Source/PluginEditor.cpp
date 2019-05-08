@@ -75,6 +75,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 
 TnpMidiSynthAudioProcessorEditor::~TnpMidiSynthAudioProcessorEditor()
 {
+    setLookAndFeel(nullptr);
 }
 
 //=============================================================================
