@@ -2,9 +2,10 @@
 
 <JUCERPROJECT name="TnpMidiSynth" projectType="audioplug" buildStandalone="1"
               jucerVersion="5.4.3" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
-              pluginFormats="buildVST,buildVST3,buildStandalone" buildVST="1"
-              buildVST3="1" buildAU="0" buildAUv3="0" buildRTAS="0" buildAAX="0"
-              enableIAA="0" id="TQPIW0" pluginName="tnpMidiSynth" pluginManufacturer="Tiago Pestana">
+              pluginFormats="buildAU,buildStandalone,buildVST,buildVST3" buildVST="1"
+              buildVST3="1" buildAU="1" buildAUv3="0" buildRTAS="0" buildAAX="0"
+              enableIAA="0" id="TQPIW0" pluginName="tnpMidiSynth" pluginManufacturer="Tiago Pestana"
+              pluginVST3Category="Instrument">
   <MAINGROUP id="tdkgxH" name="TnpMidiSynth">
     <GROUP id="{136D5720-F5B3-DBDF-75D4-B71623C0CCBC}" name="Source">
       <GROUP id="{A143093E-4961-6827-0FE1-0168BBFE262A}" name="ADSR">
@@ -92,7 +93,7 @@
         <MODULEPATH id="juce_audio_utils" path="../../../../../JUCE/modules"/>
       </MODULEPATHS>
     </VS2017>
-    <XCODE_MAC targetFolder="Builds/MacOSX">
+    <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="../../../modules/juce_audio_processors/format_types/VST3_SDK">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug"/>
         <CONFIGURATION isDebug="0" name="Release"/>
@@ -117,7 +118,7 @@
     </XCODE_MAC>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
