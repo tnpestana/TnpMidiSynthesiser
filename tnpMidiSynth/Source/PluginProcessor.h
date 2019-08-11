@@ -14,6 +14,7 @@
 #include "TnpSynth.h"
 #include "TnpStereoDelay.h"
 #include "TnpLFO.h"
+#include "TnpDistortion.h"
 
 //==============================================================================
 class TnpMidiSynthAudioProcessor : public AudioProcessor, public AudioProcessorValueTreeState::Listener
@@ -34,6 +35,8 @@ public:
     void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages) override;
 	void manageActiveVoices();
 	void processGain (AudioBuffer<float>& buffer);
+    
+    void processDistortion(AudioBuffer<float>& buffer);
 
 	void updateFilter();
 	void processFilter (AudioBuffer<float>& buffer);
@@ -92,6 +95,7 @@ private:
 	IIRFilter filterRight;
 	TnpStereoDelay delay;
 	TnpLFO lfo;
+    TnpDistortion distortion;
 
 	float targetGain, currentGain;
 	float  targetFilterCutoff, currentFilterCutoff;

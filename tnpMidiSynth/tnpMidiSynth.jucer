@@ -48,6 +48,9 @@
             file="Source/TnpWavetable.cpp"/>
       <FILE id="cpFocT" name="TnpLFO.cpp" compile="1" resource="0" file="Source/TnpLFO.cpp"/>
       <FILE id="YHk8SP" name="TnpLFO.h" compile="0" resource="0" file="Source/TnpLFO.h"/>
+      <FILE id="G3593j" name="TnpDistortion.cpp" compile="1" resource="0"
+            file="Source/TnpDistortion.cpp"/>
+      <FILE id="Fhc3Tb" name="TnpDistortion.h" compile="0" resource="0" file="Source/TnpDistortion.h"/>
       <FILE id="Jh33sr" name="TnpDelayLine.cpp" compile="1" resource="0"
             file="Source/TnpDelayLine.cpp"/>
       <FILE id="yYwNRK" name="TnpDelayLine.h" compile="0" resource="0" file="Source/TnpDelayLine.h"/>
