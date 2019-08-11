@@ -93,7 +93,8 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 				std::make_unique<AudioParameterInt>("reverbToggle", "Reverb Toggle", 0, 1, 0),
                 //  Distortion
                 std::make_unique<AudioParameterInt>("distortionToggle", "Distortion Toggle", 0, 1, 0),
-                std::make_unique<AudioParameterInt>("distortionType", "Distortion Type", 0, 4, 0),
+                std::make_unique<AudioParameterChoice>("distortionType", "Distortion Type",
+                StringArray("Soft Clipping", "Hard Clipping", "Soft Clipping Exponential", "Full Wave Rectifier", "Half Wave Rectifier"), 0)
 			}
 		),
 		keyboardState(),

@@ -18,6 +18,7 @@
 #include "DelayEditor.h"
 #include "FilterEditor.h"
 #include "LFOEditor.h"
+#include "DistortionEditor.h"
 
 //==============================================================================
 /**
@@ -58,6 +59,7 @@ private:
 	LFOEditor lfoGUI;
 	DelayEditor delayGUI;
 	ReverbEditor reverbGUI;
+    DistortionEditor distortionGUI;
 
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> gainAttachment;
 	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> attNumVoices;

@@ -25,6 +25,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
     lfoGUI(p),
     delayGUI(p),
     reverbGUI(p),
+    distortionGUI(p),
 	//	Attachments
 	gainAttachment(std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
 		(treeState, "gain", gainSlider)),
@@ -32,7 +33,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
              (treeState, "numVoices", numVoicesInput))
 {
     // Main editor's size.
-	setSize(650, 660);
+	setSize(700, 660);
 	setLookAndFeel(&tnpLookAndFeel);
 	setResizable(false, false);
 
@@ -46,6 +47,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	addAndMakeVisible(lfoGUI);
 	addAndMakeVisible(reverbGUI);
 	addAndMakeVisible(delayGUI);
+    addAndMakeVisible(distortionGUI);
 	addAndMakeVisible(labelTitle);
 	addAndMakeVisible(gainSlider);
 	addAndMakeVisible(gainLabel);
@@ -137,19 +139,22 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	gainLabel.setBounds(gainLocation.removeFromTop(20).reduced(2));
 	gainSlider.setBounds(gainLocation);
 
-	juce::Rectangle<int> left (area.removeFromLeft(area.getWidth() / 2));
+	juce::Rectangle<int> left (area.removeFromLeft(area.getWidth() / 5 * 2));
+    juce::Rectangle<int> center (area.removeFromLeft(area.getWidth() / 3 * 2));
 	juce::Rectangle<int> right (area);
 
 	// Oscillator area.
 	oscillator1GUI.setBounds(left.removeFromTop(200).reduced(5));
-	oscillator2GUI.setBounds(right.removeFromTop(200).reduced(5));
+	oscillator2GUI.setBounds(center.removeFromTop(200).reduced(5));
 
 	// IRRFilter area.
 	filterGUI.setBounds(left.removeFromTop(150).reduced(5));
 	// Distortion area.
-	lfoGUI.setBounds((right.removeFromTop(150).reduced(5)));
+	lfoGUI.setBounds((center.removeFromTop(150).reduced(5)));
 	// Delay area.
-	delayGUI.setBounds(right.reduced(5));
+	delayGUI.setBounds(center.reduced(5));
 	// Reverb area.
 	reverbGUI.setBounds(left.reduced(5));
+    // Distortion area.
+    distortionGUI.setBounds(right.removeFromTop(150).reduced(5));
 }
