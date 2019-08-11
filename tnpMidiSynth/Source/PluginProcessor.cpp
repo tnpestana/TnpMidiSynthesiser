@@ -261,17 +261,17 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	if (*treeState.getRawParameterValue("filterToggle") == 1.0f)
 		processFilter(buffer);
 
+    if (*treeState.getRawParameterValue("distortionToggle") == 1.0f)
+    processDistortion(buffer);
+    
 	if (*treeState.getRawParameterValue("lfoToggle") == 1.0)
 		processLFO(buffer);
-	
+    
 	if (*treeState.getRawParameterValue("delayToggle") == 1.0f)
 		processDelay(buffer);
 
 	if (*treeState.getRawParameterValue("reverbToggle") == 1.0f)
 		processReverb(buffer);
-    
-    if (*treeState.getRawParameterValue("distortionToggle") == 1.0f)
-        processDistortion(buffer);
     
 	processGain(buffer);
 }
@@ -543,6 +543,10 @@ void TnpMidiSynthAudioProcessor::parameterChanged(const String & parameterID, fl
 	{
 		updateReverb();
 	}
+    else if (parameterID == "distortionType")
+    {
+        updateDistortion();
+    }
 }
 
 //==============================================================================
