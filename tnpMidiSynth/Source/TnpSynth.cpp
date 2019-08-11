@@ -114,6 +114,7 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 
 float TnpSynthVoice::processOscillator(WavetableOscillator& oscillator, int oscType, float frequency)
 {
+    // Check the frequency played to choose which wavetable to use
 	switch (oscType)
 	{
 	case 0:
@@ -123,7 +124,6 @@ float TnpSynthVoice::processOscillator(WavetableOscillator& oscillator, int oscT
 		return oscillator.getNextSample(WavetableOscillator::harmonicTable);
 		break;
 	case 2:
-		// Check the frequency played to choose which wavetable to use
 		if (frequency <= 987.78 /*B5*/)
 			return oscillator.getNextSample(WavetableOscillator::squareTable);
 		else if (frequency > 987.78 /*B5*/ && frequency <= 1975.55 /*B6*/)
@@ -134,7 +134,6 @@ float TnpSynthVoice::processOscillator(WavetableOscillator& oscillator, int oscT
 			return oscillator.getNextSample(WavetableOscillator::squareTableB7);
 		break;
 	case 3:
-		// Check the frequency played to choose which wavetable to use
 		if (frequency <= 987.78 /*B5*/)
 			return oscillator.getNextSample(WavetableOscillator::triangleTable);
 		else if (frequency > 987.78 /*B5*/ && frequency <= 1975.55 /*B6*/)
@@ -145,7 +144,6 @@ float TnpSynthVoice::processOscillator(WavetableOscillator& oscillator, int oscT
 			return oscillator.getNextSample(WavetableOscillator::triangleTableB7);
 		break;
 	case 4:
-		// Check the frequency played to choose which wavetable to use
 		if (frequency <= 1975.55 /*B6*/)
 			return oscillator.getNextSample(WavetableOscillator::sawtoothTable);
 		else if (frequency > 1975.55 /*B6*/ && frequency <= 3951.1 /*B7*/)
