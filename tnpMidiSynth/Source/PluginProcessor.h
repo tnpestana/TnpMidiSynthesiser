@@ -36,6 +36,7 @@ public:
 	void manageActiveVoices();
 	void processGain (AudioBuffer<float>& buffer);
     
+    void updateDistortion();
     void processDistortion(AudioBuffer<float>& buffer);
 
 	void updateFilter();

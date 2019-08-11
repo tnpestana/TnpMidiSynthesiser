@@ -91,6 +91,9 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 				std::make_unique<AudioParameterFloat>("reverbWidth", "Reverb Width",
 					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 50.0f),
 				std::make_unique<AudioParameterInt>("reverbToggle", "Reverb Toggle", 0, 1, 0),
+                //  Distortion
+                std::make_unique<AudioParameterInt>("distortionToggle", "Distortion Toggle", 0, 1, 0),
+                std::make_unique<AudioParameterInt>("distortionType", "Distortion Type", 0, 4, 0),
 			}
 		),
 		keyboardState(),
@@ -212,6 +215,10 @@ void TnpMidiSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
 	treeState.addParameterListener("reverbWidth", this);
 	reverb.setSampleRate(sampleRate);
 	updateReverb();
+    
+    treeState.addParameterListener("distortionToggle", this);
+    treeState.addParameterListener("distortionType", this);
+    updateDistortion();
 }
 
 void TnpMidiSynthAudioProcessor::releaseResources()
@@ -262,7 +269,8 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	if (*treeState.getRawParameterValue("reverbToggle") == 1.0f)
 		processReverb(buffer);
     
-    processDistortion(buffer);
+    if (*treeState.getRawParameterValue("distortionToggle") == 1.0f)
+        processDistortion(buffer);
     
 	processGain(buffer);
 }
@@ -303,6 +311,13 @@ void TnpMidiSynthAudioProcessor::manageActiveVoices()
 }
 
 //==============================================================================
+void TnpMidiSynthAudioProcessor::updateDistortion()
+{
+    //const float toggle =  *treeState.getRawParameterValue("distortionToggle");
+    const float type =  *treeState.getRawParameterValue("distortionType");
+    distortion.setType(type);
+}
+
 void TnpMidiSynthAudioProcessor::processDistortion(AudioBuffer<float>& buffer)
 {
     distortion.processAudioBlock(buffer);

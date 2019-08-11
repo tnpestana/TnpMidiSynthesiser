@@ -11,6 +11,7 @@
 #include "TnpDistortion.h"
 
 TnpDistortion::TnpDistortion()
+: type(0)
 {
     
 }
@@ -18,6 +19,11 @@ TnpDistortion::TnpDistortion()
 TnpDistortion::~TnpDistortion()
 {
     
+}
+
+void TnpDistortion::setType(int type)
+{
+    this->type = type;
 }
 
 void TnpDistortion::prepareToPLay(double samplerate)
@@ -35,9 +41,8 @@ void TnpDistortion::processAudioBlock(AudioBuffer<float>& buffer)
         {
             const float in = *channelData;
             float out;
-            int distortionType = 2;
-            
-            switch(distortionType)
+    
+            switch(type)
             {
                 case 0: /*hard clipping*/
                 {
