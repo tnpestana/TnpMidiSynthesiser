@@ -18,10 +18,11 @@ public:
     TnpDistortion();
     ~TnpDistortion();
 
-    void setType(int type);
+    void updateParameters(int type, float inputGain);
     void prepareToPLay(double sampleRate);
     void processAudioBlock(AudioBuffer<float>& buffer);
 
 private:
     int type;
+    float inputGain;
 };

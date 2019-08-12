@@ -11,7 +11,8 @@
 #include "TnpDistortion.h"
 
 TnpDistortion::TnpDistortion()
-: type(0)
+: type(0),
+inputGain(0.0f)
 {
     
 }
@@ -21,9 +22,10 @@ TnpDistortion::~TnpDistortion()
     
 }
 
-void TnpDistortion::setType(int type)
+void TnpDistortion::updateParameters(int type, float inputGain)
 {
     this->type = type;
+    this->inputGain = inputGain;
 }
 
 void TnpDistortion::prepareToPLay(double samplerate)
@@ -39,7 +41,8 @@ void TnpDistortion::processAudioBlock(AudioBuffer<float>& buffer)
         
         for(int i = 0; i < buffer.getNumSamples(); i++)
         {
-            const float in = *channelData;
+            float gain = powf(10.0f, inputGain / 20.0f);
+            const float in = *channelData * gain;
             float out;
     
             switch(type)

@@ -33,7 +33,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
              (treeState, "numVoices", numVoicesInput))
 {
     // Main editor's size.
-	setSize(700, 660);
+	setSize(850, 660);
 	setLookAndFeel(&tnpLookAndFeel);
 	setResizable(false, false);
 
@@ -139,8 +139,8 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	gainLabel.setBounds(gainLocation.removeFromTop(20).reduced(2));
 	gainSlider.setBounds(gainLocation);
 
-	juce::Rectangle<int> left (area.removeFromLeft(area.getWidth() / 5 * 2));
-    juce::Rectangle<int> center (area.removeFromLeft(area.getWidth() / 3 * 2));
+	juce::Rectangle<int> left (area.removeFromLeft(area.getWidth() / 3));
+    juce::Rectangle<int> center (area.removeFromLeft(area.getWidth() / 2));
 	juce::Rectangle<int> right (area);
 
 	// Oscillator area.
@@ -156,5 +156,5 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	// Reverb area.
 	reverbGUI.setBounds(left.reduced(5));
     // Distortion area.
-    distortionGUI.setBounds(right.removeFromTop(150).reduced(5));
+    distortionGUI.setBounds(right.reduced(5));
 }

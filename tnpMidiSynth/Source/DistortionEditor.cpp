@@ -17,12 +17,18 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
     //  Parameter attachments
     attDistortionType (std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
         (treeState, "distortionType", comboDistortionType)),
+    attGain (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "distortionGain", sliderGain)),
     attToggle (std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
         (treeState, "distortionToggle", toggleDistortion))
 {
-    labelTitle.setText("Distortion", dontSendNotification);
-
+    sliderGain.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
+    sliderGain.setTextValueSuffix(" dB");
+    
+    labelTitle.setText("DISTORTION", dontSendNotification);
     labelTitle.setJustificationType(Justification::centred);
+    labelDistortionType.setText("type:", dontSendNotification);
+    labelGain.setText("gain", dontSendNotification);
+    labelGain.setJustificationType(Justification::centred);
 
     //  Populate combo boxes with strings stored as parameter choices
     if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("distortionType")))
@@ -33,6 +39,9 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
 
     addAndMakeVisible(toggleDistortion);
     addAndMakeVisible(labelTitle);
+    addAndMakeVisible(labelDistortionType);
+    addAndMakeVisible(labelGain);
+    addAndMakeVisible(sliderGain);
     addAndMakeVisible(comboDistortionType);
 }
 
@@ -49,7 +58,7 @@ void DistortionEditor::paint(Graphics &)
 
 void DistortionEditor::resized()
 {
-    const int labelHeight = 15;
+    const int labelHeight = 20;
     juce::Rectangle<int> area(getLocalBounds());
 
     juce::Rectangle<int> topSection(area.removeFromTop(20));
@@ -57,5 +66,7 @@ void DistortionEditor::resized()
     labelTitle.setBounds(topSection.reduced(2));
 
     labelDistortionType.setBounds(area.removeFromTop(labelHeight));
-    comboDistortionType.setBounds(area.removeFromTop(50));
+    comboDistortionType.setBounds(area.removeFromTop(50).reduced(2));
+    labelGain.setBounds(area.removeFromTop(20));
+    sliderGain.setBounds(area.removeFromTop(70));
 }

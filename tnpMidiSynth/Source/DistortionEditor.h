@@ -27,12 +27,14 @@ private:
     AudioProcessorValueTreeState& treeState;
 
     ToggleButton toggleDistortion;
-
+    Slider sliderGain;
     ComboBox comboDistortionType;
 
     Label labelTitle;
+    Label labelGain;
     Label labelDistortionType;
 
     std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> attDistortionType;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attGain;
     std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment> attToggle;
 };

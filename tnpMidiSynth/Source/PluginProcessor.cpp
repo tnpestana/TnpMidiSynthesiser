@@ -93,8 +93,10 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 				std::make_unique<AudioParameterInt>("reverbToggle", "Reverb Toggle", 0, 1, 0),
                 //  Distortion
                 std::make_unique<AudioParameterInt>("distortionToggle", "Distortion Toggle", 0, 1, 0),
+                std::make_unique<AudioParameterFloat>("distortionGain", "Input Gain",
+                    NormalisableRange<float>(-48.0f, 6.0f, 0.1f), 0.0f),
                 std::make_unique<AudioParameterChoice>("distortionType", "Distortion Type",
-                StringArray("Soft Clipping", "Hard Clipping", "Soft Clipping Exponential", "Full Wave Rectifier", "Half Wave Rectifier"), 0)
+                    StringArray("Soft Clipping", "Hard Clipping", "Soft Clipping Exponential", "Full Wave Rectifier", "Half Wave Rectifier"), 0)
 			}
 		),
 		keyboardState(),
@@ -219,6 +221,7 @@ void TnpMidiSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
     
     treeState.addParameterListener("distortionToggle", this);
     treeState.addParameterListener("distortionType", this);
+    treeState.addParameterListener("distortionGain", this);
     updateDistortion();
 }
 
@@ -316,7 +319,8 @@ void TnpMidiSynthAudioProcessor::updateDistortion()
 {
     //const float toggle =  *treeState.getRawParameterValue("distortionToggle");
     const float type =  *treeState.getRawParameterValue("distortionType");
-    distortion.setType(type);
+    const float inputGain = *treeState.getRawParameterValue("distortionGain");
+    distortion.updateParameters(type, inputGain);
 }
 
 void TnpMidiSynthAudioProcessor::processDistortion(AudioBuffer<float>& buffer)
@@ -543,7 +547,8 @@ void TnpMidiSynthAudioProcessor::parameterChanged(const String & parameterID, fl
 	{
 		updateReverb();
 	}
-    else if (parameterID == "distortionType")
+    else if (parameterID == "distortionType" ||
+             parameterID == "distortionGain")
     {
         updateDistortion();
     }
