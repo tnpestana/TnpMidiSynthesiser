@@ -146,7 +146,7 @@ void OscillatorEditor::resized()
 	titleLabel.setBounds(topSection.reduced(2));
 
 	//  Controls area.
-	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.30));
+	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() / 3));
 	
 	//  Oscillator Type.
 	juce::Rectangle<int> oscTypeArea(controls.removeFromLeft(100));

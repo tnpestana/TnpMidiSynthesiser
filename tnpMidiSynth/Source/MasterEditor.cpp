@@ -62,13 +62,13 @@ void MasterEditor::paint(Graphics &)
 
 void MasterEditor::resized()
 {
-    const int labelHeight = 15;
+    const int labelHeight = 20;
     
     juce::Rectangle<int> area (getLocalBounds());
     juce::Rectangle<int> titleSection (area.removeFromTop(20));
     labelTitle.setBounds (titleSection.reduced(2));
     
-    juce::Rectangle<int> topSection (area.removeFromTop(area.getHeight() * 0.30));
+    juce::Rectangle<int> topSection (area.removeFromTop(area.getHeight() / 3));
     juce::Rectangle<int> slidersSection (area);
     
     numVoicesLabel.setBounds(topSection.removeFromTop(20));

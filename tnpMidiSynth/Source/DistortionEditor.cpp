@@ -33,7 +33,7 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
     labelTitle.setJustificationType(Justification::centred);
     labelDistortionType.setText("type: ", dontSendNotification);
     labelDistortionType.setJustificationType(Justification::centredRight);
-    labelGain.setText("gain", dontSendNotification);
+    labelGain.setText("input gain", dontSendNotification);
     labelGain.setJustificationType(Justification::centred);
     labelMix.setText("drive", dontSendNotification);
     labelMix.setJustificationType(Justification::centred);

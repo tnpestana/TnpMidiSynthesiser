@@ -110,7 +110,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 		localSampleRate(1.0)
 #endif
 {
-	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("gain"))->range.setSkewForCentre(-12.0f);
+	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("gain"))->range.setSkewForCentre(0.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Attack"))->range.setSkewForCentre(1000.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Decay"))->range.setSkewForCentre(1000.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("osc1Release"))->range.setSkewForCentre(1000.0f);
@@ -120,6 +120,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("filterCutoff"))->range.setSkewForCentre(1000.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("filterGainFactor"))->range.setSkewForCentre(100.0f);
 	dynamic_cast<AudioParameterFloat*>(treeState.getParameter("lfoRate"))->range.setSkewForCentre(5.0f);
+    dynamic_cast<AudioParameterFloat*>(treeState.getParameter("distortionGain"))->range.setSkewForCentre(0.0f);
 }
 
 TnpMidiSynthAudioProcessor::~TnpMidiSynthAudioProcessor()

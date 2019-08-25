@@ -26,7 +26,7 @@ TnpDistortion::~TnpDistortion()
 void TnpDistortion::updateParameters(int type, float inputGain, float mix)
 {
     this->type = type;
-    this->inputGain = inputGain;
+    this->inputGain = powf(10.0f, inputGain / 20.0f);
     this->mix = mix * 0.01;
 }
 
@@ -43,8 +43,7 @@ void TnpDistortion::processAudioBlock(AudioBuffer<float>& buffer)
         
         for(int i = 0; i < buffer.getNumSamples(); i++)
         {
-            float gain = powf(10.0f, inputGain / 20.0f);
-            const float in = *channelData * gain;
+            const float in = *channelData * inputGain;
             float out;
     
             switch(type)
@@ -100,6 +99,9 @@ void TnpDistortion::processAudioBlock(AudioBuffer<float>& buffer)
                     break;
                 }
             }
+            
+            // Compensate for gain losses due to low input gain
+            // out = out * ((powf(10.0f, 6.0f / 20.0f) + powf(10.0f, -48.0f / 20.0f)) - powf(10.0f, inputGain / 20.0f));
             
             *channelData = (out * mix) + (in * (1 - mix));
             channelData++;
