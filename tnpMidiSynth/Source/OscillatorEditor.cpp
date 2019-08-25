@@ -144,7 +144,6 @@ void OscillatorEditor::resized()
 	if (osc == 2)
 		toggle.setBounds(topSection.removeFromLeft(22));
 	titleLabel.setBounds(topSection.reduced(2));
-	
 
 	//  Controls area.
 	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.30).reduced(2));

@@ -27,24 +27,24 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
 		(treeState, "filterGainFactor", sliderFilterGainFactor))
 {
 	labelFilterTitle.setText	  ("FILTER", dontSendNotification);
-	labelFilterType.setText		  ("type:", dontSendNotification);
+	labelFilterType.setText		  ("type: ", dontSendNotification);
 	labelFilterCutoff.setText	  ("cutoff", dontSendNotification);
 	labelFilterQ.setText		  ("Q", dontSendNotification);
-	labelFilterGainFactor.setText ("gain factor:", dontSendNotification);
+	labelFilterGainFactor.setText ("gain factor", dontSendNotification);
 
 	labelFilterTitle.setJustificationType	   (Justification::centred);
-	labelFilterType.setJustificationType       (Justification::bottomLeft);
-	labelFilterCutoff.setJustificationType     (Justification::centredTop);
-	labelFilterQ.setJustificationType		   (Justification::centredTop);
-	labelFilterGainFactor.setJustificationType (Justification::bottomLeft);
+	labelFilterType.setJustificationType       (Justification::centredRight);
+	labelFilterCutoff.setJustificationType     (Justification::centredBottom);
+	labelFilterQ.setJustificationType		   (Justification::centredBottom);
+	labelFilterGainFactor.setJustificationType (Justification::centredBottom);
 
 	sliderFilterCutoff.setSliderStyle	  (Slider::RotaryVerticalDrag);
 	sliderFilterQ.setSliderStyle		  (Slider::RotaryVerticalDrag);
-	sliderFilterGainFactor.setSliderStyle (Slider::LinearHorizontal);
+	sliderFilterGainFactor.setSliderStyle (Slider::RotaryVerticalDrag);
 
 	sliderFilterQ.setTextBoxStyle		   (Slider::TextBoxBelow, false, 60, 15);
 	sliderFilterCutoff.setTextBoxStyle	   (Slider::TextBoxBelow, false, 70, 15);
-	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxLeft, false, 50, 15);
+	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxBelow, false, 50, 15);
 
 	sliderFilterQ.setTextValueSuffix(" oct");
 	sliderFilterCutoff.setTextValueSuffix(" Hz");
@@ -61,7 +61,7 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible (labelFilterTitle);
 	addAndMakeVisible (labelFilterType);
 	addAndMakeVisible (labelFilterCutoff);
-	addAndMakeVisible (labelFilterQ);
+        addAndMakeVisible (labelFilterQ);
 	addAndMakeVisible (labelFilterGainFactor);
 	addAndMakeVisible (comboFilterType);
 	addAndMakeVisible (sliderFilterCutoff);
@@ -89,26 +89,25 @@ void FilterEditor::resized()
 	const int labelHeight = 15;
 
 	juce::Rectangle<int> area (getLocalBounds());
-	juce::Rectangle<int> topSection	(area.removeFromTop(20));
-	toggleFilter.setBounds (topSection.removeFromLeft(22));
-	labelFilterTitle.setBounds (topSection.reduced(2));
+	juce::Rectangle<int> titleSection	(area.removeFromTop(20));
+	toggleFilter.setBounds (titleSection.removeFromLeft(22));
+	labelFilterTitle.setBounds (titleSection.reduced(2));
 
-	juce::Rectangle<int> totalSection (area.reduced(5));
-	juce::Rectangle<int> leftSection (totalSection.removeFromLeft(labelWidth * 2).reduced(5));
+    juce::Rectangle<int> topSection (area.removeFromTop(area.getHeight() / 4).reduced(5));
+	juce::Rectangle<int> slidersSection (area.reduced(5));
 
-	juce::Rectangle<int> filterTypeSection (leftSection.removeFromTop(leftSection.getHeight() * 0.5).reduced(5));
-	labelFilterType.setBounds (filterTypeSection.removeFromTop(labelHeight));
-	comboFilterType.setBounds (filterTypeSection);
+	labelFilterType.setBounds (topSection.removeFromLeft(topSection.getWidth() / 5));
+	comboFilterType.setBounds (topSection);
 	
-	juce::Rectangle<int> filterGainFactorSection (leftSection.reduced(5));
+	juce::Rectangle<int> filterGainFactorSection (slidersSection.removeFromLeft(slidersSection.getWidth() / 3));
 	labelFilterGainFactor.setBounds (filterGainFactorSection.removeFromTop(labelHeight));
 	sliderFilterGainFactor.setBounds (filterGainFactorSection);
 	
-	juce::Rectangle<int> filterCutoffSection (totalSection.removeFromLeft(totalSection.getWidth() * 0.5).reduced(5));
+	juce::Rectangle<int> filterCutoffSection (slidersSection.removeFromLeft(slidersSection.getWidth() / 2));
 	labelFilterCutoff.setBounds (filterCutoffSection.removeFromTop(labelHeight));
 	sliderFilterCutoff.setBounds (filterCutoffSection);
 
-	juce::Rectangle<int> filterQSection (totalSection.reduced(5));
+	juce::Rectangle<int> filterQSection (slidersSection);
 	labelFilterQ.setBounds (filterQSection.removeFromTop(labelHeight));
 	sliderFilterQ.setBounds	(filterQSection);
 }

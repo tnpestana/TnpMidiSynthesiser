@@ -85,7 +85,7 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (Colours::lightslategrey);
-	g.drawImageAt(backgroundImage, 0, 0);
+	//g.drawImageAt(backgroundImage, 0, 0);
 
 	numVoicesInput.setColour(ComboBox::textColourId, Colours::black);
 
