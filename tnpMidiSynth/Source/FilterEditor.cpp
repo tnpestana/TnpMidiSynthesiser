@@ -43,7 +43,7 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
 	sliderFilterGainFactor.setSliderStyle (Slider::RotaryVerticalDrag);
 
 	sliderFilterQ.setTextBoxStyle		   (Slider::TextBoxBelow, false, 50, 15);
-	sliderFilterCutoff.setTextBoxStyle	   (Slider::TextBoxBelow, false, 70, 15);
+	sliderFilterCutoff.setTextBoxStyle	   (Slider::TextBoxBelow, false, 80, 15);
 	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxBelow, false, 50, 15);
 
 	sliderFilterQ.setTextValueSuffix(" oct");

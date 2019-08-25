@@ -18,12 +18,16 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
     attDistortionType (std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
         (treeState, "distortionType", comboDistortionType)),
     attGain (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "distortionGain", sliderGain)),
+    attMix (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "distortionMix", sliderMix)),
     attToggle (std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
         (treeState, "distortionToggle", toggleDistortion))
 {
     sliderGain.setSliderStyle(Slider::RotaryVerticalDrag);
     sliderGain.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
     sliderGain.setTextValueSuffix(" dB");
+    sliderMix.setSliderStyle(Slider::RotaryVerticalDrag);
+    sliderMix.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
+    sliderMix.setTextValueSuffix(" %");
     
     labelTitle.setText("DISTORTION", dontSendNotification);
     labelTitle.setJustificationType(Justification::centred);
@@ -31,6 +35,8 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
     labelDistortionType.setJustificationType(Justification::centredRight);
     labelGain.setText("gain", dontSendNotification);
     labelGain.setJustificationType(Justification::centred);
+    labelMix.setText("drive", dontSendNotification);
+    labelMix.setJustificationType(Justification::centred);
 
     //  Populate combo boxes with strings stored as parameter choices
     if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("distortionType")))
@@ -44,6 +50,8 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
     addAndMakeVisible(labelDistortionType);
     addAndMakeVisible(labelGain);
     addAndMakeVisible(sliderGain);
+    addAndMakeVisible(labelMix);
+    addAndMakeVisible(sliderMix);
     addAndMakeVisible(comboDistortionType);
 }
 
@@ -57,6 +65,7 @@ void DistortionEditor::paint(Graphics &)
     labelTitle.setColour(Label::outlineColourId, Colours::black);
     comboDistortionType.setColour(ComboBox::textColourId, Colours::black);
     sliderGain.setColour(Slider::textBoxTextColourId, Colours::black);
+    sliderMix.setColour(Slider::textBoxTextColourId, Colours::black);
 }
 
 void DistortionEditor::resized()
@@ -77,4 +86,8 @@ void DistortionEditor::resized()
     juce::Rectangle<int> sliderGainSection (slidersSection.removeFromLeft(slidersSection.getWidth() / 4));
     labelGain.setBounds (sliderGainSection.removeFromTop(labelHeight));
     sliderGain.setBounds (sliderGainSection);
+    
+    juce::Rectangle<int> sliderMixSection (slidersSection.removeFromLeft(slidersSection.getWidth() / 3));
+    labelMix.setBounds (sliderMixSection.removeFromTop(labelHeight));
+    sliderMix.setBounds (sliderMixSection);
 }

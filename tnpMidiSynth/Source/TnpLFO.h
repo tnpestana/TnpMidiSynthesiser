@@ -28,6 +28,7 @@ private:
 	int oscType;
     float depth;
     float rate;
+    float mix;
 	float sampleRate;
     WavetableOscillator wOscillator;
 };

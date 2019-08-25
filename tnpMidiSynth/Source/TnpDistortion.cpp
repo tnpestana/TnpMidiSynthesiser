@@ -12,7 +12,8 @@
 
 TnpDistortion::TnpDistortion()
 : type(0),
-inputGain(0.0f)
+inputGain(0.0f),
+mix(0)
 {
     
 }
@@ -22,10 +23,11 @@ TnpDistortion::~TnpDistortion()
     
 }
 
-void TnpDistortion::updateParameters(int type, float inputGain)
+void TnpDistortion::updateParameters(int type, float inputGain, float mix)
 {
     this->type = type;
     this->inputGain = inputGain;
+    this->mix = mix * 0.01;
 }
 
 void TnpDistortion::prepareToPLay(double samplerate)
@@ -99,7 +101,7 @@ void TnpDistortion::processAudioBlock(AudioBuffer<float>& buffer)
                 }
             }
             
-            *channelData = out;
+            *channelData = (out * mix) + (in * (1 - mix));
             channelData++;
         }
     }
