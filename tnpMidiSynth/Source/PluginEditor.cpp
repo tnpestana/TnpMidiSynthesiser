@@ -19,28 +19,24 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	midiState (p.getMidiState()),
 	midiKeyboard(p.getMidiState() , MidiKeyboardComponent::horizontalKeyboard),
 	//	Editor components
+    masterGUI(p),
 	oscillator1GUI(p, 1),
 	oscillator2GUI(p, 2),
 	filterGUI(p),
     lfoGUI(p),
     delayGUI(p),
     reverbGUI(p),
-    distortionGUI(p),
-	//	Attachments
-	gainAttachment(std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "gain", gainSlider)),
-    attNumVoices(std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
-             (treeState, "numVoices", numVoicesInput))
+    distortionGUI(p)
+
 {
     // Main editor's size.
-	setSize(850, 660);
+	setSize(790, 610);
 	setLookAndFeel(&tnpLookAndFeel);
 	setResizable(false, false);
 
 	backgroundImage = ImageCache::getFromMemory(BinaryData::background_jpg, BinaryData::background_jpgSize);
 
-	addAndMakeVisible(numVoicesLabel);
-	addAndMakeVisible(numVoicesInput);
+    addAndMakeVisible(masterGUI);
 	addAndMakeVisible(oscillator1GUI);
 	addAndMakeVisible(oscillator2GUI);
 	addAndMakeVisible(filterGUI);
@@ -48,29 +44,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	addAndMakeVisible(reverbGUI);
 	addAndMakeVisible(delayGUI);
     addAndMakeVisible(distortionGUI);
-	addAndMakeVisible(labelTitle);
-	addAndMakeVisible(gainSlider);
-	addAndMakeVisible(gainLabel);
 	addAndMakeVisible(midiKeyboard);
-
-	labelTitle.setText("TNP MIDI Synth", dontSendNotification);
-	gainLabel.setText("GAIN", dontSendNotification);
-	numVoicesLabel.setText("voices: ", dontSendNotification);
-
-	labelTitle.setJustificationType(Justification::centred);
-	gainLabel.setJustificationType(Justification::centredTop);
-	numVoicesLabel.setJustificationType(Justification::bottomLeft);
-
-	gainSlider.setSliderStyle(Slider::LinearVertical);
-	gainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 70, 20);
-	gainSlider.setTextValueSuffix(" dB");
-	
-	//  Populate combo boxes with strings stored as parameter choices
-	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("numVoices")))
-	{
-		numVoicesInput.addItemList(choiceParameter->choices, 1);
-		numVoicesInput.setSelectedId(choiceParameter->getIndex() + 1);
-	}
 	
 	midiKeyboard.setLowestVisibleKey(36);
 }
@@ -87,11 +61,6 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
     g.fillAll (Colours::lightslategrey);
 	//g.drawImageAt(backgroundImage, 0, 0);
 
-	numVoicesInput.setColour(ComboBox::textColourId, Colours::black);
-
-	gainLabel.setColour(Label::backgroundColourId, Colours::lightgrey);
-	gainLabel.setColour(Label::outlineColourId, Colours::black);
-	gainSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	//gainSlider.setColour(Slider::textBoxOutlineColourId, Colours::lightgrey);
 
 	// Color scheme for properties that always remain the same.
@@ -124,20 +93,9 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 {
 	// Total main editor's area.
 	juce::Rectangle<int> area (getLocalBounds());
-	juce::Rectangle<int> topSection (area.removeFromTop(50).reduced(5));
-
-	//  Number of voices selection area.   
-	juce::Rectangle<int> numVoicesArea(topSection.removeFromLeft(60));
-	numVoicesLabel.setBounds(numVoicesArea.removeFromTop(15));
-	numVoicesInput.setBounds(numVoicesArea.reduced(2));
 
 	// MIDI keyboard area.
 	midiKeyboard.setBounds(area.removeFromBottom(100).reduced(5));
-
-	// Gain controls area. 
-	juce::Rectangle<int> gainLocation(area.removeFromRight(60).reduced(5));
-	gainLabel.setBounds(gainLocation.removeFromTop(20).reduced(2));
-	gainSlider.setBounds(gainLocation);
 
 	juce::Rectangle<int> left (area.removeFromLeft(area.getWidth() / 3));
     juce::Rectangle<int> center (area.removeFromLeft(area.getWidth() / 2));
@@ -149,12 +107,19 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 
 	// IRRFilter area.
 	filterGUI.setBounds(left.removeFromTop(170).reduced(5));
-	// Distortion area.
-	lfoGUI.setBounds((center.removeFromTop(170).reduced(5)));
-	// Delay area.
-	delayGUI.setBounds(center.reduced(5));
-	// Reverb area.
-	reverbGUI.setBounds(left.reduced(5));
+	
     // Distortion area.
-    distortionGUI.setBounds(right.reduced(5));
+	lfoGUI.setBounds((center.removeFromTop(170).reduced(5)));
+	
+    // Delay area.
+	delayGUI.setBounds(center.reduced(5));
+	
+    // Reverb area.
+	reverbGUI.setBounds(left.reduced(5));
+    
+    // Master area.
+    masterGUI.setBounds(right.removeFromTop(200).reduced(5));
+    
+    // Distortion area.
+    distortionGUI.setBounds(right.removeFromTop(170).reduced(5));
 }

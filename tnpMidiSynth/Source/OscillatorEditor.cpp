@@ -146,7 +146,7 @@ void OscillatorEditor::resized()
 	titleLabel.setBounds(topSection.reduced(2));
 
 	//  Controls area.
-	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.30).reduced(2));
+	juce::Rectangle<int> controls(oscArea.removeFromTop(oscArea.getHeight() * 0.30));
 	
 	//  Oscillator Type.
 	juce::Rectangle<int> oscTypeArea(controls.removeFromLeft(100));
@@ -159,7 +159,7 @@ void OscillatorEditor::resized()
 	transposeSlider.setBounds(transposeArea);
 
 	//  Envelope sliders and labels area - needs reviewing.
-	juce::Rectangle<int> oscEnvelope(oscArea.reduced(10));
+	juce::Rectangle<int> oscEnvelope(oscArea);
 	const double sliderWidth = oscEnvelope.getWidth() / 4;
 
 	juce::Rectangle<int> oscEnvelopeLabel(oscEnvelope.removeFromTop(20));

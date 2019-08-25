@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
+#include "MasterEditor.h"
 #include "TnpLookAndFeel.h"
 #include "OscillatorEditor.h"
 #include "ReverbEditor.h"
@@ -42,17 +43,11 @@ private:
 
 	TnpLookAndFeel tnpLookAndFeel;
 
-	Label labelTitle;
-	Label numVoicesLabel;
-	Label gainLabel;
-
 	juce::Image backgroundImage;
 
-	ComboBox numVoicesInput;
-	Slider gainSlider;
-
 	MidiKeyboardComponent midiKeyboard;
-
+    
+    MasterEditor masterGUI;
 	OscillatorEditor oscillator1GUI;
 	OscillatorEditor oscillator2GUI;
 	FilterEditor filterGUI;
@@ -60,9 +55,6 @@ private:
 	DelayEditor delayGUI;
 	ReverbEditor reverbGUI;
     DistortionEditor distortionGUI;
-
-	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> gainAttachment;
-	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> attNumVoices;
 
 	//==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpMidiSynthAudioProcessorEditor)

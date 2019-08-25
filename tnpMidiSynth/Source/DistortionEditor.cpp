@@ -21,6 +21,7 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
     attToggle (std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
         (treeState, "distortionToggle", toggleDistortion))
 {
+    sliderGain.setSliderStyle(Slider::RotaryVerticalDrag);
     sliderGain.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
     sliderGain.setTextValueSuffix(" dB");
     
@@ -54,19 +55,25 @@ void DistortionEditor::paint(Graphics &)
     labelTitle.setColour(Label::backgroundColourId, Colours::lightgrey);
     labelTitle.setColour(Label::outlineColourId, Colours::black);
     comboDistortionType.setColour(ComboBox::textColourId, Colours::black);
+    sliderGain.setColour(Slider::textBoxTextColourId, Colours::black);
 }
 
 void DistortionEditor::resized()
 {
-    const int labelHeight = 20;
-    juce::Rectangle<int> area(getLocalBounds());
-
-    juce::Rectangle<int> topSection(area.removeFromTop(20));
-    toggleDistortion.setBounds(topSection.removeFromLeft(22));
-    labelTitle.setBounds(topSection.reduced(2));
-
-    labelDistortionType.setBounds(area.removeFromTop(labelHeight));
-    comboDistortionType.setBounds(area.removeFromTop(50).reduced(2));
-    labelGain.setBounds(area.removeFromTop(20));
-    sliderGain.setBounds(area.removeFromTop(70));
+    const int labelHeight = 15;
+    
+    juce::Rectangle<int> area (getLocalBounds());
+    juce::Rectangle<int> titleSection    (area.removeFromTop(20));
+    toggleDistortion.setBounds (titleSection.removeFromLeft(22));
+    labelTitle.setBounds (titleSection.reduced(2));
+    
+    juce::Rectangle<int> topSection (area.removeFromTop(area.getHeight() / 4).reduced(5));
+    juce::Rectangle<int> slidersSection (area.reduced(5));
+    
+    labelDistortionType.setBounds (topSection.removeFromLeft(topSection.getWidth() / 5));
+    comboDistortionType.setBounds (topSection);
+    
+    juce::Rectangle<int> sliderGainSection (slidersSection.removeFromLeft(slidersSection.getWidth() / 4));
+    labelGain.setBounds (sliderGainSection.removeFromTop(labelHeight));
+    sliderGain.setBounds (sliderGainSection);
 }
