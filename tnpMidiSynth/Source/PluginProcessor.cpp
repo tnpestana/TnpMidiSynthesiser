@@ -305,10 +305,10 @@ void TnpMidiSynthAudioProcessor::manageActiveVoices()
 				*treeState.getRawParameterValue("osc1Decay") * 0.001,
 				*treeState.getRawParameterValue("osc1Sustain") * 0.01,
 				*treeState.getRawParameterValue("osc1Release") * 0.001,
-				*treeState.getRawParameterValue("osc2Attack"),
-				*treeState.getRawParameterValue("osc2Decay"),
-				*treeState.getRawParameterValue("osc2Sustain"),
-				*treeState.getRawParameterValue("osc2Release"),
+				*treeState.getRawParameterValue("osc2Attack") * 0.001,
+				*treeState.getRawParameterValue("osc2Decay") * 0.001,
+				*treeState.getRawParameterValue("osc2Sustain") * 0.001,
+				*treeState.getRawParameterValue("osc2Release") * 0.001,
 				*treeState.getRawParameterValue("osc2Toggle"));
 		}
 	}

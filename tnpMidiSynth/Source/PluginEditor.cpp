@@ -148,9 +148,9 @@ void TnpMidiSynthAudioProcessorEditor::resized()
 	oscillator2GUI.setBounds(center.removeFromTop(200).reduced(5));
 
 	// IRRFilter area.
-	filterGUI.setBounds(left.removeFromTop(150).reduced(5));
+	filterGUI.setBounds(left.removeFromTop(170).reduced(5));
 	// Distortion area.
-	lfoGUI.setBounds((center.removeFromTop(150).reduced(5)));
+	lfoGUI.setBounds((center.removeFromTop(170).reduced(5)));
 	// Delay area.
 	delayGUI.setBounds(center.reduced(5));
 	// Reverb area.

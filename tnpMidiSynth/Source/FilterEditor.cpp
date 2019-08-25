@@ -42,7 +42,7 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
 	sliderFilterQ.setSliderStyle		  (Slider::RotaryVerticalDrag);
 	sliderFilterGainFactor.setSliderStyle (Slider::RotaryVerticalDrag);
 
-	sliderFilterQ.setTextBoxStyle		   (Slider::TextBoxBelow, false, 60, 15);
+	sliderFilterQ.setTextBoxStyle		   (Slider::TextBoxBelow, false, 50, 15);
 	sliderFilterCutoff.setTextBoxStyle	   (Slider::TextBoxBelow, false, 70, 15);
 	sliderFilterGainFactor.setTextBoxStyle (Slider::TextBoxBelow, false, 50, 15);
 
@@ -99,15 +99,15 @@ void FilterEditor::resized()
 	labelFilterType.setBounds (topSection.removeFromLeft(topSection.getWidth() / 5));
 	comboFilterType.setBounds (topSection);
 	
-	juce::Rectangle<int> filterGainFactorSection (slidersSection.removeFromLeft(slidersSection.getWidth() / 3));
+	juce::Rectangle<int> filterGainFactorSection (slidersSection.removeFromLeft(slidersSection.getWidth() / 4));
 	labelFilterGainFactor.setBounds (filterGainFactorSection.removeFromTop(labelHeight));
 	sliderFilterGainFactor.setBounds (filterGainFactorSection);
 	
-	juce::Rectangle<int> filterCutoffSection (slidersSection.removeFromLeft(slidersSection.getWidth() / 2));
+	juce::Rectangle<int> filterCutoffSection (slidersSection.removeFromLeft(slidersSection.getWidth() / 3));
 	labelFilterCutoff.setBounds (filterCutoffSection.removeFromTop(labelHeight));
 	sliderFilterCutoff.setBounds (filterCutoffSection);
 
-	juce::Rectangle<int> filterQSection (slidersSection);
+	juce::Rectangle<int> filterQSection (slidersSection.removeFromLeft(slidersSection.getWidth() / 2));
 	labelFilterQ.setBounds (filterQSection.removeFromTop(labelHeight));
 	sliderFilterQ.setBounds	(filterQSection);
 }

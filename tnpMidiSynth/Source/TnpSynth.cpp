@@ -97,7 +97,7 @@ void TnpSynthVoice::renderNextBlock(AudioBuffer<float>& outputBuffer, int startS
 		if (osc2Toggle == 1)
 		{
 			soundwave2 = processOscillator(wOscillator2, osc2Type, frequency2);
-			envelope = volumeEnvelope1.process() * (soundwave1 * 0.5 + soundwave2 * 0.5) * velocityLevel;
+			envelope = ((volumeEnvelope1.process() * soundwave1) * 0.5 + (volumeEnvelope2.process() * soundwave2) * 0.5) * velocityLevel;
 		}
 		else
 		{

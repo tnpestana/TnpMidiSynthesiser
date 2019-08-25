@@ -26,16 +26,18 @@ LFOEditor::LFOEditor(TnpMidiSynthAudioProcessor& p)
 {
 	labelTitle.setText("LFO", dontSendNotification);
 	labelLfoOscType.setText("wave: ", dontSendNotification);
-	labelLfoDepth.setText("depth: ", dontSendNotification);
-	labelLfoRate.setText("rate: ", dontSendNotification);
+	labelLfoDepth.setText("depth", dontSendNotification);
+	labelLfoRate.setText("rate", dontSendNotification);
 
 	labelLfoOscType.setJustificationType(Justification::centredRight);
-	labelLfoDepth.setJustificationType(Justification::centredRight);
-	labelLfoRate.setJustificationType(Justification::centredRight);
+	labelLfoDepth.setJustificationType(Justification::centredBottom);
+	labelLfoRate.setJustificationType(Justification::centredBottom);
 	labelTitle.setJustificationType(Justification::centred);
 
-	sliderLfoDepth.setTextBoxStyle(Slider::TextBoxLeft, false, 50, 15);
-	sliderLfoRate.setTextBoxStyle(Slider::TextBoxLeft, false, 50, 15);
+    sliderLfoDepth.setSliderStyle(Slider::RotaryVerticalDrag);
+	sliderLfoDepth.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
+    sliderLfoRate.setSliderStyle(Slider::RotaryVerticalDrag);
+	sliderLfoRate.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
 
 	sliderLfoDepth.setTextValueSuffix(" %");
 	sliderLfoRate.setTextValueSuffix(" Hz");
@@ -72,18 +74,24 @@ void LFOEditor::paint(Graphics &)
 
 void LFOEditor::resized()
 {
-	juce::Rectangle<int> area(getLocalBounds());
-
-	juce::Rectangle<int> topSection(area.removeFromTop(20));
-	toggleLfo.setBounds(topSection.removeFromLeft(22));
-	labelTitle.setBounds(topSection.reduced(2));
-
-	juce::Rectangle<int> labels(area.removeFromLeft(50));
-	labelLfoOscType.setBounds(labels.removeFromTop(labels.getHeight() / 3));
-	labelLfoDepth.setBounds(labels.removeFromTop(labels.getHeight() / 2));
-	labelLfoRate.setBounds(labels);
-
-	comboOscType.setBounds(area.removeFromTop(area.getHeight() / 3).reduced(5));
-	sliderLfoDepth.setBounds(area.removeFromTop(area.getHeight() / 2));
-	sliderLfoRate.setBounds(area);
+    const int labelHeight = 15;
+    
+    juce::Rectangle<int> area (getLocalBounds());
+    juce::Rectangle<int> titleSection    (area.removeFromTop(20));
+    toggleLfo.setBounds (titleSection.removeFromLeft(22));
+    labelTitle.setBounds (titleSection.reduced(2));
+    
+    juce::Rectangle<int> topSection (area.removeFromTop(area.getHeight() / 4).reduced(5));
+    juce::Rectangle<int> slidersSection (area.reduced(5));
+    
+    labelLfoOscType.setBounds (topSection.removeFromLeft(topSection.getWidth() / 5));
+    comboOscType.setBounds (topSection);
+    
+    juce::Rectangle<int> filterGainFactorSection (slidersSection.removeFromLeft(slidersSection.getWidth() / 4));
+    labelLfoRate.setBounds (filterGainFactorSection.removeFromTop(labelHeight));
+    sliderLfoRate.setBounds (filterGainFactorSection);
+    
+    juce::Rectangle<int> filterCutoffSection (slidersSection.removeFromLeft(slidersSection.getWidth() / 3));
+    labelLfoDepth.setBounds (filterCutoffSection.removeFromTop(labelHeight));
+    sliderLfoDepth.setBounds (filterCutoffSection);
 }
