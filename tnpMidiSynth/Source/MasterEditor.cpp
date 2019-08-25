@@ -32,7 +32,7 @@ attNumVoices(std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
     
     labelTitle.setJustificationType(Justification::centred);
     gainLabel.setJustificationType(Justification::centredBottom);
-    numVoicesLabel.setJustificationType(Justification::centredRight);
+    numVoicesLabel.setJustificationType(Justification::bottomLeft);
     
     gainSlider.setSliderStyle(Slider::RotaryVerticalDrag);
     gainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);

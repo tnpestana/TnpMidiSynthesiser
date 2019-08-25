@@ -27,7 +27,8 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
     
     labelTitle.setText("DISTORTION", dontSendNotification);
     labelTitle.setJustificationType(Justification::centred);
-    labelDistortionType.setText("type:", dontSendNotification);
+    labelDistortionType.setText("type: ", dontSendNotification);
+    labelDistortionType.setJustificationType(Justification::centredRight);
     labelGain.setText("gain", dontSendNotification);
     labelGain.setJustificationType(Justification::centred);
 
