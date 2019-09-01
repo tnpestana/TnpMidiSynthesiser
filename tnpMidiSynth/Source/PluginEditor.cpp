@@ -17,6 +17,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	processor (p),
 	treeState(p.getTreeState()),
 	midiState (p.getMidiState()),
+    visualiser(p.getVisualiserState()),
 	midiKeyboard(p.getMidiState() , MidiKeyboardComponent::horizontalKeyboard),
 	//	Editor components
     masterGUI(p),
@@ -45,6 +46,7 @@ TnpMidiSynthAudioProcessorEditor::TnpMidiSynthAudioProcessorEditor (TnpMidiSynth
 	addAndMakeVisible(delayGUI);
     addAndMakeVisible(distortionGUI);
 	addAndMakeVisible(midiKeyboard);
+    addAndMakeVisible(visualiser);
 	
 	midiKeyboard.setLowestVisibleKey(36);
 }
@@ -58,34 +60,42 @@ TnpMidiSynthAudioProcessorEditor::~TnpMidiSynthAudioProcessorEditor()
 void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (Colours::lightslategrey);
+    g.fillAll (Colours::rosybrown);
 	//g.drawImageAt(backgroundImage, 0, 0);
 
-	//gainSlider.setColour(Slider::textBoxOutlineColourId, Colours::lightgrey);
-
+    
+    getLookAndFeel().setColour(Slider::textBoxBackgroundColourId, Colours::rosybrown);    // doesnt work?
+    
+    //tnpLookAndFeel.setColour(Slider::textBoxBackgroundColourId, Colours::rosybrown);
+    getLookAndFeel().setColour(Slider::rotarySliderFillColourId, Colours::beige);
+    getLookAndFeel().setColour(Slider::thumbColourId, Colours::black);
+    getLookAndFeel().setColour(Slider::rotarySliderOutlineColourId, Colours::black);
+    
 	// Color scheme for properties that always remain the same.
-	getLookAndFeel().setColour(Slider::backgroundColourId, Colours::floralwhite);
-	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::lightgrey);
-	getLookAndFeel().setColour(Slider::rotarySliderFillColourId, Colours::lightgrey);
-	getLookAndFeel().setColour(Slider::rotarySliderOutlineColourId, Colours::black);
-	getLookAndFeel().setColour(Slider::thumbColourId, Colours::black);
+	getLookAndFeel().setColour(Slider::backgroundColourId, Colours::white);
+	getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::beige);
+//    getLookAndFeel().setColour(Slider::rotarySliderFillColourId, Colours::lightgrey);
+//    getLookAndFeel().setColour(Slider::rotarySliderOutlineColourId, Colours::black);
+//    getLookAndFeel().setColour(Slider::rotarySliderFillColourId, Colours::whitesmoke);
+//    getLookAndFeel().setColour(Slider::rotarySliderOutlineColourId, Colours::darkslategrey);
+//    getLookAndFeel().setColour(Slider::thumbColourId, Colours::black);
 	getLookAndFeel().setColour(Slider::textBoxTextColourId, Colours::black);
-	//getLookAndFeel().setColour(Slider::textBoxOutlineColourId, Colours::cadetblue);
+    getLookAndFeel().setColour(Slider::textBoxOutlineColourId, Colours::black);
 
 	getLookAndFeel().setColour(ComboBox::textColourId, Colours::black);
-	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::floralwhite);
-	getLookAndFeel().setColour(ComboBox::outlineColourId, Colours::lightgrey);
-	getLookAndFeel().setColour(ComboBox::arrowColourId, Colours::cadetblue);
+	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::white);
+	getLookAndFeel().setColour(ComboBox::outlineColourId, Colours::rosybrown);
+	getLookAndFeel().setColour(ComboBox::arrowColourId, Colours::rosybrown);
 
-	getLookAndFeel().setColour(PopupMenu::backgroundColourId ,Colours::floralwhite);
+	getLookAndFeel().setColour(PopupMenu::backgroundColourId ,Colours::white);
 	getLookAndFeel().setColour(PopupMenu::textColourId, Colours::black);
 
 	getLookAndFeel().setColour(Label::textColourId, Colours::black);
 
 	getLookAndFeel().setColour(ToggleButton::tickColourId, Colours::black);
-	getLookAndFeel().setColour(ToggleButton::tickDisabledColourId, Colours::floralwhite);
+	getLookAndFeel().setColour(ToggleButton::tickDisabledColourId, Colours::white);
 
-	getLookAndFeel().setColour(TextButton::buttonColourId, Colours::lightgrey);
+	getLookAndFeel().setColour(TextButton::buttonColourId, Colours::beige);
 	getLookAndFeel().setColour(TextButton::textColourOffId, Colours::black);
 }
 
@@ -122,4 +132,7 @@ void TnpMidiSynthAudioProcessorEditor::resized()
     
     // Distortion area.
     distortionGUI.setBounds(right.removeFromTop(170).reduced(5));
+    
+    // Visualiser area.
+    visualiser.setBounds(right.reduced(10));
 }

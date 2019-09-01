@@ -75,7 +75,7 @@ FilterEditor::~FilterEditor()
 
 void FilterEditor::paint(Graphics& g)
 {
-	labelFilterTitle.setColour(Label::backgroundColourId, Colours::lightgrey);
+	labelFilterTitle.setColour(Label::backgroundColourId, Colours::beige);
 	labelFilterTitle.setColour(Label::outlineColourId, Colours::black);
 	sliderFilterCutoff.setColour(Slider::textBoxTextColourId, Colours::black);
 	sliderFilterGainFactor.setColour(Slider::textBoxTextColourId, Colours::black);

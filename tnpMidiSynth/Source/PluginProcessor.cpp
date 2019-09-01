@@ -227,6 +227,8 @@ void TnpMidiSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
     treeState.addParameterListener("distortionGain", this);
     treeState.addParameterListener("distortionMix", this);
     updateDistortion();
+    
+    visualiser.clear();
 }
 
 void TnpMidiSynthAudioProcessor::releaseResources()
@@ -281,6 +283,8 @@ void TnpMidiSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 		processReverb(buffer);
     
 	processGain(buffer);
+    
+    visualiser.pushBuffer(buffer);
 }
 
 //==============================================================================
@@ -475,14 +479,19 @@ void TnpMidiSynthAudioProcessor::processReverb(AudioBuffer<float>& buffer)
 }
 
 //==============================================================================
-AudioProcessorValueTreeState & TnpMidiSynthAudioProcessor::getTreeState()
+AudioProcessorValueTreeState& TnpMidiSynthAudioProcessor::getTreeState()
 {
 	return treeState;
 }
 
-MidiKeyboardState & TnpMidiSynthAudioProcessor::getMidiState()
+MidiKeyboardState& TnpMidiSynthAudioProcessor::getMidiState()
 {
 	return keyboardState;
+}
+
+VisualiserEditor& TnpMidiSynthAudioProcessor::getVisualiserState()
+{
+    return visualiser;
 }
 
 //==============================================================================

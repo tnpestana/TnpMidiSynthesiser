@@ -72,7 +72,7 @@ ReverbEditor::~ReverbEditor()
 
 void ReverbEditor::paint(Graphics& g)
 {
-	labelTitle.setColour(Label::backgroundColourId, Colours::lightgrey);
+	labelTitle.setColour(Label::backgroundColourId, Colours::beige);
 	labelTitle.setColour(Label::outlineColourId, Colours::black);
 	roomSizeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	dampingSlider.setColour(Slider::textBoxTextColourId, Colours::black);

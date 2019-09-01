@@ -61,7 +61,7 @@ DistortionEditor::~DistortionEditor()
 
 void DistortionEditor::paint(Graphics &)
 {
-    labelTitle.setColour(Label::backgroundColourId, Colours::lightgrey);
+    labelTitle.setColour(Label::backgroundColourId, Colours::beige);
     labelTitle.setColour(Label::outlineColourId, Colours::black);
     comboDistortionType.setColour(ComboBox::textColourId, Colours::black);
     sliderGain.setColour(Slider::textBoxTextColourId, Colours::black);

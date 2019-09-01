@@ -125,7 +125,7 @@ OscillatorEditor::~OscillatorEditor()
 
 void OscillatorEditor::paint(Graphics& g)
 {
-	titleLabel.setColour(Label::backgroundColourId, Colours::lightgrey);
+	titleLabel.setColour(Label::backgroundColourId, Colours::beige);
 	titleLabel.setColour(Label::outlineColourId, Colours::black);
 	transposeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
 	attackSlider.setColour(Slider::textBoxTextColourId, Colours::black);

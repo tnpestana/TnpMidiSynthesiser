@@ -52,7 +52,7 @@ MasterEditor::~MasterEditor()
 
 void MasterEditor::paint(Graphics &)
 {
-    labelTitle.setColour(Label::backgroundColourId, Colours::lightgrey);
+    labelTitle.setColour(Label::backgroundColourId, Colours::beige);
     labelTitle.setColour(Label::outlineColourId, Colours::black);
     
     numVoicesInput.setColour(ComboBox::textColourId, Colours::black);

@@ -15,6 +15,7 @@
 #include "TnpStereoDelay.h"
 #include "TnpLFO.h"
 #include "TnpDistortion.h"
+#include "VisualiserEditor.h"
 
 //==============================================================================
 class TnpMidiSynthAudioProcessor : public AudioProcessor, public AudioProcessorValueTreeState::Listener
@@ -54,6 +55,7 @@ public:
 	//==============================================================================
 	AudioProcessorValueTreeState& getTreeState();
 	MidiKeyboardState& getMidiState();
+    VisualiserEditor& getVisualiserState();
 
 	//==============================================================================
 	void setNumVoices(int numVoices);
@@ -97,6 +99,7 @@ private:
 	TnpStereoDelay delay;
 	TnpLFO lfo;
     TnpDistortion distortion;
+    VisualiserEditor visualiser;
 
 	float targetGain, currentGain;
 	float  targetFilterCutoff, currentFilterCutoff;

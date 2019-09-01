@@ -21,6 +21,7 @@
 #include "LFOEditor.h"
 #include "DistortionEditor.h"
 
+
 //==============================================================================
 /**
 */
@@ -40,6 +41,7 @@ private:
 	TnpMidiSynthAudioProcessor& processor;
 	AudioProcessorValueTreeState& treeState;
 	MidiKeyboardState& midiState;
+    VisualiserEditor& visualiser;
 
 	TnpLookAndFeel tnpLookAndFeel;
 
@@ -55,6 +57,7 @@ private:
 	DelayEditor delayGUI;
 	ReverbEditor reverbGUI;
     DistortionEditor distortionGUI;
+    
 
 	//==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpMidiSynthAudioProcessorEditor)
