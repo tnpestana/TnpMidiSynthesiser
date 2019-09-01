@@ -12,8 +12,9 @@
 
 VisualiserEditor::VisualiserEditor() : AudioVisualiserComponent(2)
 {
-    setBufferSize(512);
-    setSamplesPerBlock(256);
+    setBufferSize(64);
+    setSamplesPerBlock(8);
+    setColours(Colours::black, Colours::beige);
 }
 
 VisualiserEditor::~VisualiserEditor()
