@@ -15,5 +15,4 @@ Both /Builds and /JuceLibraryCode folders are ignored but it is my understanding
 * **Tiago Neves Pestana** - [tnpestana](https://github.com/tnpestana)
 
 ## Screenshot
-
-![capture](https://user-images.githubusercontent.com/22794411/63655018-666f0480-c77a-11e9-8094-c813387d1dac.png)
+<img width="802" alt="Screenshot 2019-10-23 at 20 32 43" src="https://user-images.githubusercontent.com/22794411/67427752-a7e22b80-f5d4-11e9-8379-7806c598f6aa.png">
