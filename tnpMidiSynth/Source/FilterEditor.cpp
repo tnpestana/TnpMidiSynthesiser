@@ -50,7 +50,7 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
 	sliderFilterCutoff.setTextValueSuffix(" Hz");
 	sliderFilterGainFactor.setTextValueSuffix(" %");
 
-	//  Populate combo boxes with strings stored as paramneter choices
+	//  Populate combo boxes with strings stored as parameter choices
 	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("filterType")))
 	{
 		comboFilterType.addItemList(choiceParameter->choices, 1);
@@ -61,7 +61,7 @@ FilterEditor::FilterEditor(TnpMidiSynthAudioProcessor& p)
 	addAndMakeVisible (labelFilterTitle);
 	addAndMakeVisible (labelFilterType);
 	addAndMakeVisible (labelFilterCutoff);
-        addAndMakeVisible (labelFilterQ);
+    addAndMakeVisible (labelFilterQ);
 	addAndMakeVisible (labelFilterGainFactor);
 	addAndMakeVisible (comboFilterType);
 	addAndMakeVisible (sliderFilterCutoff);
@@ -85,7 +85,7 @@ void FilterEditor::paint(Graphics& g)
 
 void FilterEditor::resized()
 {
-	const int labelWidth = getWidth() / 4;
+	//const int labelWidth = getWidth() / 4;
 	const int labelHeight = 15;
 
 	juce::Rectangle<int> area (getLocalBounds());
