@@ -13,7 +13,7 @@
 
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "PluginProcessor.h"
+#include "../Processors/PluginProcessor.h"
 
 
 class OscillatorEditor : public Component

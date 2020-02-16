@@ -11,15 +11,15 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "PluginProcessor.h"
-#include "MasterEditor.h"
-#include "TnpLookAndFeel.h"
-#include "OscillatorEditor.h"
-#include "ReverbEditor.h"
-#include "DelayEditor.h"
-#include "FilterEditor.h"
-#include "LFOEditor.h"
-#include "DistortionEditor.h"
+#include "../Processors/PluginProcessor.h"
+#include "../Editors/MasterEditor.h"
+#include "../UI/TnpLookAndFeel.h"
+#include "../Editors/OscillatorEditor.h"
+#include "../Editors/ReverbEditor.h"
+#include "../Editors/DelayEditor.h"
+#include "../Editors/FilterEditor.h"
+#include "../Editors/LFOEditor.h"
+#include "../Editors/DistortionEditor.h"
 
 
 //==============================================================================

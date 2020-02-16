@@ -1,74 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT name="TnpMidiSynth" projectType="audioplug" buildStandalone="1"
-              jucerVersion="5.4.4" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
+              jucerVersion="5.4.7" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
               pluginFormats="buildAU,buildStandalone,buildVST,buildVST3" buildVST="1"
               buildVST3="1" buildAU="1" buildAUv3="0" buildRTAS="0" buildAAX="0"
               enableIAA="0" id="TQPIW0" pluginName="tnpMidiSynth" pluginManufacturer="Tiago Pestana"
               pluginVST3Category="Instrument">
   <MAINGROUP id="tdkgxH" name="TnpMidiSynth">
     <GROUP id="{136D5720-F5B3-DBDF-75D4-B71623C0CCBC}" name="Source">
+      <GROUP id="{BB0916BE-C6D0-CF4A-E9D6-FB0F32CAACCF}" name="Processors">
+        <FILE id="xIEyTX" name="PluginProcessor.cpp" compile="1" resource="0"
+              file="Source/Processors/PluginProcessor.cpp"/>
+        <FILE id="xZ6uOl" name="PluginProcessor.h" compile="0" resource="0"
+              file="Source/Processors/PluginProcessor.h"/>
+        <FILE id="D4tkk4" name="TnpDelayLine.cpp" compile="1" resource="0"
+              file="Source/Processors/TnpDelayLine.cpp"/>
+        <FILE id="swVplm" name="TnpDelayLine.h" compile="0" resource="0" file="Source/Processors/TnpDelayLine.h"/>
+        <FILE id="ha8wNu" name="TnpDistortion.cpp" compile="1" resource="0"
+              file="Source/Processors/TnpDistortion.cpp"/>
+        <FILE id="be4gEn" name="TnpDistortion.h" compile="0" resource="0" file="Source/Processors/TnpDistortion.h"/>
+        <FILE id="CWineu" name="TnpLFO.cpp" compile="1" resource="0" file="Source/Processors/TnpLFO.cpp"/>
+        <FILE id="va25yy" name="TnpLFO.h" compile="0" resource="0" file="Source/Processors/TnpLFO.h"/>
+        <FILE id="vuezay" name="TnpStereoDelay.cpp" compile="1" resource="0"
+              file="Source/Processors/TnpStereoDelay.cpp"/>
+        <FILE id="CGoyPx" name="TnpStereoDelay.h" compile="0" resource="0"
+              file="Source/Processors/TnpStereoDelay.h"/>
+        <FILE id="NSujRK" name="TnpSynth.cpp" compile="1" resource="0" file="Source/Processors/TnpSynth.cpp"/>
+        <FILE id="xDtpQk" name="TnpSynth.h" compile="0" resource="0" file="Source/Processors/TnpSynth.h"/>
+        <FILE id="BVuUf8" name="TnpWavetable.cpp" compile="1" resource="0"
+              file="Source/Processors/TnpWavetable.cpp"/>
+        <FILE id="fKPCpp" name="TnpWavetable.h" compile="0" resource="0" file="Source/Processors/TnpWavetable.h"/>
+      </GROUP>
+      <GROUP id="{79F4BDEA-C53D-F5E0-78D7-3AA610765F9E}" name="Editors">
+        <FILE id="ZjoFhH" name="DelayEditor.cpp" compile="1" resource="0" file="Source/Editors/DelayEditor.cpp"/>
+        <FILE id="OS5QqL" name="DelayEditor.h" compile="0" resource="0" file="Source/Editors/DelayEditor.h"/>
+        <FILE id="QbrAdG" name="DistortionEditor.cpp" compile="1" resource="0"
+              file="Source/Editors/DistortionEditor.cpp"/>
+        <FILE id="qwARK0" name="DistortionEditor.h" compile="0" resource="0"
+              file="Source/Editors/DistortionEditor.h"/>
+        <FILE id="BYJorJ" name="FilterEditor.cpp" compile="1" resource="0"
+              file="Source/Editors/FilterEditor.cpp"/>
+        <FILE id="YwVfoT" name="FilterEditor.h" compile="0" resource="0" file="Source/Editors/FilterEditor.h"/>
+        <FILE id="N7ZpNy" name="LFOEditor.cpp" compile="1" resource="0" file="Source/Editors/LFOEditor.cpp"/>
+        <FILE id="g6Ew2u" name="LFOEditor.h" compile="0" resource="0" file="Source/Editors/LFOEditor.h"/>
+        <FILE id="NfI61o" name="MasterEditor.cpp" compile="1" resource="0"
+              file="Source/Editors/MasterEditor.cpp"/>
+        <FILE id="rVoEGs" name="MasterEditor.h" compile="0" resource="0" file="Source/Editors/MasterEditor.h"/>
+        <FILE id="g1xLf0" name="OscillatorEditor.cpp" compile="1" resource="0"
+              file="Source/Editors/OscillatorEditor.cpp"/>
+        <FILE id="nMTZIP" name="OscillatorEditor.h" compile="0" resource="0"
+              file="Source/Editors/OscillatorEditor.h"/>
+        <FILE id="LhIDrW" name="PluginEditor.cpp" compile="1" resource="0"
+              file="Source/Editors/PluginEditor.cpp"/>
+        <FILE id="gRTCzR" name="PluginEditor.h" compile="0" resource="0" file="Source/Editors/PluginEditor.h"/>
+        <FILE id="ZNAKH0" name="ReverbEditor.cpp" compile="1" resource="0"
+              file="Source/Editors/ReverbEditor.cpp"/>
+        <FILE id="ekEcT5" name="ReverbEditor.h" compile="0" resource="0" file="Source/Editors/ReverbEditor.h"/>
+        <FILE id="rEWmnm" name="VisualiserEditor.cpp" compile="1" resource="0"
+              file="Source/Editors/VisualiserEditor.cpp"/>
+        <FILE id="onJuXl" name="VisualiserEditor.h" compile="0" resource="0"
+              file="Source/Editors/VisualiserEditor.h"/>
+      </GROUP>
       <GROUP id="{A143093E-4961-6827-0FE1-0168BBFE262A}" name="ADSR">
         <FILE id="PjZ8DQ" name="ADSR.cpp" compile="1" resource="0" file="Source/ADSR/ADSR.cpp"/>
         <FILE id="sPOP54" name="ADSR.h" compile="0" resource="0" file="Source/ADSR/ADSR.h"/>
       </GROUP>
-      <GROUP id="{1F77430E-5D7B-C4CC-3C66-E4613C2FA0F2}" name="Editors">
-        <FILE id="mQbLuJ" name="VisualiserEditor.cpp" compile="1" resource="0"
-              file="Source/VisualiserEditor.cpp"/>
-        <FILE id="eUtElv" name="VisualiserEditor.h" compile="0" resource="0"
-              file="Source/VisualiserEditor.h"/>
-        <FILE id="POSsQ2" name="MasterEditor.cpp" compile="1" resource="0"
-              file="Source/MasterEditor.cpp"/>
-        <FILE id="o3L5Ff" name="MasterEditor.h" compile="0" resource="0" file="Source/MasterEditor.h"/>
-        <FILE id="jNpjlG" name="DistortionEditor.cpp" compile="1" resource="0"
-              file="Source/DistortionEditor.cpp"/>
-        <FILE id="Xu17bB" name="DistortionEditor.h" compile="0" resource="0"
-              file="Source/DistortionEditor.h"/>
-        <FILE id="JF7GDB" name="LFOEditor.cpp" compile="1" resource="0" file="Source/LFOEditor.cpp"/>
-        <FILE id="AOt7cg" name="LFOEditor.h" compile="0" resource="0" file="Source/LFOEditor.h"/>
-        <FILE id="TrBN6t" name="PluginEditor.cpp" compile="1" resource="0"
-              file="Source/PluginEditor.cpp"/>
-        <FILE id="BdBV9o" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-        <FILE id="pNAVGN" name="OscillatorEditor.cpp" compile="1" resource="0"
-              file="Source/OscillatorEditor.cpp"/>
-        <FILE id="yAYSwH" name="OscillatorEditor.h" compile="0" resource="0"
-              file="Source/OscillatorEditor.h"/>
-        <FILE id="ZuUYVM" name="FilterEditor.cpp" compile="1" resource="0"
-              file="Source/FilterEditor.cpp"/>
-        <FILE id="buruyr" name="FilterEditor.h" compile="0" resource="0" file="Source/FilterEditor.h"/>
-        <FILE id="EC6MyK" name="ReverbEditor.cpp" compile="1" resource="0"
-              file="Source/ReverbEditor.cpp"/>
-        <FILE id="U9vcsV" name="ReverbEditor.h" compile="0" resource="0" file="Source/ReverbEditor.h"/>
-        <FILE id="j9WCNX" name="DelayEditor.cpp" compile="1" resource="0" file="Source/DelayEditor.cpp"/>
-        <FILE id="pxcUz9" name="DelayEditor.h" compile="0" resource="0" file="Source/DelayEditor.h"/>
+      <GROUP id="{305CD4D2-BE58-26BB-D6DF-E21CBF94724E}" name="UI">
+        <FILE id="Ulbz3E" name="TnpLookAndFeel.cpp" compile="1" resource="0"
+              file="Source/UI/TnpLookAndFeel.cpp"/>
+        <FILE id="wcWnsi" name="TnpLookAndFeel.h" compile="0" resource="0"
+              file="Source/UI/TnpLookAndFeel.h"/>
       </GROUP>
-      <GROUP id="{1BF9E916-6527-54CB-7671-8E91F9C306F1}" name="UI">
-        <FILE id="ybE83Y" name="TnpLookAndFeel.cpp" compile="1" resource="0"
-              file="Source/TnpLookAndFeel.cpp"/>
-        <FILE id="lqIe5D" name="TnpLookAndFeel.h" compile="0" resource="0"
-              file="Source/TnpLookAndFeel.h"/>
-      </GROUP>
-      <FILE id="ZWtIDa" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
-      <FILE id="whaReg" name="PluginProcessor.h" compile="0" resource="0"
-            file="Source/PluginProcessor.h"/>
-      <FILE id="KbVU0Z" name="TnpSynth.cpp" compile="1" resource="0" file="Source/TnpSynth.cpp"/>
-      <FILE id="b1u1EN" name="TnpSynth.h" compile="0" resource="0" file="Source/TnpSynth.h"/>
-      <FILE id="Wwlcfx" name="TnpWavetable.h" compile="0" resource="0" file="Source/TnpWavetable.h"/>
-      <FILE id="mPDLVn" name="TnpWavetable.cpp" compile="1" resource="0"
-            file="Source/TnpWavetable.cpp"/>
-      <FILE id="cpFocT" name="TnpLFO.cpp" compile="1" resource="0" file="Source/TnpLFO.cpp"/>
-      <FILE id="YHk8SP" name="TnpLFO.h" compile="0" resource="0" file="Source/TnpLFO.h"/>
-      <FILE id="G3593j" name="TnpDistortion.cpp" compile="1" resource="0"
-            file="Source/TnpDistortion.cpp"/>
-      <FILE id="Fhc3Tb" name="TnpDistortion.h" compile="0" resource="0" file="Source/TnpDistortion.h"/>
-      <FILE id="Jh33sr" name="TnpDelayLine.cpp" compile="1" resource="0"
-            file="Source/TnpDelayLine.cpp"/>
-      <FILE id="yYwNRK" name="TnpDelayLine.h" compile="0" resource="0" file="Source/TnpDelayLine.h"/>
-      <FILE id="lSF20D" name="TnpStereoDelay.cpp" compile="1" resource="0"
-            file="Source/TnpStereoDelay.cpp"/>
-      <FILE id="ZczgO5" name="TnpStereoDelay.h" compile="0" resource="0"
-            file="Source/TnpStereoDelay.h"/>
     </GROUP>
     <GROUP id="{A5288FAA-6551-02E0-BDF2-7078225C1A08}" name="Images">
       <FILE id="OhcsGp" name="icon.svg" compile="0" resource="1" file="Images/icon.svg"/>
@@ -113,41 +115,41 @@
         <CONFIGURATION isDebug="0" name="Release"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_video" path="../../juce"/>
-        <MODULEPATH id="juce_opengl" path="../../juce"/>
-        <MODULEPATH id="juce_gui_extra" path="../../juce"/>
-        <MODULEPATH id="juce_gui_basics" path="../../juce"/>
-        <MODULEPATH id="juce_graphics" path="../../juce"/>
-        <MODULEPATH id="juce_events" path="../../juce"/>
-        <MODULEPATH id="juce_data_structures" path="../../juce"/>
-        <MODULEPATH id="juce_cryptography" path="../../juce"/>
-        <MODULEPATH id="juce_core" path="../../juce"/>
-        <MODULEPATH id="juce_audio_utils" path="../../juce"/>
-        <MODULEPATH id="juce_audio_processors" path="../../juce"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../../juce"/>
-        <MODULEPATH id="juce_audio_formats" path="../../juce"/>
-        <MODULEPATH id="juce_audio_devices" path="../../juce"/>
+        <MODULEPATH id="juce_video" path="../../../modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../modules"/>
+        <MODULEPATH id="juce_events" path="../../../modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../modules"/>
+        <MODULEPATH id="juce_core" path="../../../modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../modules"/>
         <MODULEPATH id="juce_audio_basics" path="../../../modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
-            useGlobalPath="1"/>
-    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+            useGlobalPath="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
   <JUCEOPTIONS/>
 </JUCERPROJECT>

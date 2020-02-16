@@ -15,7 +15,7 @@
 #include "TnpStereoDelay.h"
 #include "TnpLFO.h"
 #include "TnpDistortion.h"
-#include "VisualiserEditor.h"
+#include "../Editors/VisualiserEditor.h"
 
 //==============================================================================
 class TnpMidiSynthAudioProcessor : public AudioProcessor, public AudioProcessorValueTreeState::Listener

@@ -9,7 +9,7 @@
 */
 
 #include "PluginProcessor.h"
-#include "PluginEditor.h"
+#include "../Editors/PluginEditor.h"
 
 //==============================================================================
 TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
@@ -346,8 +346,9 @@ void TnpMidiSynthAudioProcessor::processGain(AudioBuffer<float>& buffer)
 
 		for (int sample = 0; sample < buffer.getNumSamples(); sample++)
 		{
-			// Transform decibels to gain.
-			targetGain = Decibels::decibelsToGain(*treeState.getRawParameterValue("gain"));
+            // Transform decibels to gain.
+            const float targetDbs = *treeState.getRawParameterValue("gain");
+			targetGain = Decibels::decibelsToGain(targetDbs);
 			
 			// Avoid glicthes via volume increment.
 			if (currentGain != targetGain)

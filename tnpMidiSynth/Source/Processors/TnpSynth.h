@@ -12,7 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TnpWavetable.h"
-#include "ADSR/ADSR.h"
+#include "../ADSR/ADSR.h"
 
 
 //==============================================================================
