@@ -8,19 +8,6 @@
               pluginVST3Category="Instrument" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="tdkgxH" name="TnpMidiSynth">
     <GROUP id="{136D5720-F5B3-DBDF-75D4-B71623C0CCBC}" name="Source">
-      <GROUP id="{0A56B498-236F-4988-AF25-ABFD2FB94FAF}" name="Labels">
-        <GROUP id="{B9C552E6-DAA4-7822-ADB6-C76498FBE658}" name="Processor">
-          <GROUP id="{4BD83571-9956-45DA-4810-215CE31FAAF4}" name="Filter">
-            <FILE id="QTryrB" name="Filter.cpp" compile="1" resource="0" file="Source/Filter.cpp"/>
-            <FILE id="GnZkPD" name="Filter.h" compile="0" resource="0" file="Source/Filter.h"/>
-          </GROUP>
-        </GROUP>
-        <FILE id="AgUNoy" name="Labels.cpp" compile="1" resource="0" file="Source/Labels.cpp"/>
-        <FILE id="JvOkoM" name="Labels.h" compile="0" resource="0" file="Source/Labels.h"/>
-      </GROUP>
-      <GROUP id="{4E201A29-3974-313D-BDA3-7A5C8FB179A1}" name="Constants">
-        <FILE id="o9YcJL" name="Constants.h" compile="0" resource="0" file="Source/Constants/Constants.h"/>
-      </GROUP>
       <GROUP id="{BB0916BE-C6D0-CF4A-E9D6-FB0F32CAACCF}" name="Processors">
         <FILE id="xIEyTX" name="PluginProcessor.cpp" compile="1" resource="0"
               file="Source/Processors/PluginProcessor.cpp"/>
