@@ -10,6 +10,7 @@
 
 #include "PluginProcessor.h"
 #include "../Editors/PluginEditor.h"
+#include "../Parameters.h"
 
 //==============================================================================
 TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
@@ -23,84 +24,7 @@ TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()
                      #endif
                        ),
 		//  Processor state variables
-		treeState(*this, nullptr, "tnpMidiSynthState",
-			//	Parameters
-			{
-				std::make_unique<AudioParameterFloat>(ParameterID { "gain",  1 }, "Master Gain",
-					NormalisableRange<float>(-48.0f, 6.0f, 0.1f), 0.0f),
-				std::make_unique<AudioParameterChoice>(ParameterID { "numVoices",  1 }, "Number of Voices",
-					StringArray("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "16", "32"), 11),
-				//  Oscillator 1
-				std::make_unique<AudioParameterChoice>(ParameterID { "osc1Type",  1 }, "Oscillator Type",
-					StringArray("sine", "harmonic", "square", "triangle", "sawtooth"), 2),
-				std::make_unique<AudioParameterInt>(ParameterID { "osc1Transpose",  1 }, "Transpose", -24, 24, 0),
-				std::make_unique<AudioParameterFloat>(ParameterID { "osc1Attack",  1 }, "Volume Envelope Attack",
-					NormalisableRange<float>(1.0f, 5000.0f, 1.0f), 50.0f),
-                std::make_unique<AudioParameterFloat>(ParameterID { "osc1Decay",  1 }, "Volume Envelope Decay",
-					NormalisableRange<float>(1.0f, 5000.0f, 1.0f), 50.0f),
-                std::make_unique<AudioParameterFloat>(ParameterID { "osc1Sustain",  1 }, "Volume Envelope Sustain",
-					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 5.0f),
-                std::make_unique<AudioParameterFloat>(ParameterID { "osc1Release",  1 }, "Volume Envelope Release",
-					NormalisableRange<float>(1.0f, 5000.0f, 1.0f), 50.0f),
-				//	Oscillator 2
-                std::make_unique<AudioParameterChoice>(ParameterID { "osc2Type",  1 }, "Oscillator Type",
-					StringArray("sine", "harmonic", "square", "triangle", "sawtooth"), 2),
-                std::make_unique<AudioParameterInt>(ParameterID { "osc2Transpose",  1 }, "Transpose", -24, 24, 0),
-                std::make_unique<AudioParameterFloat>(ParameterID { "osc2Attack",  1 }, "Volume Envelope Attack",
-					NormalisableRange<float>(1.0f, 5000.0f, 1.0f), 50.0f),
-                std::make_unique<AudioParameterFloat>(ParameterID { "osc2Decay",  1 }, "Volume Envelope Decay",
-					NormalisableRange<float>(1.0f, 5000.0f, 1.0f), 50.0f),
-                std::make_unique<AudioParameterFloat>(ParameterID { "osc2Sustain",  1 }, "Volume Envelope Sustain",
-					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 5.0f),
-                std::make_unique<AudioParameterFloat>(ParameterID { "osc2Release",  1 }, "Volume Envelope Release",
-					NormalisableRange<float>(1.0f, 5000.0f, 1.0f), 50.0f),
-                std::make_unique<AudioParameterInt>(ParameterID { "osc2Toggle",  1 }, "Filter Toggle", 0, 1, 1),
-				//  Filter
-                std::make_unique<AudioParameterFloat>(ParameterID { "filterCutoff",  1 }, "Filter Cutoff",
-					NormalisableRange<float>(20.0f, 20000.0f, 0.01f), 1500.0f),
-                std::make_unique<AudioParameterChoice>(ParameterID { "filterType",  1 }, "Filter Type",
-					StringArray("lo-pass", "hi-pass", "band-pass", "notch", "lo-shelf", "hi-shelf", "peak"), 0),
-                std::make_unique<AudioParameterFloat>(ParameterID { "filterQ",  1 }, "Filter Q",
-					NormalisableRange<float>(0.01f, 3.0f, 0.01f), 1.6f),
-                std::make_unique<AudioParameterFloat>(ParameterID { "filterGainFactor",  1 }, "Filter Gain Factor",
-					NormalisableRange<float>(0.0f, 300.0f, 1.0f), 50.0f),
-                std::make_unique<AudioParameterInt>(ParameterID { "filterToggle",  1 }, "Filter Toggle", 0, 1, 1),
-				//  LFO
-                std::make_unique<AudioParameterChoice>(ParameterID { "lfoOscType",  1 }, "LFO Oscillator Type",
-					StringArray("sine", "square", "triangle", "sawtooth"), 2),
-                std::make_unique<AudioParameterFloat>(ParameterID { "lfoDepth",  1 }, "LFO Depth",
-					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 100.0f),
-                std::make_unique<AudioParameterFloat>(ParameterID { "lfoRate",  1 }, "LFO Rate",
-					NormalisableRange<float>(0.0f, 20.0f, 0.01f), 1.0f),
-                std::make_unique<AudioParameterInt>(ParameterID { "lfoToggle",  1 }, "LFO Toggle", 0, 1, 0),
-				//  Delay
-                std::make_unique<AudioParameterFloat>(ParameterID { "delayTime",  1 }, "Delay Time",
-					NormalisableRange<float>(0.0f, 2000.0f, 1.0f), 800.0f),
-                std::make_unique<AudioParameterFloat>(ParameterID { "delayFeedback",  1 }, "Delay Feedback",
-					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 20.0f),
-                std::make_unique<AudioParameterFloat>(ParameterID { "delayMix",  1 }, "Delay Mix",
-					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 20.0f),
-                std::make_unique<AudioParameterInt>(ParameterID { "delayToggle",  1 }, "Delay Toggle", 0, 1, 1),
-				//  Reverb
-                std::make_unique<AudioParameterFloat>(ParameterID { "reverbMix",  1 }, "Reverb Mix",
-					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 0.0f),
-                std::make_unique<AudioParameterFloat>(ParameterID { "reverbRoomSize",  1 }, "Reverb Room Size",
-					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 20.0f),
-                std::make_unique<AudioParameterFloat>(ParameterID { "reverbDamping",  1 }, "Reverb Damping",
-					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 50.0f),
-                std::make_unique<AudioParameterFloat>(ParameterID { "reverbWidth",  1 }, "Reverb Width",
-					NormalisableRange<float>(0.0f, 100.0f, 1.0f), 50.0f),
-                std::make_unique<AudioParameterInt>(ParameterID { "reverbToggle",  1 }, "Reverb Toggle", 0, 1, 0),
-                //  Distortion
-                std::make_unique<AudioParameterInt>(ParameterID { "distortionToggle",  1 }, "Distortion Toggle", 0, 1, 0),
-                std::make_unique<AudioParameterFloat>(ParameterID { "distortionGain",  1 }, "Input Gain",
-                    NormalisableRange<float>(-48.0f, 6.0f, 0.1f), 0.0f),
-                std::make_unique<AudioParameterChoice>(ParameterID { "distortionType",  1 }, "Distortion Type",
-                    StringArray("Soft Clipping", "Hard Clipping", "Soft Clipping Exponential", "Full Wave Rectifier", "Half Wave Rectifier"), 0),
-                std::make_unique<AudioParameterFloat>(ParameterID { "distortionMix",  1 }, "Distortion Mix",
-                    NormalisableRange<float>(0.0f, 100.0f, 1.0f), 0.0f)
-			}
-		),
+        treeState(*this, nullptr, "tnpMidiSynthState", createParameterLayout()),
 		keyboardState(),
 		//  Local variables
 		targetGain(0.0f),
@@ -190,6 +114,37 @@ void TnpMidiSynthAudioProcessor::changeProgramName (int index, const String& new
 }
 
 //==============================================================================
+AudioProcessorValueTreeState::ParameterLayout TnpMidiSynthAudioProcessor::createParameterLayout()
+{
+    AudioProcessorValueTreeState::ParameterLayout layout;
+    
+    GlobalParameters globalParams;
+    globalParams.addToParameterTree(layout);
+    
+    OscillatorParameters osc1Params("osc1");
+    osc1Params.addToParameterTree(layout);
+    
+    OscillatorParameters osc2Params("osc2");
+    osc2Params.addToParameterTree(layout);
+    
+    FilterParameters filterParams("filter");
+    filterParams.addToParameterTree(layout);
+    
+    LFOParameters lfoParams("lfo");
+    lfoParams.addToParameterTree(layout);
+    
+    ReverbParameters reverbParams("reverb");
+    reverbParams.addToParameterTree(layout);
+    
+    DelayParameters delayParams("delay");
+    delayParams.addToParameterTree(layout);
+    
+    DistortionParameters distortionParams("distortion");
+    distortionParams.addToParameterTree(layout);
+        
+    return layout;
+}
+
 void TnpMidiSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
 	localSampleRate = sampleRate;
