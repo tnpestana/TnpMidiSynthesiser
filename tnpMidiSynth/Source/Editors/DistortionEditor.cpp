@@ -1,26 +1,26 @@
 /*
-  ==============================================================================
-
-    TnpDistortionEditor.cpp
-    Created: 11 Aug 2019 8:17:19pm
-    Author:  Tiago Pestana
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ TnpDistortionEditor.cpp
+ Created: 11 Aug 2019 8:17:19pm
+ Author:  Tiago Pestana
+ 
+ ==============================================================================
+ */
 
 #include "DistortionEditor.h"
 
 DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
-    //  Processor references
-    : processor (p),
-    treeState(p.getTreeState()),
-    //  Parameter attachments
-    attDistortionType (std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
-        (treeState, "distortionType", comboDistortionType)),
-    attGain (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "distortionGain", sliderGain)),
-    attMix (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "distortionMix", sliderMix)),
-    attToggle (std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
-        (treeState, "distortionToggle", toggleDistortion))
+//  Processor references
+: processor (p),
+treeState(p.getTreeState()),
+//  Parameter attachments
+attDistortionType (std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
+                   (treeState, "distortionType", comboDistortionType)),
+attGain (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "distortionGain", sliderGain)),
+attMix (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "distortionMix", sliderMix)),
+attToggle (std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
+           (treeState, "distortionToggle", toggleDistortion))
 {
     sliderGain.setSliderStyle(Slider::RotaryVerticalDrag);
     sliderGain.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
@@ -37,14 +37,14 @@ DistortionEditor::DistortionEditor(TnpMidiSynthAudioProcessor& p)
     labelGain.setJustificationType(Justification::centred);
     labelMix.setText("drive", dontSendNotification);
     labelMix.setJustificationType(Justification::centred);
-
+    
     //  Populate combo boxes with strings stored as parameter choices
     if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("distortionType")))
     {
         comboDistortionType.addItemList(choiceParameter->choices, 1);
         comboDistortionType.setSelectedId(choiceParameter->getIndex() + 1);
     }
-
+    
     addAndMakeVisible(toggleDistortion);
     addAndMakeVisible(labelTitle);
     addAndMakeVisible(labelDistortionType);

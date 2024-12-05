@@ -1,12 +1,12 @@
 /*
-  ==============================================================================
-
-    VisualiserEditor.h
-    Created: 1 Sep 2019 4:05:07pm
-    Author:  Tiago Pestana
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ VisualiserEditor.h
+ Created: 1 Sep 2019 4:05:07pm
+ Author:  Tiago Pestana
+ 
+ ==============================================================================
+ */
 
 #pragma once
 
@@ -14,8 +14,8 @@
 
 class VisualiserEditor: public AudioVisualiserComponent
 {
-public:
+    public:
     VisualiserEditor();
     ~VisualiserEditor();
-private:
+    private:
 };

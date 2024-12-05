@@ -1,12 +1,12 @@
 /*
-  ==============================================================================
-
-    MasterEditor.cpp
-    Created: 25 Aug 2019 5:18:55pm
-    Author:  Tiago Pestana
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ MasterEditor.cpp
+ Created: 25 Aug 2019 5:18:55pm
+ Author:  Tiago Pestana
+ 
+ ==============================================================================
+ */
 
 #include "MasterEditor.h"
 
@@ -15,10 +15,8 @@ MasterEditor::MasterEditor(TnpMidiSynthAudioProcessor& p)
 : processor (p),
 treeState(p.getTreeState()),
 //  Parameter attachments
-gainAttachment(std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-               (treeState, "gain", gainSlider)),
-attNumVoices(std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
-(treeState, "numVoices", numVoicesInput))
+gainAttachment(std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "gain", gainSlider)),
+attNumVoices(std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>(treeState, "numVoices", numVoicesInput))
 {
     addAndMakeVisible(numVoicesLabel);
     addAndMakeVisible(numVoicesInput);
@@ -73,9 +71,6 @@ void MasterEditor::resized()
     
     numVoicesLabel.setBounds(topSection.removeFromTop(20));
     numVoicesInput.setBounds(topSection.reduced(2));
-    
-//    numVoicesLabel.setBounds (topSection.removeFromLeft(topSection.getWidth() / 5));
-//    numVoicesInput.setBounds (topSection.reduced(2));
     
     juce::Rectangle<int> filterGainFactorSection (slidersSection.removeFromLeft(slidersSection.getWidth() / 4));
     gainLabel.setBounds (filterGainFactorSection.removeFromTop(labelHeight));

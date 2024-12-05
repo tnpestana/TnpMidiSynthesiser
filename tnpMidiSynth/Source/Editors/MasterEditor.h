@@ -1,12 +1,12 @@
 /*
-  ==============================================================================
-
-    MasterEditor.h
-    Created: 25 Aug 2019 5:18:55pm
-    Author:  Tiago Pestana
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ MasterEditor.h
+ Created: 25 Aug 2019 5:18:55pm
+ Author:  Tiago Pestana
+ 
+ ==============================================================================
+ */
 
 #pragma once
 
@@ -15,11 +15,11 @@
 
 class MasterEditor : public Component
 {
-public:
+    public:
     MasterEditor(TnpMidiSynthAudioProcessor&);
     ~MasterEditor();
     
-private:
+    private:
     void paint(Graphics&) override;
     void resized() override;
     

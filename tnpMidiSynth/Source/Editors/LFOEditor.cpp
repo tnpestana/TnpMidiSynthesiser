@@ -1,62 +1,62 @@
 /*
-  ==============================================================================
-
-    LFOEditor.cpp
-    Created: 30 Aug 2018 6:26:46pm
-    Author:  Tiago Pestana
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ LFOEditor.cpp
+ Created: 30 Aug 2018 6:26:46pm
+ Author:  Tiago Pestana
+ 
+ ==============================================================================
+ */
 
 #include "LFOEditor.h"
 
 LFOEditor::LFOEditor(TnpMidiSynthAudioProcessor& p)
-	//  Processor references
-	: processor (p),
-	treeState(p.getTreeState()),
-	//  Parameter attachments
-	attOscType (std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
-		(treeState, "lfoOscType", comboOscType)),
-	attDepth (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "lfoDepth", sliderLfoDepth)),
-	attRate (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
-		(treeState, "lfoRate", sliderLfoRate)),
-	attToggle (std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
-		(treeState, "lfoToggle", toggleLfo))
+//  Processor references
+: processor (p),
+treeState(p.getTreeState()),
+//  Parameter attachments
+attOscType (std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>
+            (treeState, "lfoOscType", comboOscType)),
+attDepth (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+          (treeState, "lfoDepth", sliderLfoDepth)),
+attRate (std::make_unique<AudioProcessorValueTreeState::SliderAttachment>
+         (treeState, "lfoRate", sliderLfoRate)),
+attToggle (std::make_unique<AudioProcessorValueTreeState::ButtonAttachment>
+           (treeState, "lfoToggle", toggleLfo))
 {
-	labelTitle.setText("LFO", dontSendNotification);
-	labelLfoOscType.setText("wave: ", dontSendNotification);
-	labelLfoDepth.setText("depth", dontSendNotification);
-	labelLfoRate.setText("rate", dontSendNotification);
-
-	labelLfoOscType.setJustificationType(Justification::centredRight);
-	labelLfoDepth.setJustificationType(Justification::centredBottom);
-	labelLfoRate.setJustificationType(Justification::centredBottom);
-	labelTitle.setJustificationType(Justification::centred);
-
+    labelTitle.setText("LFO", dontSendNotification);
+    labelLfoOscType.setText("wave: ", dontSendNotification);
+    labelLfoDepth.setText("depth", dontSendNotification);
+    labelLfoRate.setText("rate", dontSendNotification);
+    
+    labelLfoOscType.setJustificationType(Justification::centredRight);
+    labelLfoDepth.setJustificationType(Justification::centredBottom);
+    labelLfoRate.setJustificationType(Justification::centredBottom);
+    labelTitle.setJustificationType(Justification::centred);
+    
     sliderLfoDepth.setSliderStyle(Slider::RotaryVerticalDrag);
-	sliderLfoDepth.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
+    sliderLfoDepth.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
     sliderLfoRate.setSliderStyle(Slider::RotaryVerticalDrag);
-	sliderLfoRate.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
-
-	sliderLfoDepth.setTextValueSuffix(" %");
-	sliderLfoRate.setTextValueSuffix(" Hz");
-
-	//  Populate combo boxes with strings stored as paramneter choices
-	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("lfoOscType")))
-	{
-		comboOscType.addItemList(choiceParameter->choices, 1);
-		comboOscType.setSelectedId(choiceParameter->getIndex() + 1);
-	}
-
-	addAndMakeVisible(labelTitle);
-	addAndMakeVisible(toggleLfo);
-	addAndMakeVisible(comboOscType);
-	addAndMakeVisible(sliderLfoDepth);
-	addAndMakeVisible(sliderLfoRate);
-	addAndMakeVisible(labelLfoOscType);
-	addAndMakeVisible(labelLfoDepth);
-	addAndMakeVisible(labelLfoRate);
+    sliderLfoRate.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 15);
+    
+    sliderLfoDepth.setTextValueSuffix(" %");
+    sliderLfoRate.setTextValueSuffix(" Hz");
+    
+    //  Populate combo boxes with strings stored as paramneter choices
+    if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("lfoOscType")))
+    {
+        comboOscType.addItemList(choiceParameter->choices, 1);
+        comboOscType.setSelectedId(choiceParameter->getIndex() + 1);
+    }
+    
+    addAndMakeVisible(labelTitle);
+    addAndMakeVisible(toggleLfo);
+    addAndMakeVisible(comboOscType);
+    addAndMakeVisible(sliderLfoDepth);
+    addAndMakeVisible(sliderLfoRate);
+    addAndMakeVisible(labelLfoOscType);
+    addAndMakeVisible(labelLfoDepth);
+    addAndMakeVisible(labelLfoRate);
 }
 
 LFOEditor::~LFOEditor()
@@ -65,11 +65,11 @@ LFOEditor::~LFOEditor()
 
 void LFOEditor::paint(Graphics &)
 {
-	labelTitle.setColour(Label::backgroundColourId, Colours::beige);
-	labelTitle.setColour(Label::outlineColourId, Colours::black);
-	comboOscType.setColour(ComboBox::textColourId, Colours::black);
-	sliderLfoDepth.setColour(Slider::textBoxTextColourId, Colours::black);
-	sliderLfoRate.setColour(Slider::textBoxTextColourId, Colours::black);
+    labelTitle.setColour(Label::backgroundColourId, Colours::beige);
+    labelTitle.setColour(Label::outlineColourId, Colours::black);
+    comboOscType.setColour(ComboBox::textColourId, Colours::black);
+    sliderLfoDepth.setColour(Slider::textBoxTextColourId, Colours::black);
+    sliderLfoRate.setColour(Slider::textBoxTextColourId, Colours::black);
 }
 
 void LFOEditor::resized()
