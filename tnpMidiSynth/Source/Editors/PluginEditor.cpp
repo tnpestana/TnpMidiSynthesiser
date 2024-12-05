@@ -47,6 +47,8 @@ distortionGUI(p)
     addAndMakeVisible(distortionGUI);
     addAndMakeVisible(midiKeyboard);
     addAndMakeVisible(visualiser);
+    
+    midiKeyboard.setLowestVisibleKey(36);
 }
 
 TnpMidiSynthAudioProcessorEditor::~TnpMidiSynthAudioProcessorEditor()
@@ -59,7 +61,6 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (Colours::rosybrown);
-    
     
     getLookAndFeel().setColour(Slider::textBoxBackgroundColourId, Colours::rosybrown);    // doesnt work?
     
