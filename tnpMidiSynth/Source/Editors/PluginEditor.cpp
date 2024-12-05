@@ -90,6 +90,9 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
     
     getLookAndFeel().setColour(TextButton::buttonColourId, Colours::beige);
     getLookAndFeel().setColour(TextButton::textColourOffId, Colours::black);
+    
+    midiKeyboard.setWantsKeyboardFocus(true);
+    midiKeyboard.grabKeyboardFocus();
 }
 
 void TnpMidiSynthAudioProcessorEditor::resized()
