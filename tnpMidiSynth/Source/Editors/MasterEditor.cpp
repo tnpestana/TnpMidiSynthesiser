@@ -48,14 +48,9 @@ MasterEditor::~MasterEditor()
 {
 }
 
-void MasterEditor::paint(Graphics &)
+void MasterEditor::paint(Graphics& g)
 {
-    labelTitle.setColour(Label::backgroundColourId, Colours::beige);
-    labelTitle.setColour(Label::outlineColourId, Colours::black);
-    
-    numVoicesInput.setColour(ComboBox::textColourId, Colours::black);
-    
-    gainSlider.setColour(Slider::textBoxTextColourId, Colours::black);
+    g.fillAll (Colours::green);
 }
 
 void MasterEditor::resized()

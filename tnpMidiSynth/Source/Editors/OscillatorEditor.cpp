@@ -125,14 +125,7 @@ OscillatorEditor::~OscillatorEditor()
 
 void OscillatorEditor::paint(Graphics& g)
 {
-    titleLabel.setColour(Label::backgroundColourId, Colours::beige);
-    titleLabel.setColour(Label::outlineColourId, Colours::black);
-    transposeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
-    attackSlider.setColour(Slider::textBoxTextColourId, Colours::black);
-    decaySlider.setColour(Slider::textBoxTextColourId, Colours::black);
-    sustainSlider.setColour(Slider::textBoxTextColourId, Colours::black);
-    releaseSlider.setColour(Slider::textBoxTextColourId, Colours::black);
-    oscTypeInput.setColour(ComboBox::textColourId, Colours::black);
+    g.fillAll (Colours::red);
 }
 
 void OscillatorEditor::resized()

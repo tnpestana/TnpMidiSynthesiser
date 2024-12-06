@@ -62,11 +62,7 @@ DelayEditor::~DelayEditor()
 
 void DelayEditor::paint(Graphics& g)
 {
-    labelTitle.setColour(Label::outlineColourId, Colours::black);
-    labelTitle.setColour(Label::backgroundColourId, Colours::beige);
-    sliderDelayTime.setColour(Slider::textBoxTextColourId, Colours::black);
-    sliderDelayFeedback.setColour(Slider::textBoxTextColourId, Colours::black);
-    sliderdelayMix.setColour(Slider::textBoxTextColourId, Colours::black);
+    g.fillAll (Colours::purple);
 }
 
 void DelayEditor::resized()

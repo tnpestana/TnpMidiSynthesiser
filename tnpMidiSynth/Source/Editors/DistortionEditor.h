@@ -20,7 +20,7 @@ class DistortionEditor : public Component
     ~DistortionEditor();
     
     private:
-    void paint(Graphics&) override;
+    void paint(Graphics& g) override;
     void resized() override;
     
     TnpMidiSynthAudioProcessor& processor;

@@ -75,12 +75,7 @@ FilterEditor::~FilterEditor()
 
 void FilterEditor::paint(Graphics& g)
 {
-    labelFilterTitle.setColour(Label::backgroundColourId, Colours::beige);
-    labelFilterTitle.setColour(Label::outlineColourId, Colours::black);
-    sliderFilterCutoff.setColour(Slider::textBoxTextColourId, Colours::black);
-    sliderFilterGainFactor.setColour(Slider::textBoxTextColourId, Colours::black);
-    sliderFilterQ.setColour(Slider::textBoxTextColourId, Colours::black);
-    comboFilterType.setColour(ComboBox::textColourId, Colours::black);
+    g.fillAll (Colours::orange);
 }
 
 void FilterEditor::resized()

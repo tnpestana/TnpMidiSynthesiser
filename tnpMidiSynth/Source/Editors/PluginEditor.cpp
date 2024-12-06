@@ -28,7 +28,6 @@ lfoGUI(p),
 delayGUI(p),
 reverbGUI(p),
 distortionGUI(p)
-
 {
     // Main editor's size.
     setSize(800, 580);
@@ -59,37 +58,42 @@ TnpMidiSynthAudioProcessorEditor::~TnpMidiSynthAudioProcessorEditor()
 //=============================================================================
 void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 {
+    Colour mainColor = Colours::darkseagreen;
+    Colour secondaryColor = Colours::darkseagreen;
+    Colour outlineColor = Colours::black;
+    
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (Colours::rosybrown);
+    g.fillAll (mainColor);
     
-    getLookAndFeel().setColour(Slider::textBoxBackgroundColourId, Colours::rosybrown);    // doesnt work?
+    LookAndFeel& lookAndFeel = getLookAndFeel();
     
-    //tnpLookAndFeel.setColour(Slider::textBoxBackgroundColourId, Colours::rosybrown);
-    getLookAndFeel().setColour(Slider::rotarySliderFillColourId, Colours::beige);
-    getLookAndFeel().setColour(Slider::thumbColourId, Colours::black);
-    getLookAndFeel().setColour(Slider::rotarySliderOutlineColourId, Colours::black);
+    lookAndFeel.setColour(Slider::textBoxBackgroundColourId, mainColor);    // doesnt work?
+    lookAndFeel.setColour(Slider::rotarySliderFillColourId, secondaryColor);
+    lookAndFeel.setColour(Slider::thumbColourId, outlineColor);
+    lookAndFeel.setColour(Slider::rotarySliderOutlineColourId, outlineColor);
     
     // Color scheme for properties that always remain the same.
-    getLookAndFeel().setColour(Slider::backgroundColourId, Colours::white);
-    getLookAndFeel().setColour(Slider::ColourIds::trackColourId, Colours::beige);
-    getLookAndFeel().setColour(Slider::textBoxTextColourId, Colours::black);
-    getLookAndFeel().setColour(Slider::textBoxOutlineColourId, Colours::black);
+    lookAndFeel.setColour(Slider::backgroundColourId, mainColor);
+    lookAndFeel.setColour(Slider::ColourIds::trackColourId, secondaryColor);
+    lookAndFeel.setColour(Slider::textBoxTextColourId, outlineColor);
+    lookAndFeel.setColour(Slider::textBoxOutlineColourId, mainColor);
     
-    getLookAndFeel().setColour(ComboBox::textColourId, Colours::black);
-    getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::white);
-    getLookAndFeel().setColour(ComboBox::outlineColourId, Colours::rosybrown);
-    getLookAndFeel().setColour(ComboBox::arrowColourId, Colours::rosybrown);
+    lookAndFeel.setColour(ComboBox::textColourId, outlineColor);
+    lookAndFeel.setColour(ComboBox::backgroundColourId, mainColor);
+    lookAndFeel.setColour(ComboBox::outlineColourId, mainColor);
+    lookAndFeel.setColour(ComboBox::arrowColourId, mainColor);
     
-    getLookAndFeel().setColour(PopupMenu::backgroundColourId ,Colours::white);
-    getLookAndFeel().setColour(PopupMenu::textColourId, Colours::black);
+    lookAndFeel.setColour(PopupMenu::backgroundColourId, mainColor);
+    lookAndFeel.setColour(PopupMenu::textColourId, outlineColor);
     
-    getLookAndFeel().setColour(Label::textColourId, Colours::black);
+    lookAndFeel.setColour(Label::textColourId, outlineColor);
+    lookAndFeel.setColour(Label::outlineColourId, mainColor);
     
-    getLookAndFeel().setColour(ToggleButton::tickColourId, Colours::black);
-    getLookAndFeel().setColour(ToggleButton::tickDisabledColourId, Colours::white);
+    lookAndFeel.setColour(ToggleButton::tickColourId, outlineColor);
+    lookAndFeel.setColour(ToggleButton::tickDisabledColourId, mainColor);
     
-    getLookAndFeel().setColour(TextButton::buttonColourId, Colours::beige);
-    getLookAndFeel().setColour(TextButton::textColourOffId, Colours::black);
+    lookAndFeel.setColour(TextButton::buttonColourId, secondaryColor);
+    lookAndFeel.setColour(TextButton::textColourOffId, outlineColor);
     
     midiKeyboard.setWantsKeyboardFocus(true);
     midiKeyboard.grabKeyboardFocus();

@@ -63,13 +63,9 @@ LFOEditor::~LFOEditor()
 {
 }
 
-void LFOEditor::paint(Graphics &)
+void LFOEditor::paint(Graphics& g)
 {
-    labelTitle.setColour(Label::backgroundColourId, Colours::beige);
-    labelTitle.setColour(Label::outlineColourId, Colours::black);
-    comboOscType.setColour(ComboBox::textColourId, Colours::black);
-    sliderLfoDepth.setColour(Slider::textBoxTextColourId, Colours::black);
-    sliderLfoRate.setColour(Slider::textBoxTextColourId, Colours::black);
+    g.fillAll (Colours::yellow);
 }
 
 void LFOEditor::resized()

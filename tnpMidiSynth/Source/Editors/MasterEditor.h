@@ -20,7 +20,7 @@ class MasterEditor : public Component
     ~MasterEditor();
     
     private:
-    void paint(Graphics&) override;
+    void paint(Graphics& g) override;
     void resized() override;
     
     TnpMidiSynthAudioProcessor& processor;

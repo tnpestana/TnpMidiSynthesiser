@@ -72,12 +72,7 @@ ReverbEditor::~ReverbEditor()
 
 void ReverbEditor::paint(Graphics& g)
 {
-    labelTitle.setColour(Label::backgroundColourId, Colours::beige);
-    labelTitle.setColour(Label::outlineColourId, Colours::black);
-    roomSizeSlider.setColour(Slider::textBoxTextColourId, Colours::black);
-    dampingSlider.setColour(Slider::textBoxTextColourId, Colours::black);
-    mixSlider.setColour(Slider::textBoxTextColourId, Colours::black);
-    widthSlider.setColour(Slider::textBoxTextColourId, Colours::black);
+    g.fillAll (Colours::blue);
 }
 
 void ReverbEditor::resized()

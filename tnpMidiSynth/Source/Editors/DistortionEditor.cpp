@@ -59,13 +59,9 @@ DistortionEditor::~DistortionEditor()
 {
 }
 
-void DistortionEditor::paint(Graphics &)
+void DistortionEditor::paint(Graphics& g)
 {
-    labelTitle.setColour(Label::backgroundColourId, Colours::beige);
-    labelTitle.setColour(Label::outlineColourId, Colours::black);
-    comboDistortionType.setColour(ComboBox::textColourId, Colours::black);
-    sliderGain.setColour(Slider::textBoxTextColourId, Colours::black);
-    sliderMix.setColour(Slider::textBoxTextColourId, Colours::black);
+    g.fillAll (Colours::pink);
 }
 
 void DistortionEditor::resized()
