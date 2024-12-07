@@ -10,7 +10,7 @@
 
 #include "PluginProcessor.h"
 #include "../Editors/PluginEditor.h"
-#include "../Parameters.h"
+#include "../Parameters/Parameters.h"
 
 //==============================================================================
 TnpMidiSynthAudioProcessor::TnpMidiSynthAudioProcessor()

@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "../Processors/PluginProcessor.h"
+#include "../Colours/Palette.h"
 
 class ReverbEditor : public Component
 {

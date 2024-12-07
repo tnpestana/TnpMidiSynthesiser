@@ -8,35 +8,41 @@
               pluginVST3Category="Instrument" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="tdkgxH" name="TnpMidiSynth">
     <GROUP id="{136D5720-F5B3-DBDF-75D4-B71623C0CCBC}" name="Source">
-      <GROUP id="{BC66F5E0-E12A-A9AE-B5EB-B7B608DFB797}" name="Parameters">
-        <FILE id="BB4i8Y" name="DelayParameters.cpp" compile="1" resource="0"
-              file="Source/DelayParameters.cpp"/>
-        <FILE id="HaVBgA" name="DelayParameters.h" compile="0" resource="0"
-              file="Source/DelayParameters.h"/>
-        <FILE id="YeTpjK" name="DistortionParameters.cpp" compile="1" resource="0"
-              file="Source/DistortionParameters.cpp"/>
-        <FILE id="S5Mjk2" name="DistortionParameters.h" compile="0" resource="0"
-              file="Source/DistortionParameters.h"/>
-        <FILE id="CbSaCR" name="FilterParameters.cpp" compile="1" resource="0"
-              file="Source/FilterParameters.cpp"/>
-        <FILE id="kjLin8" name="FilterParameters.h" compile="0" resource="0"
-              file="Source/FilterParameters.h"/>
-        <FILE id="DFKGwC" name="GlobalParameters.cpp" compile="1" resource="0"
-              file="Source/GlobalParameters.cpp"/>
-        <FILE id="AF3gcy" name="GlobalParameters.h" compile="0" resource="0"
-              file="Source/GlobalParameters.h"/>
-        <FILE id="FuOXFz" name="LFOParameters.cpp" compile="1" resource="0"
-              file="Source/LFOParameters.cpp"/>
-        <FILE id="BCUGKH" name="LFOParameters.h" compile="0" resource="0" file="Source/LFOParameters.h"/>
-        <FILE id="WNu81y" name="OscillatorParameters.cpp" compile="1" resource="0"
-              file="Source/OscillatorParameters.cpp"/>
-        <FILE id="CXI863" name="OscillatorParameters.h" compile="0" resource="0"
-              file="Source/OscillatorParameters.h"/>
-        <FILE id="tX9zLg" name="Parameters.h" compile="0" resource="0" file="Source/Parameters.h"/>
-        <FILE id="ZeyLx4" name="ReverbParameters.cpp" compile="1" resource="0"
-              file="Source/ReverbParameters.cpp"/>
-        <FILE id="EBpmH8" name="ReverbParameters.h" compile="0" resource="0"
-              file="Source/ReverbParameters.h"/>
+      <GROUP id="{CC40E448-FF88-7C62-074F-D937920E3383}" name="Colours">
+        <FILE id="xY83wz" name="Palette.cpp" compile="1" resource="0" file="Source/Colours/Palette.cpp"/>
+        <FILE id="unhyvk" name="Palette.h" compile="0" resource="0" file="Source/Colours/Palette.h"/>
+      </GROUP>
+      <GROUP id="{770AF2AE-C9D7-C3DC-2ACA-80D72E291350}" name="Parameters">
+        <FILE id="xgzY6v" name="DelayParameters.cpp" compile="1" resource="0"
+              file="Source/Parameters/DelayParameters.cpp"/>
+        <FILE id="z3Uv3q" name="DelayParameters.h" compile="0" resource="0"
+              file="Source/Parameters/DelayParameters.h"/>
+        <FILE id="PA9iKB" name="DistortionParameters.cpp" compile="1" resource="0"
+              file="Source/Parameters/DistortionParameters.cpp"/>
+        <FILE id="Pus4tR" name="DistortionParameters.h" compile="0" resource="0"
+              file="Source/Parameters/DistortionParameters.h"/>
+        <FILE id="hk0r4k" name="Filter.cpp" compile="1" resource="0" file="Source/Parameters/Filter.cpp"/>
+        <FILE id="Pn1dgR" name="Filter.h" compile="0" resource="0" file="Source/Parameters/Filter.h"/>
+        <FILE id="qCdHR7" name="FilterParameters.cpp" compile="1" resource="0"
+              file="Source/Parameters/FilterParameters.cpp"/>
+        <FILE id="A1pNGe" name="FilterParameters.h" compile="0" resource="0"
+              file="Source/Parameters/FilterParameters.h"/>
+        <FILE id="BjHAA6" name="GlobalParameters.cpp" compile="1" resource="0"
+              file="Source/Parameters/GlobalParameters.cpp"/>
+        <FILE id="Y6f4iZ" name="GlobalParameters.h" compile="0" resource="0"
+              file="Source/Parameters/GlobalParameters.h"/>
+        <FILE id="ewvevQ" name="LFOParameters.cpp" compile="1" resource="0"
+              file="Source/Parameters/LFOParameters.cpp"/>
+        <FILE id="q0jg4S" name="LFOParameters.h" compile="0" resource="0" file="Source/Parameters/LFOParameters.h"/>
+        <FILE id="QY0HLy" name="OscillatorParameters.cpp" compile="1" resource="0"
+              file="Source/Parameters/OscillatorParameters.cpp"/>
+        <FILE id="r3S08f" name="OscillatorParameters.h" compile="0" resource="0"
+              file="Source/Parameters/OscillatorParameters.h"/>
+        <FILE id="ZONfBk" name="Parameters.h" compile="0" resource="0" file="Source/Parameters/Parameters.h"/>
+        <FILE id="oa9FDM" name="ReverbParameters.cpp" compile="1" resource="0"
+              file="Source/Parameters/ReverbParameters.cpp"/>
+        <FILE id="fvlW3A" name="ReverbParameters.h" compile="0" resource="0"
+              file="Source/Parameters/ReverbParameters.h"/>
       </GROUP>
       <GROUP id="{BB0916BE-C6D0-CF4A-E9D6-FB0F32CAACCF}" name="Processors">
         <FILE id="xIEyTX" name="PluginProcessor.cpp" compile="1" resource="0"

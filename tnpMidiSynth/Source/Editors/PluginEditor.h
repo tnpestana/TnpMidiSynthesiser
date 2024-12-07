@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "../Colours/Palette.h"
 #include "../Processors/PluginProcessor.h"
 #include "../Editors/MasterEditor.h"
 #include "../UI/TnpLookAndFeel.h"

@@ -65,7 +65,7 @@ LFOEditor::~LFOEditor()
 
 void LFOEditor::paint(Graphics& g)
 {
-    g.fillAll (Colours::yellow);
+    g.fillAll (Palette::primaryColor);
 }
 
 void LFOEditor::resized()

@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "../Colours/Palette.h"
 
 class VisualiserEditor: public AudioVisualiserComponent
 {

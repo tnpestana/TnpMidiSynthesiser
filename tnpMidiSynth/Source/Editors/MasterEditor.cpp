@@ -50,7 +50,7 @@ MasterEditor::~MasterEditor()
 
 void MasterEditor::paint(Graphics& g)
 {
-    g.fillAll (Colours::green);
+    g.fillAll (Palette::primaryColor);
 }
 
 void MasterEditor::resized()

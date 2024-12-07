@@ -75,7 +75,7 @@ FilterEditor::~FilterEditor()
 
 void FilterEditor::paint(Graphics& g)
 {
-    g.fillAll (Colours::orange);
+    g.fillAll (Palette::primaryColor);
 }
 
 void FilterEditor::resized()

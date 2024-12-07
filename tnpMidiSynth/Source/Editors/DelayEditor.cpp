@@ -62,7 +62,7 @@ DelayEditor::~DelayEditor()
 
 void DelayEditor::paint(Graphics& g)
 {
-    g.fillAll (Colours::purple);
+    g.fillAll (Palette::primaryColor);
 }
 
 void DelayEditor::resized()

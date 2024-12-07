@@ -72,7 +72,7 @@ ReverbEditor::~ReverbEditor()
 
 void ReverbEditor::paint(Graphics& g)
 {
-    g.fillAll (Colours::blue);
+    g.fillAll (Palette::primaryColor);
 }
 
 void ReverbEditor::resized()

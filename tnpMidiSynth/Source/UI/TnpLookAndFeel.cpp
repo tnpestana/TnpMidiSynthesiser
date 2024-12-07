@@ -80,11 +80,11 @@ void TnpLookAndFeel::drawRotarySlider(Graphics & g, int x, int y, int width,
 
 	g.setColour(thumbColor);
 	Path dialTick;
-	dialTick.addRectangle(0, -radius, 2.0f, radius * 0.33);
+	dialTick.addRectangle(0, -radius, 2.0f, radius * 0.4);
 	g.fillPath(dialTick, AffineTransform::rotation(angle).translated(centreX, centreY));
 
 	g.setColour(outlineColor);
-	g.drawEllipse(rx, ry, diameter, diameter, 1.0f);
+	g.drawEllipse(rx, ry, diameter, diameter, 2.0f);
 }
 
 void TnpLookAndFeel::drawLinearSlider(Graphics &g, int x, int y, int width, int height, float sliderPos, float minSliderPos, float maxSliderPos, const Slider::SliderStyle style, Slider &slider)

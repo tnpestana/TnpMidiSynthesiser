@@ -125,7 +125,7 @@ OscillatorEditor::~OscillatorEditor()
 
 void OscillatorEditor::paint(Graphics& g)
 {
-    g.fillAll (Colours::red);
+    g.fillAll (Palette::primaryColor);
 }
 
 void OscillatorEditor::resized()

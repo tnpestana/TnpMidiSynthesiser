@@ -61,7 +61,7 @@ DistortionEditor::~DistortionEditor()
 
 void DistortionEditor::paint(Graphics& g)
 {
-    g.fillAll (Colours::pink);
+    g.fillAll (Palette::primaryColor);
 }
 
 void DistortionEditor::resized()
