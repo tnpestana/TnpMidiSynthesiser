@@ -60,6 +60,7 @@ void TnpMidiSynthAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (Palette::primaryColor);
+    g.setFont(Font::bold);
     
     LookAndFeel& lookAndFeel = getLookAndFeel();
     
